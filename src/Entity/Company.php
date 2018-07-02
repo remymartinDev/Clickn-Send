@@ -59,12 +59,12 @@ class Company
     private $bank_bic;
 
     /**
-     * @ORM\Column(type="string", length=23)
+     * @ORM\Column(type="string", length=23, nullable=true)
      */
     private $bank_rib;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $bank_domiciliation;
 
