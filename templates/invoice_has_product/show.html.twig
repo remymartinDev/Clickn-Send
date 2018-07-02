@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InvoiceHasProduct{% endblock %}
+
+{% block body %}
+    <h1>InvoiceHasProduct</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ invoice_has_product.id }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ invoice_has_product.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('invoice_has_product_index') }}">back to list</a>
+
+    <a href="{{ path('invoice_has_product_edit', {'id': invoice_has_product.id}) }}">edit</a>
+
+    {{ include('invoice_has_product/_delete_form.html.twig') }}
+{% endblock %}

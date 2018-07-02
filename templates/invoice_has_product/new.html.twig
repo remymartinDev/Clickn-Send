@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New InvoiceHasProduct{% endblock %}
+
+{% block body %}
+    <h1>Create new InvoiceHasProduct</h1>
+
+    {{ include('invoice_has_product/_form.html.twig') }}
+
+    <a href="{{ path('invoice_has_product_index') }}">back to list</a>
+{% endblock %}
