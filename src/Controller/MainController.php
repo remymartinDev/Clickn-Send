@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class MainController extends Controller
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/{slug}", name="home", requirements={"slug"=".*"})
      */
     public function home()
     {

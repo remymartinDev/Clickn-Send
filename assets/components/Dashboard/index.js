@@ -8,8 +8,8 @@ export default () => (
   <div>
     <NavClick />
     <Link to="/invoice" href="/invoice" className="dash-link">
-        <img src={Plus} />
-        <button className="dash-button">Créer une facture</button>
+      {/* <img src={Plus} /> */}
+      <button className="dash-button">Créer une facture</button>
     </Link>
   </div>
 );
