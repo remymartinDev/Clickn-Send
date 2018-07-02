@@ -9,19 +9,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Serializer\SerializerInterface ;
 /**
- * @Route("/invoice")
+ * @Route("/api")
  */
 class InvoiceController extends Controller
 {
     
     /**
-     * @Route("/", name="invoice_index", methods="GET")
+     * @Route("/factures", name="invoice_index", methods="GET")
      */
-    public function index(InvoiceRepository $invoiceRepository): Response
+    public function index(InvoiceRepository $invoiceRepository, SerializerInterface $serializer)
     {
-        return $this->render('invoice/index.html.twig', ['invoices' => $invoiceRepository->findAll()]);
+        $invoices = $invoiceRepository->findAll();
+        $json = $serializer->serialize($invoices, 'json');
+        return new Response($json);
+        //return $this->render('invoice/index.html.twig', ['invoices' => $invoiceRepository->findAll()]);
     }
 
     /**
