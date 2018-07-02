@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class InvoiceController extends Controller
 {
+    
     /**
      * @Route("/", name="invoice_index", methods="GET")
      */
