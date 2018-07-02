@@ -32,12 +32,20 @@ DATABASE_URL=mysql://root:Ereul9Aeng@127.0.0.1:3306/clicknsend
 ```
 php bin/console doctrine:database:create
 ```
+---
 ```
 php bin/console make:migration
 ```
+---
 ```
 php bin/console doctrine:migrations:migrate
+
+==> "yes" 
 ```
+---
 ```
 php bin/console doctrine:fixtures:load
+
+==> "yes" 
 ```
+---
