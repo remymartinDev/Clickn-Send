@@ -28,6 +28,11 @@ class Role
      */
     private $members;
 
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $rolelabel;
+
     public function __construct()
     {
         $this->members = new ArrayCollection();
@@ -77,6 +82,18 @@ class Role
                 $member->setRole(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRolelabel(): ?string
+    {
+        return $this->rolelabel;
+    }
+
+    public function setRolelabel(string $rolelabel): self
+    {
+        $this->rolelabel = $rolelabel;
 
         return $this;
     }

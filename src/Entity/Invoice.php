@@ -160,12 +160,12 @@ class Invoice
         return $this;
     }
 
-    public function getTaxesAmount(): ?\DateTimeInterface
+    public function getTaxesAmount()
     {
         return $this->taxes_amount;
     }
 
-    public function setTaxesAmount(\DateTimeInterface $taxes_amount): self
+    public function setTaxesAmount($taxes_amount): self
     {
         $this->taxes_amount = $taxes_amount;
 

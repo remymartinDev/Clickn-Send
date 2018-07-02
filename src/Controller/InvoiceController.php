@@ -11,20 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 /**
- * @Route
+ * @Route("/api")
  */
 
 class InvoiceController extends Controller
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function home()
-    {
-        require('build/index.html');
-        exit;
-    }
-
     /**
      * @Route("/factures", name="invoice_index", methods="GET")
      */
