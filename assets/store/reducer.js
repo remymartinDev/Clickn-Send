@@ -8,12 +8,6 @@ const initialState = {};
  */
 const reducer = (currentState = initialState, action = {}) => {
   switch (action.type) {
-    case 'GENERATE_RANDOM_VALUE':
-      return {
-        ...currentState,
-        value: action.value,
-      };
-
     default: return currentState;
   }
 };

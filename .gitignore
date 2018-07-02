@@ -11,4 +11,5 @@
 ###< symfony/web-server-bundle ###
 /node_modules/
 /.cache/
-
+/public/build/
+/.vs/
