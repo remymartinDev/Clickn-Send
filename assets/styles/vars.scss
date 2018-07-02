@@ -1,5 +1,41 @@
 // Colors
-$text-color: #a65;
+
+.color-mauve-0 { color: #8E3BC6 }	
+.color-mauve-1 { color: #C18AE6 }
+.color-mauve-2 { color: #A45DD5 }
+.color-mauve-3 { color: #791BB9 }
+.color-mauve-4 { color: #5C0895 }
+
+.rgba-mauve-0 { color: rgba(142, 59,198,1) }	
+.rgba-mauve--1 { color: rgba(193,138,230,1) }
+.rgba-mauve--2 { color: rgba(164, 93,213,1) }
+.rgba-mauve--3 { color: rgba(121, 27,185,1) }
+.rgba-mauve--4 { color: rgba( 92,  8,149,1) }
+
+.color-orange-0 { color: #FF8B40 }
+.color-orange-1 { color: #FFBD93 }
+.color-orange-2 { color: #FFA265 }
+.color-orange-3 { color: #FF7317 }
+.color-orange-4 { color: #DE5700 }
+
+.rgba-orange-0 { color: rgba(255,139, 64,1) }	
+.rgba-orange-1 { color: rgba(255,189,147,1) }
+.rgba-orange-2 { color: rgba(255,162,101,1) }
+.rgba-orange-3 { color: rgba(255,115, 23,1) }
+.rgba-orange-4 { color: rgba(222, 87,  0,1) }
+
+.color-vert-0 { color: #2FBABA }	
+.color-vert-1 { color: #81E0E0 }
+.color-vert-2 { color: #51CCCC }
+.color-vert-3 { color: #10AAAA }
+.color-vert-4 { color: #008585 }
+
+.rgba-vert-0 { color: rgba( 47,186,186,1) }
+.rgba-vert-1 { color: rgba(129,224,224,1) }
+.rgba-vert-2 { color: rgba( 81,204,204,1) }
+.rgba-vert-3 { color: rgba( 16,170,170,1) }
+.rgba-vert-4 { color: rgba(  0,133,133,1) }
+
 
 // Geometry
 $page-width: 70%;
