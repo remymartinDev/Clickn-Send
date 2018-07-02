@@ -19,11 +19,11 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
+    "node-sass": "^4.9.0",
     "parcel-bundler": "^1.8.1",
     "postcss-modules": "^1.1.0",
     "react-dom": "^16.4.0",
-    "stylint": "^1.5.9",
-    "stylus": "^0.54.5"
+    "sass-lint": "^1.12.1"
   },
   "dependencies": {
     "axios": "^0.18.0",
