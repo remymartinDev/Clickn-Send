@@ -2,7 +2,7 @@ liste des commandes pour que ca marche :
 
 ## dans les dossiers  
 
-videz le dossier src/Migrations
+videz le dossier src/Migrations (les fichiers dont le nom commence par " _Version...._ "
 
 ## dans la console
 ```
@@ -29,7 +29,7 @@ DATABASE_URL=mysql://root:Ereul9Aeng@127.0.0.1:3306/clicknsend
 php bin/console doctrine:database:create
 ```
 ```
-php bin/console doctrine:migration:migrate
+php bin/console doctrine:migrations:migrate
 ```
 ```
 php bin/console doctrine:fixtures:load
