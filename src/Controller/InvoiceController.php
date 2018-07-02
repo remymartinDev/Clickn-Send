@@ -9,7 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface ;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 /**
  * @Route("/api")
  */
@@ -19,10 +22,19 @@ class InvoiceController extends Controller
     /**
      * @Route("/factures", name="invoice_index", methods="GET")
      */
-    public function index(InvoiceRepository $invoiceRepository, SerializerInterface $serializer)
+    public function index(InvoiceRepository $invoiceRepository)
     {
         $invoices = $invoiceRepository->findAll();
+
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        
         $json = $serializer->serialize($invoices, 'json');
+
         return new Response($json);
         //return $this->render('invoice/index.html.twig', ['invoices' => $invoiceRepository->findAll()]);
     }
