@@ -49,11 +49,6 @@ class Company
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $bank_info;
-
-    /**
      * @ORM\Column(type="string", length=30)
      */
     private $bank_iban;
@@ -69,12 +64,12 @@ class Company
     private $bank_rib;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $bank_domiciliation;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $payment_term;
 
@@ -178,18 +173,6 @@ class Company
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getBankInfo(): ?string
-    {
-        return $this->bank_info;
-    }
-
-    public function setBankInfo(string $bank_info): self
-    {
-        $this->bank_info = $bank_info;
 
         return $this;
     }
