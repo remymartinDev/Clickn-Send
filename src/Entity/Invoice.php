@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,6 +72,40 @@ class Invoice
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="invoices")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $customer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Status", inversedBy="invoices")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="invoices")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $company;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="invoice")
+     */
+    private $payments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\InvoiceHasProduct", mappedBy="invoice")
+     */
+    private $invoiceHasProducts;
+
+    public function __construct()
+    {
+        $this->payments = new ArrayCollection();
+        $this->invoiceHasProducts = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -204,6 +240,104 @@ class Invoice
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Payment[]
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): self
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments[] = $payment;
+            $payment->setInvoice($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): self
+    {
+        if ($this->payments->contains($payment)) {
+            $this->payments->removeElement($payment);
+            // set the owning side to null (unless already changed)
+            if ($payment->getInvoice() === $this) {
+                $payment->setInvoice(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|InvoiceHasProduct[]
+     */
+    public function getInvoiceHasProducts(): Collection
+    {
+        return $this->invoiceHasProducts;
+    }
+
+    public function addInvoiceHasProduct(InvoiceHasProduct $invoiceHasProduct): self
+    {
+        if (!$this->invoiceHasProducts->contains($invoiceHasProduct)) {
+            $this->invoiceHasProducts[] = $invoiceHasProduct;
+            $invoiceHasProduct->setInvoice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoiceHasProduct(InvoiceHasProduct $invoiceHasProduct): self
+    {
+        if ($this->invoiceHasProducts->contains($invoiceHasProduct)) {
+            $this->invoiceHasProducts->removeElement($invoiceHasProduct);
+            // set the owning side to null (unless already changed)
+            if ($invoiceHasProduct->getInvoice() === $this) {
+                $invoiceHasProduct->setInvoice(null);
+            }
+        }
 
         return $this;
     }

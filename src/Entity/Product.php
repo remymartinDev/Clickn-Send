@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,16 @@ class Product
      * @ORM\Column(type="string", length=100)
      */
     private $unity;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\InvoiceHasProduct", mappedBy="product")
+     */
+    private $invoiceHasProducts;
+
+    public function __construct()
+    {
+        $this->invoiceHasProducts = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -102,6 +114,37 @@ class Product
     public function setUnity(string $unity): self
     {
         $this->unity = $unity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|InvoiceHasProduct[]
+     */
+    public function getInvoiceHasProducts(): Collection
+    {
+        return $this->invoiceHasProducts;
+    }
+
+    public function addInvoiceHasProduct(InvoiceHasProduct $invoiceHasProduct): self
+    {
+        if (!$this->invoiceHasProducts->contains($invoiceHasProduct)) {
+            $this->invoiceHasProducts[] = $invoiceHasProduct;
+            $invoiceHasProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoiceHasProduct(InvoiceHasProduct $invoiceHasProduct): self
+    {
+        if ($this->invoiceHasProducts->contains($invoiceHasProduct)) {
+            $this->invoiceHasProducts->removeElement($invoiceHasProduct);
+            // set the owning side to null (unless already changed)
+            if ($invoiceHasProduct->getProduct() === $this) {
+                $invoiceHasProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }

@@ -26,6 +26,24 @@ class Payment
      */
     private $amount;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\PaymentMethod", inversedBy="payments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $paymentMethode;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="payments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $customer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Invoice", inversedBy="payments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $invoice;
+
     public function getId()
     {
         return $this->id;
@@ -51,6 +69,42 @@ class Payment
     public function setAmount($amount): self
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getPaymentMethode(): ?PaymentMethod
+    {
+        return $this->paymentMethode;
+    }
+
+    public function setPaymentMethode(?PaymentMethod $paymentMethode): self
+    {
+        $this->paymentMethode = $paymentMethode;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getInvoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
+    public function setInvoice(?Invoice $invoice): self
+    {
+        $this->invoice = $invoice;
 
         return $this;
     }

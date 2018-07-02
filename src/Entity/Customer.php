@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -80,6 +82,28 @@ class Customer
      * @ORM\Column(type="decimal", precision=4, scale=2, nullable=true)
      */
     private $remise;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="customer")
+     */
+    private $invoices;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="customer")
+     */
+    private $payments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="customers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $company;
+
+    public function __construct()
+    {
+        $this->invoices = new ArrayCollection();
+        $this->payments = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -238,6 +262,80 @@ class Customer
     public function setRemise($remise): self
     {
         $this->remise = $remise;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Invoice[]
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoice $invoice): self
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): self
+    {
+        if ($this->invoices->contains($invoice)) {
+            $this->invoices->removeElement($invoice);
+            // set the owning side to null (unless already changed)
+            if ($invoice->getCustomer() === $this) {
+                $invoice->setCustomer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Payment[]
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): self
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments[] = $payment;
+            $payment->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): self
+    {
+        if ($this->payments->contains($payment)) {
+            $this->payments->removeElement($payment);
+            // set the owning side to null (unless already changed)
+            if ($payment->getCustomer() === $this) {
+                $payment->setCustomer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }

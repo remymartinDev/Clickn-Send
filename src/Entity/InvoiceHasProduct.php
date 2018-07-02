@@ -21,6 +21,18 @@ class InvoiceHasProduct
      */
     private $quantity;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Invoice", inversedBy="invoiceHasProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $invoice;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="invoiceHasProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $product;
+
     public function getId()
     {
         return $this->id;
@@ -34,6 +46,30 @@ class InvoiceHasProduct
     public function setQuantity($quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getInvoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
+    public function setInvoice(?Invoice $invoice): self
+    {
+        $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }

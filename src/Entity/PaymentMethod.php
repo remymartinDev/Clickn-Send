@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +23,16 @@ class PaymentMethod
      */
     private $method;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="paymentMethode")
+     */
+    private $payments;
+
+    public function __construct()
+    {
+        $this->payments = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -34,6 +46,37 @@ class PaymentMethod
     public function setMethod(string $method): self
     {
         $this->method = $method;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Payment[]
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): self
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments[] = $payment;
+            $payment->setPaymentMethode($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): self
+    {
+        if ($this->payments->contains($payment)) {
+            $this->payments->removeElement($payment);
+            // set the owning side to null (unless already changed)
+            if ($payment->getPaymentMethode() === $this) {
+                $payment->setPaymentMethode(null);
+            }
+        }
 
         return $this;
     }

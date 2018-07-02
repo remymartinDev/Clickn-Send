@@ -26,6 +26,18 @@ class Member
      */
     private $password;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="members")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $company;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="members")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $role;
+
     public function getId()
     {
         return $this->id;
@@ -51,6 +63,30 @@ class Member
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?Role $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
