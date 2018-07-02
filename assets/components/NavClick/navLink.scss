@@ -1,0 +1,48 @@
+@import '~/styles/vars.scss';
+
+.dashboard-nav {
+  height: 5rem;
+  background-color: $color-mauve-4;    
+  display: flex;
+  justify-content: space-between;
+}
+
+.brand-logo {
+    background-color: white;
+    border-radius: 50%;
+    border: 3px solid $color-orange-0;
+    padding: 0.3rem;
+    width: 4rem;
+    height: 4rem;          
+  
+        
+}
+.brand {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+}
+
+.brand-name {
+  color: white;
+  text-transform: uppercase;  
+  margin: auto;
+}
+.nav-burger {
+  color: white;
+
+}
+.nav-list {
+    
+  a {
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+  }
+}
+.navbar-toggler-icon {
+    fill: white;
+}
+.navbar-dark .navbar-toggler {
+    color: white !important;
+}

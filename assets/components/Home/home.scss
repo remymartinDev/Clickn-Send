@@ -1,0 +1,36 @@
+@import '~/styles/vars.scss';
+
+.home {
+  height: 100%;
+  width: 100vw;
+  background-color: $color-mauve-4;
+  display: flex;
+  margin: 0;
+}
+.home-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.home-logo {
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid $color-orange-0;
+  width: 350px;
+  height: 350px;
+  padding: 1rem;
+  margin: 3rem auto;
+  box-shadow: 1px 1px 6px 2px rgba(255,255,255,0.6); 
+}
+.home-button {
+  background-color: $color-mauve-4;
+  border: 2px solid white;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 1px 1px 6px 2px rgba(255,255,255,0.6);
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 0 1rem;
+}
