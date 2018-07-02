@@ -1,7 +1,7 @@
 import React from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import favLogo from '~/images/favicon.png';
+import favLogo from '~/images/favIcon.png';
 
 import './navLink.scss';
 
