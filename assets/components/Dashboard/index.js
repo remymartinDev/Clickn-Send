@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Plus } from 'react-icons';
+//import { Plus } from 'react-icons';
 
 import NavClick from '~/components/NavClick';
 
