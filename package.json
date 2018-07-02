@@ -1,0 +1,46 @@
+{
+  "name": "clicknsend",
+  "version": "0.1.0",
+  "description": "Point de départ de click'n'send",
+  "main": "index.js",
+  "author": "click'n'send team",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "autoprefixer": "^8.5.2",
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-alias": "^1.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
+    "parcel-bundler": "^1.8.1",
+    "postcss-modules": "^1.1.0",
+    "react-dom": "^16.4.0",
+    "stylint": "^1.5.9",
+    "stylus": "^0.54.5"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "@symfony/webpack-encore": "^0.19.0"
+  },
+  "scripts": {
+    "start": "parcel assets/index.html -d public/build --public-url /build/.",
+    "clean": "rm -rf .cache dist",
+    "watch": "yarn clean && yarn start",
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "build": "encore production"
+  }
+}
