@@ -1,2 +1,9 @@
 @import '~/styles/vars.scss';
 
+.home {
+  background-color: $color-mauve-4;
+}
+.home-logo {
+  background-color: white;
+  border-radius: 50%;
+}

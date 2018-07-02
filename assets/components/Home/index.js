@@ -5,8 +5,10 @@ import { Container, Row, Col } from 'reactstrap';
 import logo from '~/images/click-n-send_logo.png';
 
 const Home = () => (
-  <Container>
-    <img src={logo} alt="logo" />
+  <Container className="home">
+    <Link to="/dashboard" href="/dashboard">
+      <img src={logo} alt="logo" className="home-logo" />
+    </Link>
     <Link to="/dashboard" href="/dashboard">
       <button>entrer</button>
     </Link>
