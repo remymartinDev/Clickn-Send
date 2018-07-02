@@ -1,4 +1,7 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+
+import Home from '~/components/Home';
 
 class App extends React.Component {
   state = {}
@@ -6,7 +9,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Click and Send</h1>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/dashboard" render={() => (<div>dashboard</div>)} />
+        </Switch>
       </div>
     );
   }

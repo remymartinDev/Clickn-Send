@@ -15,6 +15,10 @@ import App from '~/components/App';
 const AppContainer = connect(
   null, // Props en lecture
   null, // Props en écriture
+  null,
+  {
+    pure: false,
+  },
 )(App);
 
 export default AppContainer;
