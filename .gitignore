@@ -11,7 +11,6 @@
 ###< symfony/web-server-bundle ###
 /node_modules/
 /.cache/
-<<<<<<< HEAD
 
 
 ###> symfony/webpack-encore-pack ###
@@ -26,8 +25,3 @@ yarn-error.log
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 .vs
-=======
-/public/build/
-/public/build/index.html
-/.vs/
->>>>>>> 422c9b4ca45c3dd7904dd67cdd62918faf36009d
