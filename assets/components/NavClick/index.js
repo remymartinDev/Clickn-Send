@@ -1,7 +1,7 @@
 import React from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import favLogo from '~/images/favicon.png';
+import favLogo from '~/images/favIcon.png';
 
 import './navLink.scss';
 
@@ -24,27 +24,27 @@ export default class NavClick extends React.Component {
     return (
       <div>
         <Navbar className="dashboard-nav" color="faded" dark>
-          <NavbarBrand href="/" className=" brand">
+          <NavbarBrand href="/dashboard" className=" brand">
             <img src={favLogo} alt="logo" className="brand-logo" />
             <span className="brand-name">Click & Send</span>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2 nav-burger" />
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar className="nav-list">
-              <NavItem>
-                <NavLink to="/components/Dashboard">Accueil</NavLink>
+              <NavItem className="nav-item">
+                <NavLink to="/components/dashboard">Accueil</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/Invoice">Facture</NavLink>
+                <NavLink to="/components/invoice">Facture</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/Products">Produits</NavLink>
+                <NavLink to="/components/products">Produits</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/Clients">Clients</NavLink>
+                <NavLink to="/components/clients">Clients</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/Profile">Profile</NavLink>
+                <NavLink to="/components/profile">Profile</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

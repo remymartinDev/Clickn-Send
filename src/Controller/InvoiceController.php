@@ -16,6 +16,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class InvoiceController extends Controller
 {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> adfad57b75ba94be626b21ed99daba9720218170
     /**
      * @Route("/factures", name="invoice_index", methods="GET")
      */
