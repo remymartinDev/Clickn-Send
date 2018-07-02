@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoice{% endblock %}
+
+{% block body %}
+    <h1>Invoice</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ invoice.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ invoice.date ? invoice.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ invoice.reference }}</td>
+            </tr>
+            <tr>
+                <th>Amount_all_taxes</th>
+                <td>{{ invoice.amountAllTaxes }}</td>
+            </tr>
+            <tr>
+                <th>Amount_dutty_free</th>
+                <td>{{ invoice.amountDuttyFree }}</td>
+            </tr>
+            <tr>
+                <th>Taxes_amount</th>
+                <td>{{ invoice.taxesAmount }}</td>
+            </tr>
+            <tr>
+                <th>Paid</th>
+                <td>{{ invoice.paid ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Down_payment</th>
+                <td>{{ invoice.downPayment }}</td>
+            </tr>
+            <tr>
+                <th>Reminder</th>
+                <td>{{ invoice.reminder }}</td>
+            </tr>
+            <tr>
+                <th>Deadline1</th>
+                <td>{{ invoice.deadline1 ? invoice.deadline1|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Deadline2</th>
+                <td>{{ invoice.deadline2 ? invoice.deadline2|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ invoice.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('invoice_index') }}">back to list</a>
+
+    <a href="{{ path('invoice_edit', {'id': invoice.id}) }}">edit</a>
+
+    {{ include('invoice/_delete_form.html.twig') }}
+{% endblock %}
