@@ -12,4 +12,5 @@
 /node_modules/
 /.cache/
 /public/build/
+/public/build/index.html
 /.vs/
