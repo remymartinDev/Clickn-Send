@@ -6,7 +6,10 @@ videz le dossier src/Migrations
 
 ## dans la console
 ```
-composer install yarn
+composer install 
+```
+```
+yarn
 ```
 
 ## dans le fichier .env :
