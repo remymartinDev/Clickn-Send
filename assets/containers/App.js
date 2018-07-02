@@ -12,22 +12,13 @@ import App from '~/components/App';
  * Connection du composant au store via connect()()
  */
 
-const mapStateToProps = (state, ownProps) => ({
-  randomValue: state.value,
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  generateRandomValue: () => {
-    dispatch({
-      type: 'GENERATE_RANDOM_VALUE',
-      facesNb: ownProps.diceFacesNb,
-    });
-  },
-});
-
 const AppContainer = connect(
-  mapStateToProps, // Props en lecture
-  mapDispatchToProps, // Props en écriture
+  null, // Props en lecture
+  null, // Props en écriture
+  null,
+  {
+    pure: false,
+  },
 )(App);
 
 export default AppContainer;
