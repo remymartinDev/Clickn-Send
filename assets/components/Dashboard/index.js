@@ -6,21 +6,29 @@ import NavClick from '~/components/NavClick';
 import './dashboard.scss';
 
 export default () => (
-  <div>
+  <div className="contain-dash">
     <NavClick />
     <div className="dash-links">
       <Link to="/invoice" href="/invoice" className="dash-link fact">
-        <Plus className="plus-btn plus-btn-fact" />
-        <button className="dash-button btn-fact">Créer une facture</button>
+        <button className="dash-btn">
+          <Plus className="plus-btn plus-btn-fact" />
+          <div className="dash-btn-text btn-fact">Créer une facture</div>
+        </button>
       </Link>
-      <Link to="/product" href="/product" className="dash-link prod">
-        <Plus className="plus-btn plus-btn-prod" />
-        <button className="dash-button btn-prod">Créer un produit</button>
+      <Link to="/invoice" href="/invoice" className="dash-link prod">
+        <button className="dash-btn">
+          <Plus className="plus-btn plus-btn-prod" />
+          <div className="dash-btn-text btn-prod">Créer un produit</div>
+        </button>
       </Link>
-      <Link to="/client" href="/client" className="dash-link cli">
-        <Plus className="plus-btn plus-btn-cli" />
-        <button className="dash-button btn-cli">Créer un service</button>
+      <Link to="/invoice" href="/invoice" className="dash-link cli">
+        <button className="dash-btn">
+          <Plus className="plus-btn plus-btn-cli" />
+          <div className="dash-btn-text btn-cli">Créer un client</div>
+        </button>
       </Link>
+      
+      
     </div>
   </div>
 );

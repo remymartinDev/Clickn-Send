@@ -1,46 +1,57 @@
 @import '~/styles/vars.scss';
 
-.dash-links {
+.contain-dash {
     display: flex;
-    flex-direction: column;
-    position: absolute;
-    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+
+.dash-links {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    align-items: center;
+    height: 50%;
+    margin: auto;
 }
 .dash-link {
     position: relative;
-    left: 50%;
-    right: 50%;
+   
 }
-.fact {
-    /*margin: 150px auto 0 auto;*/
-}
-.prod, .cli {
-    /*margin: 1rem auto 0 auto;*/
-}
+
 .btn-fact, .plus-btn-fact  {
     border: 3px solid $color-orange-0;
     color: $color-orange-0; 
-    top: 10rem;
+   
     
 }
 .btn-prod, .plus-btn-prod {
     border: 3px solid $color-vert-0;
     color: $color-vert-0; 
-    top: 13rem;
+  
 }
 .btn-cli, .plus-btn-cli {
     border: 3px solid $color-mauve-4;
     color: $color-mauve-4;
-    top: 16rem;
+   
 }
-.dash-button {
+.dash-btn {
+    background-color: white;
+    border: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.dash-btn-text {
+    
     font-size: 1rem;
     border-radius: 25px;
-    padding: 0.5rem 0.5rem 0.5rem 3rem;
+    padding: 0.5rem 0.5rem 0.5rem 4rem;
     font-weight: bold; 
     background-color: white;  
     z-index: 1; 
     position: relative;
+    width: 100%;
+   
 }
 .plus-btn {
     border-radius: 50px;
@@ -49,7 +60,7 @@
     height: 4rem;
     width: 4rem;
     z-index: 2;
-    position: relative;
-    left: 3rem; 
+    position: absolute;
+    left: 0; 
 }
 
