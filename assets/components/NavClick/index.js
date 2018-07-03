@@ -37,7 +37,7 @@ export default class NavClick extends React.Component {
             </NavbarToggler>
           </nav>
           <Collapse isOpen={!this.state.collapsed} navbar>
-            <Nav navbar className="nav-list">
+            <Nav navbar className="nav-list" onClick={this.toggleNavbar}>
               <NavItem>
                 <NavLink tag={Link} to="/dashboard">Accueil</NavLink>
               </NavItem>
