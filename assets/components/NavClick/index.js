@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, Navbar, Nav, NavItem } from 'reactstrap';
+import { Collapse, Navbar, Nav, NavItem, NavbarToggler } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
 import Burger from 'react-icons/lib/fa/align-justify';
 import favLogo from '~/images/favIcon.png';
@@ -32,9 +32,10 @@ export default class NavClick extends React.Component {
             <Link to="/" href="/">
               <span className="brand-name">Click & Send</span>
             </Link>
-            <span onClick={this.toggleNavbar} className="nav-burger"><Burger /></span>
+            <NavbarToggler onClick={this.toggleNavbar} className="mr-2 nav-burger">
+              <Burger />
+            </NavbarToggler>
           </nav>
-          {/* <NavbarToggler onClick={this.toggleNavbar} className="mr-2 nav-burger" /> */}
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar className="nav-list">
               <NavItem className="nav-item">
