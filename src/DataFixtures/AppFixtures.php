@@ -92,9 +92,9 @@ class AppFixtures extends Fixture
         $manager->persist($lettreChange);
         
         
-
+        $companies = [];        
         
-        for ($i=0; $i < 1; $i++) { 
+        for ($i=0; $i < 2; $i++) { 
          $company = new Company();
             $company->setCompanyName('company name'. $i);
             $company->setCompanyAdress('company adress'. $i);
@@ -107,10 +107,13 @@ class AppFixtures extends Fixture
             $company->setBankRib($i.'2'.$i.'3'.$i.'5'.$i);
             $company->setBankDomiciliation('company bank'. $i);
             $company->setPaymentTerm('4'); //echeance en semaine (W en date php)
+            $companies[] = $company;            
             $manager->persist($company);
         }
 
-        for ($i=0; $i < 1; $i++) { 
+        $customers = [];
+
+        for ($i=0; $i < 2; $i++) { 
             $customer = new Customer();
             $customer->setLastname('customer lastname'.$i);
             $customer->setFirstname('customer firstname'.$i);
@@ -125,13 +128,14 @@ class AppFixtures extends Fixture
             //$customer->setCompanyName();
             //$customer->setVatNumber();
             //$customer->setRemise();
-            $customer->setCompany($company);
+            $customer->setCompany($companies[$i]);
+            $customers[] = $customer;
             $manager->persist($customer); 
         }
 
         $products = [];        
         
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             $product = new Product();
             $product->setDenomination('denomination'. $i);
             $product->setReference('ref'. $i);
@@ -142,9 +146,9 @@ class AppFixtures extends Fixture
             $manager->persist($product);
         }
 
+        $invoices = [];
         
-        
-        for ($i=0; $i < 1; $i++) { 
+        for ($i=0; $i < 2; $i++) { 
             $invoice = new Invoice();
             $invoice->setDate(new DateTime('now'));
             $invoice->setReference('78'.$i.'12'.$i.'5'.$i.'4'.$i.'3');
@@ -157,9 +161,10 @@ class AppFixtures extends Fixture
             $invoice->setDeadline1(new DateTime('now'));
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
-            $invoice->setCustomer($customer);
+            $invoice->setCustomer($customers[$i]);
             $invoice->setStatus($facture);
-            $invoice->setCompany($company);         
+            $invoice->setCompany($companies[$i]);
+            $invoices[] = $invoice;        
             $manager->persist($invoice);
 
         }
@@ -167,14 +172,22 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 5; $i++) { 
             $invoiceHasProduct = new InvoiceHasProduct();
             $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoice);
+            $invoiceHasProduct->setInvoice($invoices[0]);
             $invoiceHasProduct->setProduct($products[$i]);
+            $manager->persist($invoiceHasProduct);
+        }
+        
+        for ($i=0; $i < 5; $i++) { 
+            $invoiceHasProduct = new InvoiceHasProduct();
+            $invoiceHasProduct->setQuantity(1 + $i);
+            $invoiceHasProduct->setInvoice($invoices[1]);
+            $invoiceHasProduct->setProduct($products[$i + 5]);
             $manager->persist($invoiceHasProduct);
         }
   
             $userAdmin = new Member();
             $userAdmin->setUsername('admin');
-            $userAdmin->setCOmpany($company);
+            $userAdmin->setCompany($company);
             $userAdmin->setPassword('admin');
             $userAdmin->setRole($roleAdmin);
             $manager->persist($userAdmin);

@@ -48,3 +48,9 @@ class InvoiceRepository extends ServiceEntityRepository
     }
     */
 }
+/* 
+SELECT i.*, c.id, c.lastname, c.firstname, c.company_name
+FROM invoice i
+INNER JOIN customer c
+WHERE i.customer_id = c.id
+AND c.id = 0 */
