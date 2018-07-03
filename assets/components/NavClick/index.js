@@ -1,7 +1,7 @@
 import React from 'react';
 import { Collapse, Navbar, Nav, NavItem, NavbarToggler, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Burger from 'react-icons/lib/fa/align-justify';
+import Burger from 'react-icons/lib/io/android-menu';
 import favLogo from '~/images/favIcon.png';
 
 import './navLink.scss';
