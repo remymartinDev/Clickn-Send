@@ -39,6 +39,7 @@ class InvoiceRepository extends ServiceEntityRepository
                 JOIN App\Entity\Customer cu, App\Entity\Company co, App\Entity\Status s
                 WHERE i.customer = cu
                 AND i.status = s
+                AND i.company = co
                 AND i.company = :company'
         )->setParameter('company', $company);
         return $query->execute();
