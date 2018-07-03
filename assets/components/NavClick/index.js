@@ -23,8 +23,8 @@ export default class NavClick extends React.Component {
   }
   render() {
     return (
-      <div>
-        <Navbar className="dashboard-nav" color="faded" >
+      <header className="page-header">
+        <Navbar className="dashboard-nav" color="faded">
           <nav className="navbar-brand brand">
             <Link to="/dashboard" href="/dashboard">
               <img src={favLogo} alt="logo" className="brand-logo" />
@@ -56,7 +56,7 @@ export default class NavClick extends React.Component {
             </Nav>
           </Collapse>
         </Navbar>
-      </div>
+      </header>
     );
   }
 }

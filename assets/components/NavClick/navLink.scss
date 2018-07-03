@@ -1,15 +1,17 @@
 @import '~/styles/vars.scss';
 /* Styles NAV pour MOBILE*/
+.page-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+}
 .dashboard-nav {
   height: 5rem;
   background-color: $color-mauve-4;    
   display: flex;
   justify-content: space-between;
   padding: 0;
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 4;
 }
 
 .brand-logo {
