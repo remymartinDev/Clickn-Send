@@ -32,13 +32,14 @@
     "jquery": "1.9.1 - 3",
     "popper.js": "^1.14.3",
     "prop-types": "^15.6.1",
-    "react": "^16.4.0",
+    "react": "^15.0.0-0 || ^16.0.0-0",
     "react-dom": "^16.4.0",
     "react-icons": "^2.2.7",
-    "react-redux": "^5.0.7",
+    "react-redux": "^4.3.0 || ^5.0.0",
     "react-router-dom": "^4.3.1",
     "reactstrap": "^6.2.0",
-    "redux": "^4.0.0"
+    "redux": "^3.0.0 || ^4.0.0",
+    "redux-form": "^7.4.2"
   },
   "scripts": {
     "start": "parcel assets/index.html -d public/build --public-url /build/.",
