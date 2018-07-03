@@ -1,6 +1,6 @@
 import React from 'react';
-import { Collapse, Navbar, Nav, NavItem, NavbarToggler } from 'reactstrap';
-import { NavLink, Link } from 'react-router-dom';
+import { Collapse, Navbar, Nav, NavItem, NavbarToggler, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import Burger from 'react-icons/lib/fa/align-justify';
 import favLogo from '~/images/favIcon.png';
 
@@ -39,19 +39,19 @@ export default class NavClick extends React.Component {
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar className="nav-list">
               <NavItem className="nav-item">
-                <NavLink to="/components/dashboard">Accueil</NavLink>
+                <NavLink tag={Link} to="/dashboard">Accueil</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/invoice">Facture</NavLink>
+                <NavLink tag={Link} to="/invoice">Facture</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/products">Produits</NavLink>
+                <NavLink tag={Link} to="/products">Produits</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/clients">Clients</NavLink>
+                <NavLink tag={Link} to="/clients">Clients</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/profile">Profile</NavLink>
+                <NavLink tag={Link} to="/profile">Profile</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
