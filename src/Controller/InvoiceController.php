@@ -13,6 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use App\Service\ConfiguredSerializer;
 /**
  * @Route("/api")
  */
@@ -22,22 +23,14 @@ class InvoiceController extends Controller
     /**
      * @Route("/factures", name="invoice_index", methods="GET")
      */
-    public function index(InvoiceRepository $invoiceRepository)
+    public function index(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
         $invoices = $invoiceRepository->findAll();
-
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $normalizer->setCircularReferenceHandler(function ($object) {
-            return $object->getId();
-        });
-        $normalizer->setIgnoredAttributes(["__initializer__", "__cloner__","__isInitialized__"]);
-        $serializer = new Serializer(array($normalizer), array($encoder));
         
-        $json = $serializer->serialize($invoices, 'json');
+        //on utilise un service créé par nos soin pour configurer le serializer
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoices, 'json');
 
         return new Response($json);
-        //return $this->render('invoice/index.html.twig', ['invoices' => $invoiceRepository->findAll()]);
     }
 
     /**
