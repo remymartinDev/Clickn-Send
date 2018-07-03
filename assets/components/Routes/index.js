@@ -1,7 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Media from 'react-media';
+
 import Dashboard from '~/components/Dashboard';
 import NavClick from '~/components/NavClick';
+import NavVertical from '~/components/NavVertical';
 import Factures from '~/components/Factures';
 import Produits from '~/components/Produits';
 import Clients from '~/components/Clients';
@@ -12,7 +15,9 @@ import './routes.scss';
 const Routes = () => (
   <div className="page-container">
     {/* Le nav sera présent dans toutes nos pages */}
-    <NavClick />
+    <Media query="(max-width: 750px)">
+      { matches => (matches ? <NavClick /> : <NavVertical />) }
+    </Media>
     <Switch>
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/invoices" component={Factures} />
