@@ -1,9 +1,35 @@
 @import '~/styles/vars.scss';
-
+.navVHead {
+  background-color: $color-mauve-4;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.3rem 2rem 0.3rem 0.3rem;
+  align-items: center;
+}
+.navVHead-item {
+  color: white;
+  margin: 0.5rem
+}
+.user {
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  color: $color-mauve-4;
+  border-radius: 25px;
+  padding: 0.1rem;
+  box-sizing: border-box;
+}
+.question {
+  width: 20px;
+  height: 20px;
+  
+}
 .navV-contain {
   width: 18%;
   background-color: $color-mauve-4;
   height: 100vh;
+  margin-top: -45px;
   padding: 1rem 0;
 
 }
@@ -27,9 +53,22 @@
   width: 100%;
   text-align: center;
 }
-
 .navVLink:hover {
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
   
 }
+.dropdownBtn {
+  border-radius: 0;
+  background-color: $color-mauve-4;
+  border: none;
+}
+.dropdown-menu {
+  background-color: rgba( 92, 8,149,0.6);
+  border-radius: 0;
+  border: none;
+}
+.dropdown-item {
+  color: white;
+}
+

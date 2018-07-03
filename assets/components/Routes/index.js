@@ -13,7 +13,6 @@ const Routes = () => (
   <div className="page-container">
     {/* Le nav sera présent dans toutes nos pages */}
     <NavClick />
-    <NavVertical />
     <Switch>
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/invoices" component={Factures} />
