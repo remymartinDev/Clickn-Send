@@ -26,7 +26,7 @@ export default class NavClick extends React.Component {
       <div>
         <Navbar className="dashboard-nav" color="faded" >
           <nav className="navbar-brand brand">
-            <Link to="/" href="/">
+            <Link to="/dashboard" href="/dashboard">
               <img src={favLogo} alt="logo" className="brand-logo" />
             </Link>
             <Link to="/" href="/">
@@ -42,7 +42,7 @@ export default class NavClick extends React.Component {
                 <NavLink tag={Link} to="/dashboard">Accueil</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/invoice">Facture</NavLink>
+                <NavLink tag={Link} to="/invoices">Factures</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/products">Produits</NavLink>
