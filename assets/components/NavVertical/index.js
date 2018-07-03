@@ -4,29 +4,17 @@ import { Link } from 'react-router-dom';
 import Burger from 'react-icons/lib/io/android-menu';
 import favLogo from '~/images/favIcon.png';
 
+import logo from '~/images/click-n-send_logo.png';
 import './navVertical.scss';
 
 const NavVertical = () => (
-  <div>
-    <p>List Based</p>
+  <div className="navV-contain">
+    <img src={logo} alt="logo" className="NavV-logo" />
     <Nav vertical>
-      <NavItem>
-        <NavLink href="#">Link</NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink href="#">Link</NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink href="#">Another Link</NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink disabled href="#">Disabled Link</NavLink>
-      </NavItem>
-    </Nav>
-    <hr />
-    <p>Link based</p>
-    <Nav vertical>
-      <NavLink href="#">Link</NavLink> <NavLink href="#">Link</NavLink> <NavLink href="#">Another Link</NavLink> <NavLink disabled href="#">Disabled Link</NavLink>
+      <NavLink tag={Link} to="/dashboard" className="navVLink">Accueil</NavLink>
+      <NavLink tag={Link} to="/invoices" className="navVLink">Factures</NavLink>
+      <NavLink tag={Link} to="/products" className="navVLink">Produits</NavLink>
+      <NavLink tag={Link} to="/clients" className="navVLink">Clients</NavLink>
     </Nav>
   </div>
 );
