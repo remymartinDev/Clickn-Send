@@ -13,13 +13,13 @@ export default () => (
           <div className="dash-btn-text btn-fact">Créer une facture</div>
         </button>
       </Link>
-      <Link to="/products/create" href="/invoice" className="dash-link prod">
+      <Link to="/products/create" href="/products/create" className="dash-link prod">
         <button className="dash-btn">
           <Plus className="plus-btn plus-btn-prod" />
           <div className="dash-btn-text btn-prod">Créer un produit</div>
         </button>
       </Link>
-      <Link to="/clients/create" href="/invoice" className="dash-link cli">
+      <Link to="/clients/create" href="/clients/create" className="dash-link cli">
         <button className="dash-btn">
           <Plus className="plus-btn plus-btn-cli" />
           <div className="dash-btn-text btn-cli">Créer un client</div>
