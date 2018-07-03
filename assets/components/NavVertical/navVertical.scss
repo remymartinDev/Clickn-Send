@@ -1,7 +1,7 @@
 @import '~/styles/vars.scss';
 .navVHead {
   background-color: $color-mauve-4;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   padding: 0.3rem 2rem 0.3rem 0.3rem;
@@ -26,12 +26,12 @@
   
 }
 .navV-contain {
-  width: 18%;
+  width: max-content;
   background-color: $color-mauve-4;
-  height: 100vh;
   margin-top: -45px;
   padding: 1rem 0;
-
+  display: flex;
+  flex-direction: column;
 }
 .NavV-logo {
   display: block;
@@ -72,3 +72,15 @@
   color: white;
 }
 
+@media (min-width: 750px) {
+  .page-container {
+    grid-template-columns: auto 1fr;
+  }
+  .navVHead {
+    grid-column: 2 / -1;
+  }
+  .navV-contain {
+    grid-column: 1 / 2;
+    grid-row: 1 /-1;
+  }
+}
