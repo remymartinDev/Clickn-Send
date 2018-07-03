@@ -1,0 +1,55 @@
+@import '~/styles/vars.scss';
+
+.dash-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin: 0 auto;
+}
+.dash-link {
+    position: relative;
+    left: 50%;
+    right: 50%;
+}
+.fact {
+    /*margin: 150px auto 0 auto;*/
+}
+.prod, .cli {
+    /*margin: 1rem auto 0 auto;*/
+}
+.btn-fact, .plus-btn-fact  {
+    border: 3px solid $color-orange-0;
+    color: $color-orange-0; 
+    top: 10rem;
+    
+}
+.btn-prod, .plus-btn-prod {
+    border: 3px solid $color-vert-0;
+    color: $color-vert-0; 
+    top: 13rem;
+}
+.btn-cli, .plus-btn-cli {
+    border: 3px solid $color-mauve-4;
+    color: $color-mauve-4;
+    top: 16rem;
+}
+.dash-button {
+    font-size: 1rem;
+    border-radius: 25px;
+    padding: 0.5rem 0.5rem 0.5rem 3rem;
+    font-weight: bold; 
+    background-color: white;  
+    z-index: 1; 
+    position: relative;
+}
+.plus-btn {
+    border-radius: 50px;
+    background-color: white; 
+    padding: 0.5rem;
+    height: 4rem;
+    width: 4rem;
+    z-index: 2;
+    position: relative;
+    left: 3rem; 
+}
+
