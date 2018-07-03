@@ -112,15 +112,14 @@ class Invoice
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate()
     {
-        return $this->date;
+        return $this->date->format('j-n-Y');
     }
 
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
         return $this;
     }
 
@@ -208,9 +207,9 @@ class Invoice
         return $this;
     }
 
-    public function getDeadline1(): ?\DateTimeInterface
+    public function getDeadline1()
     {
-        return $this->deadline1;
+        return $this->deadline1->format('j-n-Y');
     }
 
     public function setDeadline1(\DateTimeInterface $deadline1): self
@@ -220,9 +219,11 @@ class Invoice
         return $this;
     }
 
-    public function getDeadline2(): ?\DateTimeInterface
+    public function getDeadline2()
     {
-        return $this->deadline2;
+        if (isset($deadline2)) {
+            return $this->deadline2->format('j-n-Y');
+        }
     }
 
     public function setDeadline2(?\DateTimeInterface $deadline2): self

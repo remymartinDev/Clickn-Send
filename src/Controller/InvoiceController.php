@@ -31,6 +31,7 @@ class InvoiceController extends Controller
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId();
         });
+        $normalizer->setIgnoredAttributes(["__initializer__", "__cloner__","__isInitialized__"]);
         $serializer = new Serializer(array($normalizer), array($encoder));
         
         $json = $serializer->serialize($invoices, 'json');
