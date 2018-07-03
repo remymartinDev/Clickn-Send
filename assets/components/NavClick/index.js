@@ -24,7 +24,7 @@ export default class NavClick extends React.Component {
   render() {
     return (
       <div>
-        <Navbar className="dashboard-nav" color="faded" dark>
+        <Navbar className="dashboard-nav" color="faded" >
           <nav className="navbar-brand brand">
             <Link to="/" href="/">
               <img src={favLogo} alt="logo" className="brand-logo" />

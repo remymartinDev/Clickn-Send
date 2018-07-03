@@ -16,7 +16,7 @@
   border: 3px solid $color-orange-0;
   padding: 0.3rem;
   width: 4rem;
-  height: 4rem;                
+  height: 4rem;
 }
 .brand {
   display: flex;
@@ -34,15 +34,18 @@
 .nav-burger {
   background-color: $color-mauve-4;
   background-image: none;
+  color: white;
 }
 .nav-list {
   width: 100vw;
-  background-color: $color-mauve-4;
+  background-color: rgba(92, 8, 149, 0.7);
   .nav-item {
     padding: 0.8rem 0 1rem 2rem;
     width: 100vw;
     margin-left: 0;
-    background-color: $color-mauve-4;
+    .nav-link {
+      color: white;
+    }
   }
   .nav-item:hover {
     background-color: rgba( 92,  8,149,0.6);
@@ -53,9 +56,4 @@
     font-weight: bold;
   }
 }
-.navbar-toggler-icon {
-    fill: white;
-}
-.navbar-dark .navbar-toggler {
-    color: white !important;
-}
+
