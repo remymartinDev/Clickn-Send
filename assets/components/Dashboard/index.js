@@ -27,8 +27,6 @@ export default () => (
           <div className="dash-btn-text btn-cli">Créer un client</div>
         </button>
       </Link>
-      
-      
     </div>
   </div>
 );
