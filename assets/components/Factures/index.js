@@ -4,8 +4,8 @@ import Create from './Create';
 
 const Facture = () => (
   <Switch>
-    <Route path="/invoice/create" exact component={Create} />
-    <Route path="/invoice" render={() => (<div>Page des factures</div>)} />
+    <Route path="/invoices/create" exact component={Create} />
+    <Route path="/invoices" render={() => (<div>Page des factures</div>)} />
   </Switch>
 );
 
