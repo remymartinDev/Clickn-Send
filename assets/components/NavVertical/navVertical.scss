@@ -1,0 +1,67 @@
+@import '~/styles/vars.scss';
+
+.dashboard-nav {
+  height: 5rem;
+  background-color: $color-mauve-4;    
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 4;
+}
+
+.brand-logo {
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid $color-orange-0;
+  padding: 0.3rem;
+  width: 4rem;
+  height: 4rem;
+}
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin: 0;
+}
+
+.brand-name {
+  color: white;
+  text-transform: uppercase;  
+}
+.nav-burger {
+  background-color: $color-mauve-4;
+  color: white;
+  border-color: white;
+}
+.nav-list {
+    background-color: rgba( 92,  8,149,0.5);
+    z-index: 3;
+
+  .nav-item {
+    padding: 0.8rem 0 1rem 2rem;
+    width: 100%;
+    margin-left: 0;
+    transition: 0.5s;
+    border-bottom: 2px solid transparent;
+    .nav-link {
+      color: white;
+    }
+  }
+  .nav-item:hover {
+    background-color: rgba( 92,  8,149,0.6);
+    border-bottom: 2px solid $color-mauve-4;
+    
+  }
+
+  a {
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+  }
+}
+
