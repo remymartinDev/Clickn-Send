@@ -36,19 +36,19 @@ export default class NavClick extends React.Component {
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar className="nav-list">
               <NavItem className="nav-item">
-                <NavLink to="/components/dashboard">Accueil</NavLink>
+                <NavLink to="/dashboard">Accueil</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/invoice">Facture</NavLink>
+                <NavLink to="/invoice">Facture</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/products">Produits</NavLink>
+                <NavLink to="/products">Produits</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/clients">Clients</NavLink>
+                <NavLink to="/clients">Clients</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/components/profile">Profile</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

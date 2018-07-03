@@ -38,16 +38,16 @@
 }
 .nav-list {
     width: 100vw;
-    background-color: $color-mauve-4;
+    background-color: rgba( 92,  8,149,0.5);
+
   .nav-item {
     padding: 0.8rem 0 1rem 2rem;
     width: 100vw;
     margin-left: 0;
-    background-color: $color-mauve-4;
+    border-bottom: 2px solid $color-mauve-4;
+    
   }
-  .nav-item:hover {
-    background-color: rgba( 92,  8,149,0.6);
-  }
+
   a {
     text-transform: uppercase;
     color: white;
