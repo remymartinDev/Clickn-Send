@@ -22,7 +22,7 @@ export default () => (
       <Link to="/invoice" href="/invoice" className="dash-link cli">
         <button className="dash-btn">
           <Plus className="plus-btn plus-btn-cli" />
-          <div className="dash-btn-text btn-cli">Créer un client - test</div>
+          <div className="dash-btn-text btn-cli">Créer un client</div>
         </button>
       </Link>
     </div>
