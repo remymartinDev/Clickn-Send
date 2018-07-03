@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Dashboard from '~/components/Dashboard';
 import NavClick from '~/components/NavClick';
-import Facture from '~/components/Facture';
+import Factures from '~/components/Factures';
 
 import './routes.scss';
 
@@ -12,7 +12,7 @@ const Routes = () => (
     <NavClick />
     <Switch>
       <Route path="/dashboard" component={Dashboard} />
-      <Route path="/invoice" component={Facture} />
+      <Route path="/invoice" component={Factures} />
     </Switch>
   </div>
 );
