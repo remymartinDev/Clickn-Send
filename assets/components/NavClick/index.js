@@ -1,6 +1,6 @@
 import React from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
+import { NavLink, Link } from 'react-router-dom';
 import favLogo from '~/images/favIcon.png';
 
 import './navLink.scss';
@@ -24,10 +24,14 @@ export default class NavClick extends React.Component {
     return (
       <div>
         <Navbar className="dashboard-nav" color="faded" dark>
-          <NavbarBrand href="/dashboard" className=" brand">
-            <img src={favLogo} alt="logo" className="brand-logo" />
-            <span className="brand-name">Click & Send</span>
-          </NavbarBrand>
+          <nav className="navbar-brand brand">
+            <Link to="/" href="/">
+              <img src={favLogo} alt="logo" className="brand-logo" />
+            </Link>
+            <Link to="/" href="/">
+              <span className="brand-name">Click & Send</span>
+            </Link>
+          </nav>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2 nav-burger" />
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar className="nav-list">
