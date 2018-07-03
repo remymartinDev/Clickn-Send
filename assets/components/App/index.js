@@ -7,6 +7,7 @@ import Routes from '~/components/Routes';
 const App = () => (
   <Switch>
     <Route path="/" exact component={Home} />
+    {/* On redirigie toutes les autre route vers le composant Routes */}
     <Route component={Routes} />
   </Switch>
 );

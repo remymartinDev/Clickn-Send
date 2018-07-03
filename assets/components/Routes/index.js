@@ -6,6 +6,7 @@ import NavClick from '~/components/NavClick';
 
 const Routes = () => (
   <React.Fragment>
+    {/* Le nav sera présent dans toutes nos pages */}
     <NavClick />
     <Switch>
       <Route path="/dashboard" component={Dashboard} />
