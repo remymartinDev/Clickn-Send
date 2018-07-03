@@ -2,12 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Plus from 'react-icons/lib/fa/plus';
 
-import NavClick from '~/components/NavClick';
 import './dashboard.scss';
 
 export default () => (
   <div className="contain-dash">
-    <NavClick />
     <div className="dash-links">
       <Link to="/invoice" href="/invoice" className="dash-link fact">
         <button className="dash-btn">
