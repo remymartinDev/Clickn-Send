@@ -15,14 +15,16 @@
 .dash-links {
     display: grid;
     grid-auto-rows: max-content;
+    width: max-content;
     grid-row-gap: 2.5rem;
     align-items: center;
     margin: auto;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1045px) {
     .dash-links {
         grid-template-columns: repeat(auto-fit, 225px);
         justify-content: space-around;
+        width: auto;
     }
 }
