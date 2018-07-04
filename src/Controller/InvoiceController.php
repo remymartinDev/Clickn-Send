@@ -25,7 +25,7 @@ class InvoiceController extends Controller
      */
     public function index(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
-        $invoices = $invoiceRepository->findAllInvoicesByCompany(2);
+        $invoices = $invoiceRepository->findAllInvoicesByCompany(4);
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoices, 'json');
