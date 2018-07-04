@@ -23,9 +23,9 @@ class InvoiceController extends Controller
     /**
      * @Route("/factures", name="invoice_index", methods="GET")
      */
-    public function index(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
+    public function all(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
-        $invoices = $invoiceRepository->findAllInvoicesByCompany(4);
+        $invoices = $invoiceRepository->findAllInvoicesByCompany(5);
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoices, 'json');

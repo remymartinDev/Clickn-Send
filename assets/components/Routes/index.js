@@ -8,6 +8,8 @@ import NavVertical from '~/components/NavVertical';
 import Factures from '~/components/Factures';
 import Produits from '~/components/Produits';
 import Clients from '~/components/Clients';
+import Profile from '~/components/Profile';
+import Contact from '~/components/Contact';
 
 import './routes.scss';
 
@@ -15,7 +17,7 @@ import './routes.scss';
 const Routes = () => (
   <div className="page-container">
     {/* Le nav sera présent dans toutes nos pages */}
-    <Media query="(min-width: 750px)">
+    <Media query="(min-width: 769px)">
       { matches => (matches ? <NavVertical /> : <NavClick />) }
     </Media>
     <Switch>
@@ -23,6 +25,8 @@ const Routes = () => (
       <Route path="/invoices" component={Factures} />
       <Route path="/products" component={Produits} />
       <Route path="/clients" component={Clients} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/contact" component={Contact} />
     </Switch>
   </div>
 );
