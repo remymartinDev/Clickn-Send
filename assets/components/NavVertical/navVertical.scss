@@ -84,5 +84,8 @@
     * {
       transition: opacity 0.5s;
     }
+    button:focus {
+      box-shadow: none;
+    }
   }
 }
