@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ZainController extends Controller
+class ZmainController extends Controller
 {
     /**
      * @Route("/{slug}", name="zome", requirements={"slug"=".*"})
