@@ -23,16 +23,6 @@ class Status
      */
     private $invoice_status;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="status")
-     */
-    private $invoices;
-
-    public function __construct()
-    {
-        $this->invoices = new ArrayCollection();
-    }
-
     public function getId()
     {
         return $this->id;
@@ -48,12 +38,13 @@ class Status
         $this->invoice_status = $invoice_status;
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Invoice[]
-     */
-    public function getInvoices(): Collection
+    }   
+    
+//USELES RELATION    
+    ///**
+    // * @return Collection|Invoice[]
+    // */
+    /* public function getInvoices(): Collection
     {
         return $this->invoices;
     }
@@ -79,5 +70,5 @@ class Status
         }
 
         return $this;
-    }
+    } */
 }

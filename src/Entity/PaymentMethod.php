@@ -23,16 +23,18 @@ class PaymentMethod
      */
     private $method;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="paymentMethode")
-     */
-    private $payments;
 
-    public function __construct()
+// USELESS RELATION    
+    ///**
+    // * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="paymentMethode")
+    // */
+    //private $payments;
+
+// USELESS RELATION
+    /* public function __construct()
     {
         $this->payments = new ArrayCollection();
-    }
-
+    }*/
     public function getId()
     {
         return $this->id;
@@ -50,10 +52,12 @@ class PaymentMethod
         return $this;
     }
 
-    /**
-     * @return Collection|Payment[]
-     */
-    public function getPayments(): Collection
+
+// USELESS RELATION
+    ///**
+    // * @return Collection|Payment[]
+    // */
+    /* public function getPayments(): Collection
     {
         return $this->payments;
     }
@@ -79,5 +83,5 @@ class PaymentMethod
         }
 
         return $this;
-    }
+    } */
 }

@@ -23,20 +23,23 @@ class Role
      */
     private $rolename;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="role")
-     */
-    private $members;
+// USELESS RELATION
+    // /**
+    // * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="role")
+    // */
+    // private $members; 
+
 
     /**
      * @ORM\Column(type="string", length=30)
      */
     private $rolelabel;
 
-    public function __construct()
+// USELESS RELATION
+    /* public function __construct()
     {
         $this->members = new ArrayCollection();
-    }
+    } */
 
     public function getId()
     {
@@ -55,10 +58,11 @@ class Role
         return $this;
     }
 
-    /**
-     * @return Collection|Member[]
-     */
-    public function getMembers(): Collection
+// USELESS RELATION
+    ///**
+     //* @return Collection|Member[]
+     //*/
+    /* public function getMembers(): Collection
     {
         return $this->members;
     }
@@ -84,7 +88,7 @@ class Role
         }
 
         return $this;
-    }
+    }*/
 
     public function getRolelabel(): ?string
     {
