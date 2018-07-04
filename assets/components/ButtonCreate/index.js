@@ -36,7 +36,7 @@ const ButtonCreate = ({ type }) => {
 };
 
 ButtonCreate.propTypes = {
-  type: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default ButtonCreate;

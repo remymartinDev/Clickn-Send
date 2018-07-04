@@ -18,7 +18,9 @@ class Home extends React.Component {
   }
 
   render() {
-    const facturesJSX = this.state.factures.map(facture => <FactureItem key={facture.id} {...facture} />);
+    const facturesJSX = this.state.factures.map(facture => (
+      <FactureItem key={facture.id} {...facture} />
+    ));
     return (
       <div>
         {facturesJSX}
