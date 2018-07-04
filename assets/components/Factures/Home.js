@@ -22,7 +22,6 @@ class Home extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
     const dateString = '27-06-2018';
     console.log(dateString);
     const dateDate = new Date(dateString);
@@ -35,11 +34,6 @@ class Home extends React.Component {
       />
     ));
     const lastFactures = facturesJSX.slice(0, 5);
-=======
-    const facturesJSX = this.state.factures.map(facture => (
-      <FactureItem key={facture.id} {...facture} />
-    ));
->>>>>>> 2f76fd8adb485b1a0b338a52a75a5684f3b50b5f
     return (
       <div className="page-container-facture">
         <h1 className="titre">Vos dernières factures</h1>
