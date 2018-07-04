@@ -22,10 +22,13 @@ class Home extends React.Component {
   }
 
   render() {
-    const dateString = '27-06-2018';
-    console.log(dateString);
-    const dateDate = new Date(dateString);
-    console.log(dateDate);
+    const today = new Date();
+    const facturesEchuesJSX = this.state.factures.filter((facture) => {
+      const deadLine = new Date(facture.deadline1);
+      return deadLine < today;
+    });
+    console.log(facturesEchuesJSX);
+   
     const orderedFactures = this.state.factures.sort((a, b) => (b.id - a.id));
     const facturesJSX = orderedFactures.map(facture => (
       <FactureItem

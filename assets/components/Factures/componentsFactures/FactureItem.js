@@ -6,17 +6,22 @@ import FaDownload from 'react-icons/lib/fa/download';
 
 import './FactureItem.scss';
 /*eslint-disable*/
-const FactureItem = ({ customer_company, pro, firstname, date, amount_all_taxes, invoice_status }) => (
-  <div className="facture-contain">
-    <div className="facture-item">{pro ? customer_company : firstname}</div>
-    <div className="facture-item">{date}</div>
-    <div className="facture-item"> {amount_all_taxes} € </div>
-    <div className="facture-item">{invoice_status}</div>
-    <FaEye />
-    <FaPencil />
-    <FaDownload />
-  </div>
-);
+const FactureItem = ({ customer_company, pro, firstname, date, amount_all_taxes, invoice_status }) => {
+  const formatedDate = new Date(date);
+  const humainDate = `${formatedDate.getDate()}/${formatedDate.getMonth()}/${formatedDate.getFullYear()}`;
+  return (
+    <div className="facture-contain">
+      <div className="facture-item">{pro ? customer_company : firstname}</div>
+      <div className="facture-item">{humainDate}</div>
+      <div className="facture-item"> {amount_all_taxes} € </div>
+      <div className="facture-item">{invoice_status}</div>
+      <FaEye />
+      <FaPencil />
+      <FaDownload />
+    </div>
+  );
+};
+
 
 FactureItem.propTypes = {
   company_name: PropTypes.string.isRequired,
