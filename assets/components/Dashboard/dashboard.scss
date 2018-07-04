@@ -61,3 +61,8 @@
     left: 0; 
 }
 
+@media (min-width: 769px) {
+    .dash-links {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
