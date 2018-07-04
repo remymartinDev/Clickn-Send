@@ -9,18 +9,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ConfiguredSerializer;
 
 /**
- * @Route("/customer")
+ * @Route("/api/customer")
  */
 class CustomerController extends Controller
 {
     /**
-     * @Route("/", name="customer_index", methods="GET")
+     * @Route("s", name="customer_list", methods="GET")
      */
-    public function index(CustomerRepository $customerRepository): Response
+    public function list(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        return $this->render('customer/index.html.twig', ['customers' => $customerRepository->findAll()]);
+        $customers = $customerRepository->findByCompany(1);
+        
+        //on utilise un service créé par nos soin pour configurer le serializer
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($customers, 'json');
+
+        return new Response($json);
     }
 
     /**
@@ -49,9 +55,13 @@ class CustomerController extends Controller
     /**
      * @Route("/{id}", name="customer_show", methods="GET")
      */
-    public function show(Customer $customer): Response
+    public function show(Customer $customer, ConfiguredSerializer $configuredSerializer): Response
     {
-        return $this->render('customer/show.html.twig', ['customer' => $customer]);
+      
+        //on utilise un service créé par nos soin pour configurer le serializer
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($customer, 'json');
+
+        return new Response($json);
     }
 
     /**
