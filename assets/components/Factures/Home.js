@@ -3,15 +3,13 @@ import axios from 'axios';
 
 import FactureItem from './componentsFactures/FactureItem';
 
-// /api/factures
-
 class Home extends React.Component {
   state = {
     factures: [],
   }
 
   componentDidMount() {
-    axios.get('/api/factures')
+    axios.get('/api/invoices')
       .then(({ data: factures }) => {
         this.setState({
           factures,

@@ -1,0 +1,52 @@
+@import '~/styles/vars.scss';
+
+.dash-link {
+  position: relative;
+}
+
+.btn-fact, .plus-btn-fact  {
+  border: 3px solid $color-orange-0;
+  color: $color-orange-0;     
+}
+
+.btn-prod, .plus-btn-prod {
+  border: 3px solid $color-vert-0;
+  color: $color-vert-0; 
+
+}
+
+.btn-cli, .plus-btn-cli {
+  border: 3px solid $color-mauve-4;
+  color: $color-mauve-4;
+ 
+}
+
+.dash-btn {
+  background-color: white;
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.dash-btn-text {
+  font-size: 1rem;
+  border-radius: 25px;
+  padding: 0.5rem 0.5rem 0.5rem 4rem;
+  font-weight: bold; 
+  background-color: white;  
+  z-index: 1; 
+  position: relative;
+  width: 100%;
+}
+
+.plus-btn {
+  border-radius: 50px;
+  background-color: white; 
+  padding: 0.5rem;
+  height: 4rem;
+  width: 4rem;
+  z-index: 2;
+  position: absolute;
+  left: 0; 
+}
