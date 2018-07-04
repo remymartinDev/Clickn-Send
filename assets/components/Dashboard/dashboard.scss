@@ -1,15 +1,23 @@
 @import '~/styles/vars.scss';
 
 .contain-dash {
-    display: flex;
+    width: 75%;
+    margin: auto;
+}
+.titre {
+    color: $color-vert-0;
+    margin: 2rem auto 5rem auto;
+    text-align: center;
+    
 }
 
 .dash-links {
     display: grid;
     grid-auto-rows: max-content;
-    grid-row-gap: 1.5rem;
+    grid-row-gap: 2.5rem;
     align-items: center;
     margin: auto;
+
 
     .dash-link {
         position: relative;
@@ -64,5 +72,6 @@
 @media (min-width: 769px) {
     .dash-links {
         grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 2rem;
     }
 }

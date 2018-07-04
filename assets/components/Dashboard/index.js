@@ -6,6 +6,7 @@ import './dashboard.scss';
 
 export default () => (
   <div className="contain-dash">
+    <h1 className="titre"> Bienvenue username </h1>
     <div className="dash-links">
       <Link to="/invoices/create" href="/invoice/create" className="dash-link fact">
         <button className="dash-btn">
