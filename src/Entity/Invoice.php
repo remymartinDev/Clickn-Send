@@ -114,7 +114,7 @@ class Invoice
 
     public function getDate()
     {
-        return $this->date->format('j-n-Y');
+        return $this->date->format('c');
     }
 
     public function setDate(\DateTimeInterface $date): self
@@ -209,7 +209,7 @@ class Invoice
 
     public function getDeadline1()
     {
-        return $this->deadline1->format('j-n-Y');
+        return $this->deadline1->format('c');
     }
 
     public function setDeadline1(\DateTimeInterface $deadline1): self
@@ -222,7 +222,7 @@ class Invoice
     public function getDeadline2()
     {
         if (isset($deadline2)) {
-            return $this->deadline2->format('j-n-Y');
+            return $this->deadline2->format('c');
         }
     }
 
@@ -315,7 +315,7 @@ class Invoice
     /**
      * @return Collection|InvoiceHasProduct[]
      */
-    public function getInvoiceHasProducts(): Collection
+    public function getInvoiceHasProducts()
     {
         return $this->invoiceHasProducts;
     }
@@ -342,4 +342,10 @@ class Invoice
 
         return $this;
     }
+
+    public function delInvoiceHasProduct()
+    {
+        $this->invoiceHasProducts = [];
+    }
+
 }

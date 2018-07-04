@@ -11,11 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ConfiguredSerializer;
 
+
 /**
  * @Route("/api/customer")
  */
 class CustomerController extends Controller
 {
+    
     /**
      * @Route("s", name="customer_list", methods="GET")
      */

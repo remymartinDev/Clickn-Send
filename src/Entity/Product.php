@@ -43,10 +43,12 @@ class Product
      */
     private $unity;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\InvoiceHasProduct", mappedBy="product")
-     */
-    private $invoiceHasProducts;
+    
+//USELESS RELATION
+    ///**
+    // * @ORM\OneToMany(targetEntity="App\Entity\InvoiceHasProduct", mappedBy="product")
+    // */
+    //private $invoiceHasProducts;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company")
@@ -54,10 +56,12 @@ class Product
      */
     private $company;
 
-    public function __construct()
+
+//USELESS RELATION
+    /* public function __construct()
     {
         $this->invoiceHasProducts = new ArrayCollection();
-    }
+    } */
 
     public function getId()
     {
@@ -124,10 +128,12 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|InvoiceHasProduct[]
-     */
-    public function getInvoiceHasProducts(): Collection
+
+//USELESS RELATION
+    ///**
+     //* @return Collection|InvoiceHasProduct[]
+     //*/
+    /* public function getInvoiceHasProducts(): Collection
     {
         return $this->invoiceHasProducts;
     }
@@ -153,7 +159,7 @@ class Product
         }
 
         return $this;
-    }
+    } */
 
     public function getCompany(): ?Company
     {

@@ -34,7 +34,7 @@ class InvoiceRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
 
         $query = $em->createQuery(
-             "SELECT DATE_FORMAT(i.date, '%d-%m-%Y') as date, i.id, i.reference, i.amount_all_taxes, i.amount_dutty_free, i.paid, DATE_FORMAT(i.deadline1, '%d-%m-%Y') as deadline1, DATE_FORMAT(i.deadline2, '%d-%m-%Y') as deadline2, cu.id as customerID, cu.lastname, cu.firstname,cu.customer_company, cu.pro, co.company_name, s.invoice_status
+             "SELECT DATE_FORMAT(i.date, '%Y-%m-%dT%H:%i:%s') as date, i.id, i.reference, i.amount_all_taxes, i.amount_dutty_free, i.paid, DATE_FORMAT(i.deadline1, '%Y-%m-%dT%H:%i:%s') as deadline1, DATE_FORMAT(i.deadline2, '%Y-%m-%dT%H:%i:%s') as deadline2, cu.id as customerID, cu.lastname, cu.firstname,cu.customer_company, cu.pro, co.company_name, s.invoice_status
                 FROM App\Entity\Invoice i
                 JOIN App\Entity\Customer cu, App\Entity\Company co, App\Entity\Status s
                 WHERE i.customer = cu
@@ -53,7 +53,7 @@ class InvoiceRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
-        ;
+        
     }
     */
 }

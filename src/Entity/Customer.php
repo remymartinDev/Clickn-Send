@@ -269,8 +269,11 @@ class Customer
     /**
      * @return Collection|Invoice[]
      */
-    public function getInvoices(): Collection
+    public function getInvoices()
     {
+        foreach ($this->invoices as $invoice) {
+            $invoice->delInvoiceHasProduct();
+        }
         return $this->invoices;
     }
 
