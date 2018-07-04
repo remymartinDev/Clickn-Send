@@ -9,20 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ConfiguredSerializer;
 
 /**
- * @Route("/company")
+ * @Route("/api")
  */
 class CompanyController extends Controller
 {
-    /**
-     * @Route("/", name="company_index", methods="GET")
-     */
-    public function index(CompanyRepository $companyRepository): Response
-    {
-        return $this->render('company/index.html.twig', ['companies' => $companyRepository->findAll()]);
-    }
-
     /**
      * @Route("/new", name="company_new", methods="GET|POST")
      */
@@ -46,12 +39,15 @@ class CompanyController extends Controller
         ]);
     }
 
+    // ici le parametre id est temporaire, car on ne peut pas recupérer l id de l entreprise du user connecté
     /**
-     * @Route("/{id}", name="company_show", methods="GET")
+     * @Route("/admin/company/{id}", name="company_show", methods="GET")
      */
-    public function show(Company $company): Response
+    public function show(Company $company, ConfiguredSerializer $configuredSerializer): Response
     {
-        return $this->render('company/show.html.twig', ['company' => $company]);
+        $json = $json = $configuredSerializer->getConfiguredSerializer()->serialize($company, 'json');
+
+        return new Response($json);
     }
 
     /**
@@ -72,19 +68,5 @@ class CompanyController extends Controller
             'company' => $company,
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/{id}", name="company_delete", methods="DELETE")
-     */
-    public function delete(Request $request, Company $company): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$company->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($company);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('company_index');
     }
 }

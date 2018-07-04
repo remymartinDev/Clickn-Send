@@ -22,19 +22,21 @@ class ProductRepository extends ServiceEntityRepository
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
-    /*
-    public function findByExampleField($value)
+    
+                                             //on utilise l'ID pour l'instant (SQL) car pas d'user connecté
+    public function findAllProductsByCompany($company)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery(
+             "SELECT *
+                FROM App\Entity\Product
+                JOIN App\Entity\Company co
+                WHERE i.company = co
+                AND i.company = :company"
+        )->setParameter('company', $company);
+        return $query->execute();
+    }   
 
     /*
     public function findOneBySomeField($value): ?Product
