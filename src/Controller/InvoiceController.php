@@ -26,8 +26,6 @@ class InvoiceController extends Controller
     public function index(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
         $invoices = $invoiceRepository->findAllInvoicesByCompany(2);
-        $invoices[0]['date'] = $invoices[0]['date']->format('j-n-Y');
-        $invoices[0]['deadline1'] = $invoices[0]['deadline1']->format('j-n-Y');
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoices, 'json');
