@@ -17,7 +17,7 @@ import './routes.scss';
 const Routes = () => (
   <div className="page-container">
     {/* Le nav sera présent dans toutes nos pages */}
-    <Media query="(min-width: 750px)">
+    <Media query="(min-width: 769px)">
       { matches => (matches ? <NavVertical /> : <NavClick />) }
     </Media>
     <Switch>
