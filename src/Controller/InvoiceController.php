@@ -15,13 +15,13 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use App\Service\ConfiguredSerializer;
 /**
- * @Route("/api")
+ * @Route("/api/invoice")
  */
 class InvoiceController extends Controller
 {
     
     /**
-     * @Route("/factures", name="invoice_index", methods="GET")
+     * @Route("s", name="invoice_index", methods="GET")
      */
     public function all(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
@@ -33,8 +33,8 @@ class InvoiceController extends Controller
         return new Response($json);
     }
 
-    /**
-     * @Route("/new", name="invoice_new", methods="GET|POST")
+    /**php bin/console doctrine:fixtures:load
+     * php bin/console doctrine:fixtures:load
      */
     public function new(Request $request): Response
     {
@@ -59,9 +59,11 @@ class InvoiceController extends Controller
     /**
      * @Route("/{id}", name="invoice_show", methods="GET")
      */
-    public function show(Invoice $invoice): Response
+    public function show(Invoice $invoice, ConfiguredSerializer $configuredSerializer): Response
     {
-        return $this->render('invoice/show.html.twig', ['invoice' => $invoice]);
+        $json = $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoice, 'json');
+
+        return new Response($json);
     }
 
     /**
