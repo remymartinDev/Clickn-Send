@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, NavLink, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Nav, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import User from 'react-icons/lib/fa/user';
 import Question from 'react-icons/lib/fa/question-circle';
@@ -30,23 +30,39 @@ class NavVertical extends React.Component {
           <img src={logo} alt="logo" className="NavV-logo" />
           <Nav vertical>
             <NavLink tag={Link} to="/dashboard" className="navVLink">Accueil</NavLink>
-            <ButtonDropdown
+            <UncontrolledDropdown
               direction="right"
-              isOpen={this.state.btnDropright}
-              toggle={() => {
-                this.setState({ btnDropright: !this.state.btnDropright });
-              }}
             >
-              <DropdownToggle className="navVLink dropdownBtn" >
+              <DropdownToggle className="navVLink dropdownBtn">
                 Factures
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem tag={Link} to="/invoices/create">Créer une facture</DropdownItem>
                 <DropdownItem tag={Link} to="/invoices">Mes factures</DropdownItem>
               </DropdownMenu>
-            </ButtonDropdown>
-            <NavLink tag={Link} to="/products" className="navVLink">Produits</NavLink>
-            <NavLink tag={Link} to="/clients" className="navVLink">Clients</NavLink>
+            </UncontrolledDropdown>
+            <UncontrolledDropdown
+              direction="right"
+            >
+              <DropdownToggle className="navVLink dropdownBtn">
+                Produits
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem tag={Link} to="/products/create">Créer un produit</DropdownItem>
+                <DropdownItem tag={Link} to="/products">Mes produits</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            <UncontrolledDropdown
+              direction="right"
+            >
+              <DropdownToggle className="navVLink dropdownBtn">
+                Clients
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem tag={Link} to="/clients/create">Ajouter client</DropdownItem>
+                <DropdownItem tag={Link} to="/clients">Mes clients</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </Nav>
         </div>
       </React.Fragment>
