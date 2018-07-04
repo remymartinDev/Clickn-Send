@@ -293,7 +293,7 @@ class AppFixtures extends Fixture
   
             $userAdmin = new Member();
             $userAdmin->setUsername('admin');
-            $userAdmin->setCompany($company);
+            $userAdmin->setCompany($companies[0]);
             $userAdmin->setPassword('admin');
             $userAdmin->setRole($roleAdmin);
             $manager->persist($userAdmin);
