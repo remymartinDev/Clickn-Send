@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Plus from 'react-icons/lib/fa/plus';
 
+import './ButtonCreate.scss';
+
 const typeList = {
   facture: {
     to: '/invoices/create',
