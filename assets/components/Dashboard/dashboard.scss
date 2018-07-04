@@ -22,7 +22,7 @@
 
 @media (min-width: 769px) {
     .dash-links {
-        grid-template-columns: repeat(auto-fit, minmax(230px, 235px));
-        grid-column-gap: 2rem;
+        grid-template-columns: repeat(auto-fit, 225px);
+        justify-content: space-around;
     }
 }
