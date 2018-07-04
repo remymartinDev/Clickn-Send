@@ -9,11 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use App\Service\ConfiguredSerializer;
+
+
 /**
  * @Route("/api/invoice")
  */
@@ -21,9 +19,9 @@ class InvoiceController extends Controller
 {
     
     /**
-     * @Route("s", name="invoice_index", methods="GET")
+     * @Route("s", name="invoice_list", methods="GET")
      */
-    public function all(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
+    public function list(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
         $invoices = $invoiceRepository->findAllInvoicesByCompany(1);
         
@@ -33,9 +31,7 @@ class InvoiceController extends Controller
         return new Response($json);
     }
 
-    /**php bin/console doctrine:fixtures:load
-     * php bin/console doctrine:fixtures:load
-     */
+    
     public function new(Request $request): Response
     {
         $invoice = new Invoice();

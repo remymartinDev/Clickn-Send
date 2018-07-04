@@ -9,18 +9,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ConfiguredSerializer;
+
 
 /**
- * @Route("/product")
+ * @Route("/api/product")
  */
 class ProductController extends Controller
 {
     /**
-     * @Route("/", name="product_index", methods="GET")
+     * @Route("s", name="product_list", methods="GET")
      */
-    public function index(ProductRepository $productRepository): Response
+    public function list(ProductRepository $productRepository, ConfiguredSerializer $configuredSerializer)
     {
-        return $this->render('product/index.html.twig', ['products' => $productRepository->findAll()]);
+        $products = $productRepository->findAllProductsByCompany(1);
+        
+        //on utilise un service créé par nos soin pour configurer le serializer
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($products, 'json');
+
+        return new Response($json);
     }
 
     /**
@@ -49,9 +56,11 @@ class ProductController extends Controller
     /**
      * @Route("/{id}", name="product_show", methods="GET")
      */
-    public function show(Product $product): Response
+    public function show(Product $product ,ConfiguredSerializer $configuredSerializer): Response
     {
-        return $this->render('product/show.html.twig', ['product' => $product]);
+        $json = $json = $configuredSerializer->getConfiguredSerializer()->serialize($product, 'json');
+
+        return new Response($json);
     }
 
     /**
