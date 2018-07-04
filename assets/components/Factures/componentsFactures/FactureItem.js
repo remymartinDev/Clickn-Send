@@ -6,9 +6,9 @@ import FaDownload from 'react-icons/lib/fa/download';
 
 import './FactureItem.scss';
 /*eslint-disable*/
-const FactureItem = ({ company_name, date, amount_all_taxes, invoice_status }) => (
+const FactureItem = ({ customer_company, pro, firstname, date, amount_all_taxes, invoice_status }) => (
   <div className="facture-contain">
-    <div className="facture-item">{company_name}</div>
+    <div className="facture-item">{pro ? customer_company : firstname}</div>
     <div className="facture-item">{date}</div>
     <div className="facture-item"> {amount_all_taxes} € </div>
     <div className="facture-item">{invoice_status}</div>
