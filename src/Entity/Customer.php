@@ -328,9 +328,9 @@ class Customer
         return $this;
     }
 
-    public function getCompany(): ?Company
+    public function getCompany()
     {
-        return $this->company;
+        return $this->company->getId();
     }
 
     public function setCompany(?Company $company): self

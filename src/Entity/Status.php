@@ -18,20 +18,11 @@ class Status
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=25)
-     */
-    private $invoice_status;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="status")
-     */
-    private $invoices;
-
-    public function __construct()
-    {
-        $this->invoices = new ArrayCollection();
-    }
+// USELESS RELATION
+    ///**
+    // * @ORM\Column(type="string", length=25)
+    // */
+    //private $invoice_status;
 
     public function getId()
     {
@@ -48,12 +39,13 @@ class Status
         $this->invoice_status = $invoice_status;
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Invoice[]
-     */
-    public function getInvoices(): Collection
+    }   
+    
+// USELESS RELATION    
+    ///**
+    // * @return Collection|Invoice[]
+    // */
+    /* public function getInvoices(): Collection
     {
         return $this->invoices;
     }
@@ -61,7 +53,7 @@ class Status
     public function addInvoice(Invoice $invoice): self
     {
         if (!$this->invoices->contains($invoice)) {
-            $this->invoices[] = $invoice;
+            $this->invoices[] = $invoice->ge;
             $invoice->setStatus($this);
         }
 
@@ -79,5 +71,5 @@ class Status
         }
 
         return $this;
-    }
+    } */
 }

@@ -78,27 +78,27 @@ class Company
      */
     private $logo;
 
-    /**
+    /** 
      * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="company")
      */
-    private $invoices;
+/*     private $invoices; */
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Customer", mappedBy="company")
      */
-    private $customers;
+/*     private $customers; */
 
-    /**
+    /*
      * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="company")
      */
-    private $members;
+/*     private $members; */
 
-    public function __construct()
+/*     public function __construct()
     {
         $this->invoices = new ArrayCollection();
         $this->customers = new ArrayCollection();
         $this->members = new ArrayCollection();
-    }
+    } */
 
     public function getId()
     {
@@ -249,10 +249,10 @@ class Company
         return $this;
     }
 
-    /**
+/*     /**
      * @return Collection|Invoice[]
      */
-    public function getInvoices(): Collection
+/*     public function getInvoices(): Collection
     {
         return $this->invoices;
     }
@@ -278,12 +278,12 @@ class Company
         }
 
         return $this;
-    }
+    } */
 
-    /**
+/*     /**
      * @return Collection|Customer[]
      */
-    public function getCustomers(): Collection
+/*     public function getCustomers(): Collection
     {
         return $this->customers;
     }
@@ -309,16 +309,16 @@ class Company
         }
 
         return $this;
-    }
+    } */
 
-    /**
+/*     /**
      * @return Collection|Member[]
      */
-    public function getMembers(): Collection
+/*     public function getMembers(): Collection
     {
         return $this->members;
-    }
-
+    } */
+/* 
     public function addMember(Member $member): self
     {
         if (!$this->members->contains($member)) {
@@ -327,9 +327,9 @@ class Company
         }
 
         return $this;
-    }
+    } */
 
-    public function removeMember(Member $member): self
+/*     public function removeMember(Member $member): self
     {
         if ($this->members->contains($member)) {
             $this->members->removeElement($member);
@@ -337,8 +337,8 @@ class Company
             if ($member->getCompany() === $this) {
                 $member->setCompany(null);
             }
-        }
+        } */
 
-        return $this;
-    }
+/*         return $this;
+    } */
 }
