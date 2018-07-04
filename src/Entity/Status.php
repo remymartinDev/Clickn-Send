@@ -18,11 +18,10 @@ class Status
      */
     private $id;
 
-// USELESS RELATION
-    ///**
-    // * @ORM\Column(type="string", length=25)
-    // */
-    //private $invoice_status;
+    /**
+     * @ORM\Column(type="string", length=25)
+     */
+    private $invoice_status;
 
     public function getId()
     {
@@ -41,7 +40,7 @@ class Status
         return $this;
     }   
     
-// USELESS RELATION    
+//USELES RELATION    
     ///**
     // * @return Collection|Invoice[]
     // */
@@ -53,7 +52,7 @@ class Status
     public function addInvoice(Invoice $invoice): self
     {
         if (!$this->invoices->contains($invoice)) {
-            $this->invoices[] = $invoice->ge;
+            $this->invoices[] = $invoice;
             $invoice->setStatus($this);
         }
 

@@ -88,7 +88,7 @@ class Role
         }
 
         return $this;
-    }
+    }*/
 
     public function getRolelabel(): ?string
     {
@@ -100,5 +100,5 @@ class Role
         $this->rolelabel = $rolelabel;
 
         return $this;
-    } */
+    }
 }
