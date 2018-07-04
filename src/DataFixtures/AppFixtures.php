@@ -111,9 +111,9 @@ class AppFixtures extends Fixture
             $manager->persist($company);
         }
 
-        $customers = [];
+        $customers1 = [];
 
-        for ($i=0; $i < 2; $i++) { 
+        for ($i=0; $i < 4; $i++) { 
             $customer = new Customer();
             $customer->setLastname('customer lastname'.$i);
             $customer->setFirstname('customer firstname'.$i);
@@ -128,8 +128,31 @@ class AppFixtures extends Fixture
             //$customer->setCompanyName();
             //$customer->setVatNumber();
             //$customer->setRemise();
-            $customer->setCompany($companies[$i]);
-            $customers[] = $customer;
+            $customer->setCompany($companies[0]);
+            $customers1[] = $customer;
+            $manager->persist($customer); 
+        }
+        
+
+        $customer2 = [];
+
+        for ($i=0; $i < 4; $i++) { 
+            $customer = new Customer();
+            $customer->setLastname('customer lastname'.$i);
+            $customer->setFirstname('customer firstname'.$i);
+            $customer->setCompanyAdress('customer adress'.$i);
+            $customer->setCountryCode('country'.$i);
+            $customer->setPhone('01'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
+            $customer->setMobile('06'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
+            $customer->setFax('08'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
+            $customer->setEmail('customer'.$i.'@mail');
+            $customer->setComment('le client'.$i.' est sympa');
+            $customer->setPro(false);
+            //$customer->setCompanyName();
+            //$customer->setVatNumber();
+            //$customer->setRemise();
+            $customer->setCompany($companies[1]);
+            $customers2[] = $customer;
             $manager->persist($customer); 
         }
 
@@ -146,9 +169,32 @@ class AppFixtures extends Fixture
             $manager->persist($product);
         }
 
-        $invoices = [];
+        $invoices1 = [];
         
-        for ($i=0; $i < 2; $i++) { 
+        for ($i=0; $i < 4; $i++) { 
+            $invoice = new Invoice();
+            $invoice->setDate(new DateTime('now'));
+            $invoice->setReference('78'.$i.'12'.$i.'5'.$i.'4'.$i.'3');
+            $invoice->setAmountAllTaxes(2400 + $i);
+            $invoice->setAmountDuttyFree(1600 + $i);
+            $invoice->setTaxesAmount(400 + $i);
+            $invoice->setPaid(false);
+            $invoice->setDownPayment(450 + $i);
+            $invoice->setReminder(0);
+            $invoice->setDeadline1(new DateTime('now'));
+            //$invoice->setDeadline2();
+            $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
+            $invoice->setCustomer($customers1[$i]);
+            $invoice->setStatus($facture);
+            $invoice->setCompany($companies[0]);
+            $invoices1[] = $invoice;        
+            $manager->persist($invoice);
+
+        }
+
+        $invoices2 = [];
+        
+        for ($i=0; $i < 4; $i++) { 
             $invoice = new Invoice();
             $invoice->setDate(new DateTime('now'));
             $invoice->setReference('78'.$i.'12'.$i.'5'.$i.'4'.$i.'3');
@@ -161,26 +207,26 @@ class AppFixtures extends Fixture
             $invoice->setDeadline1(new DateTime('now'));
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
-            $invoice->setCustomer($customers[$i]);
+            $invoice->setCustomer($customers2[$i]);
             $invoice->setStatus($facture);
-            $invoice->setCompany($companies[$i]);
-            $invoices[] = $invoice;        
+            $invoice->setCompany($companies[1]);
+            $invoices2[] = $invoice;        
             $manager->persist($invoice);
 
         }
             
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 4; $i++) { 
             $invoiceHasProduct = new InvoiceHasProduct();
             $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices[0]);
+            $invoiceHasProduct->setInvoice($invoices1[$i]);
             $invoiceHasProduct->setProduct($products[$i]);
             $manager->persist($invoiceHasProduct);
         }
         
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 4; $i++) { 
             $invoiceHasProduct = new InvoiceHasProduct();
             $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices[1]);
+            $invoiceHasProduct->setInvoice($invoices2[$i]);
             $invoiceHasProduct->setProduct($products[$i + 5]);
             $manager->persist($invoiceHasProduct);
         }
