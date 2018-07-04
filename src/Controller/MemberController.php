@@ -9,18 +9,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ConfiguredSerializer;
 
 /**
- * @Route("/member")
+ * @Route("/api/admin/member")
  */
 class MemberController extends Controller
 {
     /**
-     * @Route("/", name="member_index", methods="GET")
+     * @Route("s", name="member_list", methods="GET")
      */
-    public function index(MemberRepository $memberRepository): Response
+    public function list(MemberRepository $memberRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        return $this->render('member/index.html.twig', ['members' => $memberRepository->findAll()]);
+        $Members = $memberRepository->findByCompany(2);
+        
+        //on utilise un service créé par nos soin pour configurer le serializer
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($Members, 'json');
+
+        return new Response($json);
     }
 
     /**
@@ -49,9 +55,10 @@ class MemberController extends Controller
     /**
      * @Route("/{id}", name="member_show", methods="GET")
      */
-    public function show(Member $member): Response
+    public function show(Member $member, ConfiguredSerializer $configuredSerializer): Response
     {
-        return $this->render('member/show.html.twig', ['member' => $member]);
+      //on utilise un service créé par nos soin pour configurer le serializer
+      $json = $configuredSerializer->getConfiguredSerializer()->serialize($member, 'json');
     }
 
     /**
