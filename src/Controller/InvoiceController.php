@@ -23,7 +23,12 @@ class InvoiceController extends Controller
      */
     public function list(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
-        $invoices = $invoiceRepository->findAllInvoicesByCompany(1);
+        $invoices = $invoiceRepository->findByCompany(1);
+
+        foreach ($invoices as $invoice) {
+            $invoice->getCustomer()->setCompany(null);
+            $invoice->delInvoiceHasProduct();
+        }
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoices, 'json');

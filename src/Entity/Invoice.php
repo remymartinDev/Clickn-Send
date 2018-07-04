@@ -269,12 +269,12 @@ class Invoice
         return $this;
     }
 
-    public function getCompany(): ?Company
+    public function getCompany()
     {
         return $this->company;
     }
 
-    public function setCompany(?Company $company): self
+    public function setCompany($company): self
     {
         $this->company = $company;
 

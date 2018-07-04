@@ -272,7 +272,10 @@ class Customer
     public function getInvoices()
     {
         foreach ($this->invoices as $invoice) {
+            //clear the invoicehasproduct array
             $invoice->delInvoiceHasProduct();
+            //replace the company objet by company id
+            $invoice->setCompany($invoice->getCompany()->getId());
         }
         return $this->invoices;
     }
@@ -333,7 +336,7 @@ class Customer
 
     public function getCompany()
     {
-        return $this->company->getId();
+        return $this->company;
     }
 
     public function setCompany(?Company $company): self

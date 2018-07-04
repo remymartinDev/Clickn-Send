@@ -29,21 +29,21 @@ class InvoiceRepository extends ServiceEntityRepository
 //     */
     
                                             //on utilise l'ID pour l'instant (SQL) car pas d'user connecté
-    public function findAllInvoicesByCompany($company)
+    /* public function findAllInvoicesByCompany($company)
     {
         $em = $this->getEntityManager();
 
         $query = $em->createQuery(
-             "SELECT DATE_FORMAT(i.date, '%Y-%m-%dT%H:%i:%s') as date, i.id, i.reference, i.amount_all_taxes, i.amount_dutty_free, i.paid, DATE_FORMAT(i.deadline1, '%Y-%m-%dT%H:%i:%s') as deadline1, DATE_FORMAT(i.deadline2, '%Y-%m-%dT%H:%i:%s') as deadline2, cu.id as customerID, cu.lastname, cu.firstname,cu.customer_company, cu.pro, co.company_name, s.invoice_status
+             "SELECT DATE_FORMAT(i.date, '%Y-%m-%dT%H:%i:%s') as date, i.id, i.reference, i.amount_all_taxes, i.amount_dutty_free, i.paid, DATE_FORMAT(i.deadline1, '%Y-%m-%dT%H:%i:%s') as deadline1, DATE_FORMAT(i.deadline2, '%Y-%m-%dT%H:%i:%s') as deadline2, cu.id as customerID, cu.lastname, cu.firstname,cu.customer_company, cu.pro, s.invoice_status, co
                 FROM App\Entity\Invoice i
                 JOIN App\Entity\Customer cu, App\Entity\Company co, App\Entity\Status s
                 WHERE i.customer = cu
                 AND i.status = s
-                AND i.company = co
+                AND i.company = co 
                 AND i.company = :company"
         )->setParameter('company', $company);
         return $query->execute();
-    }   
+    }   */ 
         
     /*
     public function findOneBySomeField($value): ?Invoice
