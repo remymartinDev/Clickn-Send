@@ -71,7 +71,7 @@ class Customer
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $company_name;
+    private $customer_company;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -230,14 +230,14 @@ class Customer
         return $this;
     }
 
-    public function getCompanyName(): ?string
+    public function getCustomerCompany(): ?string
     {
-        return $this->company_name;
+        return $this->customer_company;
     }
 
-    public function setCompanyName(?string $company_name): self
+    public function setCustomerCompany(?string $customer_company): self
     {
-        $this->company_name = $company_name;
+        $this->customer_company = $customer_company;
 
         return $this;
     }
