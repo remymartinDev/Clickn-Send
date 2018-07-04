@@ -235,7 +235,7 @@ class Customer
         return $this->customer_company;
     }
 
-    public function setCustomerCompany(?string $company_name): self
+    public function setCustomerCompany(?string $customer_company): self
     {
         $this->customer_company = $customer_company;
 
