@@ -33,7 +33,7 @@ class NavVertical extends React.Component {
             <UncontrolledDropdown
               direction="right"
             >
-              <DropdownToggle className="navVLink dropdownBtn">
+              <DropdownToggle className="navVLink dropdownBtn" active={false}>
                 Factures
               </DropdownToggle>
               <DropdownMenu>
