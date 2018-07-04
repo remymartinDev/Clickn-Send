@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class MainController extends Controller
+class ZainController extends Controller
 {
     /**
-     * @Route("/{slug}", name="home", requirements={"slug"=".*"})
+     * @Route("/{slug}", name="zome", requirements={"slug"=".*"})
      */
-    public function home()
+    public function zome()
     {
         require('build/index.html');
         exit;

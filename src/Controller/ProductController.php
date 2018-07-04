@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ConfiguredSerializer;
 
-
 /**
  * @Route("/api/product")
  */
@@ -20,9 +19,9 @@ class ProductController extends Controller
     /**
      * @Route("s", name="product_list", methods="GET")
      */
-    public function list(ProductRepository $productRepository, ConfiguredSerializer $configuredSerializer)
+    public function list(ProductRepository $productRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $products = $productRepository->findAllProductsByCompany(1);
+        $products = $productRepository->findByCompany(1);
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($products, 'json');

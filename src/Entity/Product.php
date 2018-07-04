@@ -48,6 +48,12 @@ class Product
      */
     private $invoiceHasProducts;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $company;
+
     public function __construct()
     {
         $this->invoiceHasProducts = new ArrayCollection();
@@ -145,6 +151,18 @@ class Product
                 $invoiceHasProduct->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }
