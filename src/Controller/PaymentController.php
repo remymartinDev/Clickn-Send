@@ -9,19 +9,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ConfiguredSerializer;
+
 
 /**
- * @Route("/payment")
+ * @Route("/api/payment")
  */
 class PaymentController extends Controller
 {
+
     /**
-     * @Route("/", name="payment_index", methods="GET")
+     * @Route("s", name="payment_list", methods="GET")
      */
-    public function index(PaymentRepository $paymentRepository): Response
+    public function index(PaymentRepository $paymentRepository, ConfiguredSerializer $configuredSerializer)
     {
-        return $this->render('payment/index.html.twig', ['payments' => $paymentRepository->findAll()]);
+        $payments = $paymentRepository->findByInvoice(1);
+        
+        //on utilise un service créé par nos soin pour configurer le serializer
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($payments, 'json');
+
+        return new Response($json);
     }
+
 
     /**
      * @Route("/new", name="payment_new", methods="GET|POST")
@@ -49,9 +58,11 @@ class PaymentController extends Controller
     /**
      * @Route("/{id}", name="payment_show", methods="GET")
      */
-    public function show(Payment $payment): Response
+    public function show(Payment $payment, ConfiguredSerializer $configuredSerializer): Response
     {
-        return $this->render('payment/show.html.twig', ['payment' => $payment]);
+        $json = $json = $configuredSerializer->getConfiguredSerializer()->serialize($payment, 'json');
+
+        return new Response($json);
     }
 
     /**
