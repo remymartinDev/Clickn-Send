@@ -23,17 +23,26 @@ class NavVertical extends React.Component {
       <React.Fragment>
         <header className="navVHead">
           <div className="companyName navVHead-item">Nom de l'entreprise</div>
-          <User tag={Link} to="/profile" className="user navVHead-item" />
-          <Question tag={Link} to="/contact" className="question navVHead-item" />
+          <Link to="/profile" href="/profile">
+            <User className="user navVHead-item" />
+          </Link>
+          <Link to="/contact" href="/contact">
+            <Question className="question navVHead-item" />
+          </Link>
+          
+   
         </header>
         <div className="navV-contain">
-          <img src={logo} alt="logo" className="NavV-logo" />
+          <Link to="/dashboard" href="/dashboard">
+            <img src={logo} alt="logo" className="NavV-logo" /> 
+          </Link>
+         
           <Nav vertical>
             <NavLink tag={Link} to="/dashboard" className="navVLink">Accueil</NavLink>
             <UncontrolledDropdown
               direction="right"
             >
-              <DropdownToggle className="navVLink dropdownBtn">
+              <DropdownToggle className="navVLink dropdownBtn" active={false}>
                 Factures
               </DropdownToggle>
               <DropdownMenu>
