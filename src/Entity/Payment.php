@@ -97,12 +97,12 @@ class Payment
         return $this;
     }
 
-    public function getInvoice(): ?Invoice
+    public function getInvoice()
     {
         return $this->invoice;
     }
 
-    public function setInvoice(?Invoice $invoice): self
+    public function setInvoice($invoice): self
     {
         $this->invoice = $invoice;
 

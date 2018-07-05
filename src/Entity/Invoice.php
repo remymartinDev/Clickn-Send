@@ -274,7 +274,7 @@ class Invoice
         return $this->company;
     }
 
-    public function setCompany($company): self
+    public function setCompany($company)
     {
         $this->company = $company;
 

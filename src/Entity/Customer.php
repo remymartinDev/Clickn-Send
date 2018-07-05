@@ -337,7 +337,7 @@ class Customer
         return $this->company;
     }
 
-    public function setCompany(?Company $company): self
+    public function setCompany($company)
     {
         $this->company = $company;
 
