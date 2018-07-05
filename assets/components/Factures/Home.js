@@ -28,7 +28,7 @@ class Home extends React.Component {
       return deadLine < today;
     });
     console.log(facturesEchuesJSX);
-   
+
     const orderedFactures = this.state.factures.sort((a, b) => (b.id - a.id));
     const facturesJSX = orderedFactures.map(facture => (
       <FactureItem
