@@ -2,7 +2,7 @@
 
 .facture-contain {
     display: grid;
-    grid-template-columns: 3fr 2fr 2fr 2fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 2fr 1fr 1fr 1fr;
     border: 1px solid $color-mauve-4;
     padding: 0.5rem;
     margin: 0.5rem 2rem;
@@ -20,5 +20,7 @@
 }
 
 @media (min-width: 768px) {
-    
+    .facture-contain {
+        grid-template-columns: 3fr 2fr 2fr 2fr 1fr 1fr 1fr;
+    }
 }
