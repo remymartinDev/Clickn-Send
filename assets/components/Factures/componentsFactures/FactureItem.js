@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Media from 'react-media';
 import FaEye from 'react-icons/lib/fa/eye';
 import FaPencil from 'react-icons/lib/fa/pencil';
 import FaDownload from 'react-icons/lib/fa/download';
@@ -17,9 +18,13 @@ const FactureItem = ({
   return (
     <div className="facture-contain">
       <div className="facture-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
-      <div className="facture-item">{humainDate}</div>
+      <Media query="(min-width: 769px)">
+        {matches => (matches && <div className="facture-item">{humainDate}</div>)}
+      </Media>
       <div className="facture-item"> {amountAllTaxes} € </div>
-      <div className="facture-item">{status.invoiceStatus}</div>
+      <Media query="(min-width: 769px)">
+        {matches => (matches && <div className="facture-item">{status.invoiceStatus}</div>)}
+      </Media>
       <FaEye />
       <FaPencil />
       <FaDownload />

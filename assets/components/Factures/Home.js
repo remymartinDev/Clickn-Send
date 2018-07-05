@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import ChevronDown from 'react-icons/lib/fa/chevron-down';
+import Media from 'react-media';
 
 import ButtonCreate from '~/components/ButtonCreate';
 import FactureItem from './componentsFactures/FactureItem';
+import FactureEchue from './componentsFactures/FactureEchue';
 
 import './factures.scss';
 
@@ -21,15 +23,33 @@ class Home extends React.Component {
       });
   }
 
+  addReminder = id => () => {
+    const factures = this.state.factures.map((facture) => {
+      if (facture.id === id) {
+        return { ...facture, reminder: 1 };
+      }
+      return facture;
+    });
+    this.setState({
+      factures,
+    });
+  }
+
   render() {
     const today = new Date();
-    const facturesEchuesJSX = this.state.factures.filter((facture) => {
+    const listFacturesEchuesJSX = this.state.factures.filter((facture) => {
       const deadLine = new Date(facture.deadline1);
       return deadLine < today;
     });
-    console.log(facturesEchuesJSX);
+    const facturesEchuesJSX = listFacturesEchuesJSX.map(facture => (
+      <FactureEchue
+        key={facture.id}
+        {...facture}
+        onClick={this.addReminder}
+      />
+    ));
 
-    const orderedFactures = this.state.factures.sort((a, b) => (b.id - a.id));
+    const orderedFactures = [...this.state.factures].sort((a, b) => (b.id - a.id));
     const facturesJSX = orderedFactures.map(facture => (
       <FactureItem
         key={facture.id}
@@ -44,9 +64,13 @@ class Home extends React.Component {
         <div className="factures-box">
           <div className="facture-contain">
             <div className="facture-item">Client <ChevronDown className="chevron" /></div>
-            <div className="facture-item">Date  <ChevronDown className="chevron" /></div>
+            <Media query="(min-width: 769px)">
+              {matches => (matches && <div className="facture-item">Date <ChevronDown className="chevron" /></div>)}
+            </Media>
             <div className="facture-item">Montant  <ChevronDown className="chevron" /></div>
-            <div className="facture-item">Statut  <ChevronDown className="chevron" /></div>
+            <Media query="(min-width: 769px)">
+              {matches => (matches && <div className="facture-item">Statut <ChevronDown className="chevron" /></div>)}
+            </Media>
           </div>
           {lastFactures}
         </div>
@@ -57,7 +81,7 @@ class Home extends React.Component {
             <div className="facture-echue-item">Retard  <ChevronDown className="chevron" /></div>
           </div>
           <div className="facture-echues-contain">
-
+            {facturesEchuesJSX}
           </div>
         </div>
         <button className="btn-fact-home">Voir toutes mes factures</button>
