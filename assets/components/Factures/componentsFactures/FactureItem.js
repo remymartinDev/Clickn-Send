@@ -22,9 +22,8 @@ const FactureItem = ({ customer_company, pro, firstname, date, amount_all_taxes,
   );
 };
 
-
 FactureItem.propTypes = {
-  company_name: PropTypes.string.isRequired,
+  company_name: PropTypes.string,
   date: PropTypes.string.isRequired,
   amount_all_taxes: PropTypes.string.isRequired,
   invoice_status: PropTypes.string.isRequired,
