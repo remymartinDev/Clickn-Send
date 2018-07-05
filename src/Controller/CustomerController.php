@@ -23,7 +23,7 @@ class CustomerController extends Controller
      */
     public function list(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $customers = $customerRepository->findByCompany(3);
+        $customers = $customerRepository->findByCompany(1);
         
 
         foreach ($customers as $customer) {

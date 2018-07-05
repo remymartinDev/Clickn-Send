@@ -15,6 +15,10 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
+    axios.post('api/invoices/toctoc', { data: 'blablabla' })
+      .then((response) => {
+        console.log(response);
+      });
     axios.get('/api/invoices')
       .then(({ data: factures }) => {
         this.setState({

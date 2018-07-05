@@ -44,6 +44,12 @@ class Payment
      */
     private $invoice;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $company;
+
     public function getId()
     {
         return $this->id;
@@ -105,6 +111,18 @@ class Payment
     public function setInvoice($invoice): self
     {
         $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }

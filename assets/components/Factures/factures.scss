@@ -28,8 +28,14 @@
 @media (min-width: 768px) {
     .page-container-facture {
         grid-template-columns: 2fr 1fr;
-        grid-auto-rows: auto;
+        grid-template-areas: none;
         align-items: baseline;
         justify-content: space-between;
+    }
+    .facture-create-button {
+        grid-area: auto;
+    }
+    .btn-fact-home {
+        grid-area: auto;
     }
 }
