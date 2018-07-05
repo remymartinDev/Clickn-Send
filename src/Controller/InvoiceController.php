@@ -23,7 +23,7 @@ class InvoiceController extends Controller
      */
     public function list(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
-        $invoices = $invoiceRepository->findByCompany(3);
+        $invoices = $invoiceRepository->findByCompany(1);
 
         foreach ($invoices as $invoice) {
             $invoice->getCustomer()->setCompany(null);

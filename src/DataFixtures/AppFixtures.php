@@ -303,6 +303,7 @@ class AppFixtures extends Fixture
             $payment1->setPaymentMethode($paymentMethods[mt_rand(0, 3)]);
             $payment1->setCustomer($customers1[mt_rand(0, 3)]);
             $payment1->setInvoice($invoices1[mt_rand(0, 3)]);
+            $payment1->setCompany(($companies[0]));
             $manager->persist($payment1);
         }
         
@@ -313,6 +314,7 @@ class AppFixtures extends Fixture
             $payment2->setPaymentMethode($paymentMethods[mt_rand(0, 3)]);
             $payment2->setCustomer($customers2[mt_rand(0, 3)]);
             $payment2->setInvoice($invoices2[mt_rand(0, 3)]);
+            $payment2->setCompany(($companies[1]));
             $manager->persist($payment2);
         }
         

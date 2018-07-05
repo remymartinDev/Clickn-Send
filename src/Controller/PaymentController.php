@@ -23,7 +23,7 @@ class PaymentController extends Controller
      */
     public function index(PaymentRepository $paymentRepository, ConfiguredSerializer $configuredSerializer)
     {
-        $payments = $paymentRepository->findByInvoice(1);
+        $payments = $paymentRepository->findByCompany(1);
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($payments, 'json');
@@ -53,16 +53,6 @@ class PaymentController extends Controller
             'payment' => $payment,
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/{id}", name="payment_show", methods="GET")
-     */
-    public function show(Payment $payment, ConfiguredSerializer $configuredSerializer): Response
-    {
-        $json = $json = $configuredSerializer->getConfiguredSerializer()->serialize($payment, 'json');
-
-        return new Response($json);
     }
 
     /**

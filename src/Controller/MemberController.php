@@ -21,7 +21,7 @@ class MemberController extends Controller
      */
     public function list(MemberRepository $memberRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $Members = $memberRepository->findByCompany(2);
+        $Members = $memberRepository->findByCompany(1);
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($Members, 'json');
