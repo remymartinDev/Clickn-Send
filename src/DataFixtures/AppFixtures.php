@@ -32,7 +32,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {   
-
+        
+        
         $roleAdmin = new Role();
         $roleAdmin->setRolename('ROLE_ADMIN');
         $roleAdmin->setRoleLabel('Administrateur');
@@ -90,6 +91,13 @@ class AppFixtures extends Fixture
         $lettreChange = new PaymentMethod();
         $lettreChange->setMethod('lettre de change');
         $manager->persist($lettreChange);
+
+        $paymentMethods = [
+            $cb, 
+            $especes, 
+            $cheque, 
+            $lettreChange
+        ];
         
         
         $companies = [];        
@@ -188,15 +196,15 @@ class AppFixtures extends Fixture
         
         for ($i=0; $i < 4; $i++) { 
             $invoice = new Invoice();
-            $invoice->setDate(new DateTime('now'));
+            $invoice->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             $invoice->setReference('78'.$i.'12'.$i.'5'.$i.'4'.$i.'3');
-            $invoice->setAmountAllTaxes(2400 + $i);
-            $invoice->setAmountDuttyFree(1600 + $i);
-            $invoice->setTaxesAmount(400 + $i);
+            $invoice->setAmountAllTaxes(mt_rand(200, 1500));
+            $invoice->setAmountDuttyFree(mt_rand(150, 1450));
+            $invoice->setTaxesAmount(mt_rand(50, 450));
             $invoice->setPaid(false);
-            $invoice->setDownPayment(450 + $i);
+            $invoice->setDownPayment(mt_rand(20, 900));
             $invoice->setReminder(0);
-            $invoice->setDeadline1(new DateTime('now'));
+            $invoice->setDeadline1(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
             $invoice->setCustomer($customers1[$i]);
@@ -211,15 +219,15 @@ class AppFixtures extends Fixture
         
         for ($i=0; $i < 4; $i++) { 
             $invoice = new Invoice();
-            $invoice->setDate(new DateTime('now'));
+            $invoice->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             $invoice->setReference('78'.$i.'12'.$i.'5'.$i.'4'.$i.'3');
-            $invoice->setAmountAllTaxes(200 + $i);
-            $invoice->setAmountDuttyFree(160 + $i);
-            $invoice->setTaxesAmount(40 + $i);
+            $invoice->setAmountAllTaxes(mt_rand(200, 1500));
+            $invoice->setAmountDuttyFree(mt_rand(150, 1450));
+            $invoice->setTaxesAmount(mt_rand(50, 450));
             $invoice->setPaid(false);
-            $invoice->setDownPayment(45 + $i);
+            $invoice->setDownPayment(mt_rand(20, 900));
             $invoice->setReminder(0);
-            $invoice->setDeadline1(new DateTime('now'));
+            $invoice->setDeadline1(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
             $invoice->setCustomer($customers2[$i]);
@@ -288,7 +296,25 @@ class AppFixtures extends Fixture
             $manager->persist($invoiceHasProduct);
         }
 
+       /* for ($i=0; $i < 12; $i++) { 
+            $payment1 = new Payment();
+            $payment1->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
+            $payment1->setAmount(mt_rand(50, 599));
+            $payment1->setPaymentMethode($paymentMethods[mt_rand(0, 3)]);
+            $payment1->setCustomer($customers1[mt_rand(0, 3)]);
+            $payment1->setInvoice($invoices1[mt_rand(0, 3)]);
+            $manager->persist($payment1);
+        }
         
+        for ($i=0; $i < 12; $i++) { 
+            $payment2 = new Payment();
+            $payment2->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
+            $payment2->setAmount(mt_rand(50, 599));
+            $payment2->setPaymentMethode($paymentMethods[mt_rand(0, 3)]);
+            $payment2->setCustomer($customers2[mt_rand(0, 3)]);
+            $payment2->setInvoice($invoices2[mt_rand(0, 3)]);
+            $manager->persist($payment2);
+        } */
         
   
             $userAdmin = new Member();
