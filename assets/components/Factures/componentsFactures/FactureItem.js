@@ -5,16 +5,21 @@ import FaPencil from 'react-icons/lib/fa/pencil';
 import FaDownload from 'react-icons/lib/fa/download';
 
 import './FactureItem.scss';
-/*eslint-disable*/
-const FactureItem = ({ customer_company, pro, firstname, date, amount_all_taxes, invoice_status }) => {
+
+const FactureItem = ({
+  customer,
+  date,
+  amountAllTaxes,
+  status,
+}) => {
   const formatedDate = new Date(date);
   const humainDate = `${formatedDate.getDate()}/${formatedDate.getMonth()}/${formatedDate.getFullYear()}`;
   return (
     <div className="facture-contain">
-      <div className="facture-item">{pro ? customer_company : firstname}</div>
+      <div className="facture-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
       <div className="facture-item">{humainDate}</div>
-      <div className="facture-item"> {amount_all_taxes} € </div>
-      <div className="facture-item">{invoice_status}</div>
+      <div className="facture-item"> {amountAllTaxes} € </div>
+      <div className="facture-item">{status.invoiceStatus}</div>
       <FaEye />
       <FaPencil />
       <FaDownload />
@@ -23,10 +28,10 @@ const FactureItem = ({ customer_company, pro, firstname, date, amount_all_taxes,
 };
 
 FactureItem.propTypes = {
-  company_name: PropTypes.string,
+  customer: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
-  amount_all_taxes: PropTypes.string.isRequired,
-  invoice_status: PropTypes.string.isRequired,
+  amountAllTaxes: PropTypes.string.isRequired,
+  status: PropTypes.object.isRequired,
 };
 
 export default FactureItem;
