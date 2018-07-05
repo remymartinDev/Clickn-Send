@@ -296,7 +296,7 @@ class AppFixtures extends Fixture
             $manager->persist($invoiceHasProduct);
         }
 
-       /* for ($i=0; $i < 12; $i++) { 
+       for ($i=0; $i < 12; $i++) { 
             $payment1 = new Payment();
             $payment1->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             $payment1->setAmount(mt_rand(50, 599));
@@ -314,7 +314,7 @@ class AppFixtures extends Fixture
             $payment2->setCustomer($customers2[mt_rand(0, 3)]);
             $payment2->setInvoice($invoices2[mt_rand(0, 3)]);
             $manager->persist($payment2);
-        } */
+        }
         
   
             $userAdmin = new Member();
