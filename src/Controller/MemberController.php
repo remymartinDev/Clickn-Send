@@ -55,10 +55,12 @@ class MemberController extends Controller
     /**
      * @Route("/{id}", name="member_show", methods="GET")
      */
-    public function show(Member $member, ConfiguredSerializer $configuredSerializer): Response
+    public function show(Member $member, ConfiguredSerializer $configuredSerializer)
     {
       //on utilise un service créé par nos soin pour configurer le serializer
       $json = $configuredSerializer->getConfiguredSerializer()->serialize($member, 'json');
+      
+      return new Response($json);
     }
 
     /**
