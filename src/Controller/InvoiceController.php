@@ -23,10 +23,12 @@ class InvoiceController extends Controller
      */
     public function list(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
-        $invoices = $invoiceRepository->findByCompany(1);
+        $invoices = $invoiceRepository->findByCompany(3);
 
         foreach ($invoices as $invoice) {
             $invoice->getCustomer()->setCompany(null);
+            $invoice->getCustomer()->delPayments();
+            $invoice->delPayments();
             $invoice->delInvoiceHasProduct();
         }
         
@@ -62,6 +64,12 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice, ConfiguredSerializer $configuredSerializer): Response
     {
+        $invoice->getCustomer()->delPayments();
+        
+        foreach ($invoice->getPayments() as $payement) {
+            $payement->setCustomer($payement->getCustomer()->getId());
+        }
+
         $json = $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoice, 'json');
 
         return new Response($json);

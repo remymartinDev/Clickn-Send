@@ -274,7 +274,7 @@ class Invoice
         return $this->company;
     }
 
-    public function setCompany($company): self
+    public function setCompany($company)
     {
         $this->company = $company;
 
@@ -284,7 +284,7 @@ class Invoice
     /**
      * @return Collection|Payment[]
      */
-    public function getPayments(): Collection
+    public function getPayments()
     {
         return $this->payments;
     }
@@ -346,6 +346,11 @@ class Invoice
     public function delInvoiceHasProduct()
     {
         $this->invoiceHasProducts = [];
+    }
+
+    public function delPayments()
+    {
+        $this->payments = [];
     }
 
 }

@@ -49,9 +49,9 @@ class Payment
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate()
     {
-        return $this->date;
+        return $this->date->format('c');
     }
 
     public function setDate(\DateTimeInterface $date): self
@@ -85,24 +85,24 @@ class Payment
         return $this;
     }
 
-    public function getCustomer(): ?Customer
+    public function getCustomer()
     {
         return $this->customer;
     }
 
-    public function setCustomer(?Customer $customer): self
+    public function setCustomer($customer): self
     {
         $this->customer = $customer;
 
         return $this;
     }
 
-    public function getInvoice(): ?Invoice
+    public function getInvoice()
     {
         return $this->invoice;
     }
 
-    public function setInvoice(?Invoice $invoice): self
+    public function setInvoice($invoice): self
     {
         $this->invoice = $invoice;
 

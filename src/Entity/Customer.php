@@ -274,8 +274,6 @@ class Customer
         foreach ($this->invoices as $invoice) {
             //clear the invoicehasproduct array
             $invoice->delInvoiceHasProduct();
-            //replace the company objet by company id
-            $invoice->setCompany($invoice->getCompany()->getId());
         }
         return $this->invoices;
     }
@@ -306,7 +304,7 @@ class Customer
     /**
      * @return Collection|Payment[]
      */
-    public function getPayments(): Collection
+    public function getPayments()
     {
         return $this->payments;
     }
@@ -339,10 +337,15 @@ class Customer
         return $this->company;
     }
 
-    public function setCompany(?Company $company): self
+    public function setCompany($company)
     {
         $this->company = $company;
 
         return $this;
+    }
+
+    public function delPayments()
+    {
+        $this->payments = [];
     }
 }

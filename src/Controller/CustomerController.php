@@ -23,9 +23,21 @@ class CustomerController extends Controller
      */
     public function list(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $customers = $customerRepository->findByCompany(1);
+        $customers = $customerRepository->findByCompany(3);
         
-        //on utilise un service créé par nos soin pour configurer le serializer
+
+        foreach ($customers as $customer) {
+
+            foreach ($customer->getInvoices() as $invoice) {
+                $invoice->setCompany($customer->getCompany()->getId());
+                $invoice->delPayments();
+            }
+            
+            foreach ($customer->getPayments() as $payment) {
+                $payment->setInvoice($payment->getInvoice()->getId());
+            }
+        }
+
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($customers, 'json');
 
         return new Response($json);
@@ -59,6 +71,14 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer, ConfiguredSerializer $configuredSerializer): Response
     {
+        foreach ($customer->getInvoices() as $invoice) {
+            $invoice->setCompany($invoice->getCompany()->getId());
+            $invoice->delPayments();
+        }
+
+        foreach ($customer->getPayments() as $payment) {
+            $payment->setInvoice($payment->getInvoice()->getId());
+        }
       
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($customer, 'json');
