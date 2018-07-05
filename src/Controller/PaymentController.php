@@ -24,6 +24,22 @@ class PaymentController extends Controller
     public function index(PaymentRepository $paymentRepository, ConfiguredSerializer $configuredSerializer)
     {
         $payments = $paymentRepository->findByCompany(1);
+
+        foreach ($payments as $payment) {
+
+            $customer = $payment->getCustomer();
+            
+            $customer->delPayments();
+            $customer->delInvoices();
+            $customer->setCompany(null);
+
+            $invoice = $payment->getInvoice();                        
+
+            $invoice->delPayments();
+            $invoice->delInvoiceHasProduct();
+            $invoice->setCompany(null);
+            $invoice->setCustomer(null);
+        }
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($payments, 'json');

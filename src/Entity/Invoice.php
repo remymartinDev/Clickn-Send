@@ -245,12 +245,12 @@ class Invoice
         return $this;
     }
 
-    public function getCustomer(): ?Customer
+    public function getCustomer()
     {
         return $this->customer;
     }
 
-    public function setCustomer(?Customer $customer): self
+    public function setCustomer($customer): self
     {
         $this->customer = $customer;
 

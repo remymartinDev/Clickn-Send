@@ -348,4 +348,9 @@ class Customer
     {
         $this->payments = [];
     }
+
+    public function delInvoices()
+    {
+        $this->invoices = [];
+    }
 }
