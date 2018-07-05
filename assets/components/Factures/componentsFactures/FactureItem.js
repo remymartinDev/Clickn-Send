@@ -6,7 +6,12 @@ import FaPencil from 'react-icons/lib/fa/pencil';
 import FaDownload from 'react-icons/lib/fa/download';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt  } from '@fortawesome/free-solid-svg-icons';
+import StatusDevis from '~/images/statusdevis.svg';
+import StatusInvoice from '~/images/statusinvoice.svg';
+import StatusRecurrent from '~/images/statusrecurrent.svg';
+import StatusRejected from '~/images/statusrejected.svg';
+
 
 import './FactureItem.scss';
 
@@ -18,11 +23,19 @@ const FactureItem = ({
 }) => {
   const formatedDate = new Date(date);
   const humainDate = `${formatedDate.getDate()}/${formatedDate.getMonth()}/${formatedDate.getFullYear()}`;
+  const statusIcons = {
+    devis: StatusDevis,
+    'devis refusé': StatusRejected,
+    brouillon: faFileAlt,
+    facture: StatusInvoice,
+    'facture récurrente': StatusRecurrent,
+  };
   return (
     <div className="facture-contain">
       <Media query="(max-width: 769px)">
-        {matches => (matches && <FontAwesomeIcon icon={faCoffee} />)}
+        {matches => (matches && <FontAwesomeIcon icon={faFileAlt} />)}
       </Media>
+     
       <div className="facture-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
       <Media query="(min-width: 769px)">
         {matches => (matches && <div className="facture-item">{humainDate}</div>)}
