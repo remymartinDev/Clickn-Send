@@ -15,7 +15,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    axios.post('/api/invoices/toctoc', { data: 'blablabla' })
+    axios.post('/api/invoice/api/invoices/toctoc', { data: 'blablabla' })
       .then((response) => {
         console.log(response);
       });
@@ -24,6 +24,13 @@ class Home extends React.Component {
         this.setState({
           factures,
         });
+        // test pour envoie donnée
+        const testFacture = { ...factures[0], id: null };
+        console.log(testFacture);
+        axios.post('/api/invoice/new', testFacture)
+          .then((response) => {
+            console.log(response);
+          });
       });
   }
 

@@ -45,12 +45,12 @@ class InvoiceController extends Controller
     /**
      * @Route("/api/invoices/toctoc", name="toctoc", methods="POST|GET")
      */
-    public function toctoc(Request $request, SerializerInterface $serializer)
+    public function toctoc(Request $request, ConfiguredSerializer $serializer)
     {
         $data = $request->getContent();
         $data2 = json_decode($data, true);
         
-        $json = $configuredSerializer->getConfiguredSerializer()->serialize($data2, 'json');
+        $json = $serializer->getConfiguredSerializer()->serialize($data2, 'json');
 
         return new Response($json);
        // $data = $serializer->deserialize($post, App\Entity\Toctoc::class, 'json');
