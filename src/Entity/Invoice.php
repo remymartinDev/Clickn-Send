@@ -124,10 +124,12 @@ class Invoice
 
     public function getDate()
     {
-        return $this->date->format('c');
+        if (isset($date)) {
+            return $this->date->format('c');
+        }
     }
 
-    public function setDate(): self
+    public function setDate($none_used_date)
     {
         $this->date = new \Datetime();
         return $this;
@@ -219,10 +221,12 @@ class Invoice
 
     public function getDeadline1()
     {
-        return $this->deadline1->format('c');
+        if (isset($deadline1)) {
+            return $this->deadline1->format('c');
+        }
     }
 
-    public function setDeadline1(): self
+    public function setDeadline1($none_used_date): self
     {
         $this->deadline1 = new \Datetime();
 
@@ -236,7 +240,7 @@ class Invoice
         }
     }
 
-    public function setDeadline2(): self
+    public function setDeadline2($none_used_date): self
     {
         $this->deadline2 = new \Datetime();
 
@@ -272,7 +276,7 @@ class Invoice
         return $this->status;
     }
 
-    public function setStatus(?Status $status): self
+    public function setStatus($status): self
     {
         $this->status = $status;
 

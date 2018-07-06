@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
+use App\Repository\StatusRepository;
+use App\Repository\CompanyRepository;
+use App\Repository\CustomerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,14 +62,23 @@ class InvoiceController extends Controller
     /**
      * @Route("/new", name="invoice_new", methods="POST")
      */
-    public function new(Request $request, SerializerInterface $serializer): Response
+    public function new(Request $request, SerializerInterface $serializer, CustomerRepository $customerRepository, StatusRepository $statusRepository, CompanyRepository $companyRepository): Response
     {
         $data = $request->getContent();
-        $data2 = json_decode($data, true);
-
-        print_r($data2);
-        $invoice = $serializer->deserialize($data, \App\Entity\Invoice::class, 'json');
-
+        $data_array = json_decode($data, true);
+        //hydrate an invoice object with data
+        $invoice = $serializer->deserialize($data, Invoice::class, 'json');
+        
+        //take relational object for invoice 
+        $customer = $customerRepository->findOneById($data_array['customer']['id']);
+        $status = $statusRepository->findOneById($data_array['status']['id']);
+        $company = $companyRepository->findOneById($data_array['company']['id']);
+        
+        //set invoice
+        $invoice->setCustomer($customer);
+        $invoice->setStatus($status);
+        $invoice->setCompany($company);
+        
         $em = $this->getDoctrine()->getManager();
         $em->persist($invoice);
         $em->flush();
