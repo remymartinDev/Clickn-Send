@@ -12,6 +12,10 @@ import './factures.scss';
 class Home extends React.Component {
   state = {
     factures: [],
+    filter: {
+      type: 'date',
+      asc: false,
+    },
   }
 
   componentDidMount() {
@@ -35,12 +39,54 @@ class Home extends React.Component {
     });
   }
 
-  handleChevron = (type) => () => {
-    console.log(type);
+  handleChevron = type => () => {
+    const { type: stateType, asc } = this.state.filter;
+    this.setState({
+      filter: {
+        type,
+        asc: type === stateType ? !asc : false,
+      },
+    });
   }
 
-  orderBy = () => {
-    return [...this.state.factures].sort((a, b) => (new Date(b.date) - new Date(a.date)));
+  orderByDate = () => (
+    [...this.state.factures].sort((a, b) => {
+      const filter = (new Date(b.date) - new Date(a.date));
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  orderByUser = () => (
+    [...this.state.factures].sort((a, b) => {
+      const filter = b.customer.lastname.localeCompare(a.customer.lastname);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+
+  orderByStatut = () => (
+    [...this.state.factures].sort((a, b) => {
+      const filter = (b.status.id - a.status.id);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  orderByAmount = () => (
+    [...this.state.factures].sort((a, b) => {
+      const filter = (b.amountAllTaxes - a.amountAllTaxes);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  order = () => {
+    switch (this.state.filter.type) {
+      case 'date':
+        return this.orderByDate();
+      case 'montant':
+        return this.orderByAmount();
+      case 'client':
+        return this.orderByUser();
+      case 'statut':
+        return this.orderByStatut();
+      default:
+        return this.state.factures;
+    }
   }
 
   render() {
@@ -58,7 +104,7 @@ class Home extends React.Component {
       />
     ));
     // pour les 5 derniers factures
-    const orderedFactures = this.orderBy();
+    const orderedFactures = this.order();
     const facturesJSX = orderedFactures.map(facture => (
       <FactureItem
         key={facture.id}
