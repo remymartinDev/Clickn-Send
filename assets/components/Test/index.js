@@ -14,7 +14,10 @@ class Test extends React.Component {
         console.log(testFacture);
         axios.post('/api/invoice/new', testFacture)
           .then((response) => {
-            console.log(response);
+            console.log(response.data);
+            this.setState({
+              response: response.data,
+            });
           })
           .catch((response) => {
             console.log(response.response);
