@@ -37,9 +37,10 @@ class Home extends React.Component {
 
   render() {
     const today = new Date();
+    // Pour les factures échues
     const listFacturesEchuesJSX = this.state.factures.filter((facture) => {
       const deadLine = new Date(facture.deadline1);
-      return deadLine < today;
+      return !facture.paid && deadLine < today;
     });
     const facturesEchuesJSX = listFacturesEchuesJSX.map(facture => (
       <FactureEchue
@@ -48,7 +49,7 @@ class Home extends React.Component {
         onClick={this.addReminder}
       />
     ));
-
+    // pour les 5 derniers factures
     const orderedFactures = [...this.state.factures].sort((a, b) => (b.id - a.id));
     const facturesJSX = orderedFactures.map(facture => (
       <FactureItem
