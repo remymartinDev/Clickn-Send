@@ -93,6 +93,7 @@ class InvoiceController extends Controller
     public function show(Invoice $invoice, ConfiguredSerializer $configuredSerializer): Response
     {
         $invoice->getCustomer()->delPayments();
+        $invoice->getCustomer()->delInvoices();
         
         foreach ($invoice->getPayments() as $payement) {
             $payement->setCustomer($payement->getCustomer()->getId());

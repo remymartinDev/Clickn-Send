@@ -55,6 +55,8 @@ class AppFixtures extends Fixture
         $manager->persist($roleRol);
 
 
+
+
         $devis = new Status();
         $devis->setInvoiceStatus('devis');
         $manager->persist($devis);
@@ -83,6 +85,8 @@ class AppFixtures extends Fixture
             $factureRecurrente
         ];
 
+       
+
 
         $cb = new PaymentMethod();
         $cb->setMethod('carte bleue');
@@ -108,8 +112,7 @@ class AppFixtures extends Fixture
         ];
         
         
-        $companies = [];        
-        
+        $companies = [];
         for ($i=0; $i < 2; $i++) { 
          $company = new Company();
             $company->setCompanyName('company name'. $i);
@@ -127,14 +130,14 @@ class AppFixtures extends Fixture
             $manager->persist($company);
         }
 
+
         $pro = [
             true,
             false
         ];
 
         $customers1 = [];
-
-        for ($i=0; $i < 4; $i++) { 
+        for ($i=0; $i < 6; $i++) { 
             $customer = new Customer();
             $customer->setLastname('customer lastname'.$i);
             $customer->setFirstname('customer firstname'.$i);
@@ -153,11 +156,9 @@ class AppFixtures extends Fixture
             $customers1[] = $customer;
             $manager->persist($customer); 
         }
-        
 
         $customer2 = [];
-
-        for ($i=0; $i < 4; $i++) { 
+        for ($i=0; $i < 6; $i++) { 
             $customer = new Customer();
             $customer->setLastname('customer lastname'.$i);
             $customer->setFirstname('customer firstname'.$i);
@@ -177,8 +178,7 @@ class AppFixtures extends Fixture
             $manager->persist($customer); 
         }
 
-        $products1 = [];        
-        
+        $products1 = [];
         for ($i=0; $i < 20; $i++) { 
             $product = new Product();
             $product->setDenomination('denomination'. $i);
@@ -191,8 +191,7 @@ class AppFixtures extends Fixture
             $manager->persist($product);
         }
 
-        $products2 = [];        
-        
+        $products2 = []; 
         for ($i=0; $i < 20; $i++) { 
             $product = new Product();
             $product->setDenomination('denomination'. $i);
@@ -211,9 +210,11 @@ class AppFixtures extends Fixture
             new Datetime('2030-12-24')
         ];
 
+
+
         $invoices1 = [];
         
-        for ($i=0; $i < 4; $i++) { 
+        for ($i=0; $i < 8; $i++) { 
             $invoice = new Invoice();
             $invoice->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             $invoice->setReference('78'.$i.'12'.$i.'5'.$i.'4'.$i.'3');
@@ -226,17 +227,16 @@ class AppFixtures extends Fixture
             $invoice->setDeadline1($deadlines[mt_rand(0,2)]);
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
-            $invoice->setCustomer($customers1[$i]);
+            $invoice->setCustomer($customers1[mt_rand(0,5)]);
             $invoice->setStatus($statut[mt_rand(0,4)]);
             $invoice->setCompany($companies[0]);
             $invoices1[] = $invoice;        
             $manager->persist($invoice);
-
         }
 
         $invoices2 = [];
         
-        for ($i=0; $i < 4; $i++) { 
+        for ($i=0; $i < 8; $i++) { 
             $invoice = new Invoice();
             $invoice->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             $invoice->setReference('78'.$i.'12'.$i.'5'.$i.'4'.$i.'3');
@@ -249,71 +249,35 @@ class AppFixtures extends Fixture
             $invoice->setDeadline1($deadlines[mt_rand(0,2)]);
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
-            $invoice->setCustomer($customers2[$i]);
+            $invoice->setCustomer($customers2[mt_rand(0,5)]);
             $invoice->setStatus($statut[mt_rand(0,4)]);
             $invoice->setCompany($companies[1]);
             $invoices2[] = $invoice;        
             $manager->persist($invoice);
-
         }
+
             
-        for ($i=0; $i < 4; $i++) { 
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices1[0]);
-            $invoiceHasProduct->setProduct($products1[$i]);
-            $manager->persist($invoiceHasProduct);
+        for ($i=0; $i < 8; $i++) { 
+                    
+            for ($ind=0; $ind < 6; $ind++) { 
+                $invoiceHasProduct = new InvoiceHasProduct();
+                $invoiceHasProduct->setQuantity(mt_rand(1, 10));
+                $invoiceHasProduct->setInvoice($invoices1[$i]);
+                $invoiceHasProduct->setProduct($products1[mt_rand(0,19)]);
+                $manager->persist($invoiceHasProduct);
+            }
         }
-        for ($i=0; $i < 4; $i++) { 
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices1[1]);
-            $invoiceHasProduct->setProduct($products1[$i+4]);
-            $manager->persist($invoiceHasProduct);
-        }
-        for ($i=0; $i < 4; $i++) { 
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices1[2]);
-            $invoiceHasProduct->setProduct($products1[$i + 8]);
-            $manager->persist($invoiceHasProduct);
-        }
-        for ($i=0; $i < 4; $i++) { 
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices1[3]);
-            $invoiceHasProduct->setProduct($products1[$i + 12]);
-            $manager->persist($invoiceHasProduct);
+        for ($i=0; $i < 8; $i++) { 
+                    
+            for ($ind=0; $ind < 6; $ind++) { 
+                $invoiceHasProduct = new InvoiceHasProduct();
+                $invoiceHasProduct->setQuantity(mt_rand(1, 10));
+                $invoiceHasProduct->setInvoice($invoices2[$i]);
+                $invoiceHasProduct->setProduct($products2[mt_rand(0,19)]);
+                $manager->persist($invoiceHasProduct);
+            }
         }
 
-        for ($i=0; $i < 4; $i++) { 
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices2[0]);
-            $invoiceHasProduct->setProduct($products2[$i]);
-            $manager->persist($invoiceHasProduct);
-        }
-        for ($i=0; $i < 4; $i++) { 
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices2[1]);
-            $invoiceHasProduct->setProduct($products2[$i]);
-            $manager->persist($invoiceHasProduct);
-        }
-        for ($i=0; $i < 4; $i++) { 
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices2[2]);
-            $invoiceHasProduct->setProduct($products2[$i]);
-            $manager->persist($invoiceHasProduct);
-        }
-        for ($i=0; $i < 4; $i++) { 
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setQuantity(1 + $i);
-            $invoiceHasProduct->setInvoice($invoices2[3]);
-            $invoiceHasProduct->setProduct($products2[$i]);
-            $manager->persist($invoiceHasProduct);
-        }
 
        for ($i=0; $i < 12; $i++) { 
             $payment1 = new Payment();
