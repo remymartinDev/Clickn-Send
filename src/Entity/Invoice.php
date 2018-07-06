@@ -129,10 +129,19 @@ class Invoice
         }
     }
 
-    public function setDate($date)
+    public function setDate($Ddate)
     {
-        $this->date = $date;
-        return $this;
+/*         {
+            $this->date = new \Datetime();
+            return $this;
+        } */
+        if (is_string($Ddate)) {
+            $this->date = new \Datetime($Ddate);
+            return $this;     
+        }else {
+            $this->date = $Ddate;
+            return $this;
+        }
     }
 
     public function getReference(): ?string
@@ -226,11 +235,19 @@ class Invoice
         }
     }
 
-    public function setDeadline1($deadline1): self
+    public function setDeadline1($Ddeadline1): self
     {
-        $this->deadline1 = $deadline1;
-
-        return $this;
+        {
+            if (is_string($Ddeadline1)) {
+                $this->deadline1 = new \Datetime($Ddeadline1);
+                return $this;     
+            }else {
+                $this->deadline1 = $Ddeadline1;
+                return $this;
+            }
+/*             $this->date = new \Datetime();
+            return $this; */
+        }
     }
 
     public function getDeadline2()
@@ -242,9 +259,17 @@ class Invoice
 
     public function setDeadline2($deadline2): self
     {
-        $this->deadline2 = $deadline2;
-
-        return $this;
+        if (is_string($deadline2)) {
+            $this->deadline2 = new \Datetime($deadline2);
+            return $this;     
+        }else {
+            $this->deadline2 = $deadline2;
+            return $this;
+        }
+/*         {
+            $this->date = new \Datetime();
+            return $this;
+        } */
     }
 
     public function getComment(): ?string
@@ -367,28 +392,36 @@ class Invoice
         $this->payments = [];
     }
 
-    public function getDeadline3(): ?\DateTimeInterface
+    public function getDeadline3()
     {
         return $this->deadline3;
     }
 
-    public function setDeadline3(?\DateTimeInterface $deadline3): self
+    public function setDeadline3($deadline): self
     {
-        $this->deadline3 = $deadline3;
-
-        return $this;
+        if (is_string($deadline)) {
+            $this->deadline3 = new \Datetime($deadline);
+            return $this;     
+        }else {
+            $this->deadline3 = $deadline;
+            return $this;
+        }
     }
 
-    public function getRecurringDate(): ?\DateTimeInterface
+    public function getRecurringDate()
     {
         return $this->recurringDate;
     }
 
-    public function setRecurringDate(?\DateTimeInterface $recurringDate): self
+    public function setRecurringDate($recDate): self
     {
-        $this->recurringDate = $recurringDate;
-
-        return $this;
+        if (is_string($recDate)) {
+            $this->recurringDate = new \Datetime($recDate);
+            return $this;     
+        }else {
+            $this->recurringDate = $recDate;
+            return $this;
+        }
     }
 
 }
