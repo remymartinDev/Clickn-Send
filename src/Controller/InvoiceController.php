@@ -49,6 +49,7 @@ class InvoiceController extends Controller
     {
         $data = $request->getContent();
         $data2 = json_decode($data, true);
+        
         $json = $serializer->getConfiguredSerializer()->serialize($data2, 'json');
 
         return new Response($json);
@@ -58,11 +59,15 @@ class InvoiceController extends Controller
     /**
      * @Route("/new", name="invoice_new", methods="POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SerializerInterface $serializer): Response
     {
         $data = $request->getContent();
+        $data2 = json_decode($data, true);
+
         
-        $invoice = $serializer->deserialize($data, App\Entity\Invoice::class, 'json');
+
+        print_r($data2);
+        $invoice = $serializer->deserialize($data, \App\Entity\Invoice::class, 'json');
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($invoice);
