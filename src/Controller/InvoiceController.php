@@ -64,8 +64,6 @@ class InvoiceController extends Controller
         $data = $request->getContent();
         $data2 = json_decode($data, true);
 
-        
-
         print_r($data2);
         $invoice = $serializer->deserialize($data, \App\Entity\Invoice::class, 'json');
 
