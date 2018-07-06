@@ -13,7 +13,7 @@ const FactureEchue = ({
   id,
 }) => {
   const formatedDate = new Date(deadline1);
-  const humainDate = `${formatedDate.getDate()}/${formatedDate.getMonth()}/${formatedDate.getFullYear()}`;
+  const humainDate = `${formatedDate.getDate()}/${formatedDate.getMonth() + 1}/${formatedDate.getFullYear()}`;
   return (
     <div className="facture-echue-contain">
       <div className="facture-echue-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
