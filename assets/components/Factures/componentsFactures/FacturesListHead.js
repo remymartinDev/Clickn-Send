@@ -1,7 +1,8 @@
 import React from 'react';
 import Media from 'react-media';
+import PropTypes from 'prop-types';
 import ChevronDown from 'react-icons/lib/fa/chevron-down';
-import ChevronUp from 'react-icons/lib/fa/chevron-up';
+// import ChevronUp from 'react-icons/lib/fa/chevron-up';
 
 import './FacturesListHead.scss';
 
@@ -36,5 +37,9 @@ const FacturesListHead = ({ clickChevron }) => (
     </Media>
   </div>
 );
+
+FacturesListHead.propTypes = {
+  clickChevron: PropTypes.func.isRequired,
+};
 
 export default FacturesListHead;

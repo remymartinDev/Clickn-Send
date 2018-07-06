@@ -16,6 +16,10 @@ class Home extends React.Component {
       type: 'date',
       asc: false,
     },
+    filterEchue: {
+      type: 'nbJours',
+      asc: false,
+    },
   }
 
   componentDidMount() {
@@ -49,54 +53,83 @@ class Home extends React.Component {
     });
   }
 
-  orderByDate = () => (
-    [...this.state.factures].sort((a, b) => {
+  handleChevronEchues = type => () => {
+    const { type: stateType, asc } = this.state.filterEchue;
+    this.setState({
+      filterEchue: {
+        type,
+        asc: type === stateType ? !asc : false,
+      },
+    });
+  }
+
+  orderByDate = factures => (
+    [...factures].sort((a, b) => {
       const filter = (new Date(b.date) - new Date(a.date));
       return this.state.filter.asc ? filter : -filter;
     })
   )
-  orderByUser = () => (
-    [...this.state.factures].sort((a, b) => {
+  orderByUser = factures => (
+    [...factures].sort((a, b) => {
       const filter = b.customer.lastname.localeCompare(a.customer.lastname);
       return this.state.filter.asc ? filter : -filter;
     })
   )
 
-  orderByStatut = () => (
-    [...this.state.factures].sort((a, b) => {
+  orderByUserEchue = factures => (
+    [...factures].sort((a, b) => {
+      const filter = b.customer.lastname.localeCompare(a.customer.lastname);
+      return this.state.filterEchue.asc ? filter : -filter;
+    })
+  )
+  orderByStatut = factures => (
+    console.log('je suis ici'),
+    [...factures].sort((a, b) => {
       const filter = (b.status.id - a.status.id);
       return this.state.filter.asc ? filter : -filter;
     })
   )
-  orderByAmount = () => (
-    [...this.state.factures].sort((a, b) => {
+  orderByAmount = factures => (
+    [...factures].sort((a, b) => {
       const filter = (b.amountAllTaxes - a.amountAllTaxes);
       return this.state.filter.asc ? filter : -filter;
     })
   )
-  order = () => {
-    switch (this.state.filter.type) {
+  
+  orderByNbJours = factures => (
+    [...factures].sort((a, b) => {
+      const filter = (new Date(b.deadline1) - new Date(a.deadline1));
+      return this.state.filterEchue.asc ? filter : -filter;
+    })
+  )
+  order = (factures, type) => {
+    switch (type) {
       case 'date':
-        return this.orderByDate();
+        return this.orderByDate(factures);
       case 'montant':
-        return this.orderByAmount();
+        return this.orderByAmount(factures);
       case 'client':
-        return this.orderByUser();
+        return this.orderByUser(factures);
+      case 'clientEchue':
+        return this.orderByUserEchue(factures);
       case 'statut':
-        return this.orderByStatut();
+        return this.orderByStatut(factures);
+      case 'nbJours':
+        return this.orderByNbJours(factures);
       default:
-        return this.state.factures;
+        return factures;
     }
   }
 
   render() {
     const today = new Date();
     // Pour les factures échues
-    const listFacturesEchuesJSX = this.state.factures.filter((facture) => {
+    const listFacturesEchues = this.state.factures.filter((facture) => {
       const deadLine = new Date(facture.deadline1);
       return !facture.paid && deadLine < today;
     });
-    const facturesEchuesJSX = listFacturesEchuesJSX.map(facture => (
+    const orderedFacturesEchues = this.order(listFacturesEchues, this.state.filterEchue.type);
+    const facturesEchuesJSX = orderedFacturesEchues.map(facture => (
       <FactureEchue
         key={facture.id}
         {...facture}
@@ -104,7 +137,7 @@ class Home extends React.Component {
       />
     ));
     // pour les 5 derniers factures
-    const orderedFactures = this.order();
+    const orderedFactures = this.order(this.state.factures, this.state.filter.type);
     const facturesJSX = orderedFactures.map(facture => (
       <FactureItem
         key={facture.id}
@@ -130,7 +163,7 @@ class Home extends React.Component {
           {/* titre */}
           <h2 className="factures-echues-title">Factures échues</h2>
           {/* en tête */}
-          <FactureEchueListHead />
+          <FactureEchueListHead clickChevron={this.handleChevronEchues} />
           {/* div de la liste des echues */}
           <div className="facture-echues-contain">
             {/* list des echues */}

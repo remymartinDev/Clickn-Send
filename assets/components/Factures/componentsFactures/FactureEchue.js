@@ -12,15 +12,15 @@ const FactureEchue = ({
   reminder,
   onClick,
   id,
-}) => {
-  return (
-    <div className="facture-echue-contain">
-      <div className="facture-echue-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
-      <div className="facture-echue-item"><FormattedRelative value={new Date(deadline1)} /></div>
-      { reminder > 0 ? <FaBellFull className="bell" /> : <FaBell className="bell" onClick={onClick(id)} /> }
+}) => (
+  <div className="facture-echue-contain">
+    <div className="facture-echue-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
+    <div className="facture-echue-item">
+      <FormattedRelative value={new Date(deadline1)} />
     </div>
-  );
-};
+    { reminder > 0 ? <FaBellFull className="bell" /> : <FaBell className="bell" onClick={onClick(id)} /> }
+  </div>
+);
 
 FactureEchue.propTypes = {
   customer: PropTypes.object.isRequired,

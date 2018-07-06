@@ -7,7 +7,7 @@ class Test extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/api/invoices')
+    axios.delete('/api/invoices/2')
       .then(({ data: factures }) => {
         // test pour envoie donnée
         const testFacture = { ...factures[0], id: null };
