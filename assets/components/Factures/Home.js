@@ -39,7 +39,8 @@ class Home extends React.Component {
     console.log(type);
   }
 
-  orderBy = () => {
+  orderBy = (type) => {
+    
     return [...this.state.factures].sort((a, b) => (new Date(b.date) - new Date(a.date)));
   }
 
