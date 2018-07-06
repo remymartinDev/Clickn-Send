@@ -6,7 +6,7 @@
     padding: 1rem;
     background-color: rgba(255,255,255,0);
     box-shadow: 2px 2px 5px $color-orange-0;
-    margin-right: 1rem;
+    margin: 0 2rem 2rem 2rem;
     
 }
 .factures-echues-head {
@@ -24,7 +24,18 @@
     grid-template-columns: 3fr 2fr 1fr;
     color: $color-orange-0;
     align-items: baseline;
+    
 }
 .facture-echue-item {
     margin: 0.5rem;
+}
+.bell {
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    
+    .factures-echues {
+        margin-right: 1rem;  
+    }
 }

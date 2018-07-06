@@ -12,10 +12,10 @@
 }
 .facture-create-button {
     justify-self: center;
-    margin-top: 1rem;
     grid-area: addFacture;
 }
 .page-container-facture {
+    padding-top: 2rem;
     display: grid;
     grid-template-areas:
         "addFacture"
@@ -23,6 +23,9 @@
         "listFacture"
         "btnFacture"
         "facturesEchues";
+}
+.titre {
+    margin: 1rem 0;
 }
 
 @media (min-width: 768px) {
