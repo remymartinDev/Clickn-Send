@@ -119,6 +119,11 @@ class AppFixtures extends Fixture
             $manager->persist($company);
         }
 
+        $pro = [
+            true,
+            false
+        ];
+
         $customers1 = [];
 
         for ($i=0; $i < 4; $i++) { 
@@ -132,7 +137,7 @@ class AppFixtures extends Fixture
             $customer->setFax('08'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setEmail('customer'.$i.'@mail');
             $customer->setComment('le client'.$i.' est sympa');
-            $customer->setPro(false);
+            $customer->setPro($pro[mt_rand(0,1)]);
             $customer->setCustomerCompany('la société de mon client ' .$i);
             $customer->setVatNumber('08'.$i.'2'.$i.'5'.$i);
             $customer->setRemise(10 + $i);
@@ -155,7 +160,7 @@ class AppFixtures extends Fixture
             $customer->setFax('08'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setEmail('customer'.$i.'@mail');
             $customer->setComment('le client'.$i.' est sympa');
-            $customer->setPro(true);
+            $customer->setPro($pro[mt_rand(0,1)]);
             $customer->setCustomerCompany('la société de mon client ' .$i);
             $customer->setVatNumber('08'.$i.'2'.$i + 5 .'5'.$i);
             $customer->setRemise(20 + $i);
