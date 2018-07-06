@@ -23,6 +23,8 @@ const FactureItem = ({
     facture: faFileInvoiceDollar,
     'facture récurrente': faUndoAlt,
   };
+  const today = new Date();
+  console.log(today);
   return (
     <div className="facture-contain">
       <Media query="(max-width: 769px)">
