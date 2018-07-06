@@ -79,8 +79,7 @@ class Home extends React.Component {
       case 'date':
         return this.orderByDate();
       case 'montant':
-        return this.orderByAmount()
-        break;
+        return this.orderByAmount();
       case 'client':
         return this.orderByUser();
       case 'statut':
@@ -94,7 +93,7 @@ class Home extends React.Component {
     const today = new Date();
     // Pour les factures échues
     const listFacturesEchuesJSX = this.state.factures.filter((facture) => {
-      const deadLine = new Date(facture.deadline1);null
+      const deadLine = new Date(facture.deadline1);
       return !facture.paid && deadLine < today;
     });
     const facturesEchuesJSX = listFacturesEchuesJSX.map(facture => (
