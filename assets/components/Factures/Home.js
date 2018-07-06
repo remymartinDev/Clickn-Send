@@ -35,6 +35,14 @@ class Home extends React.Component {
     });
   }
 
+  handleChevron = (type) => () => {
+    console.log(type);
+  }
+
+  orderBy = () => {
+    return [...this.state.factures].sort((a, b) => (new Date(b.date) - new Date(a.date)));
+  }
+
   render() {
     const today = new Date();
     // Pour les factures échues
@@ -50,7 +58,7 @@ class Home extends React.Component {
       />
     ));
     // pour les 5 derniers factures
-    const orderedFactures = [...this.state.factures].sort((a, b) => (b.id - a.id));
+    const orderedFactures = this.orderBy();
     const facturesJSX = orderedFactures.map(facture => (
       <FactureItem
         key={facture.id}
@@ -67,7 +75,7 @@ class Home extends React.Component {
         {/* div de la list des 5 dernière factures */}
         <div className="factures-box">
           {/* en tête de la liste */}
-          <FacturesListHead />
+          <FacturesListHead clickChevron={this.handleChevron} />
           {/* 5 dernière factures */}
           {lastFactures}
         </div>
