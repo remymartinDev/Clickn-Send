@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ConfiguredSerializer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 /**
@@ -38,7 +42,23 @@ class InvoiceController extends Controller
         return new Response($json);
     }
 
-    
+    /**
+     * @Route("/api/invoices/toctoc", name="toctoc", methods="POST|GET")
+     */
+    public function toctoc(Request $request, SerializerInterface $serializer)
+    {
+        $data = $request->getContent();
+        $data2 = json_decode($data, true);
+        
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($data2, 'json');
+
+        return new Response($json);
+       // $data = $serializer->deserialize($post, App\Entity\Toctoc::class, 'json');
+    }
+
+    /**
+     * @Route("/new", name="invoice_new", methods="POST")
+     */
     public function new(Request $request): Response
     {
         $invoice = new Invoice();
@@ -58,6 +78,7 @@ class InvoiceController extends Controller
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="invoice_show", methods="GET")
