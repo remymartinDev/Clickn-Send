@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Media from 'react-media';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate } from 'react-intl';
 import FaEye from 'react-icons/lib/fa/eye';
 import FaPencil from 'react-icons/lib/fa/pencil';
 import FaDownload from 'react-icons/lib/fa/download';

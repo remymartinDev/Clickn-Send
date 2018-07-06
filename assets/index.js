@@ -16,11 +16,11 @@ addLocaleData([...fr]);
 document.addEventListener('DOMContentLoaded', () => {
   const rootComponent = (
     <Provider store={store}>
-      <Router>
-        <IntlProvider locale="fr">
+      <IntlProvider locale="fr">
+        <Router>
           <App />
-        </IntlProvider>
-      </Router>
+        </Router>
+      </IntlProvider>
     </Provider>
   );
   const targetNode = document.getElementById('root');
