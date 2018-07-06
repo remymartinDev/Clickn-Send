@@ -124,14 +124,14 @@ class Invoice
 
     public function getDate()
     {
-        if (isset($date)) {
+        if (isset($this->date)) {
             return $this->date->format('c');
         }
     }
 
-    public function setDate($none_used_date)
+    public function setDate($date)
     {
-        $this->date = new \Datetime();
+        $this->date = $date;
         return $this;
     }
 
@@ -221,28 +221,28 @@ class Invoice
 
     public function getDeadline1()
     {
-        if (isset($deadline1)) {
+        if (isset($this->deadline1)) {
             return $this->deadline1->format('c');
         }
     }
 
-    public function setDeadline1($none_used_date): self
+    public function setDeadline1($deadline1): self
     {
-        $this->deadline1 = new \Datetime();
+        $this->deadline1 = $deadline1;
 
         return $this;
     }
 
     public function getDeadline2()
     {
-        if (isset($deadline2)) {
+        if (isset($this->deadline2)) {
             return $this->deadline2->format('c');
         }
     }
 
-    public function setDeadline2($none_used_date): self
+    public function setDeadline2($deadline2): self
     {
-        $this->deadline2 = new \Datetime();
+        $this->deadline2 = $deadline2;
 
         return $this;
     }

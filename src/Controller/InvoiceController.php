@@ -66,6 +66,7 @@ class InvoiceController extends Controller
     {
         $data = $request->getContent();
         $data_array = json_decode($data, true);
+        
         //hydrate an invoice object with data
         $invoice = $serializer->deserialize($data, Invoice::class, 'json');
         
