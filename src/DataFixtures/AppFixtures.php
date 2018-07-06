@@ -75,6 +75,14 @@ class AppFixtures extends Fixture
         $factureRecurrente->setInvoiceStatus('facture récurrente');
         $manager->persist($factureRecurrente);
 
+        $statut = [
+            $devis,
+            $devisRefuse,
+            $brouillon,
+            $facture,
+            $factureRecurrente
+        ];
+
 
         $cb = new PaymentMethod();
         $cb->setMethod('carte bleue');
@@ -119,6 +127,11 @@ class AppFixtures extends Fixture
             $manager->persist($company);
         }
 
+        $pro = [
+            true,
+            false
+        ];
+
         $customers1 = [];
 
         for ($i=0; $i < 4; $i++) { 
@@ -132,7 +145,7 @@ class AppFixtures extends Fixture
             $customer->setFax('08'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setEmail('customer'.$i.'@mail');
             $customer->setComment('le client'.$i.' est sympa');
-            $customer->setPro(false);
+            $customer->setPro($pro[mt_rand(0,1)]);
             $customer->setCustomerCompany('la société de mon client ' .$i);
             $customer->setVatNumber('08'.$i.'2'.$i.'5'.$i);
             $customer->setRemise(10 + $i);
@@ -155,7 +168,7 @@ class AppFixtures extends Fixture
             $customer->setFax('08'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setEmail('customer'.$i.'@mail');
             $customer->setComment('le client'.$i.' est sympa');
-            $customer->setPro(true);
+            $customer->setPro($pro[mt_rand(0,1)]);
             $customer->setCustomerCompany('la société de mon client ' .$i);
             $customer->setVatNumber('08'.$i.'2'.$i + 5 .'5'.$i);
             $customer->setRemise(20 + $i);
@@ -192,6 +205,12 @@ class AppFixtures extends Fixture
             $manager->persist($product);
         }
 
+        $deadlines = [
+            new Datetime('2014-01-01'),
+            new Datetime('now'),
+            new Datetime('2030-12-24')
+        ];
+
         $invoices1 = [];
         
         for ($i=0; $i < 4; $i++) { 
@@ -204,11 +223,11 @@ class AppFixtures extends Fixture
             $invoice->setPaid(false);
             $invoice->setDownPayment(mt_rand(20, 900));
             $invoice->setReminder(0);
-            $invoice->setDeadline1(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
+            $invoice->setDeadline1($deadlines[mt_rand(0,2)]);
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
             $invoice->setCustomer($customers1[$i]);
-            $invoice->setStatus($facture);
+            $invoice->setStatus($statut[mt_rand(0,4)]);
             $invoice->setCompany($companies[0]);
             $invoices1[] = $invoice;        
             $manager->persist($invoice);
@@ -227,11 +246,11 @@ class AppFixtures extends Fixture
             $invoice->setPaid(false);
             $invoice->setDownPayment(mt_rand(20, 900));
             $invoice->setReminder(0);
-            $invoice->setDeadline1(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
+            $invoice->setDeadline1($deadlines[mt_rand(0,2)]);
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
             $invoice->setCustomer($customers2[$i]);
-            $invoice->setStatus($facture);
+            $invoice->setStatus($statut[mt_rand(0,4)]);
             $invoice->setCompany($companies[1]);
             $invoices2[] = $invoice;        
             $manager->persist($invoice);
