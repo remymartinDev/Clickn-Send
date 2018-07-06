@@ -43,7 +43,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("/api/invoices/toctoc", name="toctoc", methods="POST|GET")
+     * @Route("/api/invoices/toctoc", name="toctoc", methods="POST")
      */
     public function toctoc(Request $request, ConfiguredSerializer $serializer)
     {
@@ -59,24 +59,18 @@ class InvoiceController extends Controller
     /**
      * @Route("/new", name="invoice_new", methods="POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SerializerInterface $serializer): Response
     {
-        $invoice = new Invoice();
-        $form = $this->createForm(InvoiceType::class, $invoice);
-        $form->handleRequest($request);
+        $data = $request->getContent();
+        $data2 = json_decode($data, true);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($invoice);
-            $em->flush();
+        print_r($data2);
+        $invoice = $serializer->deserialize($data, \App\Entity\Invoice::class, 'json');
 
-            return $this->redirectToRoute('invoice_index');
-        }
-
-        return $this->render('invoice/new.html.twig', [
-            'invoice' => $invoice,
-            'form' => $form->createView(),
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($invoice);
+        $em->flush();
+        exit;
     }
 
 

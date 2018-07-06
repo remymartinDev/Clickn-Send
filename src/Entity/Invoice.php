@@ -101,6 +101,16 @@ class Invoice
      */
     private $invoiceHasProducts;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $deadline3;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $recurringDate;
+
     public function __construct()
     {
         $this->payments = new ArrayCollection();
@@ -117,9 +127,9 @@ class Invoice
         return $this->date->format('c');
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(): self
     {
-        $this->date = $date;
+        $this->date = new \Datetime();
         return $this;
     }
 
@@ -212,9 +222,9 @@ class Invoice
         return $this->deadline1->format('c');
     }
 
-    public function setDeadline1(\DateTimeInterface $deadline1): self
+    public function setDeadline1(): self
     {
-        $this->deadline1 = $deadline1;
+        $this->deadline1 = new \Datetime();
 
         return $this;
     }
@@ -226,9 +236,9 @@ class Invoice
         }
     }
 
-    public function setDeadline2(?\DateTimeInterface $deadline2): self
+    public function setDeadline2(): self
     {
-        $this->deadline2 = $deadline2;
+        $this->deadline2 = new \Datetime();
 
         return $this;
     }
@@ -351,6 +361,30 @@ class Invoice
     public function delPayments()
     {
         $this->payments = [];
+    }
+
+    public function getDeadline3(): ?\DateTimeInterface
+    {
+        return $this->deadline3;
+    }
+
+    public function setDeadline3(?\DateTimeInterface $deadline3): self
+    {
+        $this->deadline3 = $deadline3;
+
+        return $this;
+    }
+
+    public function getRecurringDate(): ?\DateTimeInterface
+    {
+        return $this->recurringDate;
+    }
+
+    public function setRecurringDate(?\DateTimeInterface $recurringDate): self
+    {
+        $this->recurringDate = $recurringDate;
+
+        return $this;
     }
 
 }
