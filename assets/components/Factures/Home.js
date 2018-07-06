@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import ChevronDown from 'react-icons/lib/fa/chevron-down';
-import Media from 'react-media';
 
 import ButtonCreate from '~/components/ButtonCreate';
 import FactureItem from './componentsFactures/FactureItem';
+import FacturesListHead from './componentsFactures/FacturesListHead';
+import FactureEchueListHead from './componentsFactures/FactureEchueListHead';
 import FactureEchue from './componentsFactures/FactureEchue';
 
 import './factures.scss';
@@ -15,7 +15,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    axios.post('api/invoices/toctoc', { data: 'blablabla' })
+    axios.post('/api/invoices/toctoc', { data: 'blablabla' })
       .then((response) => {
         console.log(response);
       });
@@ -63,31 +63,30 @@ class Home extends React.Component {
     const lastFactures = facturesJSX.slice(0, 5);
     return (
       <div className="page-container-facture">
+        {/* titre */}
         <h1 className="titre">Vos dernières factures</h1>
+        {/* bouton création facture */}
         <ButtonCreate class="facture-create-button" type="facture" />
+        {/* div de la list des 5 dernière factures */}
         <div className="factures-box">
-          <div className="facture-contain">
-            <div className="facture-item">Client <ChevronDown className="chevron" /></div>
-            <Media query="(min-width: 769px)">
-              {matches => (matches && <div className="facture-item">Date <ChevronDown className="chevron" /></div>)}
-            </Media>
-            <div className="facture-item">Montant  <ChevronDown className="chevron" /></div>
-            <Media query="(min-width: 769px)">
-              {matches => (matches && <div className="facture-item">Statut <ChevronDown className="chevron" /></div>)}
-            </Media>
-          </div>
+          {/* en tête de la liste */}
+          <FacturesListHead />
+          {/* 5 dernière factures */}
           {lastFactures}
         </div>
+        {/* div des factures echues */}
         <div className="factures-echues">
+          {/* titre */}
           <h2 className="factures-echues-title">Factures échues</h2>
-          <div className="factures-echues-head">
-            <div className="facture-echue-item">Client <ChevronDown className="chevron" /></div>
-            <div className="facture-echue-item">Retard  <ChevronDown className="chevron" /></div>
-          </div>
+          {/* en tête */}
+          <FactureEchueListHead />
+          {/* div de la liste des echues */}
           <div className="facture-echues-contain">
+            {/* list des echues */}
             {facturesEchuesJSX}
           </div>
         </div>
+        {/* bouton pour totue les factures */}
         <button className="btn-fact-home">Voir toutes mes factures</button>
       </div>
     );
