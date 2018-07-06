@@ -15,22 +15,11 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    axios.post('/api/invoice/api/invoices/toctoc', { data: 'blablabla' })
-      .then((response) => {
-        console.log(response);
-      });
     axios.get('/api/invoices')
       .then(({ data: factures }) => {
         this.setState({
           factures,
         });
-        // test pour envoie donnée
-        const testFacture = { ...factures[0], id: null };
-        console.log(testFacture);
-        axios.post('/api/invoice/new', testFacture)
-          .then((response) => {
-            console.log(response);
-          });
       });
   }
 
@@ -48,9 +37,10 @@ class Home extends React.Component {
 
   render() {
     const today = new Date();
+    // Pour les factures échues
     const listFacturesEchuesJSX = this.state.factures.filter((facture) => {
       const deadLine = new Date(facture.deadline1);
-      return deadLine < today;
+      return !facture.paid && deadLine < today;
     });
     const facturesEchuesJSX = listFacturesEchuesJSX.map(facture => (
       <FactureEchue
@@ -59,7 +49,7 @@ class Home extends React.Component {
         onClick={this.addReminder}
       />
     ));
-
+    // pour les 5 derniers factures
     const orderedFactures = [...this.state.factures].sort((a, b) => (b.id - a.id));
     const facturesJSX = orderedFactures.map(facture => (
       <FactureItem
