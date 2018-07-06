@@ -3,55 +3,5 @@
 {% block title %}Company index{% endblock %}
 
 {% block body %}
-    <h1>Company index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Company_name</th>
-                <th>Company_adress</th>
-                <th>Phone</th>
-                <th>Fax</th>
-                <th>Vat_number</th>
-                <th>Email</th>
-                <th>Bank_iban</th>
-                <th>Bank_bic</th>
-                <th>Bank_rib</th>
-                <th>Bank_domiciliation</th>
-                <th>Payment_term</th>
-                <th>Logo</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for company in companies %}
-            <tr>
-                <td>{{ company.id }}</td>
-                <td>{{ company.companyName }}</td>
-                <td>{{ company.companyAdress }}</td>
-                <td>{{ company.phone }}</td>
-                <td>{{ company.fax }}</td>
-                <td>{{ company.vatNumber }}</td>
-                <td>{{ company.email }}</td>
-                <td>{{ company.bankIban }}</td>
-                <td>{{ company.bankBic }}</td>
-                <td>{{ company.bankRib }}</td>
-                <td>{{ company.bankDomiciliation }}</td>
-                <td>{{ company.paymentTerm }}</td>
-                <td>{{ company.logo }}</td>
-                <td>
-                    <a href="{{ path('company_show', {'id': company.id}) }}">show</a>
-                    <a href="{{ path('company_edit', {'id': company.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="14">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('company_new') }}">Create new</a>
 {% endblock %}

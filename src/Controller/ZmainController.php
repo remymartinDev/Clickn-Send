@@ -11,9 +11,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ZmainController extends Controller
 {
     /**
-     * @Route("/{slug}", name="zome", requirements={"slug"=".*"})
-     */
-    public function zome()
+    * @Route("/{slug}", name="zome", requirements={"slug"=".*"})
+    */
+    public function home()
     {
         require('build/index.html');
         exit;

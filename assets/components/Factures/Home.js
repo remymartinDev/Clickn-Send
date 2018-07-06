@@ -13,9 +13,9 @@ class Home extends React.Component {
   state = {
     factures: [],
   }
-
+  
   componentDidMount() {
-    axios.post('api/invoices/toctoc', { data: 'blablabla' })
+    axios.post('/api/invoices/toctoc', { data: "blablabla" })
       .then((response) => {
         console.log(response);
       });
