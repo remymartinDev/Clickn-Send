@@ -5,7 +5,6 @@ import FaEye from 'react-icons/lib/fa/eye';
 import FaPencil from 'react-icons/lib/fa/pencil';
 import FaDownload from 'react-icons/lib/fa/download';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import StatusDevis from '~/images/statusdevis.svg';
 import StatusInvoice from '~/images/statusinvoice.svg';
@@ -33,7 +32,7 @@ const FactureItem = ({
   return (
     <div className="facture-contain">
       <Media query="(max-width: 769px)">
-        {matches => (matches && <FontAwesomeIcon icon={faFileAlt} />)}
+        {matches => (matches && <Icons />)}
       </Media>
       <div className="facture-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
       <Media query="(min-width: 769px)">
