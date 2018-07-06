@@ -127,9 +127,9 @@ class Invoice
         return $this->date->format('c');
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(): self
     {
-        $this->date = $date;
+        $this->date = new \Datetime();
         return $this;
     }
 
@@ -222,9 +222,9 @@ class Invoice
         return $this->deadline1->format('c');
     }
 
-    public function setDeadline1(\DateTimeInterface $deadline1): self
+    public function setDeadline1(): self
     {
-        $this->deadline1 = $deadline1;
+        $this->deadline1 = new \Datetime();
 
         return $this;
     }
@@ -236,9 +236,9 @@ class Invoice
         }
     }
 
-    public function setDeadline2(?\DateTimeInterface $deadline2): self
+    public function setDeadline2(): self
     {
-        $this->deadline2 = $deadline2;
+        $this->deadline2 = new \Datetime();
 
         return $this;
     }
