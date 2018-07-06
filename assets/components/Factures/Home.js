@@ -49,11 +49,6 @@ class Home extends React.Component {
     });
   }
 
-<<<<<<< HEAD
-  orderBy = (type) => {
-    
-    return [...this.state.factures].sort((a, b) => (new Date(b.date) - new Date(a.date)));
-=======
   orderByDate = () => (
     [...this.state.factures].sort((a, b) => {
       const filter = (new Date(b.date) - new Date(a.date));
@@ -63,7 +58,6 @@ class Home extends React.Component {
   orderByUser = () => (
     [...this.state.factures].sort((a, b) => {
       const filter = b.customer.lastname.localeCompare(a.customer.lastname);
-      console.log(filter);
       return this.state.filter.asc ? filter : -filter;
     })
   )
@@ -83,11 +77,9 @@ class Home extends React.Component {
   order = () => {
     switch (this.state.filter.type) {
       case 'date':
-      console.log('ok');
         return this.orderByDate();
       case 'montant':
-        return this.orderByAmount()
-        break;
+        return this.orderByAmount();
       case 'client':
         return this.orderByUser();
       case 'statut':
@@ -95,15 +87,13 @@ class Home extends React.Component {
       default:
         return this.state.factures;
     }
->>>>>>> 6eb4a2b03bb700910d5b8ae999224baf6642ce44
   }
 
   render() {
-    console.log(this.state.filter);
     const today = new Date();
     // Pour les factures échues
     const listFacturesEchuesJSX = this.state.factures.filter((facture) => {
-      const deadLine = new Date(facture.deadline1);null
+      const deadLine = new Date(facture.deadline1);
       return !facture.paid && deadLine < today;
     });
     const facturesEchuesJSX = listFacturesEchuesJSX.map(facture => (
