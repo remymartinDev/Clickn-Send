@@ -8,8 +8,12 @@
   margin: 0;
 }
 .home-link {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  // espacement en fonction de la hauteur de l'écran
+  grid-row-gap: 10vh;
   align-items: center;
   justify-content: center;
   margin: auto;
@@ -18,11 +22,18 @@
   background-color: white;
   border-radius: 50%;
   border: 3px solid $color-orange-0;
-  width: 18rem;
-  height: 18rem;
+  // Taille du logo en fonction de la hauteur de l'écran
+  height: 55vh;
+  // Taille max du logo en fonction de la largeur de l'écran
+  max-height: 80vw;
   padding: 1rem;
-  margin: 3rem auto;
-  box-shadow: 1px 1px 6px 2px rgba(255,255,255,0.6); 
+  margin: auto;
+  // margin: 3rem auto;
+  box-shadow: 1px 1px 6px 2px rgba(255,255,255,0.6);
+  transition: box-shadow 1s;
+  &:hover {
+    box-shadow: 1px 1px 35px 20px rgba(255,255,255,0.6);
+  }
 }
 .home-button {
   background-color: $color-mauve-4;
@@ -33,4 +44,9 @@
   border-radius: 8px;
   font-weight: bold;
   padding: 0 1rem;
+  transition: box-shadow 1s;
+  justify-self: center;
+  &:hover {
+    box-shadow: 1px 1px 35px 10px rgba(255,255,255,0.6);
+  }
 }
