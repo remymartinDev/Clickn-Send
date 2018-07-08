@@ -83,7 +83,6 @@ class Home extends React.Component {
     })
   )
   orderByStatut = factures => (
-    console.log('je suis ici'),
     [...factures].sort((a, b) => {
       const filter = (b.status.id - a.status.id);
       return this.state.filter.asc ? filter : -filter;
@@ -95,7 +94,6 @@ class Home extends React.Component {
       return this.state.filter.asc ? filter : -filter;
     })
   )
-  
   orderByNbJours = factures => (
     [...factures].sort((a, b) => {
       const filter = (new Date(b.deadline1) - new Date(a.deadline1));
