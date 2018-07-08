@@ -2,11 +2,14 @@
 
 .dash-link {
   position: relative;
+  &:hover .plus-btn {
+    transform: rotateZ(-45deg);
+  }
 }
 
 .btn-fact, .plus-btn-fact  {
   border: 3px solid $color-orange-0;
-  color: $color-orange-0;     
+  color: $color-orange-0;
 }
 
 .btn-prod, .plus-btn-prod {
@@ -49,4 +52,5 @@
   z-index: 2;
   position: absolute;
   left: 0; 
+  transition: transform 0.5s;
 }
