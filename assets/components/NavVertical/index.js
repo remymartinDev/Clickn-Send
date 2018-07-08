@@ -22,7 +22,7 @@ const NavVertical = () => (
       <Link to="/dashboard" href="/dashboard">
         <img src={logo} alt="logo" className="NavV-logo" />
       </Link>
-      <Nav vertical>
+      <Nav vertical className="no-wrap">
         <NavLink tag={Link} to="/dashboard" className="navVLink">Accueil</NavLink>
         <UncontrolledDropdown
           direction="right"

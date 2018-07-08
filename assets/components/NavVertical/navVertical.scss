@@ -30,7 +30,11 @@
   background-color: $color-mauve-4;
   display: flex;
   flex-direction: column;
+  .no-wrap {
+    flex-wrap: nowrap;
+  }
 }
+
 .NavV-logo {
   display: block;
   background-color: white;
