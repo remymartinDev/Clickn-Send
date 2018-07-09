@@ -46,6 +46,54 @@ class Home extends React.Component {
     });
   }
 
+  orderByDenomination = products => (
+    [...products].sort((a, b) => {
+      const filter = (b.denomination - a.denomination);
+      return this.state.filer.asc ? filter : -filter;
+    })
+  )
+  orderByRef = products => (
+    [...products].sort((a, b) => {
+      const filter = (b.reference - a.reference);
+      return this.state.filer.asc ? filter : -filter;
+    })
+  )
+  orderByDescription = products => (
+    [...products].sort((a, b) => {
+      const filter = (b.description - a.description);
+      return this.state.filer.asc ? filter : -filter;
+    })
+  )
+  orderByPrice = products => (
+    [...products].sort((a, b) => {
+      const filter = (b.price - a.price);
+      return this.state.filer.asc ? filter : -filter;
+    })
+  )
+  orderByUnity = products => (
+    [...products].sort((a, b) => {
+      const filter = (b.unity - a.unity);
+      return this.state.filer.asc ? filter : -filter;
+    })
+  )
+
+  order = (products, type) => {
+    switch (type) {
+      case 'denomination':
+        return this.orderByDenomination(products);
+      case 'reference':
+        return this.orderByRef(products);
+      case 'description':
+        return this.orderByDescription(products);
+      case 'prix':
+        return this.orderByPrice(products);
+      case 'unite':
+        return this.orderByUnity(products);
+      default:
+        return products;
+    }
+  }
+
   render() {
     return (
       <div className="page-container-product">

@@ -9,11 +9,11 @@ const ProductItemHead = ({ clickChevron }) => (
   <div className="list-contain-product list-contain--head">
     <div className="list-item">
       Dénomination
-      <ChevronDown className="chevron" onClick={clickChevron('client')} />
+      <ChevronDown className="chevron" onClick={clickChevron('denomination')} />
     </div>
     <div className="list-item">
       Référence
-      <ChevronDown className="chevron" onClick={clickChevron('client')} />
+      <ChevronDown className="chevron" onClick={clickChevron('reference')} />
     </div>
     <Media query="(min-width: 769px)">
       {matches => (
@@ -21,17 +21,17 @@ const ProductItemHead = ({ clickChevron }) => (
         &&
         <div className="list-item">
           Description
-          <ChevronDown className="chevron" onClick={clickChevron('date')} />
+          <ChevronDown className="chevron" onClick={clickChevron('description')} />
         </div>
       )}
     </Media>
     <div className="list-item">
       Prix
-      <ChevronDown className="chevron" onClick={clickChevron('montant')} />
+      <ChevronDown className="chevron" onClick={clickChevron('prix')} />
     </div>
     <div className="list-item">
       Unité
-      <ChevronDown className="chevron" onClick={clickChevron('montant')} />
+      <ChevronDown className="chevron" onClick={clickChevron('unité')} />
     </div>
   </div>
 );
