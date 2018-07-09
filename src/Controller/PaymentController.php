@@ -3,13 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Payment;
+use App\Entity\Invoice;
 use App\Form\PaymentType;
-use App\Repository\PaymentRepository;
+use App\Repository\CompanyRepository;
+use App\Service\ConfiguredSerializer;
+use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\ConfiguredSerializer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 /**
@@ -49,26 +54,27 @@ class PaymentController extends Controller
 
 
     /**
-     * @Route("/new", name="payment_new", methods="GET|POST")
-     */
-    public function new(Request $request): Response
+     * @Route("/new/{id}", name="payment_new", methods="GET|POST")
+     */ 
+    public function new(Request $request, Invoice $invoice, CompanyRepository $companyRepository, SerializerInterface $serializer, InjectionEntity $injectionEntity)
     {
-        $payment = new Payment();
-        $form = $this->createForm(PaymentType::class, $payment);
-        $form->handleRequest($request);
+        $data = $request->getContent();
+        
+        //hydrate an invoice object with data
+        $payment = $serializer->deserialize($data, Payment::class, 'json');
+        
+        //take relational object for product
+        $customer = $invoice->getCustomer();
+        $company = $companyRepository->findOneById(1);
+        
+        //set product
+        $customer->setCompany($company);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($customer);
+        $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($payment);
-            $em->flush();
-
-            return $this->redirectToRoute('payment_index');
-        }
-
-        return $this->render('payment/new.html.twig', [
-            'payment' => $payment,
-            'form' => $form->createView(),
-        ]);
+        return new Response('true');
     }
 
     /**
@@ -96,12 +102,12 @@ class PaymentController extends Controller
      */
     public function delete(Request $request, Payment $payment): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$payment->getId(), $request->request->get('_token'))) {
+        /* if ($this->isCsrfTokenValid('delete'.$payment->getId(), $request->request->get('_token'))) { */
             $em = $this->getDoctrine()->getManager();
             $em->remove($payment);
             $em->flush();
-        }
+       /*  } */
 
-        return $this->redirectToRoute('payment_index');
+       return new Response('true');
     }
 }

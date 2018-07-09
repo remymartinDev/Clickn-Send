@@ -52,7 +52,7 @@ class CustomerController extends Controller
     /**
      * @Route("/new", name="customer_new", methods="GET|POST")
      */
-    public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer, InjectionEntity $injectionEntity): Response
+    public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer, InjectionEntity $injectionEntity)
     {
         $data = $request->getContent();
         
@@ -69,7 +69,7 @@ class CustomerController extends Controller
         $em->persist($customer);
         $em->flush();
 
-        return $Succes = true;
+        return new Response('true');
     }
 
     /**
@@ -117,12 +117,12 @@ class CustomerController extends Controller
      */
     public function delete(Request $request, Customer $customer): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->request->get('_token'))) {
+       /*  if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->request->get('_token'))) { */
             $em = $this->getDoctrine()->getManager();
             $em->remove($customer);
             $em->flush();
-        }
+      /*   } */
 
-        return $this->redirectToRoute('customer_index');
+        return new Response('true');
     }
 }

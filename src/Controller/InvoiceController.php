@@ -49,7 +49,7 @@ class InvoiceController extends Controller
     /**
      * @Route("/new", name="invoice_new", methods="POST")
      */
-    public function new(Request $request, SerializerInterface $serializer, InjectionEntity $injectionEntity, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository): Response
+    public function new(Request $request, SerializerInterface $serializer, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository): Response
     {
         
         $data_array = json_decode($data, true);
@@ -75,7 +75,7 @@ class InvoiceController extends Controller
         $em->persist($invoice);
         $em->flush();
         
-        return $succes = true;
+        return new Response('true');
     }
 
 
@@ -128,7 +128,7 @@ class InvoiceController extends Controller
             $em->flush();
         
        /*  } */
-        exit;
+       return new Response('true');
     }
 
 }
