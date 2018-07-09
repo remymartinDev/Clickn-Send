@@ -5,28 +5,19 @@ import { Field, reduxForm } from 'redux-form';
 let CreateProduct = props => {
   const { handleSubmit } = props
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="dénomination">Dénomination</label>
-        <Field name="dénomination" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="référence">Référence</label>
-        <Field name="référence" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="description">Description</label>
-        <Field name="description" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="prix">Prix</label>
-        <Field name="prix" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="unité">Unité</label>
-        <Field name="unité" component="input" type="text" />
-      </div>
-      <button type="submit">Créer</button>
+    <form className="form" onSubmit={handleSubmit}>
+      <h1 className="form-title">Création d'un produit</h1>
+      <label className="form-label" htmlFor="denomination">Dénomination</label>
+      <Field className="form-field" name="denomination" component="input" type="text" />
+      <label className="form-label" htmlFor="reference">Référence</label>
+      <Field className="form-field" name="reference" component="input" type="text" />
+      <label className="form-label" htmlFor="description">Description</label>
+      <Field className="form-field" name="description" component="input" type="text" />
+      <label className="form-label" htmlFor="prix">Prix</label>
+      <Field className="form-field" name="prix" component="input" type="text" />
+      <label className="form-label" htmlFor="unite">Unité</label>
+      <Field className="form-field" name="unite" component="input" type="text" />
+      <button className="form-button" type="submit">Créer</button>
     </form>
   )
 }

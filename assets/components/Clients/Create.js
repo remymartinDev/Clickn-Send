@@ -1,9 +1,18 @@
 import React from 'react';
+import CreateClient from '~/components/Forms/Client/Create';
+import axios from 'axios';
 
-const Create = () => (
-  <div>
-    <h1>Créer votre client</h1>
-  </div>
-);
+class Create extends React.Component {
+  submit = (values) => {
+    axios.post('/api/client/new', values)
+      .then((response) => {
+        console.log(response.data);
+      });
+  }
+
+  render() {
+    return <CreateClient onSubmit={this.submit} />;
+  }
+}
 
 export default Create;

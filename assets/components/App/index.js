@@ -5,6 +5,8 @@ import Home from '~/components/Home';
 import Routes from '~/components/Routes';
 import Test from '~/components/Test';
 
+import '~/components/Forms/forms.scss';
+
 const App = () => (
   <Switch>
     <Route path="/" exact component={Home} />

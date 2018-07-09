@@ -1,0 +1,45 @@
+@import '~/styles/vars.scss';
+
+.form {
+    padding: 2rem;
+    color: $color-vert-0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 1rem;
+    &-title {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: $color-mauve-4;
+      margin-bottom: 2rem;
+      font-weight: bold;
+    }
+    &-button {
+      grid-column: 1 / -1;
+      justify-self: center;
+      border: 3px solid $color-orange-0;
+      background-color: white;
+      color: $color-orange-0;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.5rem;
+      box-shadow: 2px 2px 5px 0 rgba( 255,139, 64,1);
+      transition: 0.3s;
+      margin-top: 2rem;
+      &:hover {
+       background-color: $color-orange-0;
+       color: white; 
+       box-shadow: 2px 2px 5px 0 rgba( 255,139, 64,1);
+      }
+    }
+
+    &-field {
+        border: 1px solid $color-vert-0;
+        box-shadow: 1px 1px 5px 0 rgba( 47,186,186,0.8);
+    }   
+  }
+
+@media (min-width: 769px) {
+  .form {
+    margin: auto;
+  }
+}
