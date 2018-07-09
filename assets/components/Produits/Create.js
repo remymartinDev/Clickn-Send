@@ -1,9 +1,19 @@
 import React from 'react';
+import CreateForm from '~/components/Forms/Produit/Create';
+import axios from 'axios';
 
-const Create = () => (
-  <div>
-    <h1>Créer votre produit</h1>
-  </div>
-);
+/* eslint-disable */
+class Create extends React.Component {
+  submit = values => {
+    axios.post('/api/product/new', values)
+      .then(response => {
+        console.log(response.data);
+      });
+  }
+
+  render() {
+    return <CreateForm onSubmit={this.submit} />
+  }
+}
 
 export default Create;

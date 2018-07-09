@@ -6,7 +6,7 @@ import { createStore } from 'redux';
 /**
  * Dépendances locales : le reducer
  */
-import reducer from './reducer';
+import reducer from './reducers';
 
 /**
  * Création du store
