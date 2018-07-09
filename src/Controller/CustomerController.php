@@ -69,7 +69,7 @@ class CustomerController extends Controller
         $em->persist($customer);
         $em->flush();
 
-        return new Response('true');
+        return new Response($json);
     }
 
     /**
@@ -122,7 +122,6 @@ class CustomerController extends Controller
             $em->remove($customer);
             $em->flush();
       /*   } */
-
-        return new Response('true');
+      return new Response($json);
     }
 }
