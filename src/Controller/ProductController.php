@@ -53,7 +53,8 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
         $em->flush();
-        exit;
+
+        return $Succes = true;
     }
 
 
