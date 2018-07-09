@@ -5,7 +5,7 @@ import axios from 'axios';
 /* eslint-disable */
 class Create extends React.Component {
   submit = values => {
-    axios.post('/api/product/new', {...values, company: {id: 2}})
+    axios.post('/api/product/new', values)
       .then(response => {
         console.log(response.data);
       });

@@ -5,14 +5,12 @@ namespace App\Controller;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
-use App\Repository\StatusRepository;
-use App\Repository\CompanyRepository;
-use App\Repository\CustomerRepository;
+use App\Service\ConfiguredSerializer;
+use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\ConfiguredSerializer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -48,18 +46,22 @@ class InvoiceController extends Controller
     /**
      * @Route("/new", name="invoice_new", methods="POST")
      */
-    public function new(Request $request, SerializerInterface $serializer, CustomerRepository $customerRepository, StatusRepository $statusRepository, CompanyRepository $companyRepository): Response
+    public function new(Request $request, SerializerInterface $serializer, InjectionEntity $injectionEntity): Response
     {
-        $data = $request->getContent();
-        $data_array = json_decode($data, true);
         
+        $data_array = json_decode($data, true);
+        $data = $request->getContent();
         //hydrate an invoice object with data
         $invoice = $serializer->deserialize($data, Invoice::class, 'json');
         
         //take relational object for invoice 
-        $customer = $customerRepository->findOneById($data_array['customer']['id']);
+        /* $customer = $customerRepository->findOneById($data_array['customer']['id']);
         $status = $statusRepository->findOneById($data_array['status']['id']);
-        $company = $companyRepository->findOneById($data_array['company']['id']);
+        $company = $companyRepository->findOneById($data_array['company']['id']); */
+
+        $company = $injectionEntity->Entity("customer");
+        $company = $injectionEntity->Entity("status");
+        $company = $injectionEntity->Entity("company");
         
         //set invoice
         $invoice->setCustomer($customer);

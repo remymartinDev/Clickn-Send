@@ -5,11 +5,16 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Service\ConfiguredSerializer;
+use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\ConfiguredSerializer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
+use App\Repository\CompanyRepository;
 
 /**
  * @Route("/api/product")
@@ -32,25 +37,25 @@ class ProductController extends Controller
     /**
      * @Route("/new", name="product_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer, InjectionEntity $injectionEntity): Response
     {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($product);
-            $em->flush();
-
-            return $this->redirectToRoute('product_index');
-        }
-
-        return $this->render('product/new.html.twig', [
-            'product' => $product,
-            'form' => $form->createView(),
-        ]);
+        $data = $request->getContent();
+        
+        //hydrate an invoice object with data
+        $product = $serializer->deserialize($data, Product::class, 'json');
+        
+        //take relational object for product
+        $company = $companyRepository->findOneById(1);
+        
+        //set product
+        $product->setCompany($company);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+        exit;
     }
+
 
     /**
      * @Route("/{id}", name="product_show", methods="GET")
