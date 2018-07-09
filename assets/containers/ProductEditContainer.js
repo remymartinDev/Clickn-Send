@@ -1,5 +1,6 @@
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Form from '~/components/Produits/ComponentsProducts/Form';
 
@@ -7,12 +8,13 @@ const mapStateToProps = state => ({
   initialValues: state.notreReducer.data,
 });
 
-const mapDispatchToProps = dispatch => ({
-  load: (data) => {
-    dispatch({
-      type: 'LOAD',
-      data,
-    });
+const mapDispatchToProps = () => ({
+  onSubmit: (values) => {
+    console.log('data', values);
+    axios.post(`/api/product/${values.id}/edit`, values)
+      .then((response) => {
+        console.log(response);
+      });
   },
 });
 

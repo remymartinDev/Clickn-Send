@@ -2,7 +2,7 @@
  * État initial pour le state de l'application
  */
 const initialState = {
-
+  data: {},
 };
 
 /**
