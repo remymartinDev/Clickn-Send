@@ -6,6 +6,7 @@ use App\Entity\Payment;
 use App\Entity\Invoice;
 use App\Form\PaymentType;
 use App\Repository\CompanyRepository;
+use App\Repository\PaymentRepository;
 use App\Service\ConfiguredSerializer;
 use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
