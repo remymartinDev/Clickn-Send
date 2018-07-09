@@ -4,7 +4,7 @@ import axios from 'axios';
 
 class Create extends React.Component {
   submit = (values) => {
-    axios.post('/api/client/new', values)
+    axios.post('/api/customer/new', values)
       .then((response) => {
         console.log(response.data);
       });
