@@ -55,7 +55,7 @@ class ProductController extends Controller
         $em->persist($product);
         $em->flush();
 
-        return $Succes = true;
+        return new Response('true');
     }
 
 
@@ -94,12 +94,12 @@ class ProductController extends Controller
      */
     public function delete(Request $request, Product $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+       /*  if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) { */
             $em = $this->getDoctrine()->getManager();
             $em->remove($product);
             $em->flush();
-        }
+       /*  } */
 
-        return $this->redirectToRoute('product_index');
+        return new Response('true');
     }
 }

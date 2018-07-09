@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Member;
 use App\Form\MemberType;
 use App\Repository\MemberRepository;
+use App\Repository\CompanyRepository;
+use App\Repository\RoleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,24 +34,27 @@ class MemberController extends Controller
     /**
      * @Route("/new", name="member_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SerializerInterface $serializer, CompanyRepository $companyRepository, RoleRepository $roleRepository): Response
     {
-        $member = new Member();
-        $form = $this->createForm(MemberType::class, $member);
-        $form->handleRequest($request);
+        $data = $request->getContent();
+        $data_array = json_decode($data, true);
+        
+        //hydrate an member object with data
+        $member = $serializer->deserialize($data, Member::class, 'json');
+        
+        //take relational object for product
+        $company = $companyRepository->findOneById(1);
+        $role = $roleRepository->findOneById($data_array['role']['id']);
+        
+        //set product
+        $member->setCompany($company);
+        $member->setRole($role);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($member);
+        $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($member);
-            $em->flush();
-
-            return $this->redirectToRoute('member_index');
-        }
-
-        return $this->render('member/new.html.twig', [
-            'member' => $member,
-            'form' => $form->createView(),
-        ]);
+        return new Response('true');
     }
 
     /**
@@ -88,12 +93,12 @@ class MemberController extends Controller
      */
     public function delete(Request $request, Member $member): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$member->getId(), $request->request->get('_token'))) {
+       /*  if ($this->isCsrfTokenValid('delete'.$member->getId(), $request->request->get('_token'))) { */
             $em = $this->getDoctrine()->getManager();
             $em->remove($member);
             $em->flush();
-        }
+        /* } */
 
-        return $this->redirectToRoute('member_index');
+        return new Responce('true');
     }
 }

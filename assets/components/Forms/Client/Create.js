@@ -11,21 +11,21 @@ let CreateClient = props => {
   return (
     <form className="form form-client" onSubmit={handleSubmit}>
       <h1 className="form-title">Création d'un client</h1>
-      <label className="form-label" htmlFor="vat_number">Numéro de TVA</label>
+      <label className="form-label" htmlFor="vatNumber">Numéro de TVA</label>
       <div className="form-with-icon">
-        <Field className="form-field" name="vat_number" component="input" type="text" /> 
+        <Field className="form-field" name="vatNumber" component="input" type="text" /> 
         <FontAwesomeIcon className="form-icon" icon={faSearch} />        
       </div>
-      <label className="form-label" htmlFor="customer_company">Nom de l'entreprise</label>
-      <Field className="form-field" name="customer_company" component="input" type="text" />
+      <label className="form-label" htmlFor="customerCompany">Nom de l'entreprise</label>
+      <Field className="form-field" name="customerCompany" component="input" type="text" />
       <label className="form-label" htmlFor="lastname">Nom</label>
       <Field className="form-field" name="lastname" component="input" type="text" />
       <label className="form-label" htmlFor="firstname">Prénom</label>
       <Field className="form-field" name="firstname" component="input" type="text" />
-      <label className="form-label" htmlFor="company_adress">Adresse</label>
-      <Field className="form-field" name="company_adress" component="input" type="text" />
-      <label className="form-label" htmlFor="country_code">Code postal</label>
-      <Field className="form-field" name="country_code" component="input" type="text" />
+      <label className="form-label" htmlFor="companyAdress">Adresse</label>
+      <Field className="form-field" name="companyAdress" component="input" type="text" />
+      <label className="form-label" htmlFor="countryCode">Pays</label>
+      <Field className="form-field" name="countryCode" component="input" type="text" />
       <label className="form-label" htmlFor="phone">Téléphone</label>
       <Field className="form-field" name="phone" component="input" type="text" />
       <label className="form-label" htmlFor="mobile">Portable</label>
