@@ -1,0 +1,18 @@
+@import '~/styles/vars.scss';
+
+.page-container-clients {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.contain-clients {
+  grid-column: 1 / -1;
+}
+
+.titl-clients {
+  color:$color-vert-0;
+}
+
+.list-cli-btn {
+  margin: auto;
+}
