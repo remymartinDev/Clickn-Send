@@ -125,16 +125,21 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="invoice_delete", methods="DELETE")
-     */
-    public function delete(Request $request, Invoice $invoice): Response
+     * @Route("s/{id}", name="invoice_delete", methods="DELETE")
+     */ 
+    public function delete(Request $request, Invoice $invoice, InvoiceRepository $invoiceRepository)
     {
-        if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) {
+        $data = $request->getContent();
+        var_dump($invoice->getId());
+            /* $invoice = $invoiceRepository->findOneById($id); */
+       /*  if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { */
             $em = $this->getDoctrine()->getManager();
             $em->remove($invoice);
             $em->flush();
-        }
+        
+        /* } */
 
-        return $this->redirectToRoute('invoice_index');
+        return $this->redirectToRoute('zome');
     }
+
 }

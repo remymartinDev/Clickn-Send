@@ -92,12 +92,12 @@ class Invoice
     private $company;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="invoice")
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="invoice", orphanRemoval=true)
      */
     private $payments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\InvoiceHasProduct", mappedBy="invoice")
+     * @ORM\OneToMany(targetEntity="App\Entity\InvoiceHasProduct", mappedBy="invoice", orphanRemoval=true)
      */
     private $invoiceHasProducts;
 
