@@ -1,1 +1,18 @@
 @import '~/styles/vars.scss';
+
+.page-container-product {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.contain-products {
+  grid-column: 1 / -1;
+}
+
+.titl-product {
+  color:$color-orange-0;
+}
+
+.list-prod-btn {
+  margin: auto;
+}
