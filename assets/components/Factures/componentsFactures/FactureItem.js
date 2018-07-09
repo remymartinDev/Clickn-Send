@@ -20,25 +20,25 @@ const FactureItem = ({
     devis: faFileInvoice,
     'devis refusé': faFileExcel,
     brouillon: faFileAlt,
-    facture: faFileInvoiceDollar,
+    list: faFileInvoiceDollar,
     'facture récurrente': faUndoAlt,
   };
   return (
-    <div className="facture-contain">
+    <div className="list-contain list-contain-facture">
       <Media query="(max-width: 769px)">
-        {matches => (matches && <FontAwesomeIcon className="facture-item--icon" icon={statusIcons[status.invoiceStatus]} />)}
+        {matches => (matches && <FontAwesomeIcon className="list-item--icon" icon={statusIcons[status.invoiceStatus]} />)}
       </Media>
-      <div className="facture-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
+      <div className="list-item">{customer.pro ? customer.customerCompany : customer.lastname}</div>
       <Media query="(min-width: 769px)">
         {matches => (matches && <FormattedDate value={new Date(date)} />)}
       </Media>
-      <div className="facture-item"> {amountAllTaxes} € </div>
+      <div className="list-item"> {amountAllTaxes} € </div>
       <Media query="(min-width: 769px)">
-        {matches => (matches && <div className="facture-item">{status.invoiceStatus}</div>)}
+        {matches => (matches && <div className="list-item">{status.invoiceStatus}</div>)}
       </Media>
-      <FaEye className="facture-item--icon" />
-      <FaPencil className="facture-item--icon" />
-      <FaDownload className="facture-item--icon" />
+      <FaEye className="list-item--icon" />
+      <FaPencil className="list-item--icon" />
+      <FaDownload className="list-item--icon" />
     </div>
   );
 };

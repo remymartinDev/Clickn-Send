@@ -1,8 +1,9 @@
-.facture-contain--head::before {
+.list-contain--head::before {
   content: '';
 }
 @media (min-width: 768px) {
-  .facture-contain--head::before {
+  .list-contain--head::before {
       content: none;
   }
+  
 }

@@ -6,38 +6,38 @@ import ChevronDown from 'react-icons/lib/fa/chevron-down';
 
 
 const ProductItemHead = ({ clickChevron }) => (
-  <div className="facture-contain facture-contain--head">
-    <div className="facture-item">
-      Client
+  <div className="list-contain-product list-contain--head">
+    <div className="list-item">
+      Dénomination
+      <ChevronDown className="chevron" onClick={clickChevron('client')} />
+    </div>
+    <div className="list-item">
+      Référence
       <ChevronDown className="chevron" onClick={clickChevron('client')} />
     </div>
     <Media query="(min-width: 769px)">
       {matches => (
         matches
         &&
-        <div className="facture-item">
-          Date
+        <div className="list-item">
+          Description
           <ChevronDown className="chevron" onClick={clickChevron('date')} />
         </div>
       )}
     </Media>
-    <div className="facture-item">
-      Montant
+    <div className="list-item">
+      Prix
       <ChevronDown className="chevron" onClick={clickChevron('montant')} />
     </div>
-    <Media query="(min-width: 769px)">
-      {matches => (
-        matches
-        &&
-        <div className="facture-item">
-          Statut
-          <ChevronDown className="chevron" onClick={clickChevron('statut')} />
-        </div>)}
-    </Media>
+    <div className="list-item">
+      Unité
+      <ChevronDown className="chevron" onClick={clickChevron('montant')} />
+    </div>
   </div>
 );
 
 ProductItemHead.propTypes = {
+  clickChevron: PropTypes.func.isRequired,
 };
 
 export default ProductItemHead;

@@ -7,8 +7,8 @@ import ChevronDown from 'react-icons/lib/fa/chevron-down';
 import './FacturesListHead.scss';
 
 const FacturesListHead = ({ clickChevron }) => (
-  <div className="facture-contain facture-contain--head">
-    <div className="facture-item">
+  <div className="list-contain-facture list-contain list-contain--head">
+    <div className="list-item">
       Client
       <ChevronDown className="chevron" onClick={clickChevron('client')} />
     </div>
@@ -16,13 +16,13 @@ const FacturesListHead = ({ clickChevron }) => (
       {matches => (
         matches
         &&
-        <div className="facture-item">
+        <div className="list-item">
           Date
           <ChevronDown className="chevron" onClick={clickChevron('date')} />
         </div>
       )}
     </Media>
-    <div className="facture-item">
+    <div className="list-item">
       Montant
       <ChevronDown className="chevron" onClick={clickChevron('montant')} />
     </div>
@@ -30,7 +30,7 @@ const FacturesListHead = ({ clickChevron }) => (
       {matches => (
         matches
         &&
-        <div className="facture-item">
+        <div className="list-item">
           Statut
           <ChevronDown className="chevron" onClick={clickChevron('statut')} />
         </div>)}

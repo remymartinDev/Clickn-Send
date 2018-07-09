@@ -11,7 +11,7 @@ class Home extends React.Component {
   state = {
     products: [],
     filter: {
-      type: 'date',
+      type: 'id',
       asc: false,
     }
   }
@@ -30,18 +30,31 @@ class Home extends React.Component {
       const filter = b.id - a.id;
       return this.state.filter.asc ? filter : -filter;
     });
-    orderedProducts.map(product => (
+    const productsJsx = orderedProducts.map(product => (
       <ProductItem key={product.id} {...product} />
     ));
-    return orderedProducts;
+    return productsJsx;
+  }
+
+  handleChevron = type => () => {
+    const { type: stateType, asc } = this.state.filter;
+    this.setState({
+      filter: {
+        type,
+        asc: type === stateType ? !asc : false,
+      },
+    });
   }
 
   render() {
     return (
       <div className="page-container-product">
-        <ButtonCreate class="product-create-button" type="produit" />
-        <ProductItemHead />
-        {this.getProductJSX()}
+        <h1 className="titre titl-product">Vos produits</h1>
+        <ButtonCreate class="product-create-button list-prod-btn" type="produit" />
+        <div className="contain-products">
+          <ProductItemHead clickChevron={this.handleChevron} />
+          {this.getProductJSX()}
+        </div>
       </div>
     );
   }
