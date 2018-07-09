@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import logo from '~/images/click-n-send_logo.png';
 import './home.scss';

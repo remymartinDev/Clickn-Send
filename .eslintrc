@@ -12,7 +12,9 @@
     "react/jsx-filename-extension": "off",
     "react/forbid-prop-types": "off",
     "react/no-unescaped-entities": "off",
-    "jsx-a11y/click-events-have-key-events": "off"
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/anchor-is-valid": "off"
   },
   "settings": {
     "import/resolver": {

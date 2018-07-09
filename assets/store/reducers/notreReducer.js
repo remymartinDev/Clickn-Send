@@ -2,7 +2,7 @@
  * État initial pour le state de l'application
  */
 const initialState = {
-  data: {},
+
 };
 
 /**
@@ -11,10 +11,9 @@ const initialState = {
 const reducer = (currentState = initialState, action = {}) => {
   switch (action.type) {
     case 'LOAD': {
-      console.log('reducer ok ');
       return {
         data: action.data,
-      }
+      };
     }
     default: return currentState;
   }

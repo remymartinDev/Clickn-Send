@@ -14,16 +14,12 @@ const mapDispatchToProps = dispatch => ({
       data,
     });
   },
-})
+});
 
 const EditForm = reduxForm({
   form: 'produit',
+  enableReinitialize: true,
 })(Form);
-
-// const EditFormContainer = connect({
-//   mapStateToProps,
-//   mapDispatchToProps,
-// })(EditForm);
 
 const EditFormContainer = connect(
   mapStateToProps,
