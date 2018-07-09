@@ -46,20 +46,6 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("/api/invoices/toctoc", name="toctoc", methods="POST")
-     */
-    public function toctoc(Request $request, ConfiguredSerializer $serializer)
-    {
-        $data = $request->getContent();
-        $data2 = json_decode($data, true);
-        
-        $json = $serializer->getConfiguredSerializer()->serialize($data2, 'json');
-
-        return new Response($json);
-       // $data = $serializer->deserialize($post, App\Entity\Toctoc::class, 'json');
-    }
-
-    /**
      * @Route("/new", name="invoice_new", methods="POST")
      */
     public function new(Request $request, SerializerInterface $serializer, CustomerRepository $customerRepository, StatusRepository $statusRepository, CompanyRepository $companyRepository): Response
@@ -127,19 +113,16 @@ class InvoiceController extends Controller
     /**
      * @Route("s/{id}", name="invoice_delete", methods="DELETE")
      */ 
-    public function delete(Request $request, Invoice $invoice, InvoiceRepository $invoiceRepository)
+    public function delete(Request $request, Invoice $invoice)
     {
-        $data = $request->getContent();
-        var_dump($invoice->getId());
-            /* $invoice = $invoiceRepository->findOneById($id); */
-       /*  if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { */
+
+/*         if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { */
             $em = $this->getDoctrine()->getManager();
             $em->remove($invoice);
             $em->flush();
         
-        /* } */
-
-        return $this->redirectToRoute('zome');
+       /*  } */
+        exit;
     }
 
 }
