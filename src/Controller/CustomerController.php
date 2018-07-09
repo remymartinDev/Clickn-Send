@@ -69,7 +69,9 @@ class CustomerController extends Controller
         $em->persist($customer);
         $em->flush();
 
-        return new Response('true');
+        $succes = true;
+        $json = $serializer->serialize($succes, 'json');
+        return new Response($json);
     }
 
     /**
@@ -122,7 +124,8 @@ class CustomerController extends Controller
             $em->remove($customer);
             $em->flush();
       /*   } */
-
-        return new Response('true');
+      $succes = true;
+      $json = $serializer->serialize($succes, 'json');
+      return new Response($json);
     }
 }

@@ -55,7 +55,9 @@ class ProductController extends Controller
         $em->persist($product);
         $em->flush();
 
-        return new Response('true');
+        $succes = true;
+        $json = $serializer->serialize($succes, 'json');
+        return new Response($json);
     }
 
 
@@ -100,6 +102,8 @@ class ProductController extends Controller
             $em->flush();
        /*  } */
 
-        return new Response('true');
+       $succes = true;
+       $json = $serializer->serialize($succes, 'json');
+       return new Response($json);
     }
 }
