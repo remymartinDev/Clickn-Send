@@ -13,10 +13,10 @@ let CreateProduct = props => {
       <Field className="form-field" name="reference" component="input" type="text" />
       <label className="form-label" htmlFor="description">Description</label>
       <Field className="form-field" name="description" component="input" type="text" />
-      <label className="form-label" htmlFor="prix">Prix</label>
-      <Field className="form-field" name="prix" component="input" type="text" />
-      <label className="form-label" htmlFor="unite">Unité</label>
-      <Field className="form-field" name="unite" component="input" type="text" />
+      <label className="form-label" htmlFor="price">Prix</label>
+      <Field className="form-field" name="price" component="input" type="text" />
+      <label className="form-label" htmlFor="unity">Unité</label>
+      <Field className="form-field" name="unity" component="input" type="text" />
       <button className="form-button" type="submit">Créer</button>
     </form>
   )
