@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
+use App\Repository\StatusRepository;
+use App\Repository\CustomerRepository;
+use App\Repository\CompanyRepository;
 use App\Service\ConfiguredSerializer;
 use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -46,22 +49,22 @@ class InvoiceController extends Controller
     /**
      * @Route("/new", name="invoice_new", methods="POST")
      */
-    public function new(Request $request, SerializerInterface $serializer, InjectionEntity $injectionEntity): Response
+    public function new(Request $request, SerializerInterface $serializer, InjectionEntity $injectionEntity, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository): Response
     {
         
         $data_array = json_decode($data, true);
         $data = $request->getContent();
         //hydrate an invoice object with data
-        $invoice = $serializer->deserialize($data, Invoice::class, 'json');
+      
         
         //take relational object for invoice 
-        /* $customer = $customerRepository->findOneById($data_array['customer']['id']);
+        $customer = $customerRepository->findOneById($data_array['customer']['id']);
         $status = $statusRepository->findOneById($data_array['status']['id']);
-        $company = $companyRepository->findOneById($data_array['company']['id']); */
+        $company = $companyRepository->findOneById($data_array['company']['id']);
 
-        $company = $injectionEntity->Entity("customer");
+/*        $company = $injectionEntity->Entity("customer");
         $company = $injectionEntity->Entity("status");
-        $company = $injectionEntity->Entity("company");
+        $company = $injectionEntity->Entity("company"); */
         
         //set invoice
         $invoice->setCustomer($customer);
@@ -71,7 +74,8 @@ class InvoiceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($invoice);
         $em->flush();
-        exit;
+        
+        return $succes = true;
     }
 
 

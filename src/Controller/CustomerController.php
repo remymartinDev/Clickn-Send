@@ -5,11 +5,17 @@ namespace App\Controller;
 use App\Entity\Customer;
 use App\Form\CustomerType;
 use App\Repository\CustomerRepository;
+use App\Repository\CompanyRepository;
+use App\Service\ConfiguredSerializer;
+use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\ConfiguredSerializer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
+
 
 
 /**
@@ -46,24 +52,24 @@ class CustomerController extends Controller
     /**
      * @Route("/new", name="customer_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer, InjectionEntity $injectionEntity): Response
     {
-        $customer = new Customer();
-        $form = $this->createForm(CustomerType::class, $customer);
-        $form->handleRequest($request);
+        $data = $request->getContent();
+        
+        //hydrate an invoice object with data
+        $customer = $serializer->deserialize($data, Customer::class, 'json');
+        
+        //take relational object for product
+        $company = $companyRepository->findOneById(1);
+        
+        //set product
+        $customer->setCompany($company);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($customer);
+        $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($customer);
-            $em->flush();
-
-            return $this->redirectToRoute('customer_index');
-        }
-
-        return $this->render('customer/new.html.twig', [
-            'customer' => $customer,
-            'form' => $form->createView(),
-        ]);
+        return $Succes = true;
     }
 
     /**
