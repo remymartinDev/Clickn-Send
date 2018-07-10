@@ -54,17 +54,12 @@ class InvoiceController extends Controller
         
         $data = $request->getContent();
         $data_array = json_decode($data, true);
-        //hydrate an invoice object with data
-      
         
+        //hydrate an invoice object with data
         //take relational object for invoice 
         $customer = $customerRepository->findOneById($data_array['customer']['id']);
         $status = $statusRepository->findOneById($data_array['status']['id']);
         $company = $companyRepository->findOneById($data_array['company']['id']);
-
-/*        $company = $injectionEntity->Entity("customer");
-        $company = $injectionEntity->Entity("status");
-        $company = $injectionEntity->Entity("company"); */
         
         //set invoice
         $invoice->setCustomer($customer);

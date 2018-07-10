@@ -115,7 +115,7 @@ class CustomerController extends Controller
     /**
      * @Route("/{id}", name="customer_delete", methods="DELETE")
      */
-    public function delete(Request $request, Customer $customer): Response
+    public function delete(Request $request, Customer $customer, SerializerInterface $serializer): Response
     {
        /*  if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->request->get('_token'))) { */
             $em = $this->getDoctrine()->getManager();
