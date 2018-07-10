@@ -81,9 +81,9 @@ class Home extends React.Component {
       .then(response => {
         console.log(response);
         if (response.data.success){
-          const products = this.state.products.filter(({ id: productId }) => id !== productId );
+          const clients = this.state.clients.filter(({ id: clientId }) => id !== clientId );
           this.setState({
-            products,
+            clients,
           });
         }
       });

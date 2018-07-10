@@ -71,6 +71,6 @@ ClientItem.propTypes = {
 
 ClientItem.defautProps = {
   comment: '',
-}
+};
 
 export default ClientItem;
