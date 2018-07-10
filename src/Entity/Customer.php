@@ -348,6 +348,18 @@ class Customer
 
         return $this;
     }
+    
+    public function getActive(): ?bool
+    {
+        return $this->Active;
+    }
+
+    public function setActive(bool $Active): self
+    {
+        $this->Active = $Active;
+
+        return $this;
+    }
 
     public function delPayments()
     {
@@ -377,17 +389,6 @@ class Customer
         $this->setVatNumber($data_array['vatNumber']);
     }
 
-    public function getActive(): ?bool
-    {
-        return $this->Active;
-    }
-
-    public function setActive(bool $Active): self
-    {
-        $this->Active = $Active;
-
-        return $this;
-    }
 
 
 }
