@@ -1,33 +1,13 @@
 @import '~/styles/vars.scss';
-
-.form-radio {
-  grid-column: 1 / -1;
-  text-align: center;
-  
-}
-.radio {
-  padding: 1rem;
-}
-.form-with-icon {
-  position: relative;
-  z-index: 1;
-}
-.form-icon {
-  position: absolute;
-  top: 20%;
-  left: 90%;
-  z-index: 2;
-}
-
-@media (min-width: 769px) {
-  .form.form-client {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    .form-label {
-      margin-left: 2rem;
-    }
-    .form-radio {
-      grid-column: 1 / -1;
-      text-align: center;
-    }
+.modal-button {
+  background-color: $color-mauve-4;
+  border-radius: 0;
+  border: 0px;
+  &:hover {
+    background-color: $color-mauve-0;
   }
+}
+.modal-icon {
+  
+  color: white;
 }

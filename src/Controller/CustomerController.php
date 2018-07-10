@@ -73,8 +73,11 @@ class CustomerController extends Controller
         $em->persist($customer);
         $em->flush();
 
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+            'id' => $customer->getId()
+        ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 
