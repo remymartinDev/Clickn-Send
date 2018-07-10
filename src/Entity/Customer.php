@@ -348,7 +348,7 @@ class Customer
 
         return $this;
     }
-    
+
     public function getActive(): ?bool
     {
         return $this->active;
