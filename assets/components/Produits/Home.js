@@ -97,7 +97,13 @@ class Home extends React.Component {
   handleDelete = id => () => {
     axios.delete('/api/product/'+id)
       .then(response => {
-        console.log(response)
+        console.log(response);
+        if (response.data.success){
+          const products = this.state.products.filter(({ id: productId }) => id !== productId );
+          this.setState({
+            products,
+          });
+        }
       });
   }
 
