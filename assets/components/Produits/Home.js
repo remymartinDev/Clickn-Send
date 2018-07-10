@@ -31,7 +31,7 @@ class Home extends React.Component {
       return this.state.filter.asc ? filter : -filter;
     });
     const productsJsx = orderedProducts.map(product => (
-      <ProductItem key={product.id} {...product} />
+      <ProductItem key={product.id} {...product} clickDelete={this.handleDelete} />
     ));
     return productsJsx;
   }
@@ -92,6 +92,13 @@ class Home extends React.Component {
       default:
         return products;
     }
+  }
+
+  handleDelete = id => () => {
+    axios.delete('/api/product/'+id)
+      .then(response => {
+        console.log(response)
+      });
   }
 
   render() {
