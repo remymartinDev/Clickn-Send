@@ -353,4 +353,9 @@ class Customer
     {
         $this->invoices = [];
     }
+
+    public function hydrate($data_array)
+    {
+        $this->setPrice($data_array['price']);
+    }
 }

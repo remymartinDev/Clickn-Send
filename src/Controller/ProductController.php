@@ -82,8 +82,8 @@ class ProductController extends Controller
         //set product
         $product->hydrate($data_array);
         
-        $em = $this->getDoctrine()->getManager()->flush();
-
+        $this->getDoctrine()->getManager()->flush();
+        
         $succes = true;
         $json = $serializer->serialize($succes, 'json');
         return new Response($json);
