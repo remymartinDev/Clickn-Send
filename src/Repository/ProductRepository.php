@@ -20,7 +20,7 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     
-    public function findActivProduct($company)
+    public function findActivProducts($company)
     {
 
         return $this->createQueryBuilder('p')

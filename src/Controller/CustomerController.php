@@ -111,8 +111,10 @@ class CustomerController extends Controller
         
         $em = $this->getDoctrine()->getManager()->flush();
 
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+            ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 
@@ -126,9 +128,11 @@ class CustomerController extends Controller
             $em->remove($customer);
             $em->flush();
       /*   } */
-      $succes = true;
-      $json = $serializer->serialize($succes, 'json');
-      return new Response($json);
+      $response = [
+        'succes' => true,
+        ];
+    $json = $serializer->serialize($response, 'json');
+    return new Response($json);
     }
 
      /**
@@ -144,11 +148,13 @@ class CustomerController extends Controller
             $customer->setActive(true);
         }
 
-            
-            $this->getDoctrine()->getManager()->flush();
+        
+        $this->getDoctrine()->getManager()->flush();
 
-            $succes = true;
-            $json = $serializer->serialize($succes, 'json');
-            return new Response($json);
+        $response = [
+            'succes' => true,
+            ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 }

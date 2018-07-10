@@ -55,8 +55,10 @@ class MemberController extends Controller
         $em->persist($member);
         $em->flush();
 
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+            ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 
@@ -102,8 +104,10 @@ class MemberController extends Controller
             $em->flush();
         /* } */
 
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+            ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 }

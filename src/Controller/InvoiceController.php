@@ -70,8 +70,11 @@ class InvoiceController extends Controller
         $em->persist($invoice);
         $em->flush();
         
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+            'id' => $invoice->getId()
+            ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 
@@ -125,9 +128,11 @@ class InvoiceController extends Controller
             $em->flush();
         
        /*  } */
-       $succes = true;
-       $json = $serializer->serialize($succes, 'json');
-       return new Response($json);
+       $response = [
+        'succes' => true,
+        ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 
 }
