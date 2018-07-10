@@ -166,10 +166,19 @@ class Product
         return $this->company;
     }
 
-    public function setCompany(?Company $company): self
+    public function setCompany($company): self
     {
         $this->company = $company;
 
         return $this;
+    }
+
+    public function hydrate($data_array)
+    {
+        $this->setDenomination($data_array['denomination']);
+        $this->setReference($data_array['reference']);
+        $this->setDescription($data_array['description']);
+        $this->setPrice($data_array['price']);
+        $this->setUnity($data_array['unity']);
     }
 }
