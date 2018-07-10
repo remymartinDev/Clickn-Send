@@ -97,16 +97,16 @@ class CustomerController extends Controller
     /**
      * @Route("/{id}/edit", name="customer_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Customer $customer): Response
+    public function edit(Request $request, Customer $customer, SerializerInterface $serializer, CustomerRepository $customerRepository): Response
     {
         $data = $request->getContent();
         $data_array = json_decode($data, true);
 
         //set product
-        $product->hydrate($data_array);
+        $customer->hydrate($data_array);
         
-        $this->getDoctrine()->getManager()->flush();
-        
+        $em = $this->getDoctrine()->getManager()->flush();
+
         $succes = true;
         $json = $serializer->serialize($succes, 'json');
         return new Response($json);

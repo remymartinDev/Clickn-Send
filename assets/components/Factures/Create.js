@@ -1,9 +1,18 @@
 import React from 'react';
+import CreateFacture from '~/components/Forms/Facture/Create';
+import axios from 'axios';
 
-const Create = () => (
-  <div>
-    <h1>Créer votre facture</h1>
-  </div>
-);
+class Create extends React.Component {
+  submit = (values) => {
+    axios.post('/api/invoice/new', values)
+      .then((response) => {
+        console.log(response.data);
+      });
+  }
+
+  render() {
+    return <CreateFacture onSubmit={this.submit} />;
+  }
+}
 
 export default Create;
