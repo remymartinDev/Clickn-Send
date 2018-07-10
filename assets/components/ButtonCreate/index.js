@@ -12,7 +12,7 @@ const typeList = {
     content: 'Créer une facture',
   },
   client: {
-    to: '/clients/create',
+    to: '/customers/create',
     className: 'cli',
     content: 'Créer un client',
   },
