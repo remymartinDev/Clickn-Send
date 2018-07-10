@@ -64,6 +64,7 @@ class CustomerController extends Controller
         
         //set product
         $customer->setCompany($company);
+        $customer->setActive(true);
         
         $em = $this->getDoctrine()->getManager();
         $em->persist($customer);
@@ -125,5 +126,26 @@ class CustomerController extends Controller
       $succes = true;
       $json = $serializer->serialize($succes, 'json');
       return new Response($json);
+    }
+
+     /**
+     * @Route("/{id}/activ", name="customer_activ", methods="GET|POST")
+     */
+    public function activ(Request $request, Customer $customer, SerializerInterface $serializer): Response
+    {    
+
+        if ($customer->getActive()) {
+            $customer->setActive(false);
+        }
+        else {
+            $customer->setActive(true);
+        }
+
+            
+            $this->getDoctrine()->getManager()->flush();
+
+            $succes = true;
+            $json = $serializer->serialize($succes, 'json');
+            return new Response($json);
     }
 }
