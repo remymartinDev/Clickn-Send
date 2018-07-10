@@ -19,22 +19,43 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
-//    /**
-//     * @return Customer[] Returns an array of Customer objects
-//     */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Customer[] Returns an array of Customer objects
+     */
+    
+    public function findActivCustomers($company)
+    { /* 
+        return $this->createQueryBuilder('cu')
+        ->where('cu.company = :company')
+        ->setParameter('company', $company)
+        ->andWhere('cu.active = true')
+        ->getQuery()
+        ->getResult();
+        */  
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery(
+             "SELECT cu
+                FROM App\Entity\Customer cu
+                WHERE cu.active = true
+                AND cu.company = :company"
+        )->setParameter('company', $company);
+        return $query->execute();
+    } 
+
+    public function findInactivCustomers($company)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery(
+             "SELECT cu
+                FROM App\Entity\Customer cu
+                WHERE cu.active = false
+                AND cu.company = :company"
+        )->setParameter('company', $company);
+        return $query->execute();
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Customer

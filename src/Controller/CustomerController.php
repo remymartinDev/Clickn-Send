@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
+use App\Entity\Company;
 use App\Form\CustomerType;
 use App\Repository\CustomerRepository;
 use App\Repository\CompanyRepository;
@@ -29,7 +30,9 @@ class CustomerController extends Controller
      */
     public function list(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $customers = $customerRepository->findByCompany(1);
+        
+        $customers = $customerRepository->findActivCustomers(1);
+
         
 
         foreach ($customers as $customer) {
@@ -111,8 +114,10 @@ class CustomerController extends Controller
         
         $em = $this->getDoctrine()->getManager()->flush();
 
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+            ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 
@@ -126,9 +131,11 @@ class CustomerController extends Controller
             $em->remove($customer);
             $em->flush();
       /*   } */
-      $succes = true;
-      $json = $serializer->serialize($succes, 'json');
-      return new Response($json);
+      $response = [
+        'succes' => true,
+        ];
+    $json = $serializer->serialize($response, 'json');
+    return new Response($json);
     }
 
      /**
@@ -144,11 +151,13 @@ class CustomerController extends Controller
             $customer->setActive(true);
         }
 
-            
-            $this->getDoctrine()->getManager()->flush();
+        
+        $this->getDoctrine()->getManager()->flush();
 
-            $succes = true;
-            $json = $serializer->serialize($succes, 'json');
-            return new Response($json);
+        $response = [
+            'succes' => true,
+            ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 }

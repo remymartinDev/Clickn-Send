@@ -75,8 +75,10 @@ class PaymentController extends Controller
         $em->persist($customer);
         $em->flush();
 
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+        ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 
@@ -111,8 +113,10 @@ class PaymentController extends Controller
             $em->flush();
        /*  } */
 
-       $succes = true;
-       $json = $serializer->serialize($succes, 'json');
-       return new Response($json);
+    $response = [
+    'succes' => true,
+    ];
+    $json = $serializer->serialize($response, 'json');
+    return new Response($json);
     }
 }

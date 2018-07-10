@@ -20,13 +20,25 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     
-    public function findActivProduct($company)
+    public function findActivProducts($company)
     {
 
         return $this->createQueryBuilder('p')
         ->where('p.company = :company')
         ->setParameter('company', $company)
         ->andWhere('p.active = true')
+        ->getQuery()
+        ->getResult();
+
+    }
+
+    public function findInactivProducts($company)
+    {
+
+        return $this->createQueryBuilder('p')
+        ->where('p.company = :company')
+        ->setParameter('company', $company)
+        ->andWhere('p.active = false')
         ->getQuery()
         ->getResult();
 

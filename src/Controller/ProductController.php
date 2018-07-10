@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function list(ProductRepository $productRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $products = $productRepository->findActivProduct(1);
+        $products = $productRepository->findActivProducts(1);
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($products, 'json');
@@ -56,8 +56,11 @@ class ProductController extends Controller
         $em->persist($product);
         $em->flush();
 
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+            'id' => $product->getId()
+        ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 
@@ -85,8 +88,10 @@ class ProductController extends Controller
         
         $this->getDoctrine()->getManager()->flush();
         
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+        ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 
@@ -101,9 +106,11 @@ class ProductController extends Controller
             $em->flush();
        /*  } */
 
-       $succes = true;
-       $json = $serializer->serialize($succes, 'json');
-       return new Response($json);
+       $response = [
+        'succes' => true,
+    ];
+    $json = $serializer->serialize($response, 'json');
+    return new Response($json);
     }
 
     /**
@@ -119,8 +126,10 @@ class ProductController extends Controller
         
         $this->getDoctrine()->getManager()->flush();
         
-        $succes = true;
-        $json = $serializer->serialize($succes, 'json');
+        $response = [
+            'succes' => true,
+        ];
+        $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
 }
