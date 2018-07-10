@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -13,11 +13,16 @@ import './formFacture.scss';
 
 class CreateFacture extends React.Component {
   state = {
-    clients : [],
+    clients: [],
+    idNewClient: 0,
     modal: false,
   }
 
   componentDidMount() {
+    this.getCustomers();
+  }
+
+  getCustomers = () => {
     axios.get('/api/customers')
       .then(({data:clients}) => {
         this.setState({
@@ -35,7 +40,7 @@ class CreateFacture extends React.Component {
   getClientJSX = () => {
     return this.state.clients.map((client) => {
       const valueModal = client.pro ? client.customerCompany : client.lastname;
-      return <option key={client.id} value={client.id}>{valueModal}</option>;
+      return <option key={client.id} value={client.id} >{valueModal}</option>;
     });
   }
 
@@ -43,28 +48,56 @@ class CreateFacture extends React.Component {
     axios.post('/api/customer/new', values)
       .then((response) => {
         console.log(response);
-        this.toggle();
-        
+        if(response.data.succes) {
+          this.toggle();
+          this.props.changeCustomers(response.data.id, this.getCustomers);
+          // this.setState({
+          //   idNewClient: response.data.id,
+          // }, this.getCustomers);
+          console.log(this.state.idNewClient);
+        }
       });
   }
+  toggleValue = () => {
+    console.log('in toggle value');
+    this.setState({
+      idNewClient: 'toctoc',
+    });
+  }
+
+  selectHandler = (e) => {
+    const { value } = e.target;
+    console.log(value);
+    this.setState({
+      idNewClient: value,
+    });
+  }
+
+  invoiceCreateSubmit = values => {
+    console.log('mon submit', values);
+  }      
   
   render() {
     return (
       <div>
-        <Form inline onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="selectClient">Client</label>{' '}
-          <Field name="selectClient" component="select">
+        <form onSubmit={this.props.handleSubmit}>
+          <label htmlFor="selectClient">Client</label>
+          <h1>{this.state.idNewClient}</h1>
+          <Field component="select" name="selectClient">
             <option>Sélectionnez votre client</option>
             {this.getClientJSX()}
+            <option value="toctoc">toctoc</option>
+            <option value={3}>tactac</option>
           </Field>
           <Button onClick={this.toggle} className="modal-button">
             <FontAwesomeIcon className="modal-icon" icon={faPlus} />
           </Button>
-        </Form>
+          <Button type='submit'>submit invoice</Button>
+        </form>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Créez votre client</ModalHeader>
           <ModalBody>
-            <CreateClient onSubmit={this.submit}/>
+            <CreateClient onSubmit={this.submit} />
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Créer</Button>
@@ -78,6 +111,16 @@ class CreateFacture extends React.Component {
 
 CreateFacture.propTypes = {};
 
-export default reduxForm({
+const mapDispatchToProps = dispatch => ({
+  changeCustomers: (id, callback) => {
+    dispatch(change('facture', 'selectClient', id));
+    callback();
+  },
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(reduxForm({
   form: 'facture',
-})(CreateFacture);
+})(CreateFacture));

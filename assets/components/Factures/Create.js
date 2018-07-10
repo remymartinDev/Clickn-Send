@@ -4,10 +4,12 @@ import axios from 'axios';
 
 class Create extends React.Component {
   submit = (values) => {
-    axios.post('/api/invoice/new', values)
-      .then((response) => {
-        console.log(response.data);
-      });
+    console.log('dans create ');
+    console.log(values);
+    // axios.post('/api/invoice/new', values)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   });
   }
 
   render() {
