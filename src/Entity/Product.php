@@ -56,6 +56,11 @@ class Product
      */
     private $company;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
+
 
 //USELESS RELATION
     /* public function __construct()
@@ -180,5 +185,17 @@ class Product
         $this->setDescription($data_array['description']);
         $this->setPrice($data_array['price']);
         $this->setUnity($data_array['unity']);
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
     }
 }

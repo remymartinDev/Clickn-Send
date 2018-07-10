@@ -99,6 +99,11 @@ class Customer
      */
     private $company;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $Active;
+
     public function __construct()
     {
         $this->invoices = new ArrayCollection();
@@ -370,6 +375,18 @@ class Customer
         $this->setPro($data_array['pro']);
         $this->setRemise($data_array['remise']);
         $this->setVatNumber($data_array['vatNumber']);
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->Active;
+    }
+
+    public function setActive(bool $Active): self
+    {
+        $this->Active = $Active;
+
+        return $this;
     }
 
 
