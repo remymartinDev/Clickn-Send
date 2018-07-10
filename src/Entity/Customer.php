@@ -353,4 +353,24 @@ class Customer
     {
         $this->invoices = [];
     }
+
+    public function hydrate($data_array)
+    {
+        
+        $this->setComment($data_array['comment']);
+        $this->setCompanyAdress($data_array['companyAdress']);
+        $this->setCountryCode($data_array['countryCode']);
+        $this->setCustomerCompany($data_array['customerCompany']);
+        $this->setEmail($data_array['email']);
+        $this->setFax($data_array['fax']);
+        $this->setFirstname($data_array['firstname']);
+        $this->setLastname($data_array['lastname']);
+        $this->setMobile($data_array['mobile']);
+        $this->setPhone($data_array['phone']);
+        $this->setPro($data_array['pro']);
+        $this->setRemise($data_array['remise']);
+        $this->setVatNumber($data_array['vatNumber']);
+    }
+
+
 }
