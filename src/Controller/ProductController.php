@@ -74,21 +74,19 @@ class ProductController extends Controller
     /**
      * @Route("/{id}/edit", name="product_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Product $product): Response
+    public function edit(Request $request, Product $product, SerializerInterface $serializer, CompanyRepository $companyRepository): Response
     {
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
+        $data = $request->getContent();
+        $data_array = json_decode($data, true);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        //set product
+        $product->hydrate($data_array);
+        
+        $em = $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('product_edit', ['id' => $product->getId()]);
-        }
-
-        return $this->render('product/edit.html.twig', [
-            'product' => $product,
-            'form' => $form->createView(),
-        ]);
+        $succes = true;
+        $json = $serializer->serialize($succes, 'json');
+        return new Response($json);
     }
 
     /**

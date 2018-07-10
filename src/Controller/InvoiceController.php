@@ -52,8 +52,8 @@ class InvoiceController extends Controller
     public function new(Request $request, SerializerInterface $serializer, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository): Response
     {
         
-        $data_array = json_decode($data, true);
         $data = $request->getContent();
+        $data_array = json_decode($data, true);
         //hydrate an invoice object with data
       
         
