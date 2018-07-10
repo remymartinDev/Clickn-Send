@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FaEye from 'react-icons/lib/fa/eye';
 import FaPencil from 'react-icons/lib/fa/pencil';
 import FaDownload from 'react-icons/lib/fa/download';
+import FaTrash from 'react-icons/lib/fa/trash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserTie, faFileInvoiceDollar, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -24,6 +25,7 @@ const ClientItem = ({
   remise,
   invoices,
   id,
+  clickDelete,
 }) => {
   const proIcon = {
     true: faBuilding,
@@ -45,6 +47,10 @@ const ClientItem = ({
       <Link to={`/customers/${id}`} className="list-item--icon"> <FaPencil /> </Link>
       <FaDownload className="list-item--icon" />
       <FontAwesomeIcon className="list-item--icon" icon={faFileInvoiceDollar} />
+      <FaTrash
+        className="list-item--icon"
+        onClick={clickDelete(id)}
+      />
       <div className="list-item last-item">{comment}</div>
     </div>
   );
@@ -58,8 +64,13 @@ ClientItem.propTypes = {
   mobile: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   customerCompany: PropTypes.string,
-  phone: PropTypes.number.isRequired,
+  phone: PropTypes.string.isRequired,
   comment: PropTypes.string,
+  clickDelete: PropTypes.func.isRequired,
+};
+
+ClientItem.defautProps = {
+  comment: '',
 };
 
 export default ClientItem;

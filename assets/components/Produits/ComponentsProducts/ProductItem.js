@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import FaEye from 'react-icons/lib/fa/eye';
 import FaPencil from 'react-icons/lib/fa/pencil';
 import FaDownload from 'react-icons/lib/fa/download';
+import FaTrash from 'react-icons/lib/fa/trash';
 
 import './ProductItem.scss';
 
@@ -15,6 +16,7 @@ const ProductItem = ({
   price,
   unity,
   id,
+  clickDelete,
 }) => (
   <div className="list-contain-product">
     <div className="list-item">{denomination}</div>
@@ -29,6 +31,10 @@ const ProductItem = ({
     <FaEye className="list-item--icon" />
     <Link to={`/products/${id}`} className="list-item--icon"> <FaPencil /> </Link>
     <FaDownload className="list-item--icon" />
+    <FaTrash 
+      className="list-item--icon"
+      onClick={clickDelete(id)}
+    />
   </div>
 );
 
@@ -39,6 +45,7 @@ ProductItem.propTypes = {
   price: PropTypes.string.isRequired,
   unity: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  clickDelete: PropTypes.func.isRequired,
 };
 
 export default ProductItem;

@@ -32,7 +32,7 @@ class Home extends React.Component {
       return this.state.filter.asc ? filter : -filter;
     });
     const clientJsx = orderedclient.map(product => (
-      <ProductItem key={product.id} {...product} />
+      <ProductItem key={product.id} {...product} clickDelete={this.handleDelete}/>
     ));
     return clientJsx;
   }
@@ -74,6 +74,19 @@ class Home extends React.Component {
       default:
         return client;
     }
+  }
+
+  handleDelete = id => () => {
+    axios.delete('/api/customer/'+id)
+      .then(response => {
+        console.log(response);
+        if (response.data.success){
+          const clients = this.state.clients.filter(({ id: clientId }) => id !== clientId );
+          this.setState({
+            clients,
+          });
+        }
+      });
   }
 
   render() {
