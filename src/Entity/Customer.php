@@ -102,7 +102,7 @@ class Customer
     /**
      * @ORM\Column(type="boolean")
      */
-    private $Active;
+    private $active;
 
     public function __construct()
     {
@@ -348,15 +348,15 @@ class Customer
 
         return $this;
     }
-    
+
     public function getActive(): ?bool
     {
-        return $this->Active;
+        return $this->active;
     }
 
-    public function setActive(bool $Active): self
+    public function setActive(bool $active): self
     {
-        $this->Active = $Active;
+        $this->active = $active;
 
         return $this;
     }
