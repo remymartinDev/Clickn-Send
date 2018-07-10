@@ -97,21 +97,19 @@ class CustomerController extends Controller
     /**
      * @Route("/{id}/edit", name="customer_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Customer $customer): Response
+    public function edit(Request $request, Customer $customer, SerializerInterface $serializer, CustomerRepository $customerRepository): Response
     {
-        $form = $this->createForm(CustomerType::class, $customer);
-        $form->handleRequest($request);
+        $data = $request->getContent();
+        $data_array = json_decode($data, true);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        //set product
+        $customer->hydrate($data_array);
+        
+        $em = $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('customer_edit', ['id' => $customer->getId()]);
-        }
-
-        return $this->render('customer/edit.html.twig', [
-            'customer' => $customer,
-            'form' => $form->createView(),
-        ]);
+        $succes = true;
+        $json = $serializer->serialize($succes, 'json');
+        return new Response($json);
     }
 
     /**
