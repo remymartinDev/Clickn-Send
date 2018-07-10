@@ -1,50 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { Field, reduxForm } from 'redux-form';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
 
 import './formFacture.scss';
 
-const CreateFacture = ({ handleSubmit }) => (
-  <form>
-    <h1 className="form-title">Création d'une facture</h1>
-    <label className="form-label" htmlFor="denomination">Client</label>
-    <Field className="form-field" name="denomination" component="input" type="text" />
-  </form>  
-);
-
-CreateFacture.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-};
-
-export default reduxForm({
-  form: 'facture',
-})(CreateFacture);
-
-
-/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
-
-
-
-class ModalExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false,
-      backdrop: true
-    };
-
-    this.toggle = this.toggle.bind(this);
-    this.changeBackdrop = this.changeBackdrop.bind(this);
+class CreateFacture extends React.Component {
+  state = {
+    clients : [],
+    modal: false,
+    backdrop: true,
   }
 
-  toggle() {
+  componentDidMount() {
+    axios.get('/api/customers')
+      .then(({data:clients}) => {
+        console.log(clients)
+        this.setState({
+          clients,
+        });
+      });
+  }
+  
+  toggle = () => {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
     });
   }
 
-  changeBackdrop(e) {
+  changeBackdrop = (e) => {
     let value = e.target.value;
     if (value !== 'static') {
       value = JSON.parse(value);
@@ -52,6 +37,14 @@ class ModalExample extends React.Component {
     this.setState({ backdrop: value });
   }
 
+  getClientJSX = () => {
+    return this.state.clients.map((client) => {
+      const valueModal = client.pro ? client.customerCompany : client.lastname;
+      return <option key={client.id} value={valueModal}>{valueModal}</option>;
+    });
+  }
+
+  
   render() {
     return (
       <div>
@@ -59,13 +52,11 @@ class ModalExample extends React.Component {
           <FormGroup>
             <Label for="backdrop">Backdrop value</Label>{' '}
             <Input type="select" name="backdrop" id="backdrop" onChange={this.changeBackdrop}>
-              <option value="true">true</option>
-              <option value="false">false</option>
-              <option value="static">"static"</option>
+              {this.getClientJSX()}           
             </Input>
           </FormGroup>
           {' '}
-          <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+          <Button color="danger" onClick={this.toggle}>ma modal</Button>
         </Form>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
@@ -77,9 +68,15 @@ class ModalExample extends React.Component {
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
-      </div>
+      </div> 
     );
   }
 }
 
-export default ModalExample;
+CreateFacture.propTypes = {};
+
+export default reduxForm({
+  form: 'facture',
+})(CreateFacture);
+
+
