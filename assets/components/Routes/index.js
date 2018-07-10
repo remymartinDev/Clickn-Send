@@ -24,7 +24,7 @@ const Routes = () => (
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/invoices" component={Factures} />
       <Route path="/products" component={Produits} />
-      <Route path="/clients" component={Clients} />
+      <Route path="/customers" component={Clients} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
     </Switch>

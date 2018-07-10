@@ -44,7 +44,7 @@ export default class NavClick extends React.Component {
                 <NavLink tag={Link} to="/products">Produits</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/clients">Clients</NavLink>
+                <NavLink tag={Link} to="/customers">Clients</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/profile">Profile</NavLink>

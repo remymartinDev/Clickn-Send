@@ -53,8 +53,8 @@ const NavVertical = () => (
             Clients
           </DropdownToggle>
           <DropdownMenu>
-            <DropdownItem tag={Link} to="/clients/create">Ajouter client</DropdownItem>
-            <DropdownItem tag={Link} to="/clients">Mes clients</DropdownItem>
+            <DropdownItem tag={Link} to="/customers/create">Ajouter client</DropdownItem>
+            <DropdownItem tag={Link} to="/customers">Mes clients</DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
       </Nav>

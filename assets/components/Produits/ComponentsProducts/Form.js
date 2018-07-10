@@ -15,7 +15,7 @@ const Form = ({ handleSubmit }) => (
     <Field className="form-field" name="price" component="input" type="text" />
     <label className="form-label" htmlFor="unity">Unité</label>
     <Field className="form-field" name="unity" component="input" type="text" />
-    <button className="form-button" type="submit">Créer</button>
+    <button className="form-button" type="submit">Modifier</button>
   </form>
 );
 

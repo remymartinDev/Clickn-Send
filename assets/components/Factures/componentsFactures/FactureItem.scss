@@ -18,6 +18,10 @@
 }
 .list-item--icon {
     margin: auto;
+    color: $color-mauve-4;
+    &:hover {
+        color: $color-mauve-1;
+    }
 }
 .chevron {
     font-size: 0.8rem;

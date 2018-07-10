@@ -5,6 +5,7 @@ import FaPencil from 'react-icons/lib/fa/pencil';
 import FaDownload from 'react-icons/lib/fa/download';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserTie, faFileInvoiceDollar, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 import './ClientItem.scss';
 
@@ -22,9 +23,8 @@ const ClientItem = ({
   vatNumber,
   remise,
   invoices,
-
+  id,
 }) => {
-  console.log(customerCompany);
   const proIcon = {
     true: faBuilding,
     false: faUserTie,
@@ -42,7 +42,7 @@ const ClientItem = ({
       <div className="list-item">{email}</div>
       <div className="list-item">{remise} %</div>
       <FaEye className="list-item--icon" />
-      <FaPencil className="list-item--icon" />
+      <Link to={`/customers/${id}`} className="list-item--icon"> <FaPencil /> </Link>
       <FaDownload className="list-item--icon" />
       <FontAwesomeIcon className="list-item--icon" icon={faFileInvoiceDollar} />
       <div className="list-item last-item">{comment}</div>
@@ -56,7 +56,10 @@ ClientItem.propTypes = {
   companyAdress: PropTypes.string.isRequired,
   countryCode: PropTypes.string.isRequired,
   mobile: PropTypes.string.isRequired,
-  email: PropTypes.number.isRequired,
+  email: PropTypes.string.isRequired,
+  customerCompany: PropTypes.string,
+  phone: PropTypes.number.isRequired,
+  comment: PropTypes.string,
 };
 
 export default ClientItem;
