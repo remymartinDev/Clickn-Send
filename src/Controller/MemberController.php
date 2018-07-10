@@ -43,11 +43,11 @@ class MemberController extends Controller
         //hydrate an member object with data
         $member = $serializer->deserialize($data, Member::class, 'json');
         
-        //take relational object for product
+        //take relational object for member
         $company = $companyRepository->findOneById(1);
         $role = $roleRepository->findOneById($data_array['role']['id']);
         
-        //set product
+        //set member
         $member->setCompany($company);
         $member->setRole($role);
         

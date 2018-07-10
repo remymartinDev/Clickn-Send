@@ -50,6 +50,7 @@ class ProductController extends Controller
         
         //set product
         $product->setCompany($company);
+        $product->setActive(true);
         
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
@@ -74,7 +75,7 @@ class ProductController extends Controller
     /**
      * @Route("/{id}/edit", name="product_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Product $product, SerializerInterface $serializer, CompanyRepository $companyRepository): Response
+    public function edit(Request $request, Product $product, SerializerInterface $serializer): Response
     {
         $data = $request->getContent();
         $data_array = json_decode($data, true);
@@ -103,5 +104,23 @@ class ProductController extends Controller
        $succes = true;
        $json = $serializer->serialize($succes, 'json');
        return new Response($json);
+    }
+
+    /**
+     * @Route("/{id}/activ", name="product_activ", methods="GET|POST")
+     */
+    public function activ(Request $request, Product $product, SerializerInterface $serializer): Response
+    {
+        if ($product->getActive()) {
+            $product->setActive(false);
+        }else{
+            $product->setActive(true);
+        }
+        
+        $this->getDoctrine()->getManager()->flush();
+        
+        $succes = true;
+        $json = $serializer->serialize($succes, 'json');
+        return new Response($json);
     }
 }
