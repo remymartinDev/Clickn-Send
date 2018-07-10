@@ -19,23 +19,17 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-//    /**
-//     * @return Product[] Returns an array of Product objects
-//     */
     
-                                             //on utilise l'ID pour l'instant (SQL) car pas d'user connecté
-    public function findAllProductsByCompany($company)
+    public function findActivProduct($company)
     {
-        $em = $this->getEntityManager();
 
-        $query = $em->createQuery(
-             "SELECT *
-                FROM App\Entity\Product
-                JOIN App\Entity\Company co
-                WHERE i.company = co
-                AND i.company = :company"
-        )->setParameter('company', $company);
-        return $query->execute();
+        return $this->createQueryBuilder('p')
+        ->where('p.company = :company')
+        ->setParameter('company', $company)
+        ->andWhere('p.active = true')
+        ->getQuery()
+        ->getResult();
+
     }   
 
     /*
