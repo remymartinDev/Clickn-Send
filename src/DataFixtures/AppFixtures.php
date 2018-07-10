@@ -2,23 +2,23 @@
 
 namespace App\DataFixtures;
 
+use \Datetime;
 use Faker\Factory;
+use App\Entity\Role;
+use App\Entity\Member;
+use App\Entity\Status;
+use App\Entity\Company;
+
+use App\Entity\Invoice;
+use App\Entity\Payment;
+use App\Entity\Product;
+use App\Entity\Customer;
+use App\Entity\PaymentMethod;
+use App\Entity\InvoiceHasProduct;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use \Datetime;
-
-use App\Entity\Invoice;
-use App\Entity\InvoiceHasProduct;
-use App\Entity\Member;
-use App\Entity\Payment;
-use App\Entity\PaymentMethod;
-use App\Entity\Product;
-use App\Entity\Role;
-use App\Entity\Status;
-use App\Entity\Company;
-use App\Entity\Customer;
 
 
 class AppFixtures extends Fixture
@@ -151,8 +151,9 @@ class AppFixtures extends Fixture
             $customer->setPro($pro[mt_rand(0,1)]);
             $customer->setCustomerCompany('la société de mon client ' .$i);
             $customer->setVatNumber('08'.$i.'2'.$i.'5'.$i);
-            $customer->setRemise(10 + $i);
+            $customer->setRemise(mt_rand(0,35));
             $customer->setCompany($companies[0]);
+            $customer->setActive(true);
             $customers1[] = $customer;
             $manager->persist($customer); 
         }
@@ -172,8 +173,9 @@ class AppFixtures extends Fixture
             $customer->setPro($pro[mt_rand(0,1)]);
             $customer->setCustomerCompany('la société de mon client ' .$i);
             $customer->setVatNumber('08'.$i.'2'.$i + 5 .'5'.$i);
-            $customer->setRemise(20 + $i);
+            $customer->setRemise(mt_rand(0,35));
             $customer->setCompany($companies[1]);
+            $customer->setActive(true);
             $customers2[] = $customer;
             $manager->persist($customer); 
         }
@@ -183,9 +185,10 @@ class AppFixtures extends Fixture
             $product = new Product();
             $product->setDenomination('denomination'. $i);
             $product->setReference('ref'. $i);
-            $product->setDescription('descritpion' .$i);
+            $product->setDescription('description' .$i);
             $product->setPrice(150 + $i);
             $product->setUnity('unité');
+            $product->setActive(true);
             $product->setCompany($companies[0]);
             $products1[] = $product; 
             $manager->persist($product);
@@ -196,9 +199,10 @@ class AppFixtures extends Fixture
             $product = new Product();
             $product->setDenomination('denomination'. $i);
             $product->setReference('ref'. $i);
-            $product->setDescription('descritpion' .$i);
+            $product->setDescription('description' .$i);
             $product->setPrice(150 + $i);
             $product->setUnity('unité');
+            $product->setActive(true);
             $product->setCompany($companies[1]);
             $products2[] = $product; 
             $manager->persist($product);

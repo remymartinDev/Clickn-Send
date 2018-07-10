@@ -102,7 +102,7 @@ class Customer
     /**
      * @ORM\Column(type="boolean")
      */
-    private $Active;
+    private $active;
 
     public function __construct()
     {
@@ -349,6 +349,18 @@ class Customer
         return $this;
     }
 
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
     public function delPayments()
     {
         $this->payments = [];
@@ -377,17 +389,6 @@ class Customer
         $this->setVatNumber($data_array['vatNumber']);
     }
 
-    public function getActive(): ?bool
-    {
-        return $this->Active;
-    }
-
-    public function setActive(bool $Active): self
-    {
-        $this->Active = $Active;
-
-        return $this;
-    }
 
 
 }
