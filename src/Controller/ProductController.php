@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Repository\CompanyRepository;
 use App\Service\ConfiguredSerializer;
@@ -132,4 +131,6 @@ class ProductController extends Controller
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
+
+    
 }

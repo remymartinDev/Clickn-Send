@@ -91,9 +91,9 @@ class InvoiceController extends Controller
             $payement->setCustomer($payement->getCustomer()->getId());
         }
 
-        $json = $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoice, 'json');
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoice, 'json');
 
-        return new Response($json);
+        new Response($json);
     }
 
     /**
