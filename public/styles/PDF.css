@@ -1,0 +1,18 @@
+body {
+}
+
+.invoice-content {
+  margin: auto;
+  width : 827px;
+  height: 1170px;
+  border: 5px solid rgba(255,162,101,1);
+  background-color: white;
+}
+
+.invoice-content-border {
+  margin: 2rem;
+}
+
+.purple-border {
+  border: 3px solid rgba(121, 27,185,1);
+}
