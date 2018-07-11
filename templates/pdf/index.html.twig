@@ -1,7 +1,30 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ asset('styles/PDF.css') }}">
+{% endblock %}
+
+
 {% block body %}
 
-<p class="titl-product"> Coucou </p>
+<div class="invoice-content">
+    <div class="invoice-content-border">
+
+        <div class="logo">COUCOU</div>
+        <div class="customer"></div>
+
+        <div class="invoice-ref purple-border"></div>
+
+        <div class="invoiceHasProducts purple-border"></div>
+
+        <div class="bank-ref purple-border"></div>
+
+        <div class="company-refs purple-border"></div>
+
+        <div class="amounts purple-border"></div>
+
+
+    </div>
+</div>
 
 {% endblock %}
