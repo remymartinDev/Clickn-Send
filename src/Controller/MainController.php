@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class MainController extends Controller
 {
     /**
-    * @Route("/")
+    * @Route("/", name="home")
     * @Route("/dashboard")
     * @Route("/invoices")
     * @Route("/invoices/create")
