@@ -93,7 +93,7 @@ class InvoiceController extends Controller
 
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoice, 'json');
 
-        new Response($json);
+        return new Response($json);
     }
 
     /**
