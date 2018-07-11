@@ -12,7 +12,7 @@
 
 
 .purple-border {
-  border: 3px solid rgba(92,  8,149,1);
+  border: 3px solid #791BB9;;
 }
 
 .ecart {
@@ -24,20 +24,22 @@
 }
 
 .th {
-  border: 1px solid black;
-  font-size: 0.7rem;
+  border: 2px solid #791BB9;;
+  font-size: 0.8rem;
   margin-right: 0.73rem;
   padding: 1rem;
   padding-left: 0.3rem;
   text-align: left;
+  color: #791BB9;
 }
 
 .thd {
-  border: 1px solid black;
-  font-size: 0.7rem;
+  border: 2px solid #791BB9;;
+  font-size: 0.8rem;
   padding: 1rem;
   padding-left: 0.3rem;
   text-align: left;
+  color: #791BB9;
 }
 
 .tr {

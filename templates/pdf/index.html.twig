@@ -10,7 +10,6 @@
 <div class="invoice-content">
     <div class="invoice-content-border">
 
-        {{dump(invoice.invoiceHasProducts )}}
         <div class="container-fluid ecart">
             <div class="row">
                 <div class="col-4 logo">COUCOU</div>
@@ -36,16 +35,6 @@
                 <div class="col-3"></div>
             </div>
         </div>
-
-        {% for bobby in invoice.invoiceHasProducts %}
-
-            {{bobby.product.denomination}}
-            
-        {% endfor %}
-
-
-
-
 
         <div class="invoiceHasProducts purple-border">
             <div class="inside-products">
