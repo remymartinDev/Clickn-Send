@@ -40,7 +40,7 @@ CreateFacture.propTypes = {
 
 const mapDispatchToProps = dispatch => ({
   changeCustomers: (id, callback) => {
-    dispatch(change('facture', 'customerId', id));
+    dispatch(change('facture', 'customer', id));
     callback();
   },
   changeProducts: (id, callback, fieldName) => {
