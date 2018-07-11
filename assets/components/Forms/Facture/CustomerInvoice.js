@@ -63,7 +63,7 @@ class CustomerInvoice extends React.Component {
             <FontAwesomeIcon className="modal-icon" icon={faPlus} />
           </Button>
         </div>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className="custom-modal">
           <ModalHeader toggle={this.toggle}>Créer votre client</ModalHeader>
           <ModalBody>
             <CreateClient onSubmit={this.customerSubmit} />
