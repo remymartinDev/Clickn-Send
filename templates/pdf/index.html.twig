@@ -10,18 +10,34 @@
 <div class="invoice-content">
     <div class="invoice-content-border">
 
-        <div class="logo">COUCOU</div>
-        <div class="customer"></div>
+        {{dump(invoices)}}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-5 logo">COUCOU</div>
+                <div class="col-3 void"></div>
+                <div class="col-4 customer">
+                <p> {{invoices[1].lastname}} </p>
+                </div>
+            </div>
+        </div>
 
-        <div class="invoice-ref purple-border"></div>
+
+
+
+        <div class="invoice-ref purple-border">Numéro de Facture</div>
+
+
+
+
 
         <div class="invoiceHasProducts purple-border"></div>
+
+
+
 
         <div class="bank-ref purple-border"></div>
 
         <div class="company-refs purple-border"></div>
-
-        <div class="amounts purple-border"></div>
 
 
     </div>
