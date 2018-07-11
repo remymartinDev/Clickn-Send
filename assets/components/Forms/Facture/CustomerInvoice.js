@@ -53,17 +53,17 @@ class CustomerInvoice extends React.Component {
   render() {
     return (
       <div className="add-client">
-        <label htmlFor="customerId">Client</label>
-        <h1>{this.state.idNewClient}</h1>
-        <Field component="select" name="customerId">
-          <option>Sélectionnez votre client</option>
-          {this.getCustomersJSX()}
-        </Field>
-        <Button onClick={this.toggle} className="modal-button">
-          <FontAwesomeIcon className="modal-icon" icon={faPlus} />
-        </Button>
+        <div className="add-client-select">
+          <Field component="select" name="customer" className="fieldSelect">
+            <option>Sélectionner votre client</option>
+            {this.getCustomersJSX()}
+          </Field>
+          <Button onClick={this.toggle} className="modal-button">
+            <FontAwesomeIcon className="modal-icon" icon={faPlus} />
+          </Button>
+        </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Créez votre client</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Créer votre client</ModalHeader>
           <ModalBody>
             <CreateClient onSubmit={this.customerSubmit} />
           </ModalBody>

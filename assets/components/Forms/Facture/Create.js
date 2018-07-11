@@ -15,13 +15,16 @@ import './formFacture.scss';
 const CreateFacture = ({ changeCustomers, changeProducts, handleSubmit }) => {
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <h1 className="title-invoice">Créer votre facture</h1>
+      <form onSubmit={handleSubmit} className="form-create-invoice">
         <CustomerInvoice changeCustomers={changeCustomers} />
         <FieldArray name="invoiceHasProducts" component={ProductInvoice} changeProducts={changeProducts} />
-        <label htmlFor="HTVA">Mentions légales si HTVA</label>
-        <Field component="textarea" name="HTVA" />
+        <div className="form-mentions">
+          <label htmlFor="HTVA">Mentions légales si HTVA</label>
+          <Field component="textarea" name="HTVA" className="form-mentions-field" />
+        </div>  
         <StatusInvoice />
-        <Button type="submit">Générer votre facture</Button>
+        <Button type="submit" className="form-btn form-btn-submit">Générer votre facture</Button>
       </form>
     </div>
   );

@@ -10,12 +10,56 @@
   margin: 2rem;
 }
 
+
 .purple-border {
-  border: 3px solid rgba(92,  8,149,1);
+  border: 3px solid #791BB9;;
 }
 
-.purple-box {
+.ecart {
   margin-bottom: 1.5rem;
+}
+
+.inside-products {
+  margin: 2rem 1rem 1rem 1rem;
+}
+
+.th {
+  border: 2px solid #791BB9;;
+  font-size: 0.8rem;
+  margin-right: 0.73rem;
+  padding: 1rem;
+  padding-left: 0.3rem;
+  text-align: left;
+  color: #791BB9;
+}
+
+.thd {
+  border: 2px solid #791BB9;;
+  font-size: 0.8rem;
+  padding: 1rem;
+  padding-left: 0.3rem;
+  text-align: left;
+  color: #791BB9;
+}
+
+.tr {
+  font-size: 0.7rem;
+  margin-right: 0.73rem;
+  padding: 1rem;
+  padding-left: 0.3rem;
+  text-align: left;
+}
+
+.trd {
+  font-size: 0.7rem;
+  padding: 1rem;
+  padding-left: 0.3rem;
+  text-align: right;
+}
+
+.date {
+  text-align: right;
+  margin-right: 2rem;
 }
 
 .invoice-ref {
