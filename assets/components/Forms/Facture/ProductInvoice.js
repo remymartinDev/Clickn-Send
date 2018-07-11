@@ -51,22 +51,22 @@ class ProductInvoice extends React.Component {
   render() {
     return (
       <div className="add-produit">
-        <Button type="button" onClick={() => this.props.fields.push({})}>Ajouter un produit</Button>
+        <Button className="form-btn form-btn-add-product" type="button" onClick={() => this.props.fields.push({})}>Ajouter un produit</Button>
         {
           this.props.fields.map((product, index) => (
-            <React.Fragment key={`${product}.productId`}>
-              <label htmlFor={`${product}.productId`}>Produit</label>
-              <Field component="select" name={`${product}.productId`}>
-                <option>Sélectionnez votre produit</option>
+            <React.Fragment key={`${product}.product`}>
+              <label htmlFor={`${product}.product`}>Produit</label>
+              <Field component="select" name={`${product}.product`} className="fieldSelect">
+                <option>Sélectionner votre produit</option>
                 {this.getProductsJSX()}
               </Field>
               <Button onClick={this.toggle} className="modal-button">
                 <FontAwesomeIcon className="modal-icon" icon={faPlus} />
               </Button>
               <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                <ModalHeader toggle={this.toggle}>Créez votre produit</ModalHeader>
+                <ModalHeader toggle={this.toggle}>Créer votre produit</ModalHeader>
                 <ModalBody>
-                  <CreateProduct onSubmit={this.productSubmit(`${product}.productId`)} />
+                  <CreateProduct onSubmit={this.productSubmit(`${product}.product`)} />
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={this.toggle}>Créer</Button>
