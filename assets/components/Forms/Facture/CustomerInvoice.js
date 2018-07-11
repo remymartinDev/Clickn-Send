@@ -27,12 +27,12 @@ class CustomerInvoice extends React.Component {
       });
   }
 
-  getCustomersJSX = () => {
-    return this.state.customers.map((customer) => {
+  getCustomersJSX = () => (
+    this.state.customers.map((customer) => {
       const valueModal = customer.pro ? customer.customerCompany : customer.lastname;
       return <option key={customer.id} value={customer.id} >{valueModal}</option>;
-    });
-  }
+    })
+  )
 
   toggle = () => {
     this.setState({

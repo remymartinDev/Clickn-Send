@@ -12,13 +12,10 @@ class PdfController extends Controller
     /**
      * @Route("/invoice/{id}/pdf", name="pdf")
      */
-    public function index(Invoice $invoice, InvoiceRepository $invoiceRepo)
+    public function index(Invoice $invoice)
     {
-
-        $invoices = $invoiceRepo->findForPdf($invoice);
-         
-        $this->get('knp_snappy.pdf')->generateFromHtml(
-            $this->render(
+        /* $this->get('knp_snappy.pdf')->generateFromHtml(
+            $this->renderView(
                 'pdf/index.html.twig',
                 array(
                     'controller_name' => 'PdfController',
@@ -27,14 +24,11 @@ class PdfController extends Controller
                 )
                 ),
                 'PDF/facture'. $invoice->getId() .'.pdf'
-        );
-
-        $invoices = $invoiceRepo->findForPdf($invoice); 
-        dump($invoices);
+        ); */
 
         return $this->render('pdf/index.html.twig', [
             'title' => 'Facture PDF',
-            'invoices' => $invoices,
+            'invoice' => $invoice,
         ]);
     }
 }

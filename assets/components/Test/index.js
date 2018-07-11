@@ -10,6 +10,9 @@ class Test extends React.Component {
     axios.get('/invoice/1/pdf')
       .then((response) => {
         console.log(response);
+        this.setState({
+          response: response.data,
+        });
       });
   }
 
