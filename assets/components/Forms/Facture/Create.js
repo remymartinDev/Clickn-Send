@@ -8,6 +8,7 @@ import { Button } from 'reactstrap';
 
 import ProductInvoice from './ProductInvoice';
 import CustomerInvoice from './CustomerInvoice';
+import StatusInvoice from './StatusInvoice';
 
 import './formFacture.scss';
 
@@ -17,6 +18,9 @@ const CreateFacture = ({ changeCustomers, changeProducts, handleSubmit }) => {
       <form onSubmit={handleSubmit}>
         <CustomerInvoice changeCustomers={changeCustomers} />
         <FieldArray name="invoiceHasProducts" component={ProductInvoice} changeProducts={changeProducts} />
+        <label htmlFor="HTVA">Mentions légales si HTVA</label>
+        <Field component="textarea" name="HTVA" />
+        <StatusInvoice />
         <Button type="submit">Générer votre facture</Button>
       </form>
     </div>
@@ -35,8 +39,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(change('facture', 'customerId', id));
     callback();
   },
-  changeProducts: (id, callback) => {
-    dispatch(change('facture', 'productId', id));
+  changeProducts: (id, callback, fieldName) => {
+    dispatch(change('facture', fieldName, id));
     callback();
   },
 });
