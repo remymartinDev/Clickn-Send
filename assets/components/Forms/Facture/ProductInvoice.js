@@ -38,12 +38,12 @@ class ProductInvoice extends React.Component {
       modal: !this.state.modal,
     });
   }
-  productSubmit = (values) => {
+  productSubmit = fieldName => (values) => {
     axios.post('/api/product/new', values)
       .then((response) => {
         if (response.data.succes) {
           this.toggle();
-          this.props.changeProducts(response.data.id, this.getProducts);
+          this.props.changeProducts(response.data.id, this.getProducts, fieldName);
         }
       });
   }
@@ -66,7 +66,7 @@ class ProductInvoice extends React.Component {
               <Modal isOpen={this.state.modal} toggle={this.toggle}>
                 <ModalHeader toggle={this.toggle}>Créez votre produit</ModalHeader>
                 <ModalBody>
-                  <CreateProduct onSubmit={this.productSubmit} />
+                  <CreateProduct onSubmit={this.productSubmit(`${product}.productId`)} />
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={this.toggle}>Créer</Button>
@@ -79,8 +79,6 @@ class ProductInvoice extends React.Component {
               <Field component="input" type="text" name={`${product}.vatRate`} />
               <label htmlFor={`${product}.remise`}>Remise</label>
               <Field component="input" type="text" name={`${product}.remise`} />
-              <label htmlFor={`${product}.htva`}>Mentions légales si HTVA</label>
-              <Field component="textarea" name={`${product}.htva`} />
               <button
                 type="button"
                 title="Remove Product"
