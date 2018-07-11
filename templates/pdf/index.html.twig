@@ -10,8 +10,8 @@
 <div class="invoice-content">
     <div class="invoice-content-border">
 
-        {{dump(invoice)}}
-        <div class="container-fluid">
+        {{dump(invoice.invoiceHasProducts )}}
+        <div class="container-fluid ecart">
             <div class="row">
                 <div class="col-4 logo">COUCOU</div>
                 <div class="col-2 void"></div>
@@ -22,12 +22,18 @@
             </div>
         </div>
 
+        <div class="date ecart">
+            <p> le {{invoice.date|date('d-m-Y')}} </p>
+        </div>
+
 
         <div class="container-fluid">
-            <div class="row purple-box">
-                <div class="col-3 logo"></div>
-                <div class="col-6 invoice-ref purple-border"><p> {{invoice.status.invoiceStatus}} N°{{invoice.reference}} </p></div>
-                <div class="col-3 customer"></div>
+            <div class="row ecart">
+                <div class="col-3"></div>
+                <div class="col-6 invoice-ref purple-border">
+                <p> {{invoice.status.invoiceStatus}} N°{{invoice.reference}} </p>
+                </div>
+                <div class="col-3"></div>
             </div>
         </div>
 
@@ -42,25 +48,27 @@
 
 
         <div class="invoiceHasProducts purple-border">
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="3">Produit</th>
-                        <th colspan="2">Quantité</th>
-                        <th colspan="1">Remise</th>
-                        <th colspan="2">Prix Unitaire</th>
-                        <th colspan="1">Taux de TVA</th>
-                        <th colspan="3">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>The table body</td>
-                        <td>with two columns</td>
-                    </tr>
-                </tbody>
+            <div class="inside-products">
+                <div class="container-fluid">
+                    <div class="row thead">
+                        <div class="col-5 th">Produit</div>
+                        <div class="col-1 th">Quantité</div>
+                        <div class="col-2 th">Prix Unitaire</div>
+                        <div class="col-1 th">TVA</div>
+                        <div class="col-2 thd">Total</div>
+                    </div>
+                    {% for thisOne in invoice.invoiceHasProducts %}
+                    <div class="row thead">
+                        <div class="col-5 tr">{{thisOne.product.denomination}}</div>
+                        <div class="col-1 tr">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
+                        <div class="col-2 tr">{{thisOne.product.price|number_format(2, ',', ' ') }}€</div>
+                        <div class="col-1 tr">20,00%</div>
+                        <div class="col-2 trd">{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} €</div>   
+                    </div>
+                    {% endfor %}
+                </div>
 
-            </table>
+            </div>
         </div>
 
 
