@@ -25,8 +25,9 @@ class StatusInvoice extends React.Component {
 
   render() {
     return (
-      <Field component="select" name="fieldStatus">
-        {this.getStatusJSX}
+      <Field component="select" name="fieldstatus">
+        <option>Sélectionnez le statut</option>
+        {this.getStatusJSX()}
       </Field>
     );
   }
