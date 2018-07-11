@@ -1,42 +1,3 @@
-<<<<<<< HEAD
-
-import axios from axios
-import React from 'react';
-import { Field } from 'react-form';
-import axios from 'axios';
-
-class StatusInvoice extends React.Component {
-
-  state = {
-    status: [],
-  }
-  componentDidMount() {
-    axios.get('/api/status')
-      .then(({data: status}) => {
-        this.setState({
-          status,          
-        })        
-      }            
-  }
-
-  getStatusJSX = () => (
-    return this.state.status.map(oneStatus => (
-      <option ></option>      
-    ))    
-  )          
-  
-  render() {
-    return (
-      <Field component="select" name="status">
-        <option>Statut</option>
-      </Field>
-    )    
-  }  
-      
-}
-
-export default StatusInvoice;
-=======
 import React from 'react';
 import Axios from 'axios';
 import { Field } from 'redux-form';
@@ -64,7 +25,7 @@ class StatusInvoice extends React.Component {
 
   render() {
     return (
-      <Field component="select">
+      <Field component="select" name="fieldStatus">
         {this.getStatusJSX}
       </Field>
     );
@@ -72,4 +33,3 @@ class StatusInvoice extends React.Component {
 }
 
 export default StatusInvoice;
->>>>>>> 20b0c0578e3de9e16d7e94e835b7c573e052d48d
