@@ -14,23 +14,29 @@ class PdfController extends Controller
      */
     public function index(Invoice $invoice, InvoiceRepository $invoiceRepo)
     {
-        $this->get('knp_snappy.pdf')->generateFromHtml(
+
+
+
+
+
+        /* $invoices = $invoiceRepo->findForPdf($invoice);  */
+        dump($invoice);
+
+        /* $this->get('knp_snappy.pdf')->generateFromHtml(
             $this->renderView(
                 'pdf/index.html.twig',
                 array(
                     'controller_name' => 'PdfController',
                     'title' => 'Facture PDF',
+                    'invoices' => $invoices,
                 )
                 ),
                 'PDF/facture'. $invoice->getId() .'.pdf'
-        );
-
-        $invoices = $invoiceRepo->findForPdf($invoice); 
-        dump($invoices);
+        ); */
 
         return $this->render('pdf/index.html.twig', [
             'title' => 'Facture PDF',
-            'invoices' => $invoices,
+            'invoice' => $invoice,
         ]);
     }
 }

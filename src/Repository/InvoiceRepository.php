@@ -61,9 +61,9 @@ class InvoiceRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
 
         $query = $em->createQuery(
-             "SELECT i,cu,co,ihp,st,pa
-                FROM App\Entity\Invoice i, App\Entity\Status st, App\Entity\Payment pa
-                INNER JOIN App\Entity\Customer cu, App\Entity\Company co, App\Entity\InvoiceHasProduct ihp 
+             "SELECT i, cu, co, pa, ihp, st
+                FROM App\Entity\Invoice i, App\Entity\Payment pa, App\Entity\InvoiceHasProduct ihp
+                INNER JOIN App\Entity\Customer cu, App\Entity\Company co, App\Entity\Status st
                 WHERE i = :invoice
                 AND i.customer = cu
                 AND i.status = st

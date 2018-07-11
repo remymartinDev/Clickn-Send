@@ -1,6 +1,3 @@
-body {
-}
-
 .invoice-content {
   margin: auto;
   width : 827px;
@@ -17,7 +14,15 @@ body {
   border: 3px solid rgba(92,  8,149,1);
 }
 
+.purple-box {
+  margin-bottom: 1.5rem;
+}
+
 .invoice-ref {
   margin: auto;
-  text-align: center 
+  text-align: center;
+}
+
+.invoice-ref p {
+  margin-top: 1rem;
 }
