@@ -52,8 +52,9 @@ class CustomerInvoice extends React.Component {
 
   render() {
     return (
-      <div className="add-client">
-        <div className="add-client-select">
+      // <div className="add-client">
+      <React.Fragment>
+        <div className="add-client">
           <Field component="select" name="customer" className="fieldSelect">
             <option>Sélectionner votre client</option>
             {this.getCustomersJSX()}
@@ -72,7 +73,8 @@ class CustomerInvoice extends React.Component {
             <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>
-      </div>
+      </React.Fragment>
+      // </div>
     );
   }
 }

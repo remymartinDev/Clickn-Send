@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { connect } from 'react-redux';
-import { Field, reduxForm, change, FieldArray } from 'redux-form';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
+import { Field } from 'redux-form';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import FaTrash from 'react-icons/lib/fa/trash';
 
 import CreateProduct from '~/components/Forms/Produit/Create';
@@ -27,11 +26,11 @@ class ProductInvoice extends React.Component {
         });
       });
   }
-  getProductsJSX = () => {
-    return this.state.products.map((product) => {
-      return <option key={product.id} value={product.id} >{product.denomination}</option>;
-    });
-  }
+  getProductsJSX = () => (
+    this.state.products.map(product => (
+      <option key={product.id} value={product.id} >{product.denomination}</option>
+    ))
+  )
 
   toggle = () => {
     this.setState({
@@ -50,19 +49,20 @@ class ProductInvoice extends React.Component {
 
   render() {
     return (
-      <div className="add-produit">
-        <Button className="form-btn form-btn-add-product" type="button" onClick={() => this.props.fields.push({})}>Ajouter un produit</Button>
+      <div className="add-product">
         {
           this.props.fields.map((product, index) => (
-            <React.Fragment key={`${product}.product`}>
-              <label htmlFor={`${product}.product`}>Produit</label>
-              <Field component="select" name={`${product}.product`} className="fieldSelect">
-                <option>Sélectionner votre produit</option>
-                {this.getProductsJSX()}
-              </Field>
-              <Button onClick={this.toggle} className="modal-button">
-                <FontAwesomeIcon className="modal-icon" icon={faPlus} />
-              </Button>
+            <div key={`${product}.product`} className="add-product-select">
+              {/* <label htmlFor={`${product}.product`}>Produit</label> */}
+              <div className="add-product-select-product">
+                <Field component="select" name={`${product}.product`} className="fieldSelect">
+                  <option>Sélectionner votre produit</option>
+                  {this.getProductsJSX()}
+                </Field>
+                <Button onClick={this.toggle} className="modal-button">
+                  <FontAwesomeIcon className="modal-icon" icon={faPlus} />
+                </Button>
+              </div>
               <Modal isOpen={this.state.modal} toggle={this.toggle}>
                 <ModalHeader toggle={this.toggle}>Créer votre produit</ModalHeader>
                 <ModalBody>
@@ -82,13 +82,15 @@ class ProductInvoice extends React.Component {
               <button
                 type="button"
                 title="Remove Product"
+                className="btn-remove"
                 onClick={() => this.props.fields.remove(index)}
               >
                 <FaTrash className="trash-icon" />
               </button>
-            </React.Fragment>
+            </div>
           ))
-        }   
+        }
+        <Button className="form-btn form-btn-add-product" type="button" onClick={() => this.props.fields.push({})}>Ajouter un produit</Button>
       </div>
     );
   }
