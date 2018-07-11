@@ -29,6 +29,8 @@ class PdfController extends Controller
                 'PDF/facture'. $invoice->getId() .'.pdf'
         );
 
+        $invoices = $invoiceRepo->findForPdf($invoice); 
+        dump($invoices);
 
         return $this->render('pdf/index.html.twig', [
             'title' => 'Facture PDF',
