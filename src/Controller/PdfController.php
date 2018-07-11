@@ -15,6 +15,7 @@ class PdfController extends Controller
     {
         return $this->render('pdf/index.html.twig', [
             'controller_name' => 'PdfController',
+            'title' => 'Facture PDF',
         ]);
     }
 }

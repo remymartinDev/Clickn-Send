@@ -82,7 +82,7 @@ class InvoiceController extends Controller
     /**
      * @Route("/{id}", name="invoice_show", methods="GET")
      */
-    public function show(Invoice $invoice, ConfiguredSerializer $configuredSerializer): Response
+    public function show(Invoice $invoice, ConfiguredSerializer $configuredSerializer)
     {
         $invoice->getCustomer()->delPayments();
         $invoice->getCustomer()->delInvoices();
@@ -93,7 +93,7 @@ class InvoiceController extends Controller
 
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($invoice, 'json');
 
-        new Response($json);
+        return new Response($json);
     }
 
     /**
