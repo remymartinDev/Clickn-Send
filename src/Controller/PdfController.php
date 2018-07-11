@@ -14,9 +14,10 @@ class PdfController extends Controller
      */
     public function index(Invoice $invoice, InvoiceRepository $invoiceRepo)
     {
-
-        $invoices = $invoiceRepo->findForPdf($invoice); 
-
+        
+        $invoices = $invoiceRepo->findForPdf($invoice);
+        dump($invoices);
+        
         return $this->render('pdf/index.html.twig', [
             'title' => 'Facture PDF',
             'invoices' => $invoices,
