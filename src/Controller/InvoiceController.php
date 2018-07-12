@@ -63,7 +63,7 @@ class InvoiceController extends Controller
         $status = $statusRepository->findOneById($data_array['status']['id']);
         $company = $companyRepository->findOneById($data_array['company']['id']);
         
-        //make reference
+        //make autocomplet variable
         $payment_term = $company->getPaymentTerm() . 'd';
         $date = new \Datetime();
         $reference = $date->format('Ymdh-is');
