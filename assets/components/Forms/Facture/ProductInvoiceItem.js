@@ -13,7 +13,6 @@ import Loading from '~/components/utils/Loading';
 class ProductInvoiceItem extends React.Component {
   state = {
     modal: false,
-    price: 0,        
   }
 
   getProductsJSX = () => (
@@ -24,10 +23,6 @@ class ProductInvoiceItem extends React.Component {
 
   productSubmit = fieldName => (values) => {
     this.props.productSubmit(fieldName, values, this.toggle);
-    console.log('productSubmit', fieldName, values);
-    this.setState({
-      price: values.price,      
-    });
   }
   handleChange = fieldName => (e) => {
     this.props.fillPrice(e.target.value, fieldName);
@@ -40,13 +35,17 @@ class ProductInvoiceItem extends React.Component {
   }
 
   calculate = () => {
-    const {price, quantity, vatRate, remise} = this.props;
-    const prixHT = (price * quantity) - ((price * quantity) * remise/100);
+    const {
+      price,
+      quantity,
+      vatRate,
+      remise,
+    } = this.props;
+    const prixHT = (price * quantity) - ((price * quantity) * remise / 100);
     const montantTVA = prixHT * vatRate / 100;
     const prixTTC = prixHT + montantTVA;
-    console.log('prixHT', prixHT, 'montantTVA', montantTVA, 'prixTTC', prixTTC);
     this.props.changeAmounts(prixHT, montantTVA, prixTTC);
-  }    
+  }
 
   render() {
     const { product, index } = this.props;
@@ -72,22 +71,22 @@ class ProductInvoiceItem extends React.Component {
           </ModalFooter>
         </Modal>
         <label htmlFor={`${product}.price`}>Prix</label>
-        <Field component="input" type="text" name={`${product}.price`} />
+        <Field component="input" type="number" name={`${product}.price`} parse={value => Number(value)} />
         <label htmlFor={`${product}.quantity`}>Quantité</label>
-        <Field component="input" type="text" name={`${product}.quantity`} />
+        <Field component="input" type="number" name={`${product}.quantity`} parse={value => Number(value)} />
         <label htmlFor={`${product}.vatRate`}>Taux de TVA</label>
-        <Field component="input" type="text" name={`${product}.vatRate`} />
+        <Field component="input" type="number" name={`${product}.vatRate`} parse={value => Number(value)} />
         <label htmlFor={`${product}.remise`}>Remise</label>
-        <Field component="input" type="text" name={`${product}.remise`} />
+        <Field component="input" type="number" name={`${product}.remise`} parse={value => Number(value)} />
 
         <Button onClick={this.calculate}>Calculer</Button>
 
         <label htmlFor={`${product}.amountDuttyFree`}>Prix HT</label>
-        <Field component="input" type="text" name={`${product}.amountDuttyFree`} />
+        <Field component="input" type="number" name={`${product}.amountDuttyFree`} />
         <label htmlFor={`${product}.taxesAmount`}>TVA</label>
-        <Field component="input" type="text" name={`${product}.taxesAmount`} />
+        <Field component="input" type="number" name={`${product}.taxesAmount`} />
         <label htmlFor={`${product}.amountAllTaxes`}>Prix TTC</label>
-        <Field component="input" type="text" name={`${product}.amountAllTaxes`} />
+        <Field component="input" type="number" name={`${product}.amountAllTaxes`} />
         <button
           type="button"
           title="Remove Product"
@@ -109,19 +108,27 @@ ProductInvoiceItem.propTypes = {
   loading: PropTypes.bool.isRequired,
   productSubmit: PropTypes.func.isRequired,
   changeAmounts: PropTypes.func.isRequired,
+  price: PropTypes.number,
+  quantity: PropTypes.number,
+  vatRate: PropTypes.number,
+  remise: PropTypes.number,
+};
+
+ProductInvoiceItem.defaultProps = {
+  price: 0,
+  quantity: 0,
+  remise: 0,
+  vatRate: 0,
 };
 
 const selector = formValueSelector('facture');
 
-const mapStateToProps = (state, ownProps) => {
-  // const { price, quantity, remise, vatRate } = state.form.facture.registerdFields[ownProps.product];
-  return {
-    price: selector(state, `${ownProps.product}.price`),
-    quantity: selector(state, `${ownProps.product}.quantity`),
-    remise: selector(state, `${ownProps.product}.remise`),
-    vatRate: selector(state, `${ownProps.product}.vatRate`),
-  };
-};
+const mapStateToProps = (state, ownProps) => ({
+  price: selector(state, `${ownProps.product}.price`),
+  quantity: selector(state, `${ownProps.product}.quantity`),
+  remise: selector(state, `${ownProps.product}.remise`),
+  vatRate: selector(state, `${ownProps.product}.vatRate`),
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   changeAmounts: (prixHT, montantTVA, prixTTC) => {
