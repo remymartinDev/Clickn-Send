@@ -43,6 +43,7 @@
     .add-client {
       margin: auto;
       display: flex;
+      position: relative;
     }
 
     .add-product {
@@ -60,6 +61,7 @@
           display: flex;
           margin: auto;
           grid-column: 1 / -1;
+          position: relative;
           .fieldSelect {
             justify-self: center;
           }

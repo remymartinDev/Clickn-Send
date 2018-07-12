@@ -7,11 +7,13 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 
 import CreateClient from '~/components/Forms/Client/Create';
+import Loading from '~/components/utils/Loading';
 
 class CustomerInvoice extends React.Component {
   state = {
     modal: false,
     customers: [],
+    loading: true,
   }
 
   componentDidMount() {
@@ -19,10 +21,16 @@ class CustomerInvoice extends React.Component {
   }
 
   getCustomers = () => {
+    if (!this.state.loading) {
+      this.setState({
+        loading: true,
+      });
+    }
     axios.get('/api/customers')
       .then(({ data: customers }) => {
         this.setState({
           customers,
+          loading: false,
         });
       });
   }
@@ -62,6 +70,7 @@ class CustomerInvoice extends React.Component {
           <Button onClick={this.toggle} className="modal-button">
             <FontAwesomeIcon className="modal-icon" icon={faPlus} />
           </Button>
+          {this.state.loading && <Loading />}
         </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="custom-modal">
           <ModalHeader toggle={this.toggle}>Créer votre client</ModalHeader>
