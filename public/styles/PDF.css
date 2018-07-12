@@ -144,13 +144,21 @@ body {
 }
 
 .company-refs {
+  width: 90%;
   font-size: 0.7rem;
   line-height: 1rem;
-  margin-bottom: 0
+  margin-bottom: 0;
+  border: 2px solid #791BB9;
+  margin: auto
 }
 
 .company-refs p {
   line-height: 1rem;
   margin:0;
   text-align: center
+}
+
+.company-name {
+  font-weight: bold;
+  font-size: 0.9rem
 }

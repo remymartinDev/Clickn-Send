@@ -203,11 +203,12 @@
             </div>
         </div>
 
-        <div class="company-refs purple-border">
+        <div class="company-refs">
             <div class="inside">
-                <p>{{ invoice.company.companyName }} {{ invoice.company.companyInformation }} {{ invoice.company.companyAdress }} {{ invoice.company.zipCode }} {{ invoice.company.city }}</p>
-                <p>Téléphone: {{ invoice.company.phone}} - Fax: {{ invoice.company.fax}} - Email: {{ invoice.company.email}}</p>
-                <p> TVA intracommunautaire: {{ invoice.company.vatNumber|slice(0,2)}}&nbsp;{{ invoice.company.vatNumber|slice(2,9)}}</p>
+                 <p><span class="company-name">{{ invoice.company.companyName }} </span> 
+                 {{ invoice.company.companyInformation }}</p>
+                 <p>{{ invoice.company.companyAdress }} {{ invoice.company.zipCode }} {{ invoice.company.city }}</p>
+                <p>Téléphone: {{ invoice.company.phone}} - Fax: {{ invoice.company.fax}} - Email: {{ invoice.company.email}} - TVA intracommunautaire: {{ invoice.company.vatNumber|slice(0,2)}}&nbsp;{{ invoice.company.vatNumber|slice(2,9)}}</p>
             </div>
         </div>
 

@@ -69,7 +69,7 @@ class Company
     private $bank_domiciliation;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="smallint")
      */
     private $payment_term;
 
