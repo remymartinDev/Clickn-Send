@@ -54,7 +54,7 @@ class Company
     private $bank_iban;
 
     /**
-     * @ORM\Column(type="string", length=8)
+     * @ORM\Column(type="string", length=11)
      */
     private $bank_bic;
 
@@ -77,6 +77,26 @@ class Company
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $logo;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $zipCode;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $companyInformation;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $countryCode;
 
     /** 
      * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="company")
@@ -245,6 +265,54 @@ class Company
     public function setLogo(?string $logo): self
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCompanyInformation(): ?string
+    {
+        return $this->companyInformation;
+    }
+
+    public function setCompanyInformation(?string $companyInformation): self
+    {
+        $this->companyInformation = $companyInformation;
+
+        return $this;
+    }
+
+    public function getCountryCode(): ?string
+    {
+        return $this->countryCode;
+    }
+
+    public function setCountryCode(string $countryCode): self
+    {
+        $this->countryCode = $countryCode;
 
         return $this;
     }

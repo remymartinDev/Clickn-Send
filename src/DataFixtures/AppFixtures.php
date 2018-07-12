@@ -100,32 +100,73 @@ class AppFixtures extends Fixture
         $cheque->setMethod('chèque');
         $manager->persist($cheque);
 
-        $lettreChange = new PaymentMethod();
-        $lettreChange->setMethod('lettre de change');
-        $manager->persist($lettreChange);
+        $virement = new PaymentMethod();
+        $virement->setMethod('virement bancaire');
+        $manager->persist($virement);
+
+        $BOR = new PaymentMethod();
+        $BOR->setMethod('Billet à Ordre Relevé(BOR)');
+        $manager->persist($BOR);
 
         $paymentMethods = [
             $cb, 
             $especes, 
             $cheque, 
-            $lettreChange
+            $virement,
+            $BOR
         ];
+
+        $city = [
+            'Paris',
+            'Marseille',
+            'Lyon',
+            'Toulouse',
+            'Nice',
+            'Nantes',
+            'Strasbourg',
+            'Montpellier',
+            'Bordeaux',
+            'Lille',
+            'Rennes',
+            'Reims',
+            'Le Havre',
+            'Saint-Étienne',
+            'Toulon',
+        ];       
         
+        $country = [
+            'Fr',
+            'Be',
+            'Lu',
+            'De',
+            'Es',
+            'It',
+            'Gb'
+        ];
+
+        $sarl = [
+            'Clickn\'Send',
+            'Société Lambda'
+        ];
         
         $companies = [];
         for ($i=0; $i < 2; $i++) { 
          $company = new Company();
-            $company->setCompanyName('company name'. $i);
-            $company->setCompanyAdress('company adress'. $i);
+            $company->setCompanyName($sarl[$i]);
+            $company->setCompanyAdress((4 + $i).'rue du Général Pépète');
             $company->setPhone('+334502835'. $i);
             $company->setFax('+33520154'. $i);
-            $company->setVatNumber('61565126'. $i);
-            $company->setEmail('company'. $i .'@gmail.com');
-            $company->setBankIban('53135435'. $i);
-            $company->setBankBic('65654' . $i . '13');
+            $company->setVatNumber('Fr'.(mt_rand(111111111, 999999999)));
+            $company->setEmail(($sarl[$i]).'@gmail.com');
+            $company->setBankIban('Fr'.(mt_rand(11111111, 99999999)).(mt_rand(11111111, 99999999)).(mt_rand(11111111, 99999999)).(mt_rand(111, 999)) );
+            $company->setBankBic(mt_rand(11111111111, 99999999999));
             $company->setBankRib($i.'2'.$i.'3'.$i.'5'.$i);
-            $company->setBankDomiciliation('company bank'. $i);
+            $company->setCity($city[mt_rand(0, 6)]);
+            $company->setZipCode(mt_rand(11111, 99999));
+            $company->setBankDomiciliation('Crédit Agricole de '.($city[mt_rand(0, 6)]));
             $company->setPaymentTerm('4'); //echeance en semaine (W en date php)
+            $company->setCompanyInformation('SARL au capital de 50.000€');
+            $company->setCountryCode('Fr');
             $companies[] = $company;            
             $manager->persist($company);
         }
@@ -139,19 +180,22 @@ class AppFixtures extends Fixture
         $customers1 = [];
         for ($i=0; $i < 6; $i++) { 
             $customer = new Customer();
-            $customer->setLastname('customer lastname'.$i);
-            $customer->setFirstname('customer firstname'.$i);
-            $customer->setCompanyAdress('customer adress'.$i);
-            $customer->setCountryCode('country'.$i);
+            $pays = $country[mt_rand(0, 6)];
+            $customer->setLastname('LASTNAME'.$i);
+            $customer->setFirstname('Firstname'.$i);
+            $customer->setCompanyAdress($i.', rue du customer'.$i);
+            $customer->setZipCode(mt_rand(11111, 99999));
+            $customer->setCity($city[mt_rand(0, 6)]);
+            $customer->setCountryCode($pays);
             $customer->setPhone('01'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setMobile('06'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setFax('08'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setEmail('customer'.$i.'@mail');
             $customer->setComment('le client'.$i.' est sympa');
             $customer->setPro($pro[mt_rand(0,1)]);
-            $customer->setCustomerCompany('la société de mon client ' .$i);
-            $customer->setVatNumber('08'.$i.'2'.$i.'5'.$i);
-            $customer->setRemise(mt_rand(0,35));
+            $customer->setCustomerCompany('SARL du client' .$i);
+            $customer->setVatNumber($pays.(mt_rand(111111111, 999999999)));
+            $customer->setRemise((mt_rand(0,1000))/100);
             $customer->setCompany($companies[0]);
             $customer->setActive(true);
             $customers1[] = $customer;
@@ -161,34 +205,53 @@ class AppFixtures extends Fixture
         $customer2 = [];
         for ($i=0; $i < 6; $i++) { 
             $customer = new Customer();
-            $customer->setLastname('customer lastname'.$i);
-            $customer->setFirstname('customer firstname'.$i);
-            $customer->setCompanyAdress('customer adress'.$i);
-            $customer->setCountryCode('country'.$i);
+            $pays = $country[mt_rand(0, 6)];
+            $customer->setLastname('LASTNAME'.$i);
+            $customer->setFirstname('Firstname'.$i);
+            $customer->setCompanyAdress($i.', rue du customer'.$i);
+            $customer->setZipCode(mt_rand(01000, 99999));
+            $customer->setCity($city[mt_rand(0, 6)]);
+            $customer->setCountryCode($pays);
             $customer->setPhone('01'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setMobile('06'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setFax('08'.$i.'2'.$i.'5'.$i.'7'.$i.'4');
             $customer->setEmail('customer'.$i.'@mail');
             $customer->setComment('le client'.$i.' est sympa');
             $customer->setPro($pro[mt_rand(0,1)]);
-            $customer->setCustomerCompany('la société de mon client ' .$i);
-            $customer->setVatNumber('08'.$i.'2'.$i + 5 .'5'.$i);
-            $customer->setRemise(mt_rand(0,35));
-            $customer->setCompany($companies[1]);
+            $customer->setCustomerCompany('SARL du client' .$i);
+            $customer->setVatNumber($pays.(mt_rand(111111111, 999999999)));
+            $customer->setRemise((mt_rand(0,1000))/100);
+            $customer->setCompany($companies[0]);
             $customer->setActive(true);
             $customers2[] = $customer;
             $manager->persist($customer); 
         }
 
+        $unit = [
+            'litre',
+            'pièce',
+            'm²',
+            'kg',
+            'lot (6)'
+        ];
+
+
+        $tva = [
+            '5.50',
+            '10.00',
+            '20.00'
+        ];
+
         $products1 = [];
         for ($i=0; $i < 20; $i++) { 
             $product = new Product();
-            $product->setDenomination('denomination'. $i);
-            $product->setReference('ref'. $i);
-            $product->setDescription('description' .$i);
-            $product->setPrice(150 + $i);
-            $product->setUnity('unité');
+            $product->setDenomination('Le Produit n°'.(1 + $i));
+            $product->setReference('XZ'.(mt_rand(111111, 999999)));
+            $product->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua');;
+            $product->setPrice((mt_rand(2000, 23000))/100);
+            $product->setUnity($unit[mt_rand(0,4)]);
             $product->setActive(true);
+            $product->setVatRate($tva[mt_rand(0,2)]);
             $product->setCompany($companies[0]);
             $products1[] = $product; 
             $manager->persist($product);
@@ -197,12 +260,13 @@ class AppFixtures extends Fixture
         $products2 = []; 
         for ($i=0; $i < 20; $i++) { 
             $product = new Product();
-            $product->setDenomination('denomination'. $i);
-            $product->setReference('ref'. $i);
-            $product->setDescription('description' .$i);
-            $product->setPrice(150 + $i);
-            $product->setUnity('unité');
+            $product->setDenomination('Le Produit n°'.(1 + $i));
+            $product->setReference('XZ'.(mt_rand(111111, 999999)));
+            $product->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua');;
+            $product->setPrice((mt_rand(2000, 23000))/100);
+            $product->setUnity($unit[mt_rand(0,4)]);
             $product->setActive(true);
+            $product->setVatRate($tva[mt_rand(0,2)]);
             $product->setCompany($companies[1]);
             $products2[] = $product; 
             $manager->persist($product);
@@ -213,8 +277,6 @@ class AppFixtures extends Fixture
             new Datetime('now'),
             new Datetime('2030-12-24')
         ];
-
-
 
         $invoices1 = [];
         
@@ -231,6 +293,7 @@ class AppFixtures extends Fixture
             $invoice->setDeadline1($deadlines[mt_rand(0,2)]);
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
+            $invoice->setLegalNotice('Mentions Légales: merci de songer à payer cette facture dans les délais');
             $invoice->setCustomer($customers1[mt_rand(0,5)]);
             $invoice->setStatus($statut[mt_rand(0,4)]);
             $invoice->setCompany($companies[0]);
@@ -253,6 +316,7 @@ class AppFixtures extends Fixture
             $invoice->setDeadline1($deadlines[mt_rand(0,2)]);
             //$invoice->setDeadline2();
             $invoice->setComment('je sens qu\'il la paiera jamais : faire gaffe !');
+            $invoice->setLegalNotice('Mentions Légales: merci de songer à payer cette facture dans les délais');
             $invoice->setCustomer($customers2[mt_rand(0,5)]);
             $invoice->setStatus($statut[mt_rand(0,4)]);
             $invoice->setCompany($companies[1]);
@@ -263,7 +327,7 @@ class AppFixtures extends Fixture
             
         for ($i=0; $i < 8; $i++) { 
                     
-            for ($ind=0; $ind < 6; $ind++) { 
+            for ($ind=0; $ind < (mt_rand(1, 6)); $ind++) { 
                 $invoiceHasProduct = new InvoiceHasProduct();
                 $invoiceHasProduct->setQuantity(mt_rand(1, 10));
                 $invoiceHasProduct->setInvoice($invoices1[$i]);
@@ -273,7 +337,7 @@ class AppFixtures extends Fixture
         }
         for ($i=0; $i < 8; $i++) { 
                     
-            for ($ind=0; $ind < 6; $ind++) { 
+            for ($ind=0; $ind < (mt_rand(1, 6)); $ind++) { 
                 $invoiceHasProduct = new InvoiceHasProduct();
                 $invoiceHasProduct->setQuantity(mt_rand(1, 10));
                 $invoiceHasProduct->setInvoice($invoices2[$i]);
@@ -287,7 +351,7 @@ class AppFixtures extends Fixture
             $payment1 = new Payment();
             $payment1->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             $payment1->setAmount(mt_rand(50, 599));
-            $payment1->setPaymentMethode($paymentMethods[mt_rand(0, 3)]);
+            $payment1->setPaymentMethode($paymentMethods[mt_rand(0, 4)]);
             $payment1->setCustomer($customers1[mt_rand(0, 3)]);
             $payment1->setInvoice($invoices1[mt_rand(0, 3)]);
             $payment1->setCompany(($companies[0]));
@@ -298,7 +362,7 @@ class AppFixtures extends Fixture
             $payment2 = new Payment();
             $payment2->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
             $payment2->setAmount(mt_rand(50, 599));
-            $payment2->setPaymentMethode($paymentMethods[mt_rand(0, 3)]);
+            $payment2->setPaymentMethode($paymentMethods[mt_rand(0, 4)]);
             $payment2->setCustomer($customers2[mt_rand(0, 3)]);
             $payment2->setInvoice($invoices2[mt_rand(0, 3)]);
             $payment2->setCompany(($companies[1]));
@@ -312,6 +376,27 @@ class AppFixtures extends Fixture
             $userAdmin->setPassword('admin');
             $userAdmin->setRole($roleAdmin);
             $manager->persist($userAdmin);
+
+            $userUserFull = new Member();
+            $userUserFull->setUsername('UserFull');
+            $userUserFull->setCompany($companies[0]);
+            $userUserFull->setPassword('UserFull');
+            $userUserFull->setRole($roleFull);
+            $manager->persist($userUserFull);
+
+            $userUserRog = new Member();
+            $userUserRog->setUsername('UserRog');
+            $userUserRog->setCompany($companies[0]);
+            $userUserRog->setPassword('UserRog');
+            $userUserRog->setRole($roleRog);
+            $manager->persist($userUserRog);
+
+            $userUserRol = new Member();
+            $userUserRol->setUsername('UserRol');
+            $userUserRol->setCompany($companies[0]);
+            $userUserRol->setPassword('UserRol');
+            $userUserRol->setRole($roleRol);
+            $manager->persist($userUserRol);
 
 
         $manager->flush();

@@ -111,6 +111,11 @@ class Invoice
      */
     private $recurringDate;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $legalNotice;
+
     public function __construct()
     {
         $this->payments = new ArrayCollection();
@@ -422,6 +427,18 @@ class Invoice
             $this->recurringDate = $recDate;
             return $this;
         }
+    }
+
+    public function getLegalNotice(): ?string
+    {
+        return $this->legalNotice;
+    }
+
+    public function setLegalNotice(?string $legalNotice): self
+    {
+        $this->legalNotice = $legalNotice;
+
+        return $this;
     }
 
 }
