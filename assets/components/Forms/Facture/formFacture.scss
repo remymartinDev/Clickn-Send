@@ -1,75 +1,219 @@
 @import '~/styles/vars.scss';
-.form-create-invoice {
-  display: grid;
-  justify-content: center;
-}
-.modal-button {
-  background-color: $color-mauve-4;
-  border-radius: 0px;
-  border: 1px solid $color-mauve-4;
-  &:hover {
-    background-color: $color-mauve-0;
-  }
-}
+
 .title-invoice {
   color: $color-vert-0;
   text-align: center;
   margin-top: 1rem;
-  max-height: 4rem;
 }
-.modal-icon {
-  
-  color: white;
+.custom-modal {
+  border: 1px solid red;
+  max-width: none;
+  width: 80%;
+  display: grid;
 }
-.add-client-select {
-  margin: center;
-}
+.page-container-invoice-create {
+  height: 100%;
+  padding-bottom: 2rem;
 
-.add-client {
-  padding: 1rem 0;
-  margin: auto;
-}
-.add-produit {
-  padding: 1rem 0;
-  margin: auto;
-}
-.form-btn {
-  background-color: $color-mauve-4;
-  color: white;
-  border-radius: 0px;
-  margin: auto;
-  border: 1px solid $color-mauve-4;
-  &:hover {
+  .fieldSelect {
+    border: 1px solid $color-mauve-4;
     background-color: white;
-    color: $color-mauve-4;
-    border: 1px solid $color-mauve-4;
+    padding: 0.5rem;
   }
-  &-submit {
-    margin-top: 2rem;
-  }
-}
 
-.fieldSelect {
-  min-height: 38px;
-  border: 1px solid $color-mauve-4;
-  background-color: white;
-  color: $color-mauve-4;
-  padding: 0.5rem;
-  border-radius: 0px;
-  box-sizing: border-box;
-}
-.status {
-  max-width: 12rem;;
-  margin: auto;
-}
-
-.form-mentions {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem auto;
-  text-align: center;
-  color:$color-mauve-4;
-  &-field {
+  .status {
+    max-width: 12rem;;
+    margin: auto;
+  }
+  .modal-button {
+    background-color: $color-mauve-4;
+    border-radius: 0;
     border: 1px solid $color-mauve-4;
+    transition: background-color 0.5s;
+
+    &:hover {
+      background-color: $color-mauve-0;
+    }
+  }
+
+  .form-create-invoice {
+    display: grid;
+    grid-row-gap: 1rem;
+
+    .add-client {
+      margin: auto;
+      display: flex;
+      position: relative;
+    }
+
+    .add-product {
+      text-align: center;
+      display: grid;
+      grid-row-gap: 1rem;
+      margin: auto;
+
+      &-select {
+        margin: auto;
+        display: grid;
+        grid-row-gap: 0.5rem;
+        grid-template-columns: 1fr 1fr;
+        &-product {
+          display: flex;
+          margin: auto;
+          grid-column: 1 / -1;
+          position: relative;
+          .fieldSelect {
+            justify-self: center;
+          }
+        }
+        .btn-remove {
+          grid-column: 1 / -1;
+          justify-self: flex-end;
+          color: red;
+          background-color: white;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .form-mentions {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin: auto;
+      color: $color-mauve-4;
+      &-field {
+        border: 1px solid $color-mauve-4;
+      }
+    }
+  
+  }
+
+  .btn-secondary, .btn, .form-btn {
+    background-color: $color-mauve-4;
+    color: white;
+    border-radius: 0px;
+    margin: auto;
+    border: 1px solid $color-mauve-4;
+
+    &:link {
+      box-shadow: none;
+      background-color:$color-orange-4;
+      color: white;
+      border: 1px solid $color-mauve-4;
+    }
+    &:active {
+      background-color: $color-vert-4;
+      color: white;
+      border: 1px solid $color-mauve-4;
+      box-shadow: none;
+    }
+    &:visited {
+      background-color: $color-vert-4;
+      color: white;
+      border: 1px solid $color-mauve-4;
+      box-shadow: none;
+    }
+
+    &:focus {
+      box-shadow: none;
+      background-color: $color-mauve-4;
+      color: white;
+      border: 1px solid $color-mauve-4;
+    }
+
+    &:hover {
+      background-color: white;
+      color: $color-mauve-4;
+      border: 1px solid $color-mauve-4;
+    }
+
+    &-submit {
+      margin-top: 2rem;
+    }
   }
 }
+// .form-create-invoice {
+//   display: grid;
+//   justify-content: center;
+//   width: 100vw;
+// }
+// .modal-button {
+//   background-color: $color-mauve-4;
+//   border-radius: 0px;
+//   border: 1px solid $color-mauve-4;
+//   &:hover {
+//     background-color: $color-mauve-0;
+//   }
+// }
+// .title-invoice {
+//   color: $color-vert-0;
+//   text-align: center;
+//   margin-top: 1rem;
+//   // max-height: 4rem;
+// }
+// .modal-icon {
+//   color: white;
+// }
+// .add-client {
+//   display: flex;
+//   grid-column: 1 / -1;
+// }
+// // .add-client-select {
+// //   margin: center;
+// // }
+
+// // .add-client {
+// //   padding: 1rem 0;
+// //   margin: auto;
+// // }
+// .add-produit {
+//   padding: 1rem 0;
+//   margin: auto;
+//   display: grid;
+//   grid-template-columns: 1fr 1fr;
+
+// }
+// .form-btn {
+//   background-color: $color-mauve-4;
+//   color: white;
+//   border-radius: 0px;
+//   margin: auto;
+//   border: 1px solid $color-mauve-4;
+//   justify-self: center;
+//   grid-column: 1 / -1;
+//   &:hover {
+//     background-color: white;
+//     color: $color-mauve-4;
+//     border: 1px solid $color-mauve-4;
+//   }
+//   &-submit {
+//     margin-top: 2rem;
+//   }
+// }
+
+// .fieldSelect {
+//   min-height: 38px;
+//   border: 1px solid $color-mauve-4;
+//   background-color: white;
+//   color: $color-mauve-4;
+//   padding: 0.5rem;
+//   border-radius: 0px;
+//   box-sizing: border-box;
+// }
+// .status {
+//   max-width: 12rem;;
+//   margin: auto;
+// }
+
+// .form-mentions {
+//   display: flex;
+//   flex-direction: column;
+//   margin: 1rem auto;
+//   text-align: center;
+//   color:$color-mauve-4;
+//   &-field {
+//     border: 1px solid $color-mauve-4;
+//   }
+// }
