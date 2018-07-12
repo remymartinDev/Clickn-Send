@@ -56,15 +56,29 @@ class InvoiceController extends Controller
         $data_array = json_decode($data, true);
         
         //hydrate an invoice object with data
+        $invoice = $serializer->deserialize($data, Product::class, 'json');
+
         //take relational object for invoice 
         $customer = $customerRepository->findOneById($data_array['customer']['id']);
         $status = $statusRepository->findOneById($data_array['status']['id']);
         $company = $companyRepository->findOneById($data_array['company']['id']);
         
+        //make reference
+        $payment_term = $company->getPaymentTerm() . 'd';
+        $date = new \Datetime();
+        $reference = $date->format('Ymdh-is');
+        $deadline = $date->add($payment_term);
+
         //set invoice
         $invoice->setCustomer($customer);
         $invoice->setStatus($status);
         $invoice->setCompany($company);
+        $invoice->setDate($date);
+        $invoice->setReference($reference);
+        $invoice->setPaid(false);
+        $invoice->setReminder(0);
+        $invoice->setDeadline1($deadline);
+
         
         $em = $this->getDoctrine()->getManager();
         $em->persist($invoice);

@@ -195,7 +195,7 @@ class Product
     public function setActive(bool $active): self
     {
         $this->active = $active;
-
+        
         return $this;
     }
 }
