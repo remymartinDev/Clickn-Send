@@ -1,9 +1,25 @@
 {% extends 'base.html.twig' %}
 
+
+{% set calendrier = {
+    'Jan' : 'janvier', 
+    'Feb' : 'février', 
+    'Mar' : 'mars', 
+    'Apr' : 'avril', 
+    'May' : 'mai', 
+    'Jun' : 'juin', 
+    'Jul' : 'juillet', 
+    'Aug' : 'août', 
+    'Sep' : 'septembre', 
+    'Oct' : 'octobre', 
+    'Nov' : 'novembre', 
+    'Dec' : 'décembre'
+} %}
+
+
 {% block stylesheet %}
 <link rel="stylesheet" href="{{ asset('styles/PDF.css') }}">
 {% endblock %}
-
 
 {% block body %}
 
@@ -28,7 +44,7 @@
         </div>
 
         <div class="date ecart">
-            <p> le {{invoice.date|date('d-m-Y')}} </p>
+            <p> le {{invoice.date|date('d')}} {{calendrier[invoice.date|date('M')]}} {{invoice.date|date('Y')}} </p>
         </div>
 
 
@@ -45,6 +61,7 @@
         <div class="invoiceHasProducts purple-border">
             <div class="inside-products">
                 <div class="container-fluid">
+
                     <div class="row thead">
                         <div class="col-5 th">Produit</div>
                         <div class="col-1 th">Quantité</div>
@@ -68,21 +85,17 @@
                         <div class="col-2 trd">{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;</div>   
                     </div>
                     {% endfor %}
-                </div>
 
+                </div>
             </div>
         </div>
 
-
         <div class="container-fluid">
             <div class="row ecart">
-
-
-
+            
                 <div class="col-6 companyRef">
 
-                    <div class="bank-ref purple-border">
-                    
+                    <div class="bank-ref purple-border">    
                         <div class="inside">
 
                             <div class="bank-ref-inf">Informations: <br />
@@ -90,14 +103,19 @@
                                    {{invoice.legalNotice}}
                                 </span>
                             </div> 
-                            
+
                         </div>
-                        
                     </div>
                     
                     <div class="bank-ref purple-border">
                     
                         <div class="inside">
+
+                            <div class="bank-ref-inf">Echéance:
+                                <span class="bank-inf deadline">
+                                    {{invoice.deadline1|date('d')}} {{calendrier[invoice.deadline1|date('M')]}} {{invoice.deadline1|date('Y')}}
+                                </span>
+                            </div> 
 
                             <div class="bank-ref-inf">Moyen de règlement: <br />
                                 <span class="bank-inf">
@@ -195,11 +213,8 @@
                             </div>
                     </div>  
 
-
                 </div>
-
-
-
+                
             </div>
         </div>
 
@@ -211,8 +226,6 @@
                 <p>Téléphone: {{ invoice.company.phone}} - Fax: {{ invoice.company.fax}} - Email: {{ invoice.company.email}} - TVA intracommunautaire: {{ invoice.company.vatNumber|slice(0,2)}}&nbsp;{{ invoice.company.vatNumber|slice(2,9)}}</p>
             </div>
         </div>
-
-
     </div>
 </div>
 

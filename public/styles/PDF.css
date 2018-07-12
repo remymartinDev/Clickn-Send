@@ -149,16 +149,22 @@ body {
   line-height: 1rem;
   margin-bottom: 0;
   border: 2px solid #791BB9;
-  margin: auto
+  margin: auto;
 }
 
 .company-refs p {
   line-height: 1rem;
   margin:0;
-  text-align: center
+  text-align: center;
 }
 
 .company-name {
   font-weight: bold;
-  font-size: 0.9rem
+  font-size: 0.9rem;
+}
+
+.deadline {
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 0.8rem;
 }

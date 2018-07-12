@@ -156,9 +156,9 @@ class AppFixtures extends Fixture
             $company->setCompanyAdress((4 + $i).'rue du Général Pépète');
             $company->setPhone('+334502835'. $i);
             $company->setFax('+33520154'. $i);
-            $company->setVatNumber('Fr'.(mt_rand(111111111, 999999999)));
+            $company->setVatNumber('FR'.(mt_rand(111111111, 999999999)));
             $company->setEmail(($sarl[$i]).'@gmail.com');
-            $company->setBankIban('Fr'.(mt_rand(11111111, 99999999)).(mt_rand(11111111, 99999999)).(mt_rand(11111111, 99999999)).(mt_rand(111, 999)) );
+            $company->setBankIban('FR'.(mt_rand(11111111, 99999999)).(mt_rand(11111111, 99999999)).(mt_rand(11111111, 99999999)).(mt_rand(111, 999)) );
             $company->setBankBic(mt_rand(11111111111, 99999999999));
             $company->setBankRib($i.'2'.$i.'3'.$i.'5'.$i);
             $company->setCity($city[mt_rand(0, 6)]);
@@ -166,7 +166,7 @@ class AppFixtures extends Fixture
             $company->setBankDomiciliation('Crédit Agricole de '.($city[mt_rand(0, 6)]));
             $company->setPaymentTerm('4'); //echeance en semaine (W en date php)
             $company->setCompanyInformation('SARL au capital de 50.000€');
-            $company->setCountryCode('Fr');
+            $company->setCountryCode('FR');
             $companies[] = $company;            
             $manager->persist($company);
         }
