@@ -6,7 +6,6 @@
   margin-top: 1rem;
 }
 .custom-modal {
-  border: 1px solid red;
   max-width: none;
   width: 80%;
   display: grid;
@@ -33,6 +32,12 @@
 
     &:hover {
       background-color: $color-mauve-0;
+    }
+    &:active {
+      box-shadow: none !important;
+      background-color: $color-mauve-4 !important;
+      color: white !important;
+      border: 1px solid $color-mauve-4 !important;
     }
   }
 
@@ -90,31 +95,17 @@
   
   }
 
-  .btn-secondary, .btn, .form-btn {
+  .form-btn {
     background-color: $color-mauve-4;
     color: white;
     border-radius: 0px;
     margin: auto;
     border: 1px solid $color-mauve-4;
+    &-add-product:focus {
+      border: 5px solid red;
+    }
 
-    &:link {
-      box-shadow: none;
-      background-color:$color-orange-4;
-      color: white;
-      border: 1px solid $color-mauve-4;
-    }
-    &:active {
-      background-color: $color-vert-4;
-      color: white;
-      border: 1px solid $color-mauve-4;
-      box-shadow: none;
-    }
-    &:visited {
-      background-color: $color-vert-4;
-      color: white;
-      border: 1px solid $color-mauve-4;
-      box-shadow: none;
-    }
+    
 
     &:focus {
       box-shadow: none;
@@ -134,86 +125,18 @@
     }
   }
 }
-// .form-create-invoice {
-//   display: grid;
-//   justify-content: center;
-//   width: 100vw;
-// }
-// .modal-button {
-//   background-color: $color-mauve-4;
-//   border-radius: 0px;
-//   border: 1px solid $color-mauve-4;
-//   &:hover {
-//     background-color: $color-mauve-0;
-//   }
-// }
-// .title-invoice {
-//   color: $color-vert-0;
-//   text-align: center;
-//   margin-top: 1rem;
-//   // max-height: 4rem;
-// }
-// .modal-icon {
-//   color: white;
-// }
-// .add-client {
-//   display: flex;
-//   grid-column: 1 / -1;
-// }
-// // .add-client-select {
-// //   margin: center;
-// // }
+// bouton Ajouter un produit
+#root > div > div.page-container-invoice-create > form > div.add-product > button:active {
+  box-shadow: none;
+  background-color: $color-mauve-4;
+  color: white;
+  border: 1px solid $color-mauve-4;
+}
 
-// // .add-client {
-// //   padding: 1rem 0;
-// //   margin: auto;
-// // }
-// .add-produit {
-//   padding: 1rem 0;
-//   margin: auto;
-//   display: grid;
-//   grid-template-columns: 1fr 1fr;
-
-// }
-// .form-btn {
-//   background-color: $color-mauve-4;
-//   color: white;
-//   border-radius: 0px;
-//   margin: auto;
-//   border: 1px solid $color-mauve-4;
-//   justify-self: center;
-//   grid-column: 1 / -1;
-//   &:hover {
-//     background-color: white;
-//     color: $color-mauve-4;
-//     border: 1px solid $color-mauve-4;
-//   }
-//   &-submit {
-//     margin-top: 2rem;
-//   }
-// }
-
-// .fieldSelect {
-//   min-height: 38px;
-//   border: 1px solid $color-mauve-4;
-//   background-color: white;
-//   color: $color-mauve-4;
-//   padding: 0.5rem;
-//   border-radius: 0px;
-//   box-sizing: border-box;
-// }
-// .status {
-//   max-width: 12rem;;
-//   margin: auto;
-// }
-
-// .form-mentions {
-//   display: flex;
-//   flex-direction: column;
-//   margin: 1rem auto;
-//   text-align: center;
-//   color:$color-mauve-4;
-//   &-field {
-//     border: 1px solid $color-mauve-4;
-//   }
-// }
+// bouton Générer votre facture
+#root > div > div.page-container-invoice-create > form > button {
+    box-shadow: none;
+  background-color: $color-mauve-4;
+  color: white;
+  border: 1px solid $color-mauve-4;
+}

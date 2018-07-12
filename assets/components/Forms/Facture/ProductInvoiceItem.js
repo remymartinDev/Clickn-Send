@@ -12,6 +12,7 @@ import Loading from '~/components/utils/Loading';
 class ProductInvoiceItem extends React.Component {
   state = {
     modal: false,
+    price: 0,        
   }
 
   getProductsJSX = () => (
@@ -22,6 +23,13 @@ class ProductInvoiceItem extends React.Component {
 
   productSubmit = fieldName => (values) => {
     this.props.productSubmit(fieldName, values, this.toggle);
+    console.log('productSubmit', fieldName, values);
+    this.setState({
+      price: values.price,
+    });
+  }
+  handleChange = fieldName => (e) => {
+    this.props.fillPrice(e.target.value, fieldName);
   }
 
   toggle = () => {
@@ -35,7 +43,7 @@ class ProductInvoiceItem extends React.Component {
     return (
       <div className="add-product-select">
         <div className="add-product-select-product">
-          <Field component="select" name={`${product}.product`} className="fieldSelect">
+          <Field component="select" name={`${product}.product`} className="fieldSelect" onChange={this.handleChange(`${product}.price`)}>
             <option>Sélectionner votre produit</option>
             {this.getProductsJSX()}
           </Field>
@@ -50,16 +58,24 @@ class ProductInvoiceItem extends React.Component {
             <CreateProduct onSubmit={this.productSubmit(`${product}.product`)} />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Créer</Button>
             <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>
+        <label htmlFor={`${product}.price`}>Prix</label>
+        <Field component="input" type="text" name={`${product}.price`} />
+
         <label htmlFor={`${product}.quantity`}>Quantité</label>
         <Field component="input" type="text" name={`${product}.quantity`} />
         <label htmlFor={`${product}.vatRate`}>Taux de TVA</label>
         <Field component="input" type="text" name={`${product}.vatRate`} />
         <label htmlFor={`${product}.remise`}>Remise</label>
         <Field component="input" type="text" name={`${product}.remise`} />
+        <label htmlFor={`${product}.amountDuttyFree`}>Prix HT</label>
+        <Field component="input" type="text" name={`${product}.amountDuttyFree`} />
+        <label htmlFor={`${product}.taxesAmount`}>TVA</label>
+        <Field component="input" type="text" name={`${product}.taxesAmount`} />
+        <label htmlFor={`${product}.amountAllTaxes`}>Prix TTC</label>
+        <Field component="input" type="text" name={`${product}.amountAllTaxes`} />
         <button
           type="button"
           title="Remove Product"

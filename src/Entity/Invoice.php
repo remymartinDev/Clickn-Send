@@ -134,17 +134,17 @@ class Invoice
         }
     }
 
-    public function setDate($Ddate)
+    public function setDate($date = null)
     {
 /*         {
             $this->date = new \Datetime();
             return $this;
         } */
-        if (is_string($Ddate)) {
-            $this->date = new \Datetime($Ddate);
+        if (is_string($date)) {
+            $this->date = new \Datetime($date);
             return $this;     
         }else {
-            $this->date = $Ddate;
+            $this->date = $date;
             return $this;
         }
     }
