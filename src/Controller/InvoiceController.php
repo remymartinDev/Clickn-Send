@@ -56,18 +56,18 @@ class InvoiceController extends Controller
         $data_array = json_decode($data, true);
         
         //hydrate an invoice object with data
-        $invoice = $serializer->deserialize($data, Product::class, 'json');
+        $invoice = $serializer->deserialize($data, Invoice::class, 'json');
 
         //take relational object for invoice 
-        $customer = $customerRepository->findOneById($data_array['customer']['id']);
-        $status = $statusRepository->findOneById($data_array['status']['id']);
-        $company = $companyRepository->findOneById($data_array['company']['id']);
+        $customer = $customerRepository->findOneById($data_array['customer']);
+        $status = $statusRepository->findOneByInvoiceStatus($data_array['status']);
+        $company = $companyRepository->findOneById(1);
         
         //make autocomplet variable
-        $payment_term = $company->getPaymentTerm() . 'd';
+        $payment_term = 'P' . $company->getPaymentTerm() . 'D';
         $date = new \Datetime();
         $reference = $date->format('Ymdh-is');
-        $deadline = $date->add($payment_term);
+        $deadline = $date->add(new \DateInterval($payment_term));
 
         //set invoice
         $invoice->setCustomer($customer);
