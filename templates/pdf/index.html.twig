@@ -1,9 +1,25 @@
 {% extends 'base.html.twig' %}
 
+
+{% set calendrier = {
+    'Jan' : 'janvier', 
+    'Feb' : 'février', 
+    'Mar' : 'mars', 
+    'Apr' : 'avril', 
+    'May' : 'mai', 
+    'Jun' : 'juin', 
+    'Jul' : 'juillet', 
+    'Aug' : 'août', 
+    'Sep' : 'septembre', 
+    'Oct' : 'octobre', 
+    'Nov' : 'novembre', 
+    'Dec' : 'décembre'
+} %}
+
+
 {% block stylesheet %}
 <link rel="stylesheet" href="{{ asset('styles/PDF.css') }}">
 {% endblock %}
-
 
 {% block body %}
 
@@ -13,16 +29,22 @@
         <div class="container-fluid ecart">
             <div class="row">
                 <div class="col-4 logo">COUCOU</div>
-                <div class="col-2 void"></div>
-                <div class="col-6 customer">
+                <div class="col-3 void"></div>
+                <div class="col-5 customer">
+
+                {% if invoice.customer.pro == true %}
+                <p> {{invoice.customer.customerCompany}}</p>
+                {% else %}
                 <p> {{invoice.customer.lastname}} {{invoice.customer.firstname}} </p>
+                {% endif %}
                 <p> {{invoice.customer.companyAdress}} </p>
+                <p> {{invoice.customer.ZipCode}} {{invoice.customer.City}} </p>
                 </div>
             </div>
         </div>
 
         <div class="date ecart">
-            <p> le {{invoice.date|date('d-m-Y')}} </p>
+            <p> le {{invoice.date|date('d')}} {{calendrier[invoice.date|date('M')]}} {{invoice.date|date('Y')}} </p>
         </div>
 
 
@@ -39,35 +61,171 @@
         <div class="invoiceHasProducts purple-border">
             <div class="inside-products">
                 <div class="container-fluid">
+
                     <div class="row thead">
                         <div class="col-5 th">Produit</div>
                         <div class="col-1 th">Quantité</div>
-                        <div class="col-2 th">Prix Unitaire</div>
+                        <div class="col-1 th">Unité</div>
+                        <div class="col-1 th">Prix</div>
                         <div class="col-1 th">TVA</div>
                         <div class="col-2 thd">Total</div>
                     </div>
+
+                    
                     {% for thisOne in invoice.invoiceHasProducts %}
                     <div class="row thead">
-                        <div class="col-5 tr">{{thisOne.product.denomination}}</div>
+                        <div class="col-5 tr">
+                           <p class="product"> {{thisOne.product.denomination}} </p>
+                           <p class="description"> {{thisOne.product.description}} </p>
+                        </div>
                         <div class="col-1 tr">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
-                        <div class="col-2 tr">{{thisOne.product.price|number_format(2, ',', ' ') }}€</div>
+                        <div class="col-1 tr">{{ thisOne.product.unity }}</div>
+                        <div class="col-1 tr">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
                         <div class="col-1 tr">20,00%</div>
-                        <div class="col-2 trd">{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} €</div>   
+                        <div class="col-2 trd">{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;</div>   
                     </div>
                     {% endfor %}
-                </div>
 
+                </div>
             </div>
         </div>
 
+        <div class="container-fluid">
+            <div class="row ecart">
+            
+                <div class="col-6 companyRef">
 
+                    <div class="bank-ref purple-border">    
+                        <div class="inside">
 
+                            <div class="bank-ref-inf">Informations: <br />
+                                <span class="bank-inf">
+                                   {{invoice.legalNotice}}
+                                </span>
+                            </div> 
 
-        <div class="bank-ref purple-border"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bank-ref purple-border">
+                    
+                        <div class="inside">
 
-        <div class="company-refs purple-border"></div>
+                            <div class="bank-ref-inf">Echéance:
+                                <span class="bank-inf deadline">
+                                    {{invoice.deadline1|date('d')}} {{calendrier[invoice.deadline1|date('M')]}} {{invoice.deadline1|date('Y')}}
+                                </span>
+                            </div> 
 
+                            <div class="bank-ref-inf">Moyen de règlement: <br />
+                                <span class="bank-inf">
+                                    {% for PM in paymentMethod %}
+                                        {{PM.method}}, 
+                                    {% endfor %}
+                                </span>
+                            </div> 
+                            <div class="bank-ref-inf">Domiciliation: 
+                                <span class="bank-inf">
+                                    {{invoice.company.bankDomiciliation}}
+                                </span>
+                            </div> 
+                            <div class="bank-ref-inf">IBAN:  
+                                <span class="bank-inf">
+                            {{invoice.company.bankIban|slice(0,4)}}&nbsp;
+                            {{invoice.company.bankIban|slice(4,4)}}&nbsp;
+                            {{invoice.company.bankIban|slice(8,4)}}&nbsp;
+                            {{invoice.company.bankIban|slice(12,4)}}&nbsp;
+                            {{invoice.company.bankIban|slice(16,4)}}&nbsp;
+                            {{invoice.company.bankIban|slice(20,7)}}&nbsp;
+                                </span>
+                            </div> 
+                            <div class="bank-ref-inf">BIC:  
+                                <span class="bank-inf">
+                            {{invoice.company.bankBic|slice(0,4)}}&nbsp;
+                            {{invoice.company.bankBic|slice(4,2)}}&nbsp;
+                            {{invoice.company.bankBic|slice(6,2)}}&nbsp;
+                            {{invoice.company.bankBic|slice(8,3)}}&nbsp;
+                                </span>
+                            </div>
+                        </div>
 
+                    </div>
+
+                </div>
+
+                <div class="col-2 void"></div>
+
+                <div class="col-4 amounts">
+
+                    <div class="pre-amount">
+                        <div class="amount-cat">Montant H.T</div>
+                        <div class="amount">
+                            {% set totalHtArray = [] %}
+                                {% for index, thisOne in invoice.invoiceHasProducts %}
+                                {% set totalHtArray = totalHtArray|merge({ (index) : (thisOne.quantity * thisOne.product.price)|number_format(2, '.', '')}) %}
+                                {% endfor %}
+                            {% set totalHt = 0.00|number_format(2, '.', '') %}
+                                {% for r in totalHtArray %}
+                                {% set totalHt = totalHt|number_format(2, '.', '') + r|number_format(2, '.', '') %}
+                                {% endfor %}
+                            {{ totalHt|number_format(2, ',', ' ') }} &euro;
+
+                        </div>
+                    </div>  
+
+                    <div class="pre-amount">
+                        <div class="amount-cat">Montant TVA</div> 
+                            <div class="amount">
+
+                                {% set vatRate = 20.00 %}
+
+                                {% set totalTvaArray = [] %}
+                                    {% for index, thisOne in invoice.invoiceHasProducts %}
+                                    {% set totalTvaArray = totalTvaArray|merge({ (index) : (thisOne.quantity * thisOne.product.price * (vatRate / 100))|number_format(2, '.', '')}) %}
+                                    {% endfor %}
+                                {% set totalTva = 0.00|number_format(2, '.', '') %}
+                                    {% for r in totalTvaArray %}
+                                    {% set totalTva = totalTva|number_format(2, '.', '') + r|number_format(2, '.', '') %}
+                                    {% endfor %}
+                                {{ totalTva|number_format(2, ',', ' ') }} &euro;
+                            </div>
+                    </div>  
+
+                    <div class="pre-amount">
+                        <div class="amount-cat">Remise <span class="remise">({{ invoice.customer.remise }}%)</span></div> 
+                            <div class="amount">
+                                {% set totalRemise = (totalHt + totalTva) * (invoice.customer.remise) / 100%}
+                               - {{ (totalRemise|number_format(2, '.', ''))}} &euro;
+                            </div>
+                    </div>  
+
+                    <div class="pre-amount">
+                        <div class="amount-cat">Acompte</div> 
+                            <div class="amount">
+                               - {{ invoice.downPayment }} &euro;
+                            </div>
+                    </div>  
+
+                    <div class="pre-amount ttc">
+                        <div class="amount-cat ">Montant TTC</div>  
+                            <div class="amount">                                
+                                {{ (totalHt + totalTva - totalRemise - invoice.downPayment)|number_format(2, ',', ' ') }} &euro;
+                            </div>
+                    </div>  
+
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="company-refs">
+            <div class="inside">
+                 <p><span class="company-name">{{ invoice.company.companyName }} </span> 
+                 {{ invoice.company.companyInformation }}</p>
+                 <p>{{ invoice.company.companyAdress }} {{ invoice.company.zipCode }} {{ invoice.company.city }}</p>
+                <p>Téléphone: {{ invoice.company.phone}} - Fax: {{ invoice.company.fax}} - Email: {{ invoice.company.email}} - TVA intracommunautaire: {{ invoice.company.vatNumber|slice(0,2)}}&nbsp;{{ invoice.company.vatNumber|slice(2,9)}}</p>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -107,9 +107,14 @@ class Invoice
     private $deadline3;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="smallint", nullable=true)
      */
     private $recurringDate;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $legalNotice;
 
     public function __construct()
     {
@@ -129,17 +134,17 @@ class Invoice
         }
     }
 
-    public function setDate($Ddate)
+    public function setDate($date = null)
     {
 /*         {
             $this->date = new \Datetime();
             return $this;
         } */
-        if (is_string($Ddate)) {
-            $this->date = new \Datetime($Ddate);
+        if (is_string($date)) {
+            $this->date = new \Datetime($date);
             return $this;     
         }else {
-            $this->date = $Ddate;
+            $this->date = $date;
             return $this;
         }
     }
@@ -422,6 +427,18 @@ class Invoice
             $this->recurringDate = $recDate;
             return $this;
         }
+    }
+
+    public function getLegalNotice(): ?string
+    {
+        return $this->legalNotice;
+    }
+
+    public function setLegalNotice(?string $legalNotice): self
+    {
+        $this->legalNotice = $legalNotice;
+
+        return $this;
     }
 
 }

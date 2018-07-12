@@ -1,18 +1,30 @@
-.invoice-content {
+body {
+  width: 60%;
   margin: auto;
+}
+
+
+.invoice-content {
+  margin: auto;/* 
   width : 827px;
-  height: 1170px;
+  height: 1170px; */
   border: 5px solid rgba(255,162,101,1);
   background-color: white;
 }
 
 .invoice-content-border {
-  margin: 2rem;
+  margin: 2rem 2rem 0.5rem 2rem;
 }
 
+.customer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: rgba(129,224,224,0.2);
+}
 
 .purple-border {
-  border: 3px solid #791BB9;;
+  border: 3px solid #791BB9;
 }
 
 .ecart {
@@ -20,14 +32,14 @@
 }
 
 .inside-products {
-  margin: 2rem 1rem 1rem 1rem;
+  margin: 1rem 1rem 1rem 1rem;
 }
 
 .th {
   border: 2px solid #791BB9;;
   font-size: 0.8rem;
-  margin-right: 0.73rem;
-  padding: 1rem;
+  margin-right: 0.7rem;
+  padding: 0.7rem 1rem 0.7rem 0.7rem;
   padding-left: 0.3rem;
   text-align: left;
   color: #791BB9;
@@ -36,23 +48,33 @@
 .thd {
   border: 2px solid #791BB9;;
   font-size: 0.8rem;
-  padding: 1rem;
+  padding: 0.7rem 1rem 0.7rem 0.7rem;
   padding-left: 0.3rem;
-  text-align: left;
+  text-align: right;
   color: #791BB9;
 }
 
 .tr {
-  font-size: 0.7rem;
-  margin-right: 0.73rem;
-  padding: 1rem;
+  font-size: 0.9rem;
+  margin-right: 0.7rem;
+  padding: 0.7rem 1rem 0rem 1rem;
   padding-left: 0.3rem;
   text-align: left;
 }
 
+.product {
+  margin: 0;
+}
+
+.description {
+  padding: 0;
+  margin: 0;
+  font-size: 0.6rem;
+}
+
 .trd {
-  font-size: 0.7rem;
-  padding: 1rem;
+  font-size: 0.9rem;
+  padding: 0.7rem 1rem 0rem 1rem;
   padding-left: 0.3rem;
   text-align: right;
 }
@@ -69,4 +91,80 @@
 
 .invoice-ref p {
   margin-top: 1rem;
+}
+
+.inside {
+  margin: 0.5rem;
+}
+
+.bank-ref {
+  margin-top: 2rem;
+  line-height: 1rem;
+}
+
+.bank-ref-inf {
+  margin-top: 0.7rem;
+}
+
+.bank-inf {
+  font-size: 0.8rem;
+}
+
+.companyRef {
+  padding-left: 0;
+}
+
+.amounts {
+  padding: 0;
+}
+
+.remise {
+  font-size: 0.8rem
+}
+
+.pre-amount {
+  display: flex;
+  justify-content: space-between;
+  border: 3px solid #791BB9;
+  margin-top: 0.8rem;
+  padding: 0.3rem 0.2rem;
+}
+
+.ttc {
+  display: flex;
+  justify-content: space-between;
+  border: 3px solid #791BB9;
+  padding : 1.3rem 0.2rem;
+  margin-top: 1.5rem;
+  font-weight: bold;
+}
+
+.amount {
+  text-align: right;
+}
+
+.company-refs {
+  width: 90%;
+  font-size: 0.7rem;
+  line-height: 1rem;
+  margin-bottom: 0;
+  border: 2px solid #791BB9;
+  margin: auto;
+}
+
+.company-refs p {
+  line-height: 1rem;
+  margin:0;
+  text-align: center;
+}
+
+.company-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.deadline {
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 0.8rem;
 }
