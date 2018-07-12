@@ -153,7 +153,7 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 2; $i++) { 
          $company = new Company();
             $company->setCompanyName($sarl[$i]);
-            $company->setCompanyAdress((4 + $i).'rue du Général Pépète');
+            $company->setCompanyAdress((4 + $i).' rue du Général Pépète');
             $company->setPhone('+334502835'. $i);
             $company->setFax('+33520154'. $i);
             $company->setVatNumber('FR'.(mt_rand(111111111, 999999999)));

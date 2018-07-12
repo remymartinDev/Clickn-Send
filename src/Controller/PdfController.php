@@ -18,18 +18,6 @@ class PdfController extends Controller
     public function index(Invoice $invoice, PaymentMethodRepository $pmRepo)
     {   
         $paymentMethod = $pmRepo->findAll();
-        /* $this->get('knp_snappy.pdf')->generateFromHtml(
-            $this->renderView(
-                'pdf/index.html.twig',
-                array(
-                    'controller_name' => 'PdfController',
-                    'title' => 'Facture PDF',
-                    'invoices' => $invoices,
-                )
-                ),
-                'PDF/facture'. $invoice->getId() .'.pdf'
-        ); */
-
 
         $html = $this->render('pdf/index.html.twig', [
             'title' => 'Facture PDF',
