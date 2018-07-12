@@ -44,7 +44,6 @@ const mapDispatchToProps = dispatch => ({
     callback();
   },
   changeProducts: (id, callback, fieldName) => {
-    console.log('in mapTo', fieldName);
     dispatch(change('facture', fieldName, id));
     callback();
   },

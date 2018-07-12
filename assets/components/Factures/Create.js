@@ -4,8 +4,7 @@ import CreateFacture from '~/components/Forms/Facture/Create';
 
 class Create extends React.Component {
   submit = (values) => {
-    console.log('dans create ');
-    console.log(values);
+    console.log('data création invoice ', values);
     // axios.post('/api/invoice/new', values)
     //   .then((response) => {
     //     console.log(response.data);
