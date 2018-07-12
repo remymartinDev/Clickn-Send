@@ -153,15 +153,9 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 2; $i++) { 
          $company = new Company();
             $company->setCompanyName($sarl[$i]);
-<<<<<<< HEAD
             $company->setCompanyAdress((4 + $i).', rue du Général Pépète');
             $company->setPhone('0'.(mt_rand(1, 5)).(mt_rand(11111111, 99999999)));
             $company->setFax('0'.(mt_rand(1, 5)).(mt_rand(1111111, 99999999)));
-=======
-            $company->setCompanyAdress((4 + $i).' rue du Général Pépète');
-            $company->setPhone('+334502835'. $i);
-            $company->setFax('+33520154'. $i);
->>>>>>> e19f2e54d1740085f240a1cb30f4f141308de59d
             $company->setVatNumber('FR'.(mt_rand(111111111, 999999999)));
             $company->setEmail(($sarl[$i]).'@gmail.com');
             $company->setBankIban('FR'.(mt_rand(11111111, 99999999)).(mt_rand(11111111, 99999999)).(mt_rand(11111111, 99999999)).(mt_rand(111, 999)) );
@@ -172,7 +166,7 @@ class AppFixtures extends Fixture
             $company->setBankDomiciliation('Crédit Agricole de '.($city[mt_rand(0, 6)]));
             $company->setPaymentTerm('4'); //echeance en semaine (W en date php)
             $company->setCompanyInformation('SARL au capital de 50.000€');
-            $company->setCountryCode('Fr');
+            $company->setCountryCode('FR');
             $companies[] = $company;            
             $manager->persist($company);
         }
@@ -189,7 +183,7 @@ class AppFixtures extends Fixture
             $pays = $country[mt_rand(0, 6)];
             $customer->setLastname('LASTNAME'.$i);
             $customer->setFirstname('Firstname'.$i);
-            $customer->setCompanyAdress(1 + $i.', rue du customer '. 1 + $i);
+            $customer->setCompanyAdress((1 + $i).', rue du customer '.(1 + $i));
             $customer->setZipCode(mt_rand(11111, 99999));
             $customer->setCity($city[mt_rand(0, 6)]);
             $customer->setCountryCode($pays);
@@ -214,7 +208,7 @@ class AppFixtures extends Fixture
             $pays = $country[mt_rand(0, 6)];
             $customer->setLastname('LASTNAME'.$i);
             $customer->setFirstname('Firstname'.$i);
-            $customer->setCompanyAdress(1 + $i.', rue du customer'. 1 + $i);
+            $customer->setCompanyAdress((1 + $i).', rue du customer '.(1 + $i));
             $customer->setZipCode(mt_rand(01000, 99999));
             $customer->setCity($city[mt_rand(0, 6)]);
             $customer->setCountryCode($pays);
