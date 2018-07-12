@@ -5,8 +5,8 @@ body {
 
 
 .invoice-content {
-  margin: auto;/* 
-  width : 827px;
+  margin: auto;
+/*width : 827px;
   height: 1170px; */
   border: 5px solid black;
   background-color: white;
@@ -20,7 +20,7 @@ body {
   margin-top: 2rem;
   padding-top: 1rem;
   margin-bottom: 1rem;
-  background-color: rgba(255,189,147,0.2);
+  background-color: rgba(255,189,147,0.3);
 }
 
 .purple-border {
@@ -38,11 +38,14 @@ body {
 .th {
   /* border: 2px solid #D7D7D7; */
   font-size: 0.8rem;
-  margin-right: 0.7rem;
   padding: 0.4rem 1rem 0.4rem 0.4rem;
   padding-left: 0.3rem;
   text-align: left;
   color: #DE5700;
+}
+
+.produit {
+  text-align: center;
 }
 
 .thd {
@@ -56,7 +59,6 @@ body {
 
 .tr {
   font-size: 0.9rem;
-  margin-right: 0.7rem;
   padding: 0.7rem 1rem 0rem 1rem;
   padding-left: 0.3rem;
   text-align: left;
@@ -73,8 +75,8 @@ body {
 }
 
 .trd {
-  font-size: 0.9rem;
-  padding: 0.7rem 0rem 0rem 1rem;
+  font-size: 1rem;
+  padding: 0.7rem 1rem 0rem 1rem;
   padding-left: 0.3rem;
   text-align: right;
 }
@@ -139,7 +141,7 @@ body {
   justify-content: space-between;
   margin-top: 0.8rem;
   padding: 0.3rem 0.2rem;
-  margin-right: 1.5rem;
+  margin-right: 1rem;
 }
 
 .ttc {

@@ -32,7 +32,17 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {   
-        
+        /* $vatruleDE = new VatRules;
+        $vatruleDE->setCountry('Allemagne');
+        $vatruleDE->setCountryCode('DE');
+        $vatruleDE->setVatFormat('999999999');	
+        $vatruleDE->setVatFormatDigits('9 chiffres');
+        $vatruleDE->setZeroRate('0');
+        $vatruleDE->setLowRate1('7');
+        $vatruleDE->setLowRate2('');
+        $vatruleDE->setLowRate3('');
+        $vatruleDE->setLowRate4('');
+        $vatruleDE->setStandardRate('19'); */                
         
         $roleAdmin = new Role();
         $roleAdmin->setRolename('ROLE_ADMIN');
@@ -242,12 +252,21 @@ class AppFixtures extends Fixture
             '20.00'
         ];
 
+        $lorem = [
+            'Priscis pertinacior est Aginatium est fides est pertinacior super nunc ulla explanare locuta fides maioribus fides est arbitror arbitror causam',
+            'Quidem suspicionibus suspicionibus te publicae reique M cepit in sed tuo gravissimo ante praesertim senatus enim gravissimo me rei senatui',
+            'Quasdam itidemque Caesaream Caesaream ad nulli Syriarum et ad egregias exaedificavit nullam exaedificavit nulli egregias aemulas: aevo quam protenta abundans',
+            'Solet salutis quicquid insontium fecit luctuosam insontium etiam aut angustus offensis animus ita tener salutis existimans et angustus aut ita',
+            'Restituit qui mihi qui mihi quod perennis impendentibus incredibili capitis cum quodam amore ac cum in reducit in periculis viderem',
+            'Ob Orfitus minus urbem huius sese ad prudens dignitatis liberalium ultra oppido vulgus sunt minus excitatur decuerat haec haec vulgus'
+        ];
+
         $products1 = [];
         for ($i=0; $i < 20; $i++) { 
             $product = new Product();
             $product->setDenomination('Le Produit n°'.(1 + $i));
-            $product->setReference('XZ'.(mt_rand(111111, 999999)));
-            $product->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua');;
+            $product->setReference(mt_rand(11, 99).'-'.(mt_rand(111111, 999999)));
+            $product->setDescription($lorem[mt_rand(0, 5)]);
             $product->setPrice((mt_rand(2000, 23000))/100);
             $product->setUnity($unit[mt_rand(0,4)]);
             $product->setActive(true);
@@ -261,8 +280,8 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 20; $i++) { 
             $product = new Product();
             $product->setDenomination('Le Produit n°'.(1 + $i));
-            $product->setReference('XZ'.(mt_rand(111111, 999999)));
-            $product->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua');;
+            $product->setReference(mt_rand(11, 99).'-'.(mt_rand(111111, 999999)));
+            $product->setDescription($lorem[mt_rand(0, 5)]);
             $product->setPrice((mt_rand(2000, 23000))/100);
             $product->setUnity($unit[mt_rand(0,4)]);
             $product->setActive(true);

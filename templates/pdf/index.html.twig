@@ -53,7 +53,7 @@
             <div class="row ecart">
                 <div class="col-3"></div>
                 <div class="col-6 invoice-ref">
-                <p> {{invoice.status.invoiceStatus}} N°{{invoice.reference}} </p>
+                <p> {{invoice.status.invoiceStatus}} N° {{invoice.reference}} </p>
                 </div>
                 <div class="col-3"></div>
             </div>
@@ -64,7 +64,7 @@
                 <div class="container-fluid">
 
                     <div class="row thead">
-                        <div class="col-5 th">Produit</div>
+                        <div class="col-6 th produit">Produit</div>
                         <div class="col-1 th">Quantité</div>
                         <div class="col-1 th">Unité</div>
                         <div class="col-1 th">Prix</div>
@@ -75,9 +75,12 @@
                     
                     {% for thisOne in invoice.invoiceHasProducts %}
                     <div class="row thead">
-                        <div class="col-5 tr">
-                           <p class="product"> {{thisOne.product.denomination}} </p>
-                           <p class="description"> {{thisOne.product.description}} </p>
+                        <div class="col-6 tr">
+                            <p class="product">
+                                {{thisOne.product.denomination}}
+                                <span class="description">(ref: {{thisOne.product.reference}})</span>
+                            </p>
+                            <p class="description"> {{thisOne.product.description}} </p>
                         </div>
                         <div class="col-1 tr">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
                         <div class="col-1 tr">{{ thisOne.product.unity }}</div>
@@ -118,7 +121,7 @@
                                 </span>
                             </div> 
 
-                            <div class="bank-ref-inf">Moyen de règlement: <br />
+                            <div class="bank-ref-inf">Moyens de règlement: <br />
                                 <span class="bank-inf">
                                     {% for PM in paymentMethod %}
                                         {{PM.method}}, 
@@ -192,15 +195,17 @@
                                     {% endfor %}
                                 {{ totalTva|number_format(2, ',', ' ') }} &euro;
                             </div>
-                    </div>  
+                    </div> 
 
+                    {% set totalRemise = (totalHt + totalTva) * (invoice.customer.remise) / 100 %}
+                    {% if invoice.customer.remise != 0 %}
                     <div class="pre-amount">
                         <div class="amount-cat">Remise <span class="remise">({{ invoice.customer.remise }}%)</span></div> 
                             <div class="amount">
-                                {% set totalRemise = (totalHt + totalTva) * (invoice.customer.remise) / 100%}
                                - {{ (totalRemise|number_format(2, '.', ''))}} &euro;
                             </div>
                     </div>  
+                    {% endif %}
 
                     <div class="pre-amount">
                         <div class="amount-cat">Acompte</div> 
@@ -223,15 +228,7 @@
             </div>
         </div>
 
-{% set phoneIndex = {
-    'FR' : '+33',
-    'BE' : '+32',
-    'LU' : '+352',
-    'DE' : '+49',
-    'ES' : '+32',
-    'IT' : '+39',
-    'NL' : '+31'
-} %}
+
 
         <div class="company-refs">
             <div class="inside">
@@ -244,7 +241,7 @@
                  {{ invoice.company.zipCode }} 
                  {{ invoice.company.city }}
                  </p>
-                <p>Téléphone: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.phone|slice(1,1)}}&nbsp;{{ invoice.company.phone|slice(2,2)}}.{{ invoice.company.phone|slice(4,2)}}.{{ invoice.company.phone|slice(6,2)}}.{{ invoice.company.phone|slice(8,2)}} - 
+                <p>Téléphone: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.phone|slice(1,1)}}&nbsp;{{ invoice.company.phone|slice(2,2)}}.{{ invoice.company.phone|slice(4,2)}}.{{ invoice.company.phone|slice(6,2)}}.{{ invoice.company.phone|slice(8,20)}} - 
                 Fax: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.fax|slice(1,1)}}&nbsp;{{ invoice.company.fax|slice(2,2)}}.{{ invoice.company.fax|slice(4,2)}}.{{ invoice.company.fax|slice(6,2)}}.{{ invoice.company.fax|slice(8,2)}} - 
                 Email: {{ invoice.company.email}} - 
                 TVA intracommunautaire: {{ invoice.company.vatNumber|slice(0,2)}}&nbsp;{{ invoice.company.vatNumber|slice(2,9)}}</p>
