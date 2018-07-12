@@ -97,7 +97,6 @@ class ProductInvoice extends React.Component {
                       <CreateProduct onSubmit={this.productSubmit(`${tempProduct}.product`)} />
                     </ModalBody>
                     <ModalFooter>
-                      <Button color="primary" onClick={this.toggle}>Créer</Button>
                       <Button color="secondary" onClick={this.toggle}>Annuler</Button>
                     </ModalFooter>
                   </Modal>

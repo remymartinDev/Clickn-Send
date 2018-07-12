@@ -78,7 +78,6 @@ class CustomerInvoice extends React.Component {
             <CreateClient onSubmit={this.customerSubmit} />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Créer</Button>
             <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>
