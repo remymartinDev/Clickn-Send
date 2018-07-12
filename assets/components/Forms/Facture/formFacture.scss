@@ -90,12 +90,38 @@
   
   }
 
-  .form-btn {
+  .btn-secondary, .btn, .form-btn {
     background-color: $color-mauve-4;
     color: white;
     border-radius: 0px;
     margin: auto;
     border: 1px solid $color-mauve-4;
+
+    &:link {
+      box-shadow: none;
+      background-color:$color-orange-4;
+      color: white;
+      border: 1px solid $color-mauve-4;
+    }
+    &:active {
+      background-color: $color-vert-4;
+      color: white;
+      border: 1px solid $color-mauve-4;
+      box-shadow: none;
+    }
+    &:visited {
+      background-color: $color-vert-4;
+      color: white;
+      border: 1px solid $color-mauve-4;
+      box-shadow: none;
+    }
+
+    &:focus {
+      box-shadow: none;
+      background-color: $color-mauve-4;
+      color: white;
+      border: 1px solid $color-mauve-4;
+    }
 
     &:hover {
       background-color: white;

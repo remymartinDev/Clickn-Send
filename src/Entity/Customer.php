@@ -104,6 +104,16 @@ class Customer
      */
     private $active;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $zipCode;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $city;
+
     public function __construct()
     {
         $this->invoices = new ArrayCollection();
@@ -387,6 +397,30 @@ class Customer
         $this->setPro($data_array['pro']);
         $this->setRemise($data_array['remise']);
         $this->setVatNumber($data_array['vatNumber']);
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
     }
 
 
