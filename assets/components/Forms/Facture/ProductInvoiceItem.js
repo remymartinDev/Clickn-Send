@@ -1,5 +1,6 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -98,4 +99,15 @@ ProductInvoiceItem.propTypes = {
   productSubmit: PropTypes.func.isRequired,
 };
 
-export default ProductInvoiceItem;
+export default connect(
+  null,
+  null,
+)(reduxForm({
+  form: 'facture',
+})(ProductInvoiceItem));
+// export default connect(
+//   null,
+//   null,
+// )(reduxForm({
+//   form: 'facture',
+// }))(ProductInvoiceItem);
