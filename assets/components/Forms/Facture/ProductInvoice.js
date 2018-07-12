@@ -82,6 +82,4 @@ ProductInvoice.propTypes = {
   fields: PropTypes.object.isRequired,
 };
 
-
-
 export default ProductInvoice;

@@ -53,7 +53,7 @@ const mapDispatchToProps = dispatch => ({
   fillPrice: (id, fieldName) => {
     axios.get('/api/product/' + id)
       .then((response) => {
-        dispatch(change('facture', fieldName, response.data.price + ' €'));
+        dispatch(change('facture', fieldName, response.data.price));
       });
   },
 });
