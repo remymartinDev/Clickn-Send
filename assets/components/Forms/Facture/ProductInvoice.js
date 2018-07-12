@@ -54,6 +54,7 @@ class ProductInvoice extends React.Component {
   }
 
   render() {
+    
     return (
       <div className="add-product">
         { this.props.fields.map((product, index) => (
@@ -66,9 +67,10 @@ class ProductInvoice extends React.Component {
             changProducts={this.props.changeProducts}
             loading={this.state.loading}
             productSubmit={this.productSubmit}
+            fillPrice={this.props.fillPrice}
           />
         )) }
-        <Button className="form-btn form-btn-add-product" type="button" onClick={() => this.props.fields.push({})}>Ajouter un produit</Button>
+        <Button className="form-btn form-btn-add-product" id="btn-activated" type="button" onClick={() => this.props.fields.push({})}>Ajouter un produit</Button>
       </div>
     );
   }
@@ -76,7 +78,10 @@ class ProductInvoice extends React.Component {
 
 ProductInvoice.propTypes = {
   changeProducts: PropTypes.func.isRequired,
+  fillPrice: PropTypes.func.isRequired,
   fields: PropTypes.object.isRequired,
 };
+
+
 
 export default ProductInvoice;

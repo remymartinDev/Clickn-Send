@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm, change, FieldArray } from 'redux-form';
 import { Button } from 'reactstrap';
+import axios from 'axios';
 
 import ProductInvoice from './ProductInvoice';
 import CustomerInvoice from './CustomerInvoice';
@@ -14,12 +15,13 @@ const CreateFacture = ({
   changeCustomers,
   changeProducts,
   handleSubmit,
+  fillPrice,
 }) => (
   <div className="page-container-invoice-create">
     <h1 className="title-invoice">Créer votre facture</h1>
     <form onSubmit={handleSubmit} className="form-create-invoice">
       <CustomerInvoice changeCustomers={changeCustomers} />
-      <FieldArray name="invoiceHasProducts" component={ProductInvoice} changeProducts={changeProducts} />
+      <FieldArray name="invoiceHasProducts" component={ProductInvoice} fillPrice={fillPrice} changeProducts={changeProducts} />
       <div className="form-mentions">
         <label htmlFor="HTVA">Mentions légales si HTVA</label>
         <Field component="textarea" name="HTVA" className="form-mentions-field" />
@@ -35,6 +37,7 @@ CreateFacture.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   changeCustomers: PropTypes.func.isRequired,
   changeProducts: PropTypes.func.isRequired,
+  fillPrice: PropTypes.func.isRequired,
 };
 
 
@@ -46,6 +49,12 @@ const mapDispatchToProps = dispatch => ({
   changeProducts: (id, callback, fieldName) => {
     dispatch(change('facture', fieldName, id));
     callback();
+  },
+  fillPrice: (id, fieldName) => {
+    axios.get('/api/product/' + id)
+      .then((response) => {
+        dispatch(change('facture', fieldName, response.data.price + ' €'));
+      });
   },
 });
 
