@@ -39,6 +39,7 @@
                 {% endif %}
                 <p> {{invoice.customer.companyAdress}} </p>
                 <p> {{invoice.customer.ZipCode}} {{invoice.customer.City}} </p>
+                <p>VAT n° {{ invoice.customer.vatNumber|slice(0,2)}}&nbsp;{{ invoice.customer.vatNumber|slice(2,9)}} </p>
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
         <div class="container-fluid">
             <div class="row ecart">
                 <div class="col-3"></div>
-                <div class="col-6 invoice-ref purple-border">
+                <div class="col-6 invoice-ref">
                 <p> {{invoice.status.invoiceStatus}} N°{{invoice.reference}} </p>
                 </div>
                 <div class="col-3"></div>
@@ -81,7 +82,7 @@
                         <div class="col-1 tr">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
                         <div class="col-1 tr">{{ thisOne.product.unity }}</div>
                         <div class="col-1 tr">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
-                        <div class="col-1 tr">20,00%</div>
+                        <div class="col-1 tr">{{thisOne.product.vatRate}}%</div>
                         <div class="col-2 trd">{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;</div>   
                     </div>
                     {% endfor %}
@@ -95,17 +96,17 @@
             
                 <div class="col-6 companyRef">
 
+                    {% if invoice.legalNotice != null %}
                     <div class="bank-ref purple-border">    
                         <div class="inside">
-
                             <div class="bank-ref-inf">Informations: <br />
                                 <span class="bank-inf">
                                    {{invoice.legalNotice}}
                                 </span>
                             </div> 
-
                         </div>
                     </div>
+                    {% endif %}
                     
                     <div class="bank-ref purple-border">
                     
@@ -155,7 +156,9 @@
 
                 <div class="col-2 void"></div>
 
-                <div class="col-4 amounts">
+                <div class="col-4 total">
+
+                    <div class="amounts">
 
                     <div class="pre-amount">
                         <div class="amount-cat">Montant H.T</div>
@@ -177,11 +180,11 @@
                         <div class="amount-cat">Montant TVA</div> 
                             <div class="amount">
 
-                                {% set vatRate = 20.00 %}
+                                
 
                                 {% set totalTvaArray = [] %}
                                     {% for index, thisOne in invoice.invoiceHasProducts %}
-                                    {% set totalTvaArray = totalTvaArray|merge({ (index) : (thisOne.quantity * thisOne.product.price * (vatRate / 100))|number_format(2, '.', '')}) %}
+                                    {% set totalTvaArray = totalTvaArray|merge({ (index) : (thisOne.quantity * thisOne.product.price * (thisOne.product.vatRate / 100))|number_format(2, '.', '')}) %}
                                     {% endfor %}
                                 {% set totalTva = 0.00|number_format(2, '.', '') %}
                                     {% for r in totalTvaArray %}
@@ -213,6 +216,8 @@
                             </div>
                     </div>  
 
+                </div> 
+
                 </div>
                 
             </div>
@@ -239,11 +244,12 @@
                  {{ invoice.company.zipCode }} 
                  {{ invoice.company.city }}
                  </p>
-                <p>Téléphone: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.phone|slice(1,1)}}&nbsp;{{ invoice.company.phone|slice(2,2)}}.{{ invoice.company.phone|slice(4,2)}}.{{ invoice.company.phone|slice(6,2)}}.{{ invoice.company.phone|slice(8,2)}}.{{ invoice.company.phone|slice(10,2)}} - 
-                Fax: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.fax|slice(1,1)}}&nbsp;{{ invoice.company.fax|slice(2,2)}}.{{ invoice.company.fax|slice(4,2)}}.{{ invoice.company.fax|slice(6,2)}}.{{ invoice.company.fax|slice(8,2)}}.{{ invoice.company.fax|slice(10,2)}} - 
+                <p>Téléphone: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.phone|slice(1,1)}}&nbsp;{{ invoice.company.phone|slice(2,2)}}.{{ invoice.company.phone|slice(4,2)}}.{{ invoice.company.phone|slice(6,2)}}.{{ invoice.company.phone|slice(8,2)}} - 
+                Fax: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.fax|slice(1,1)}}&nbsp;{{ invoice.company.fax|slice(2,2)}}.{{ invoice.company.fax|slice(4,2)}}.{{ invoice.company.fax|slice(6,2)}}.{{ invoice.company.fax|slice(8,2)}} - 
                 Email: {{ invoice.company.email}} - 
                 TVA intracommunautaire: {{ invoice.company.vatNumber|slice(0,2)}}&nbsp;{{ invoice.company.vatNumber|slice(2,9)}}</p>
             </div>
+                <p class="clicknsend">invoice powered by <span id="clicknsend">Clickn'Send</p>
         </div>
     </div>
 </div>
