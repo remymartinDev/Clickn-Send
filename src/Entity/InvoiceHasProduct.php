@@ -38,6 +38,11 @@ class InvoiceHasProduct
      */
     private $remise;
 
+    /**
+     * @ORM\Column(type="decimal", precision=4, scale=2, nullable=true)
+     */
+    private $vatRate;
+
     public function getId()
     {
         return $this->id;
@@ -87,6 +92,18 @@ class InvoiceHasProduct
     public function setRemise($remise): self
     {
         $this->remise = $remise;
+
+        return $this;
+    }
+
+    public function getVatRate()
+    {
+        return $this->vatRate;
+    }
+
+    public function setVatRate($vatRate): self
+    {
+        $this->vatRate = $vatRate;
 
         return $this;
     }
