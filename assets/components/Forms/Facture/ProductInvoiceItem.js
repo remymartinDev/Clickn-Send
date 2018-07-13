@@ -82,11 +82,11 @@ class ProductInvoiceItem extends React.Component {
         <Button onClick={this.calculate}>Calculer</Button>
 
         <label htmlFor={`${product}.amountDuttyFree`}>Prix HT</label>
-        <Field component="input" type="number" name={`${product}.amountDuttyFree`} parse={value => Number(value)} />
+        <Field component="input" type="number" name={`${product}.amountDuttyFree`} disabled parse={value => Number(value)} />
         <label htmlFor={`${product}.taxesAmount`}>TVA</label>
-        <Field component="input" type="number" name={`${product}.taxesAmount`} parse={value => Number(value)} />
+        <Field component="input" type="number" name={`${product}.taxesAmount`} disabled parse={value => Number(value)} />
         <label htmlFor={`${product}.amountAllTaxes`}>Prix TTC</label>
-        <Field component="input" type="number" name={`${product}.amountAllTaxes`} parse={value => Number(value)} />
+        <Field component="input" type="number" name={`${product}.amountAllTaxes`} disabled parse={value => Number(value)} />
         <button
           type="button"
           title="Remove Product"
