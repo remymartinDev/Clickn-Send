@@ -48,11 +48,24 @@ class ProductInvoiceItem extends React.Component {
       quantity,
       vatRate,
       remise,
+      remiseType,
     } = this.props;
-    const prixHT = (price * quantity) - ((price * quantity) * remise / 100);
+
+    let prixHT = null;
+    let amountProductRemise = null;
+
+    if (remiseType === 'percent') {
+      amountProductRemise = ((price * quantity) * remise / 100);
+      prixHT = (price * quantity) - amountProductRemise;
+    }
+    else if (remiseType === 'absolute') {
+      amountProductRemise = remise;
+      prixHT = (price * quantity) - remise;
+    }
+
     const montantTVA = prixHT * vatRate / 100;
     const prixTTC = prixHT + montantTVA;
-    this.props.changeAmounts(prixHT.toFixed(2), montantTVA.toFixed(2), prixTTC.toFixed(2));
+    this.props.changeAmounts(amountProductRemise.toFixed(2), prixHT.toFixed(2), montantTVA.toFixed(2), prixTTC.toFixed(2));
   }
 
   render() {
@@ -117,12 +130,24 @@ class ProductInvoiceItem extends React.Component {
           parse={value => Number(value)}
           className="form-create-invoice-field"
         />
-        <label
-          htmlFor={`${product}.remise`}
-          className="form-create-invoice-label"
-        >
-          Remise (%)
-        </label>
+        <div >
+          <label
+            htmlFor={`${product}.remise`}
+            className="form-create-invoice-label"
+          >
+            Remise
+          </label>
+          <div className="form-create-invoice-radio">
+            <label className="form-create-invoice-radio-label">
+              <Field name={`${product}.remiseType`} component="input" type="radio" value="percent" />
+              Pourcentage
+            </label>
+            <label className="form-create-invoice-radio-label">
+              <Field name={`${product}.remiseType`} component="input" type="radio" value="absolute" />
+              Absolu
+            </label>
+          </div>
+        </div>
         <Field
           component="input"
           type="number"
@@ -131,7 +156,22 @@ class ProductInvoiceItem extends React.Component {
           className="form-create-invoice-field"
         />
 
-        <Button onClick={this.calculate} className="form-btn form-btn-calcul-product">Calculer</Button>
+        <Button onClick={this.calculate} className="form-btn-calcul form-btn-calcul-product">Calculer</Button>
+
+        <label
+          htmlFor={`${product}.amountProductRemise`}
+          className="form-create-invoice-label-disable"
+        >
+          Montant de la remise
+        </label>
+        <Field
+          component="input"
+          type="number"
+          name={`${product}.amountProductRemise`}
+          disabled
+          parse={value => Number(value)}
+          className="form-create-invoice-field-disable"
+        />
 
         <label
           htmlFor={`${product}.amountDuttyFree`}
@@ -232,10 +272,12 @@ const mapStateToProps = (state, ownProps) => ({
   quantity: selector(state, `${ownProps.product}.quantity`),
   remise: selector(state, `${ownProps.product}.remise`),
   vatRate: selector(state, `${ownProps.product}.vatRate`),
+  remiseType: selector(state, `${ownProps.product}.remiseType`),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  changeAmounts: (prixHT, montantTVA, prixTTC) => {
+  changeAmounts: (amountProductRemise, prixHT, montantTVA, prixTTC) => {
+    dispatch(change('facture', `${ownProps.product}.amountProductRemise`, amountProductRemise));
     dispatch(change('facture', `${ownProps.product}.amountDuttyFree`, prixHT));
     dispatch(change('facture', `${ownProps.product}.taxesAmount`, montantTVA));
     dispatch(change('facture', `${ownProps.product}.amountAllTaxes`, prixTTC));

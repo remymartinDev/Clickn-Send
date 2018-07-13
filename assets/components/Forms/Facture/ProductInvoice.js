@@ -104,7 +104,7 @@ class ProductInvoice extends React.Component {
           Ajouter un produit
         </Button>
         <Button
-          className="form-btn"
+          className="form-btn-calcul"
           type="button"
           onClick={this.calculateTotal}
         >

@@ -58,12 +58,17 @@
         background-color: rgba(255,139, 64,0.2);
       }
     }
+    &-radio-label {
+      padding: 0 0.5rem;
+    }
     &-label {
       color: $color-vert-4;
       &-disable {
         color: $color-orange-4;
       }
+      
     }
+   
 
     .add-client {
       margin: auto;
@@ -126,6 +131,7 @@
   
   }
 
+
   .form-btn {
     background-color: $color-mauve-4;
     color: white;
@@ -134,9 +140,7 @@
     border: 1px solid $color-mauve-4;
     &-add-product:focus {
       border: 5px solid red;
-    }
-
-    
+    }  
 
     &:focus {
       box-shadow: none;
@@ -149,24 +153,64 @@
       background-color: white;
       color: $color-mauve-4;
       border: 1px solid $color-mauve-4;
+      box-shadow: 1px 1px 5px 2px rgba(92, 8,149,0.5);
     }
 
     &-submit {
       margin-top: 2rem;
     }
   }
+
+  .form-btn-calcul {
+    background-color: $color-vert-0;
+    border: none;
+    border: 1px solid $color-vert-0;
+    border-radius: 0px;
+    margin: auto;
+    &-product {
+      grid-column: 1 / -1;
+    }
+    &:hover {
+      background-color: white;
+      color: $color-vert-0;
+      border: 1px solid $color-vert-0;
+      box-shadow: 1px 1px 5px 2px rgba(47,186,186,0.5);
+    }
+    &:active {
+      box-shadow: 1px 1px 5px 2px rgba(47,186,186,0.5);
+    }
+    &:focus {
+      box-shadow: 1px 1px 5px 2px rgba(47,186,186,0.5);
+    }
+  }
 }
 // bouton Ajouter un produit
-#root > div > div.page-container-invoice-create > form > div.add-product > button:active {
+#btn-activated:active {
   box-shadow: none;
   background-color: $color-mauve-4;
   color: white;
   border: 1px solid $color-mauve-4;
 }
 
+// bouton Calcul
+#root > div > div.page-container-invoice-create > form > div.add-product > div > button.form-btn-calcul:active {
+  background-color: $color-vert-0;
+  color: white;
+  border: 1px solid $color-vert-0;
+  box-shadow: 1px 1px 5px 2px rgba(47,186,186,0.5);
+}
+
+// bouton Calcul Total
+#root > div > div.page-container-invoice-create > form > div.add-product > button.form-btn-calcul.btn.btn-secondary:active {
+  background-color: $color-vert-0;
+  color: white;
+  border: 1px solid $color-vert-0;
+  box-shadow: 1px 1px 5px 2px rgba(47,186,186,0.5);
+}
+
 // bouton Générer votre facture
-#root > div > div.page-container-invoice-create > form > button {
-    box-shadow: none;
+#root > div > div.page-container-invoice-create > form > button:active {
+  box-shadow: none;
   background-color: $color-mauve-4;
   color: white;
   border: 1px solid $color-mauve-4;
