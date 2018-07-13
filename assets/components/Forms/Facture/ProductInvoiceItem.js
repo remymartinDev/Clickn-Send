@@ -44,7 +44,7 @@ class ProductInvoiceItem extends React.Component {
     const prixHT = (price * quantity) - ((price * quantity) * remise / 100);
     const montantTVA = prixHT * vatRate / 100;
     const prixTTC = prixHT + montantTVA;
-    this.props.changeAmounts(prixHT, montantTVA, prixTTC);
+    this.props.changeAmounts(prixHT.toFixed(2), montantTVA.toFixed(2), prixTTC.toFixed(2));
   }
 
   render() {
@@ -108,10 +108,22 @@ ProductInvoiceItem.propTypes = {
   loading: PropTypes.bool.isRequired,
   productSubmit: PropTypes.func.isRequired,
   changeAmounts: PropTypes.func.isRequired,
-  price: PropTypes.number,
-  quantity: PropTypes.number,
-  vatRate: PropTypes.number,
-  remise: PropTypes.number,
+  price: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  quantity: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  vatRate: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  remise: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 };
 
 ProductInvoiceItem.defaultProps = {
