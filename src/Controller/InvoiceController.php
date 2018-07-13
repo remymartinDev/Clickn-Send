@@ -18,6 +18,8 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Entity\InvoiceHasProduct;
+use App\Repository\ProductRepository;
 
 
 /**
@@ -49,26 +51,38 @@ class InvoiceController extends Controller
     /**
      * @Route("/new", name="invoice_new", methods="POST")
      */
-    public function new(Request $request, SerializerInterface $serializer, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository): Response
+    public function new(Request $request, SerializerInterface $serializer, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository, ProductRepository $productRepository): Response
     {
         
         $data = $request->getContent();
         $data_array = json_decode($data, true);
         
+        $em = $this->getDoctrine()->getManager();
+
         //hydrate an invoice object with data
-        $invoice = $serializer->deserialize($data, Product::class, 'json');
+        $invoice = $serializer->deserialize($data, Invoice::class, 'json');
 
         //take relational object for invoice 
-        $customer = $customerRepository->findOneById($data_array['customer']['id']);
-        $status = $statusRepository->findOneById($data_array['status']['id']);
-        $company = $companyRepository->findOneById($data_array['company']['id']);
+        $customer = $customerRepository->findOneById($data_array['customer']);
+        $status = $statusRepository->findOneByInvoiceStatus($data_array['status']);
+        $company = $companyRepository->findOneById(1);
         
         //make autocomplet variable
-        $payment_term = $company->getPaymentTerm() . 'd';
+        $payment_term = 'P' . $company->getPaymentTerm() . 'D';
         $date = new \Datetime();
         $reference = $date->format('Ymdh-is');
-        $deadline = $date->add($payment_term);
+        $datedeadline = new \Datetime();
+        $deadline = $datedeadline->add(new \DateInterval($payment_term));
+        $amountAllTaxes = 0;
+        $amountDuttyFree = 0;
 
+        foreach ($data_array['invoiceHasProducts'] as $datas) {
+                        
+            $amountAllTaxes += $datas['amountAllTaxes'];
+            $amountDuttyFree += $datas['amountDuttyFree'];
+            
+        }
+        
         //set invoice
         $invoice->setCustomer($customer);
         $invoice->setStatus($status);
@@ -78,11 +92,28 @@ class InvoiceController extends Controller
         $invoice->setPaid(false);
         $invoice->setReminder(0);
         $invoice->setDeadline1($deadline);
-
+        $invoice->setAmountAllTaxes($amountAllTaxes);
+        $invoice->setAmountDuttyFree($amountDuttyFree);
+        $invoice->setTaxesAmount($amountAllTaxes - $amountDuttyFree);
         
-        $em = $this->getDoctrine()->getManager();
         $em->persist($invoice);
         $em->flush();
+
+        //set invoice has product
+        foreach ($data_array['invoiceHasProducts'] as $datas) {
+            $invoiceHasProduct = new InvoiceHasProduct();
+            $invoiceHasProduct->setInvoice($invoice);
+            $invoiceHasProduct->setQuantity($datas['quantity']);
+
+            $product = $productRepository->findOneById($datas['product']);
+            $invoiceHasProduct->setProduct($product);
+
+            $em->persist($invoiceHasProduct);
+
+        }
+
+        $em->flush();
+        
         
         $response = [
             'succes' => true,

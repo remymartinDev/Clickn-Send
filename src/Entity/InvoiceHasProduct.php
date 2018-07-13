@@ -55,7 +55,7 @@ class InvoiceHasProduct
         return $this->invoice;
     }
 
-    public function setInvoice(?Invoice $invoice): self
+    public function setInvoice($invoice): self
     {
         $this->invoice = $invoice;
 
@@ -67,7 +67,7 @@ class InvoiceHasProduct
         return $this->product;
     }
 
-    public function setProduct(?Product $product): self
+    public function setProduct($product): self
     {
         $this->product = $product;
 

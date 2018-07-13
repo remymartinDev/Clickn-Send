@@ -21,7 +21,7 @@ class Status
     /**
      * @ORM\Column(type="string", length=25)
      */
-    private $invoice_status;
+    private $invoiceStatus;
 
     public function getId()
     {
@@ -30,12 +30,12 @@ class Status
 
     public function getInvoiceStatus(): ?string
     {
-        return $this->invoice_status;
+        return $this->invoiceStatus;
     }
 
-    public function setInvoiceStatus(string $invoice_status): self
+    public function setInvoiceStatus(string $invoiceStatus): self
     {
-        $this->invoice_status = $invoice_status;
+        $this->invoiceStatus = $invoiceStatus;
 
         return $this;
     }   
