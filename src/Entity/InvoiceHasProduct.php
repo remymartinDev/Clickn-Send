@@ -90,4 +90,11 @@ class InvoiceHasProduct
 
         return $this;
     }
+
+    public function hydrate($invoice, $product, $datas)
+    {
+        $this->setInvoice($invoice);
+        $this->setQuantity($datas['quantity']);
+        $this->setProduct($product);
+    }
 }

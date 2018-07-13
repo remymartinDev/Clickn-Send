@@ -67,54 +67,25 @@ class InvoiceController extends Controller
         $status = $statusRepository->findOneByInvoiceStatus($data_array['status']);
         $company = $companyRepository->findOneById(1);
         
-        //make autocomplet variable
-        $payment_term = 'P' . $company->getPaymentTerm() . 'D';
-        $date = new \Datetime();
-        $reference = $date->format('Ymdh-is');
-        $datedeadline = new \Datetime();
-        $deadline = $datedeadline->add(new \DateInterval($payment_term));
-        $amountAllTaxes = 0;
-        $amountDuttyFree = 0;
-
-        foreach ($data_array['invoiceHasProducts'] as $datas) {
-                        
-            $amountAllTaxes += $datas['amountAllTaxes'];
-            $amountDuttyFree += $datas['amountDuttyFree'];
-            
-        }
-        
-        //set invoice
-        $invoice->setCustomer($customer);
-        $invoice->setStatus($status);
-        $invoice->setCompany($company);
-        $invoice->setDate($date);
-        $invoice->setReference($reference);
-        $invoice->setPaid(false);
-        $invoice->setReminder(0);
-        $invoice->setDeadline1($deadline);
-        $invoice->setAmountAllTaxes($amountAllTaxes);
-        $invoice->setAmountDuttyFree($amountDuttyFree);
-        $invoice->setTaxesAmount($amountAllTaxes - $amountDuttyFree);
+        $invoice->hydrate($customer, $status, $company);
         
         $em->persist($invoice);
         $em->flush();
 
         //set invoice has product
         foreach ($data_array['invoiceHasProducts'] as $datas) {
-            $invoiceHasProduct = new InvoiceHasProduct();
-            $invoiceHasProduct->setInvoice($invoice);
-            $invoiceHasProduct->setQuantity($datas['quantity']);
-
+            
             $product = $productRepository->findOneById($datas['product']);
-            $invoiceHasProduct->setProduct($product);
+
+            $invoiceHasProduct = new InvoiceHasProduct();
+            $invoiceHasProduct->hydrate($invoice, $product, $datas);
 
             $em->persist($invoiceHasProduct);
 
         }
 
         $em->flush();
-        
-        
+              
         $response = [
             'succes' => true,
             'id' => $invoice->getId()
