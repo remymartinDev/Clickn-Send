@@ -270,7 +270,6 @@ class AppFixtures extends Fixture
             $product->setPrice((mt_rand(2000, 23000))/100);
             $product->setUnity($unit[mt_rand(0,4)]);
             $product->setActive(true);
-            $product->setVatRate($tva[mt_rand(0,2)]);
             $product->setCompany($companies[0]);
             $products1[] = $product; 
             $manager->persist($product);
@@ -285,7 +284,6 @@ class AppFixtures extends Fixture
             $product->setPrice((mt_rand(2000, 23000))/100);
             $product->setUnity($unit[mt_rand(0,4)]);
             $product->setActive(true);
-            $product->setVatRate($tva[mt_rand(0,2)]);
             $product->setCompany($companies[1]);
             $products2[] = $product; 
             $manager->persist($product);

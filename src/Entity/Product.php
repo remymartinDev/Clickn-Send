@@ -61,12 +61,6 @@ class Product
      */
     private $active;
 
-    /**
-     * @ORM\Column(type="decimal", precision=4, scale=2)
-     */
-    private $vatRate;
-
-
 //USELESS RELATION
     /* public function __construct()
     {
@@ -204,15 +198,4 @@ class Product
         return $this;
     }
 
-    public function getVatRate()
-    {
-        return $this->vatRate;
-    }
-
-    public function setVatRate($vatRate): self
-    {
-        $this->vatRate = $vatRate;
-
-        return $this;
-    }
 }

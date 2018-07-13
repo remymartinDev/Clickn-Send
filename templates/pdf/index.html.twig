@@ -64,18 +64,17 @@
                 <div class="container-fluid">
 
                     <div class="row thead">
-                        <div class="col-6 th produit">Produit</div>
+                        <div class="col-5 th produit">Produit</div>
                         <div class="col-1 th">Quantité</div>
                         <div class="col-1 th">Unité</div>
                         <div class="col-1 th">Prix</div>
                         <div class="col-1 th">TVA</div>
-                        <div class="col-2 thd">Total H.T</div>
+                        <div class="col-3 thd">Total H.T</div>
                     </div>
-
                     
                     {% for thisOne in invoice.invoiceHasProducts %}
                     <div class="row thead">
-                        <div class="col-6 tr">
+                        <div class="col-5 tr">
                             <p class="product">
                                 {{thisOne.product.denomination}}
                                 <span class="description">(ref: {{thisOne.product.reference}})</span>
@@ -85,17 +84,20 @@
                         <div class="col-1 tr">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
                         <div class="col-1 tr">{{ thisOne.product.unity }}</div>
                         <div class="col-1 tr">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
-                        <div class="col-1 tr">{{thisOne.product.vatRate}}%</div>
+                        <div class="col-1 tr">{{thisOne.vatRate}}%</div>
 
                         {% if (thisOne.remise != null) and (thisOne.remise != 0) %}
-                        <div class="col-2 trd1">
+                        <div class="col-1 trr">
                             <div class="customerRemise">(remise: -{{thisOne.remise}} &euro;)</div>
-                            <div>{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;</div>
-                        {% else %}   
-                        <div class="col-2 trd2"> 
+                        </div>
+                        <div class="col-2 trd">
                             {{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;
-                        {% endif %}
+                        </div>
+                        {% else %}   
+                        <div class="col-3 trd"> 
+                            {{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;
                         </div>  
+                        {% endif %}
 
                     </div>
                     {% endfor %}
@@ -198,7 +200,7 @@
 
                                 {% set totalTvaArray = [] %}
                                     {% for index, thisOne in invoice.invoiceHasProducts %}
-                                    {% set totalTvaArray = totalTvaArray|merge({ (index) : (thisOne.quantity * thisOne.product.price * (thisOne.product.vatRate / 100))|number_format(2, '.', '')}) %}
+                                    {% set totalTvaArray = totalTvaArray|merge({ (index) : (thisOne.quantity * thisOne.product.price * (thisOne.vatRate / 100))|number_format(2, '.', '')}) %}
                                     {% endfor %}
                                 {% set totalTva = 0.00|number_format(2, '.', '') %}
                                     {% for r in totalTvaArray %}

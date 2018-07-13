@@ -1,10 +1,11 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import CreateClient from '~/components/Forms/Client/Create';
 import Loading from '~/components/utils/Loading';
@@ -57,13 +58,18 @@ class CustomerInvoice extends React.Component {
         }
       });
   }
+  handleChange = (e) => {
+    const id = e.target.value;
+    const myCustomer = this.state.customers.find(customer => id == customer.id);
+    this.props.fillRemise(myCustomer.remise);
+  }
 
   render() {
     return (
       // <div className="add-client">
       <React.Fragment>
         <div className="add-client">
-          <Field component="select" name="customer" className="fieldSelect">
+          <Field component="select" name="customer" className="fieldSelect"  onChange={this.handleChange}>
             <option>Sélectionner votre client</option>
             {this.getCustomersJSX()}
           </Field>
@@ -81,6 +87,9 @@ class CustomerInvoice extends React.Component {
             <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>
+
+        <label htmlFor="remise">Remise Client</label>
+        <Field component="input" type="number" name="remise" parse={value => Number(value)} />
       </React.Fragment>
       // </div>
     );
@@ -91,4 +100,15 @@ CustomerInvoice.propTypes = {
   changeCustomers: PropTypes.func.isRequired,
 };
 
-export default CustomerInvoice;
+const mapDispatchToProps = dispatch => ({
+  fillRemise: (remise) => {
+    dispatch(change('facture', 'remise', remise));
+  }      
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(reduxForm({
+  form: 'facture',
+})(CustomerInvoice));
