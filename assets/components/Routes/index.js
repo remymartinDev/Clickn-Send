@@ -6,8 +6,8 @@ import Dashboard from '~/components/Dashboard';
 import NavClick from '~/components/NavClick';
 import NavVertical from '~/components/NavVertical';
 import Factures from '~/components/Factures';
-import Produits from '~/components/Produits';
-import Clients from '~/components/Clients';
+import Products from '~/components/Products';
+import Customers from '~/components/Customers';
 import Profile from '~/components/Profile';
 import Contact from '~/components/Contact';
 
@@ -23,8 +23,8 @@ const Routes = () => (
     <Switch>
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/invoices" component={Factures} />
-      <Route path="/products" component={Produits} />
-      <Route path="/customers" component={Clients} />
+      <Route path="/products" component={Products} />
+      <Route path="/customers" component={Customers} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
     </Switch>
