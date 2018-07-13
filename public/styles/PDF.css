@@ -54,12 +54,16 @@ body {
 
 .product {
   margin: 0;
+
 }
 
 .description {
   padding: 0;
   margin: 0;
   font-size: 0.9rem;
+}
+
+.trm {margin-top: 0.5rem;
 }
 
 .tr {
@@ -85,7 +89,7 @@ body {
 .customerRemise {
   font-size: 0.8rem;
   color: #DE5700;
-  margin-top: 1.5rem;
+  line-height: 0.5rem;
   }
 
 .date {

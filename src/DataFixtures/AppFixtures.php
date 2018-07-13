@@ -300,7 +300,7 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 8; $i++) { 
             $invoice = new Invoice();
             $invoice->setDate(new DateTime(mt_rand(2014, 2017).'-'.mt_rand(01, 12).'-'.mt_rand(01, 31)));
-            $invoice->setReference('78'.$i.'12'.$i.'5'.$i.'4'.$i.'3');
+            $invoice->setReference('18'.(mt_rand(1, 12)).(mt_rand(1, 31)).'-'.(mt_rand(00, 24)).(mt_rand(00, 60)).(mt_rand(00, 60)));
             $invoice->setAmountAllTaxes(mt_rand(200, 1500));
             $invoice->setAmountDuttyFree(mt_rand(150, 1450));
             $invoice->setTaxesAmount(mt_rand(50, 450));
@@ -349,6 +349,7 @@ class AppFixtures extends Fixture
                 $invoiceHasProduct->setQuantity(mt_rand(1, 10));
                 $invoiceHasProduct->setInvoice($invoices1[$i]);
                 $invoiceHasProduct->setProduct($products1[mt_rand(0,19)]);
+                $invoiceHasProduct->setAmountDuttyFree(mt_rand(2000, 99999)/100);
                 $manager->persist($invoiceHasProduct);
             }
         }
@@ -359,6 +360,7 @@ class AppFixtures extends Fixture
                 $invoiceHasProduct->setQuantity(mt_rand(1, 10));
                 $invoiceHasProduct->setInvoice($invoices2[$i]);
                 $invoiceHasProduct->setProduct($products2[mt_rand(0,19)]);
+                $invoiceHasProduct->setAmountDuttyFree(mt_rand(2000, 99999)/100);
                 $manager->persist($invoiceHasProduct);
             }
         }

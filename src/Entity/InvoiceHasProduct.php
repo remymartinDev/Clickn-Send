@@ -34,14 +34,29 @@ class InvoiceHasProduct
     private $product;
 
     /**
+     * @ORM\Column(type="decimal", precision=4, scale=2, nullable=true)
+     */
+    private $vatRate;
+
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $remiseType;
+
+    /**
      * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
      */
-    private $remise;
+    private $amountProductRemise;
 
     /**
      * @ORM\Column(type="decimal", precision=4, scale=2, nullable=true)
      */
-    private $vatRate;
+    private $percentProductRemise;
+
+    /**
+     * @ORM\Column(type="decimal", precision=7, scale=2)
+     */
+    private $amountDuttyFree;
 
     public function getId()
     {
@@ -84,18 +99,6 @@ class InvoiceHasProduct
         return $this;
     }
 
-    public function getRemise()
-    {
-        return $this->remise;
-    }
-
-    public function setRemise($remise): self
-    {
-        $this->remise = $remise;
-
-        return $this;
-    }
-
     public function getVatRate()
     {
         return $this->vatRate;
@@ -104,6 +107,54 @@ class InvoiceHasProduct
     public function setVatRate($vatRate): self
     {
         $this->vatRate = $vatRate;
+
+        return $this;
+    }
+
+    public function getRemiseType(): ?string
+    {
+        return $this->remiseType;
+    }
+
+    public function setRemiseType(?string $remiseType): self
+    {
+        $this->remiseType = $remiseType;
+
+        return $this;
+    }
+
+    public function getAmountProductRemise()
+    {
+        return $this->amountProductRemise;
+    }
+
+    public function setAmountProductRemise($amountProductRemise): self
+    {
+        $this->amountProductRemise = $amountProductRemise;
+
+        return $this;
+    }
+
+    public function getPercentProductRemise()
+    {
+        return $this->percentProductRemise;
+    }
+
+    public function setPercentProductRemise($percentProductRemise): self
+    {
+        $this->percentProductRemise = $percentProductRemise;
+
+        return $this;
+    }
+
+    public function getAmountDuttyFree()
+    {
+        return $this->amountDuttyFree;
+    }
+
+    public function setAmountDuttyFree($amountDuttyFree): self
+    {
+        $this->amountDuttyFree = $amountDuttyFree;
 
         return $this;
     }
