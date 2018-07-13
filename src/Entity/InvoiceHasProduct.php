@@ -33,6 +33,11 @@ class InvoiceHasProduct
      */
     private $product;
 
+    /**
+     * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $remise;
+
     public function getId()
     {
         return $this->id;
@@ -70,6 +75,18 @@ class InvoiceHasProduct
     public function setProduct($product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getRemise()
+    {
+        return $this->remise;
+    }
+
+    public function setRemise($remise): self
+    {
+        $this->remise = $remise;
 
         return $this;
     }

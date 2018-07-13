@@ -116,6 +116,11 @@ class Invoice
      */
     private $legalNotice;
 
+    /**
+     * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $amountCustomerRemise;
+
     public function __construct()
     {
         $this->payments = new ArrayCollection();
@@ -437,6 +442,18 @@ class Invoice
     public function setLegalNotice(?string $legalNotice): self
     {
         $this->legalNotice = $legalNotice;
+
+        return $this;
+    }
+
+    public function getAmountCustomerRemise()
+    {
+        return $this->amountCustomerRemise;
+    }
+
+    public function setAmountCustomerRemise($amountCustomerRemise): self
+    {
+        $this->amountCustomerRemise = $amountCustomerRemise;
 
         return $this;
     }

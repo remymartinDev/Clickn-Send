@@ -6,9 +6,6 @@ body {
 
 .invoice-content {
   margin: auto;
-/*width : 827px;
-  height: 1170px; 
-  border: 5px solid black;*/
   background-color: white;
 }
 
@@ -39,7 +36,6 @@ body {
 }
 
 .th {
-  /* border: 2px solid #D7D7D7; */
   font-size: 1.2rem;
   padding: 0.6rem 1.5rem 0.6rem 0.6rem;
   padding-left: 0.45rem;
@@ -47,12 +43,7 @@ body {
   color: #DE5700;
 }
 
-/* .produit {
-  text-align: center;
-} */
-
 .thd {
-  /* border: 2px solid #D7D7D7; */
   font-size: 1.2rem;
   padding: 0.6rem 1.5rem 0.6rem 0.4rem;
   padding-left: 0.45rem;
@@ -77,11 +68,24 @@ body {
   font-size: 0.9rem;
 }
 
-.trd {
+.trd1 {
   font-size: 1.4rem;
   padding: 1.1rem 1.5rem 0rem 1.5rem;
-  padding-left: 0.45rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.trd2 {
+  font-size: 1.4rem;
+  padding: 1.1rem 1.5rem 0rem 1.5rem;
   text-align: right;
+}
+
+.customerRemise {
+  font-size: 0.9rem;
+  color: #DE5700;
+  margin-top: 0.5rem;
+
 }
 
 .date {
@@ -198,3 +202,4 @@ body {
   font-weight: bold;
   font-size: 0.8rem;
 }
+

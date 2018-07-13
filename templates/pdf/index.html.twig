@@ -69,7 +69,7 @@
                         <div class="col-1 th">Unité</div>
                         <div class="col-1 th">Prix</div>
                         <div class="col-1 th">TVA</div>
-                        <div class="col-2 thd">Total</div>
+                        <div class="col-2 thd">Total H.T</div>
                     </div>
 
                     
@@ -86,7 +86,17 @@
                         <div class="col-1 tr">{{ thisOne.product.unity }}</div>
                         <div class="col-1 tr">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
                         <div class="col-1 tr">{{thisOne.product.vatRate}}%</div>
-                        <div class="col-2 trd">{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;</div>   
+
+                        {% if (thisOne.remise != null) and (thisOne.remise != 0) %}
+                        <div class="col-2 trd1">
+                            <div class="customerRemise">(remise: -{{thisOne.remise}} &euro;)</div>
+                            <div>{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;</div>
+                        {% else %}   
+                        <div class="col-2 trd2"> 
+                            {{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;
+                        {% endif %}
+                        </div>  
+
                     </div>
                     {% endfor %}
 
@@ -198,7 +208,7 @@
                             </div>
                     </div> 
 
-                    {% set totalRemise = (totalHt + totalTva) * (invoice.customer.remise) / 100 %}
+                    {% set totalRemise = totalHt * (invoice.customer.remise) / 100 %}
                     {% if invoice.customer.remise != 0 %}
                     <div class="pre-amount">
                         <div class="amount-cat">Remise <span class="remise">({{ invoice.customer.remise }}%)</span></div> 
