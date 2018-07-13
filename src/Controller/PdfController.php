@@ -33,9 +33,9 @@ class PdfController extends Controller
             'calendar' => $calendar
         ]);
 
-/*         $this->get('knp_snappy.pdf')->generateFromHtml($html,
+        $this->get('knp_snappy.pdf')->generateFromHtml($html,
                 'PDF/facture_' . $invoice->getReference() . '.pdf'
-        ); */
+        );
 
         return $html;
     }

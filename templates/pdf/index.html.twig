@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ asset('styles/PDF.css') }}">
+<link rel="stylesheet" href="{{ absolute_url(asset('styles/PDF.css')) }}">
 {% endblock %}
 
 {% block body %}
