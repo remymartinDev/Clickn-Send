@@ -117,6 +117,7 @@
 
                             <div class="bank-ref-inf">Echéance:
                                 <span class="bank-inf deadline">
+                                    {% if invoice.status.invoiceStatus == 'devis'%}Ce devis est valable jusqu'au {% endif %}
                                     {{invoice.deadline1|date('d')}} {{calendrier[invoice.deadline1|date('M')]}} {{invoice.deadline1|date('Y')}}
                                 </span>
                             </div> 
@@ -242,12 +243,13 @@
                  {{ invoice.company.city }}
                  </p>
                 <p>Téléphone: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.phone|slice(1,1)}}&nbsp;{{ invoice.company.phone|slice(2,2)}}.{{ invoice.company.phone|slice(4,2)}}.{{ invoice.company.phone|slice(6,2)}}.{{ invoice.company.phone|slice(8,20)}} - 
-                Fax: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.fax|slice(1,1)}}&nbsp;{{ invoice.company.fax|slice(2,2)}}.{{ invoice.company.fax|slice(4,2)}}.{{ invoice.company.fax|slice(6,2)}}.{{ invoice.company.fax|slice(8,2)}} - 
+                Fax: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.fax|slice(1,1)}}&nbsp;{{ invoice.company.fax|slice(2,2)}}.{{ invoice.company.fax|slice(4,2)}}.{{ invoice.company.fax|slice(6,2)}}.{{ invoice.company.fax|slice(8,20)}} - 
                 Email: {{ invoice.company.email}} - 
                 TVA intracommunautaire: {{ invoice.company.vatNumber|slice(0,2)}}&nbsp;{{ invoice.company.vatNumber|slice(2,9)}}</p>
             </div>
                 <p class="clicknsend">invoice powered by <span id="clicknsend">Clickn'Send</p>
         </div>
+        
     </div>
 </div>
 
