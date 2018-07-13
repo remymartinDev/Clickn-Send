@@ -31,7 +31,7 @@ class PdfController extends Controller
         ]);
 
 /*         $this->get('knp_snappy.pdf')->generateFromHtml($html,
-                'PDF/facture.pdf'
+                'PDF/facture_' . $invoice->getReference() . '.pdf'
         ); */
 
         return $html;

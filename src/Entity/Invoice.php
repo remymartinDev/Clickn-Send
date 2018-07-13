@@ -458,4 +458,24 @@ class Invoice
         return $this;
     }
 
+    public function hydrate($customer, $status, $company)
+    {
+        //make autocomplet variable
+        $payment_term = 'P' . $company->getPaymentTerm() . 'D';
+        $date = new \Datetime();
+        $reference = $date->format('Ymdh-is');
+        $datedeadline = new \Datetime();
+        $deadline = $datedeadline->add(new \DateInterval($payment_term));
+
+        //set invoice
+        $this->setCustomer($customer);
+        $this->setStatus($status);
+        $this->setCompany($company);
+        $this->setDate($date);
+        $this->setReference($reference);
+        $this->setPaid(false);
+        $this->setReminder(0);
+        $this->setDeadline1($deadline);
+    }
+
 }

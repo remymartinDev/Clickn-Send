@@ -51,7 +51,7 @@ class InvoiceHasProduct
     /**
      * @ORM\Column(type="decimal", precision=4, scale=2, nullable=true)
      */
-    private $percentProductRemise;
+    private $remise;
 
     /**
      * @ORM\Column(type="decimal", precision=7, scale=2)
@@ -111,6 +111,17 @@ class InvoiceHasProduct
         return $this;
     }
 
+    public function hydrate($invoice, $product, $datas)
+    {
+        $this->setInvoice($invoice);
+        $this->setQuantity($datas['quantity']);
+        $this->setProduct($product);
+        $this->setRemise($datas['remise']);
+        $this->setAmountDuttyFree($datas['amountDuttyFree']);
+        $this->setAmountProductRemise($datas['amountProductRemise']);
+        $this->setRemiseType($datas['remiseType']);
+    }
+
     public function getRemiseType(): ?string
     {
         return $this->remiseType;
@@ -135,14 +146,14 @@ class InvoiceHasProduct
         return $this;
     }
 
-    public function getPercentProductRemise()
+    public function getRemise()
     {
-        return $this->percentProductRemise;
+        return $this->Remise;
     }
 
-    public function setPercentProductRemise($percentProductRemise): self
+    public function setRemise($Remise): self
     {
-        $this->percentProductRemise = $percentProductRemise;
+        $this->Remise = $Remise;
 
         return $this;
     }
