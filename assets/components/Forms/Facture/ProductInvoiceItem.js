@@ -24,7 +24,7 @@ class ProductInvoiceItem extends React.Component {
 
   productSubmit = fieldName => (values) => {
     axios.post('/api/product/new', values)
-      .then(response => {
+      .then((response) => {
         if(response.succes) {
           this.props.selectProduct(response.id, fieldName);
           this.props.fillPrice(values.price, fieldName);          
@@ -241,7 +241,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(change('facture', `${ownProps.product}.amountAllTaxes`, prixTTC));
   },
   selectProduct: (id, fieldName) => {
-    dispatch(change('facture', `${fieldName}.product`, id));    
+    dispatch(change('facture', `${fieldName}.product`, id));
   },
   fillPrice: (price, fieldName) => {
     dispatch(change('facture', `${fieldName}.price`, price));
