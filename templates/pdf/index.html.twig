@@ -1,22 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
-{% set calendrier = {
-    'Jan' : 'janvier', 
-    'Feb' : 'février', 
-    'Mar' : 'mars', 
-    'Apr' : 'avril', 
-    'May' : 'mai', 
-    'Jun' : 'juin', 
-    'Jul' : 'juillet', 
-    'Aug' : 'août', 
-    'Sep' : 'septembre', 
-    'Oct' : 'octobre', 
-    'Nov' : 'novembre', 
-    'Dec' : 'décembre'
-} %}
-
-
 {% block stylesheet %}
 <link rel="stylesheet" href="{{ asset('styles/PDF.css') }}">
 {% endblock %}
@@ -88,8 +71,12 @@
                         
                         <div class="col-2 trd"> 
                             {% if (thisOne.amountProductRemise != null) and (thisOne.amountProductRemise != 0) %}
-                            {{(thisOne.amountDuttyFree) |number_format(2, ',', ' ') }} &euro;
-                            <p class="customerRemise">(remise: -{{thisOne.amountProductRemise}} &euro;)</p>
+                            {{(thisOne.amountDuttyFree)|number_format(2, ',', ' ') }} &euro;
+                            <p class="customerRemise">(remise: -
+                                    {% if (thisOne.remiseType == 'absolute') %}{{thisOne.amountProductRemise}} &euro;{% endif %}
+                                    {% if (thisOne.remiseType == 'percent') %}{{thisOne.remise}} %{% endif %}
+                                 )
+                            </p>
                             {% else %}
                             {{(thisOne.amountDuttyFree) |number_format(2, ',', ' ') }} &euro;
                             {% endif %} 
@@ -197,12 +184,14 @@
                     </div>  
                     {% endif %}
 
+                    {% if invoice.downPayment != null %}
                     <div class="pre-amount">
-                        <div class="amount-cat">Acompte</div> 
-                            <div class="amount">
-                               - {{ invoice.downPayment|number_format(2, ',', ' ') }} &euro;
-                            </div>
-                    </div>  
+                            <div class="amount-cat">Acompte</div> 
+                                <div class="amount">
+                                   - {{ invoice.downPayment|number_format(2, ',', ' ') }} &euro;
+                                </div>
+                        </div>  
+                    {% endif %} 
 
                     <div class="pre-amount ttc">
                         <div class="amount-cat ">Montant TTC</div>  
