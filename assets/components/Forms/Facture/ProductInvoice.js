@@ -57,6 +57,7 @@ class ProductInvoice extends React.Component {
   }
 
   calculateTotal = () => {
+    console.log('remise', this.props.remiseCustomer);
     const allInfosProducts = this.props.allFields;
     const allTotals = allInfosProducts.reduce((total, item) => {
       return {
@@ -70,8 +71,13 @@ class ProductInvoice extends React.Component {
       taxesAmount: 0, 
     });
     console.log(allTotals);
+    const { remiseCustomer } = this.props;
+
+    const amountRemiseCustomer = allTotals.amountDuttyFree * remiseCustomer / 100;
+    const amountDuttyFree = allTotals.amountDuttyFree - amountRemiseCustomer;
+    const amountAllTaxes = amountDuttyFree + allTotals.taxesAmount;
     
-    this.props.changeAmountsTotal(allTotals.amountDuttyFree.toFixed(2), allTotals.taxesAmount.toFixed(2), allTotals.amountAllTaxes.toFixed(2));
+    this.props.changeAmountsTotal(amountRemiseCustomer.toFixed(2), amountDuttyFree.toFixed(2), allTotals.taxesAmount.toFixed(2), amountAllTaxes.toFixed(2));
   }
 
   render() { 
@@ -104,7 +110,8 @@ class ProductInvoice extends React.Component {
         >
           Calculer le total
         </Button>
-
+        <label htmlFor="amountRemiseCustomer">Montant de la remise client</label>
+        <Field component="input" type="number" name="amountRemiseCustomer" parse={value => Number(value)} disabled />
         <label htmlFor="amountDuttyFree">Prix Total HT</label>
         <Field component="input" type="number" name="amountDuttyFree" parse={value => Number(value)} disabled />
         <label htmlFor="taxesAmount">Montant Total de la TVA</label>
@@ -120,16 +127,24 @@ ProductInvoice.propTypes = {
   changeProducts: PropTypes.func.isRequired,
   fillPrice: PropTypes.func.isRequired,
   fields: PropTypes.object.isRequired,
+  remiseCustomer: PropTypes.string,
+  changeAmountsTotal: PropTypes.func.isRequired,
+};
+
+ProductInvoice.defaultPropTypes = {
+  remiseCustomer: '0',
 };
 
 const selector = formValueSelector('facture');
 
 const mapStateToProps = state => ({
   allFields: selector(state, 'invoiceHasProducts'),
+  remiseCustomer: selector(state, 'remise'),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  changeAmountsTotal: (prixHT, montantTVA, prixTTC) => {
+  changeAmountsTotal: (amountRemiseCustomer, prixHT, montantTVA, prixTTC) => {
+    dispatch(change('facture', 'amountRemiseCustomer', amountRemiseCustomer));
     dispatch(change('facture', 'amountDuttyFree', prixHT));
     dispatch(change('facture', 'taxesAmount', montantTVA));
     dispatch(change('facture', 'amountAllTaxes', prixTTC));
