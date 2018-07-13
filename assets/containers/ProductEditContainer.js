@@ -2,7 +2,7 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import Form from '~/components/Produits/ComponentsProducts/Form';
+import Form from '~/components/Products/ComponentsProducts/Form';
 
 const mapStateToProps = state => ({
   initialValues: state.notreReducer.data,

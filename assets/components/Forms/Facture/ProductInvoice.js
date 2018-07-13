@@ -54,7 +54,6 @@ class ProductInvoice extends React.Component {
   }
 
   render() {
-    
     return (
       <div className="add-product">
         { this.props.fields.map((product, index) => (
@@ -70,7 +69,14 @@ class ProductInvoice extends React.Component {
             fillPrice={this.props.fillPrice}
           />
         )) }
-        <Button className="form-btn form-btn-add-product" id="btn-activated" type="button" onClick={() => this.props.fields.push({})}>Ajouter un produit</Button>
+        <Button
+          className="form-btn form-btn-add-product"
+          id="btn-activated"
+          type="button"
+          onClick={() => this.props.fields.push({})}
+        >
+          Ajouter un produit
+        </Button>
       </div>
     );
   }

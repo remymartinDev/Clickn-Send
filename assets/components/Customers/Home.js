@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 import ButtonCreate from '~/components/ButtonCreate';
-import ProductItem from './ComponentsClients/ClientItem';
-import ProductItemHead from './ComponentsClients/ClientItemHead';
+import ProductItem from './ComponentsCustomers/CustomerItem';
+import ProductItemHead from './ComponentsCustomers/CustomerItemHead';
 
 import './clients.scss';
 
