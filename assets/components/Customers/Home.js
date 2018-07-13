@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
+import { loadCustomers } from '~/store/reducers/dataReducer';
 import ButtonCreate from '~/components/ButtonCreate';
 import ProductItem from './ComponentsCustomers/CustomerItem';
 import ProductItemHead from './ComponentsCustomers/CustomerItemHead';
@@ -9,30 +12,23 @@ import './clients.scss';
 
 class Home extends React.Component {
   state = {
-    client: [],
     filter: {
       type: 'id',
       asc: false,
-    }
+    },
   }
 
   componentDidMount() {
-    axios.get('/api/customers')
-      .then(({ data: client }) => {
-        console.log(client);
-        this.setState({
-          client,
-        });
-      });
+    this.props.loadCustomers();
   }
 
   getClientJSX = () => {
-    const orderedclient = [...this.state.client].sort((a, b) => {
+    const orderedclient = [...this.props.customers].sort((a, b) => {
       const filter = b.id - a.id;
       return this.state.filter.asc ? filter : -filter;
     });
     const clientJsx = orderedclient.map(product => (
-      <ProductItem key={product.id} {...product} clickDelete={this.handleDelete}/>
+      <ProductItem key={product.id} {...product} clickDelete={this.handleDelete} />
     ));
     return clientJsx;
   }
@@ -47,7 +43,6 @@ class Home extends React.Component {
     });
   }
 
-   
   orderByPrice = client => (
     [...client].sort((a, b) => {
       const filter = (b.price - a.price);
@@ -77,11 +72,10 @@ class Home extends React.Component {
   }
 
   handleDelete = id => () => {
-    axios.delete('/api/customer/'+id)
-      .then(response => {
-        console.log(response);
-        if (response.data.success){
-          const clients = this.state.clients.filter(({ id: clientId }) => id !== clientId );
+    axios.delete(`/api/customer/${id}`)
+      .then((response) => {
+        if (response.data.success) {
+          const clients = this.state.clients.filter(({ id: clientId }) => id !== clientId);
           this.setState({
             clients,
           });
@@ -103,4 +97,22 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  customers: PropTypes.array.isRequired,
+  loadCustomers: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  customers: state.data.customers,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loadCustomers: () => {
+    dispatch(loadCustomers());
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home);

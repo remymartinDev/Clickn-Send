@@ -80,6 +80,10 @@ class ProductInvoice extends React.Component {
     this.props.changeAmountsTotal(amountCustomerRemise.toFixed(2), amountDuttyFree.toFixed(2), allTotals.taxesAmount.toFixed(2), amountAllTaxes.toFixed(2));
   }
 
+  remove = (id) => {
+    this.props.fields.remove(id);
+  }
+
   render() { 
     return (
       <div className="add-product">
@@ -92,6 +96,7 @@ class ProductInvoice extends React.Component {
             products={this.state.products}
             loading={this.state.loading}
             productSubmit={this.productSubmit}
+            remove={this.remove}
             // fillPrice={this.props.fillPrice}
           />
         )) }

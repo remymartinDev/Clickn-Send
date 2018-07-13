@@ -1,11 +1,12 @@
 /**
  * Dépendances npm : utilitaire Redux
  */
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 
 /**
  * Dépendances locales : le reducer
  */
+import data from './middlewares/data';
 import reducer from './reducers';
 
 /**
@@ -17,7 +18,9 @@ if (window.devToolsExtension) {
   // On configure l'extension Redux pour Chrome/Firefox.
   devTools.push(window.devToolsExtension());
 }
+const dataMiddleware = applyMiddleware(data);
+const enhancers = compose(dataMiddleware, ...devTools);
 
-const store = createStore(reducer, ...devTools);
+const store = createStore(reducer, enhancers);
 
 export default store;

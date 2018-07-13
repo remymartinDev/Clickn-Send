@@ -50,15 +50,16 @@ class CustomerInvoice extends React.Component {
   }
 
   customerSubmit = (values) => {
-    axios.post('/api/customer/new', values)
-      .then((response) => {
-        console.log(response);
-        if (response.data.succes) {
-          this.toggle();
-          this.props.changeCustomers(response.data.id, this.getCustomers);
-          this.props.fillRemise(values.remise);
-        }
-      });
+    console.log('in customer submit');
+    // axios.post('/api/customer/new', values)
+    //   .then((response) => {
+    //     console.log(response);
+    //     if (response.data.succes) {
+    //       this.toggle();
+    //       this.props.changeCustomers(response.data.id, this.getCustomers);
+    //       this.props.fillRemise(values.remise);
+    //     }
+    //   });
   }
   handleChange = (e) => {
     const id = e.target.value;
@@ -106,7 +107,7 @@ CustomerInvoice.propTypes = {
 const mapDispatchToProps = dispatch => ({
   fillRemise: (remise) => {
     dispatch(change('facture', 'remise', remise));
-  }      
+  },
 });
 
 export default connect(

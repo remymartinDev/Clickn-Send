@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, reduxForm, formValueSelector, change } from 'redux-form';
+import { Field, reduxForm, formValueSelector, change, arrayRemove } from 'redux-form';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -23,13 +23,15 @@ class ProductInvoiceItem extends React.Component {
   )
 
   productSubmit = fieldName => (values) => {
+    console.log('in product Submit', values);
     axios.post('/api/product/new', values)
       .then((response) => {
-        if(response.succes) {
+        console.log(response);
+        if (response.succes) {
           this.props.selectProduct(response.id, fieldName);
-          this.props.fillPrice(values.price, fieldName);          
-        }        
-      })
+          this.props.fillPrice(values.price, fieldName);
+        }
+      });
     this.props.productSubmit(fieldName, values, this.toggle);
   }
   handleChange = fieldName => (e) => {
@@ -56,7 +58,8 @@ class ProductInvoiceItem extends React.Component {
   }
 
   render() {
-    const { product, index } = this.props;
+    const { product, index, remove } = this.props;
+    console.log(product, index);
     return (
       <div className="add-product-select">
         <div className="add-product-select-product">
@@ -182,7 +185,11 @@ class ProductInvoiceItem extends React.Component {
           type="button"
           title="Remove Product"
           className="btn-remove"
-          onClick={() => this.props.fields.remove(index)}
+          onClick={() => {
+            console.log(index);
+            console.log(this.props.fields.getAll());
+            this.props.fields.remove(index);
+          }}
         >
           <FaTrash className="trash-icon" />
         </button>
