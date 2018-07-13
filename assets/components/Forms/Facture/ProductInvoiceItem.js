@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import FaTrash from 'react-icons/lib/fa/trash';
+import axios from 'axios';
 
 import CreateProduct from '~/components/Forms/Produit/Create';
 import Loading from '~/components/utils/Loading';
@@ -22,6 +23,13 @@ class ProductInvoiceItem extends React.Component {
   )
 
   productSubmit = fieldName => (values) => {
+    axios.post('/api/product/new', values)
+      .then(response => {
+        if(response.succes) {
+          this.props.selectProduct(response.id, fieldName);
+          this.props.fillPrice(values.price, fieldName);          
+        }        
+      })
     this.props.productSubmit(fieldName, values, this.toggle);
   }
   handleChange = fieldName => (e) => {
@@ -52,7 +60,7 @@ class ProductInvoiceItem extends React.Component {
     return (
       <div className="add-product-select">
         <div className="add-product-select-product">
-          <Field component="select" name={`${product}.product`} className="fieldSelect" onChange={this.handleChange(`${product}.price`)}>
+          <Field component="select" name={`${product}.product`} className="fieldSelect" onChange={this.handleChange(`${product}`)}>
             <option>Sélectionner votre produit</option>
             {this.getProductsJSX()}
           </Field>
@@ -61,32 +69,115 @@ class ProductInvoiceItem extends React.Component {
           </Button>
           {this.props.loading && <Loading />}
         </div>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className="custom-modal">
           <ModalHeader toggle={this.toggle}>Créer votre produit</ModalHeader>
           <ModalBody>
-            <CreateProduct onSubmit={this.productSubmit(`${product}.product`)} />
+            <CreateProduct onSubmit={this.productSubmit(`${product}`)} />
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>
-        <label htmlFor={`${product}.price`}>Prix</label>
-        <Field component="input" type="number" name={`${product}.price`} parse={value => Number(value)} />
-        <label htmlFor={`${product}.quantity`}>Quantité</label>
-        <Field component="input" type="number" name={`${product}.quantity`} parse={value => Number(value)} />
-        <label htmlFor={`${product}.vatRate`}>Taux de TVA</label>
-        <Field component="input" type="number" name={`${product}.vatRate`} parse={value => Number(value)} />
-        <label htmlFor={`${product}.remise`}>Remise</label>
-        <Field component="input" type="number" name={`${product}.remise`} parse={value => Number(value)} />
+        <label
+          htmlFor={`${product}.price`}
+          className="form-create-invoice-label"
+        >
+          Prix
+        </label>
+        <Field
+          component="input"
+          type="number"
+          name={`${product}.price`}
+          parse={value => Number(value)}
+          className="form-create-invoice-field"
+        />
+        <label
+          htmlFor={`${product}.quantity`}
+          className="form-create-invoice-label"
+        >
+          Quantité
+        </label>
+        <Field
+          component="input"
+          type="number"
+          name={`${product}.quantity`}
+          parse={value => Number(value)}
+          className="form-create-invoice-field"
+        />
+        <label
+          htmlFor={`${product}.vatRate`}
+          className="form-create-invoice-label"
+        >
+          Taux de TVA (%)
+        </label>
+        <Field
+          component="input"
+          type="number"
+          name={`${product}.vatRate`}
+          parse={value => Number(value)}
+          className="form-create-invoice-field"
+        />
+        <label
+          htmlFor={`${product}.remise`}
+          className="form-create-invoice-label"
+        >
+          Remise (%)
+        </label>
+        <Field
+          component="input"
+          type="number"
+          name={`${product}.remise`}
+          parse={value => Number(value)}
+          className="form-create-invoice-field"
+        />
 
-        <Button onClick={this.calculate}>Calculer</Button>
+        <Button onClick={this.calculate} className="form-btn form-btn-calcul-product">Calculer</Button>
 
-        <label htmlFor={`${product}.amountDuttyFree`}>Prix HT</label>
-        <Field component="input" type="number" name={`${product}.amountDuttyFree`} disabled parse={value => Number(value)} />
-        <label htmlFor={`${product}.taxesAmount`}>TVA</label>
-        <Field component="input" type="number" name={`${product}.taxesAmount`} disabled parse={value => Number(value)} />
-        <label htmlFor={`${product}.amountAllTaxes`}>Prix TTC</label>
-        <Field component="input" type="number" name={`${product}.amountAllTaxes`} disabled parse={value => Number(value)} />
+        <label
+          htmlFor={`${product}.amountDuttyFree`}
+          className="form-create-invoice-label-disable"
+        >
+          Prix HT
+        </label>
+        <Field
+          component="input"
+          type="number"
+          name={`${product}.amountDuttyFree`}
+          disabled
+          parse={value => Number(value)}
+          className="form-create-invoice-field-disable"
+        />
+          
+        <label
+          htmlFor={`${product}.taxesAmount`}
+          className="form-create-invoice-label-disable"
+        >
+          TVA
+        </label>
+        <Field
+          component="input"
+          type="number"
+          name={`${product}.taxesAmount`}
+          disabled
+          parse={value => Number(value)}
+          className="form-create-invoice-field-disable"
+        />
+        
+        <label
+          htmlFor={`${product}.amountAllTaxes`}
+          className="form-create-invoice-label-disable"
+        >
+          Prix TTC
+        </label>
+        <Field
+          component="input"
+          type="number"
+          name={`${product}.amountAllTaxes`}
+          disabled
+          parse={value => Number(value)}
+          className="form-create-invoice-field-disable"
+        />
+        
         <button
           type="button"
           title="Remove Product"
@@ -124,6 +215,7 @@ ProductInvoiceItem.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  fillPrice: PropTypes.func.isRequired,
 };
 
 ProductInvoiceItem.defaultProps = {
@@ -148,6 +240,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(change('facture', `${ownProps.product}.taxesAmount`, montantTVA));
     dispatch(change('facture', `${ownProps.product}.amountAllTaxes`, prixTTC));
   },
+  selectProduct: (id, fieldName) => {
+    dispatch(change('facture', `${fieldName}.product`, id));    
+  },
+  fillPrice: (price, fieldName) => {
+    dispatch(change('facture', `${fieldName}.price`, price));
+  },  
 });
 
 export default connect(

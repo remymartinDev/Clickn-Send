@@ -73,11 +73,11 @@ class ProductInvoice extends React.Component {
     console.log(allTotals);
     const { remiseCustomer } = this.props;
 
-    const amountRemiseCustomer = allTotals.amountDuttyFree * remiseCustomer / 100;
-    const amountDuttyFree = allTotals.amountDuttyFree - amountRemiseCustomer;
+    const amountCustomerRemise = allTotals.amountDuttyFree * remiseCustomer / 100;
+    const amountDuttyFree = allTotals.amountDuttyFree - amountCustomerRemise;
     const amountAllTaxes = amountDuttyFree + allTotals.taxesAmount;
     
-    this.props.changeAmountsTotal(amountRemiseCustomer.toFixed(2), amountDuttyFree.toFixed(2), allTotals.taxesAmount.toFixed(2), amountAllTaxes.toFixed(2));
+    this.props.changeAmountsTotal(amountCustomerRemise.toFixed(2), amountDuttyFree.toFixed(2), allTotals.taxesAmount.toFixed(2), amountAllTaxes.toFixed(2));
   }
 
   render() { 
@@ -92,7 +92,7 @@ class ProductInvoice extends React.Component {
             products={this.state.products}
             loading={this.state.loading}
             productSubmit={this.productSubmit}
-            fillPrice={this.props.fillPrice}
+            // fillPrice={this.props.fillPrice}
           />
         )) }
         <Button
@@ -110,14 +110,14 @@ class ProductInvoice extends React.Component {
         >
           Calculer le total
         </Button>
-        <label htmlFor="amountRemiseCustomer">Montant de la remise client</label>
-        <Field component="input" type="number" name="amountRemiseCustomer" parse={value => Number(value)} disabled />
-        <label htmlFor="amountDuttyFree">Prix Total HT</label>
-        <Field component="input" type="number" name="amountDuttyFree" parse={value => Number(value)} disabled />
-        <label htmlFor="taxesAmount">Montant Total de la TVA</label>
-        <Field component="input" type="number" name="taxesAmount" parse={value => Number(value)} disabled />
-        <label htmlFor="amountAllTaxes">Prix Total TTC</label>
-        <Field component="input" type="number" name="amountAllTaxes" parse={value => Number(value)} disabled />
+        <label htmlFor="amountCustomerRemise" className="form-create-invoice-label-disable">Montant de la remise client</label>
+        <Field component="input" type="number" name="amountCustomerRemise" parse={value => Number(value)} disabled className="form-create-invoice-field-disable"/>
+        <label htmlFor="amountDuttyFree" className="form-create-invoice-label-disable">Prix Total HT</label>
+        <Field component="input" type="number" name="amountDuttyFree" parse={value => Number(value)} disabled className="form-create-invoice-field-disable"/>
+        <label htmlFor="taxesAmount" className="form-create-invoice-label-disable">Montant Total de la TVA</label>
+        <Field component="input" type="number" name="taxesAmount" parse={value => Number(value)} disabled className="form-create-invoice-field-disable"/>
+        <label htmlFor="amountAllTaxes" className="form-create-invoice-label-disable">Prix Total TTC</label>
+        <Field component="input" type="number" name="amountAllTaxes" parse={value => Number(value)} disabled className="form-create-invoice-field-disable"/>
       </div>
     );
   }
@@ -143,8 +143,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  changeAmountsTotal: (amountRemiseCustomer, prixHT, montantTVA, prixTTC) => {
-    dispatch(change('facture', 'amountRemiseCustomer', amountRemiseCustomer));
+  changeAmountsTotal: (amountCustomerRemise, prixHT, montantTVA, prixTTC) => {
+    dispatch(change('facture', 'amountCustomerRemise', amountCustomerRemise));
     dispatch(change('facture', 'amountDuttyFree', prixHT));
     dispatch(change('facture', 'taxesAmount', montantTVA));
     dispatch(change('facture', 'amountAllTaxes', prixTTC));

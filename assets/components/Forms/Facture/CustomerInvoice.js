@@ -52,9 +52,11 @@ class CustomerInvoice extends React.Component {
   customerSubmit = (values) => {
     axios.post('/api/customer/new', values)
       .then((response) => {
+        console.log(response);
         if (response.data.succes) {
           this.toggle();
           this.props.changeCustomers(response.data.id, this.getCustomers);
+          this.props.fillRemise(values.remise);
         }
       });
   }
@@ -87,9 +89,10 @@ class CustomerInvoice extends React.Component {
             <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>
-
-        <label htmlFor="remise">Remise Client</label>
-        <Field component="input" type="number" name="remise" parse={value => Number(value)} />
+        <div className="add-client-remise">
+          <label htmlFor="remise" className="form-create-invoice-label">Remise Client (%)</label>
+          <Field component="input" type="number" name="remise" parse={value => Number(value)} className="form-create-invoice-field"/>
+        </div>
       </React.Fragment>
       // </div>
     );

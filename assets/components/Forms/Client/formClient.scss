@@ -1,9 +1,13 @@
 @import '~/styles/vars.scss';
 
+.form-client {
+  width: 100%;
+  margin: auto;
+}
+
 .form-radio {
   grid-column: 1 / -1;
   text-align: center;
-  
 }
 .radio {
   padding: 1rem;
