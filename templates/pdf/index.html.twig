@@ -28,7 +28,7 @@
         </div>
 
         <div class="date ecart">
-            <p> le {{invoice.date|date('d')}} {{calendrier[invoice.date|date('M')]}} {{invoice.date|date('Y')}} </p>
+            <p> le {{invoice.date|date('d')}} {{calendar[invoice.date|date('M')]}} {{invoice.date|date('Y')}} </p>
         </div>
 
 
@@ -67,7 +67,13 @@
                         <div class="col-1 tr trm">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
                         <div class="col-1 tr trm">{{ thisOne.product.unity }}</div>
                         <div class="col-1 tr trm">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
-                        <div class="col-1 tr trm">{{thisOne.vatRate}}%</div>
+                        <div class="col-1 tr trm">
+                                {% if thisOne.vatRate == null %}
+                                <span>0,00</span>
+                                {% else %}
+                                {{thisOne.vatRate}}
+                                {% endif %}
+                            %</div>
                         
                         <div class="col-2 trd"> 
                             {% if (thisOne.amountProductRemise != null) and (thisOne.amountProductRemise != 0) %}
@@ -115,7 +121,7 @@
                                 <span class="bank-inf deadline">
                                     {% if invoice.status.invoiceStatus == 'devis'%}Ce devis est valable jusqu'au {% endif %}
                                     {% if invoice.status.invoiceStatus == 'facture'or invoice.status.invoiceStatus == 'facture récurrente' %}Règlement avant le {% endif %}
-                                    {{invoice.deadline1|date('d')}} {{calendrier[invoice.deadline1|date('M')]}} {{invoice.deadline1|date('Y')}}
+                                    {{invoice.deadline1|date('d')}} {{calendar[invoice.deadline1|date('M')]}} {{invoice.deadline1|date('Y')}}
                                 </span>
                             </div> 
 
