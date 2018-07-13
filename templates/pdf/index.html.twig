@@ -71,7 +71,6 @@
                         <div class="col-1 th">TVA</div>
                         <div class="col-2 thd">Total H.T</div>
                     </div>
-
                     
                     {% for thisOne in invoice.invoiceHasProducts %}
                     <div class="row thead">
@@ -82,20 +81,20 @@
                             </p>
                             <p class="description"> {{thisOne.product.description}} </p>
                         </div>
-                        <div class="col-1 tr">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
-                        <div class="col-1 tr">{{ thisOne.product.unity }}</div>
-                        <div class="col-1 tr">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
-                        <div class="col-1 tr">{{thisOne.product.vatRate}}%</div>
-
-                        {% if (thisOne.remise != null) and (thisOne.remise != 0) %}
-                        <div class="col-2 trd1">
-                            <div class="customerRemise">(remise: -{{thisOne.remise}} &euro;)</div>
-                            <div>{{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;</div>
-                        {% else %}   
-                        <div class="col-2 trd2"> 
-                            {{(thisOne.quantity * thisOne.product.price)|number_format(2, ',', ' ') }} &euro;
-                        {% endif %}
+                        <div class="col-1 tr trm">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
+                        <div class="col-1 tr trm">{{ thisOne.product.unity }}</div>
+                        <div class="col-1 tr trm">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
+                        <div class="col-1 tr trm">{{thisOne.vatRate}}%</div>
+                        
+                        <div class="col-2 trd"> 
+                            {% if (thisOne.amountProductRemise != null) and (thisOne.amountProductRemise != 0) %}
+                            {{(thisOne.amountDuttyFree) |number_format(2, ',', ' ') }} &euro;
+                            <p class="customerRemise">(remise: -{{thisOne.amountProductRemise}} &euro;)</p>
+                            {% else %}
+                            {{(thisOne.amountDuttyFree) |number_format(2, ',', ' ') }} &euro;
+                            {% endif %} 
                         </div>  
+                        
 
                     </div>
                     {% endfor %}
@@ -128,6 +127,7 @@
                             <div class="bank-ref-inf">Echéance:
                                 <span class="bank-inf deadline">
                                     {% if invoice.status.invoiceStatus == 'devis'%}Ce devis est valable jusqu'au {% endif %}
+                                    {% if invoice.status.invoiceStatus == 'facture'or invoice.status.invoiceStatus == 'facture récurrente' %}Règlement avant le {% endif %}
                                     {{invoice.deadline1|date('d')}} {{calendrier[invoice.deadline1|date('M')]}} {{invoice.deadline1|date('Y')}}
                                 </span>
                             </div> 
@@ -177,58 +177,37 @@
                     <div class="pre-amount">
                         <div class="amount-cat">Montant H.T</div>
                         <div class="amount">
-                            {% set totalHtArray = [] %}
-                                {% for index, thisOne in invoice.invoiceHasProducts %}
-                                {% set totalHtArray = totalHtArray|merge({ (index) : (thisOne.quantity * thisOne.product.price)|number_format(2, '.', '')}) %}
-                                {% endfor %}
-                            {% set totalHt = 0.00|number_format(2, '.', '') %}
-                                {% for r in totalHtArray %}
-                                {% set totalHt = totalHt|number_format(2, '.', '') + r|number_format(2, '.', '') %}
-                                {% endfor %}
-                            {{ totalHt|number_format(2, ',', ' ') }} &euro;
-
+                            {{ invoice.amountDuttyFree|number_format(2, ',', ' ') }} &euro;
                         </div>
                     </div>  
 
                     <div class="pre-amount">
                         <div class="amount-cat">Montant TVA</div> 
                             <div class="amount">
-
-                                
-
-                                {% set totalTvaArray = [] %}
-                                    {% for index, thisOne in invoice.invoiceHasProducts %}
-                                    {% set totalTvaArray = totalTvaArray|merge({ (index) : (thisOne.quantity * thisOne.product.price * (thisOne.product.vatRate / 100))|number_format(2, '.', '')}) %}
-                                    {% endfor %}
-                                {% set totalTva = 0.00|number_format(2, '.', '') %}
-                                    {% for r in totalTvaArray %}
-                                    {% set totalTva = totalTva|number_format(2, '.', '') + r|number_format(2, '.', '') %}
-                                    {% endfor %}
-                                {{ totalTva|number_format(2, ',', ' ') }} &euro;
+                                {{ invoice.taxesAmount|number_format(2, ',', ' ') }} &euro;
                             </div>
                     </div> 
 
-                    {% set totalRemise = totalHt * (invoice.customer.remise) / 100 %}
-                    {% if invoice.customer.remise != 0 %}
+                    {% if invoice.customer.remise != null %}
                     <div class="pre-amount">
                         <div class="amount-cat">Remise <span class="remise">({{ invoice.customer.remise }}%)</span></div> 
-                            <div class="amount">
-                               - {{ (totalRemise|number_format(2, '.', ''))}} &euro;
-                            </div>
+                        <div class="amount">
+                            - {{ (invoice.amountCustomerRemise|number_format(2, '.', ''))}} &euro;
+                        </div>
                     </div>  
                     {% endif %}
 
                     <div class="pre-amount">
                         <div class="amount-cat">Acompte</div> 
                             <div class="amount">
-                               - {{ invoice.downPayment }} &euro;
+                               - {{ invoice.downPayment|number_format(2, ',', ' ') }} &euro;
                             </div>
                     </div>  
 
                     <div class="pre-amount ttc">
                         <div class="amount-cat ">Montant TTC</div>  
                             <div class="amount">                                
-                                {{ (totalHt + totalTva - totalRemise - invoice.downPayment)|number_format(2, ',', ' ') }} &euro;
+                                {{ invoice.amountAllTaxes|number_format(2, ',', ' ') }} &euro;
                             </div>
                     </div>  
 

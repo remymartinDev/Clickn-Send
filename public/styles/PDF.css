@@ -51,15 +51,10 @@ body {
   color: #DE5700;
 }
 
-.tr {
-  font-size: 1.2rem;
-  padding: 1.1rem 1.5rem 0rem 1.5rem;
-  padding-left: 0.45rem;
-  text-align: left;
-}
 
 .product {
   margin: 0;
+
 }
 
 .description {
@@ -68,25 +63,34 @@ body {
   font-size: 0.9rem;
 }
 
-.trd1 {
-  font-size: 1.4rem;
-  padding: 1.1rem 1.5rem 0rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
+.trm {margin-top: 0.5rem;
 }
 
-.trd2 {
+.tr {
+  font-size: 1.1rem;
+  padding: 1.1rem 0rem 0rem 0rem;
+  padding-left: 0.45rem;
+  text-align: left;
+}
+
+.trr {
+  font-size: 1.1rem;
+  padding-left: 0.45rem;
+  text-align: left;
+  padding: 0;
+}
+
+.trd {
   font-size: 1.4rem;
-  padding: 1.1rem 1.5rem 0rem 1.5rem;
+  padding: 1.1rem 1rem 0rem 0rem;
   text-align: right;
 }
 
 .customerRemise {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #DE5700;
-  margin-top: 0.5rem;
-
-}
+  line-height: 0.5rem;
+  }
 
 .date {
   text-align: right;
