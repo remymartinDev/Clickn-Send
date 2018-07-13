@@ -101,8 +101,10 @@ class InvoiceHasProduct
         $this->setInvoice($invoice);
         $this->setQuantity($datas['quantity']);
         $this->setProduct($product);
+        $this->setVatRate($datas['vatRate']);
+        $this->setRemise($datas['remise']);
     }
-      
+
     public function getVatRate()
     {
         return $this->vatRate;
