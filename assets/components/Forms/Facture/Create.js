@@ -23,8 +23,8 @@ const CreateFacture = ({
       <CustomerInvoice changeCustomers={changeCustomers} />
       <FieldArray name="invoiceHasProducts" component={ProductInvoice} fillPrice={fillPrice} changeProducts={changeProducts} />
       <div className="form-mentions">
-        <label htmlFor="HTVA">Mentions légales si HTVA</label>
-        <Field component="textarea" name="HTVA" className="form-mentions-field" />
+        <label htmlFor="legalNotice">Mentions légales si HTVA</label>
+        <Field component="textarea" name="legalNotice" className="form-mentions-field" />
       </div>
       <StatusInvoice />
       <Button type="submit" className="form-btn form-btn-submit">Générer votre facture</Button>
