@@ -117,9 +117,11 @@ class InvoiceHasProduct
         $this->setQuantity($datas['quantity']);
         $this->setProduct($product);
         $this->setRemise($datas['remise']);
+        $this->setVatRate($datas['vatRate']);
         $this->setAmountDuttyFree($datas['amountDuttyFree']);
         $this->setAmountProductRemise($datas['amountProductRemise']);
         $this->setRemiseType($datas['remiseType']);
+
     }
 
     public function getRemiseType(): ?string
@@ -148,12 +150,12 @@ class InvoiceHasProduct
 
     public function getRemise()
     {
-        return $this->Remise;
+        return $this->remise;
     }
 
-    public function setRemise($Remise): self
+    public function setRemise($remise): self
     {
-        $this->Remise = $Remise;
+        $this->remise = $remise;
 
         return $this;
     }
