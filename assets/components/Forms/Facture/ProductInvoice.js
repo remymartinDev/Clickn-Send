@@ -106,11 +106,11 @@ class ProductInvoice extends React.Component {
         </Button>
 
         <label htmlFor="amountDuttyFree">Prix Total HT</label>
-        <Field component="input" type="number" name="amountDuttyFree" parse={value => Number(value)} />
+        <Field component="input" type="number" name="amountDuttyFree" parse={value => Number(value)} disabled />
         <label htmlFor="taxesAmount">Montant Total de la TVA</label>
-        <Field component="input" type="number" name="taxesAmount" parse={value => Number(value)} />
+        <Field component="input" type="number" name="taxesAmount" parse={value => Number(value)} disabled />
         <label htmlFor="amountAllTaxes">Prix Total TTC</label>
-        <Field component="input" type="number" name="amountAllTaxes" parse={value => Number(value)} />
+        <Field component="input" type="number" name="amountAllTaxes" parse={value => Number(value)} disabled />
       </div>
     );
   }
@@ -140,6 +140,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(reduxForm({
-  form: 'facture'
+  form: 'facture',
+  asyncBlurFields: [],
 })(ProductInvoice));
 
