@@ -38,7 +38,7 @@ class PdfController extends Controller
                 'PDF/facture_' . $invoice->getReference() . '.pdf'
         );
 
-        $message = $this->render('mailer/index.html.twig', [
+        $message = $this->renderView('mailer/index.html.twig', [
             'title' => 'Facture'
         ]);
         $urlFilePath = 'PDF/facture_' . $invoice->getReference() . '.pdf';
