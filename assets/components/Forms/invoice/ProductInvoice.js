@@ -9,42 +9,13 @@ import ProductInvoiceItem from './ProductInvoiceItem';
 
 class ProductInvoice extends React.Component {
   state = {
-    products: [],
-    modal: false,
-    loading: true,
-  }
-
-  componentDidMount() {
-    
-    this.getProducts();
-  }
-
-  getProducts = () => {
-    if (!this.state.loading) {
-      this.setState({
-        loading: true,
-      });
-    }
-    axios.get('/api/products')
-      .then(({ data: products }) => {
-        this.setState({
-          products,
-          loading: false,
-        });
-      });
   }
 
   getProductsJSX = () => (
-    this.state.products.map(product => (
+    this.props.products.map(product => (
       <option key={product.id} value={product.id} >{product.denomination}</option>
     ))
   )
-
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-    });
-  }
 
   productSubmit = (fieldName, values, callback) => {
     axios.post('/api/product/new', values)
@@ -57,7 +28,6 @@ class ProductInvoice extends React.Component {
   }
 
   calculateTotal = () => {
-    console.log('remise', this.props.remiseCustomer);
     const allInfosProducts = this.props.allFields;
     const allTotals = allInfosProducts.reduce((total, item) => {
       return {
@@ -68,23 +38,26 @@ class ProductInvoice extends React.Component {
     }, {
       amountAllTaxes: 0,
       amountDuttyFree: 0,
-      taxesAmount: 0, 
+      taxesAmount: 0,
     });
-    console.log(allTotals);
     const { remiseCustomer } = this.props;
 
     const amountCustomerRemise = allTotals.amountDuttyFree * remiseCustomer / 100;
     const amountDuttyFree = allTotals.amountDuttyFree - amountCustomerRemise;
     const amountAllTaxes = amountDuttyFree + allTotals.taxesAmount;
-    
-    this.props.changeAmountsTotal(amountCustomerRemise.toFixed(2), amountDuttyFree.toFixed(2), allTotals.taxesAmount.toFixed(2), amountAllTaxes.toFixed(2));
+    this.props.changeAmountsTotal(
+      amountCustomerRemise.toFixed(2),
+      amountDuttyFree.toFixed(2),
+      allTotals.taxesAmount.toFixed(2),
+      amountAllTaxes.toFixed(2),
+    );
   }
 
   remove = (id) => {
     this.props.fields.remove(id);
   }
 
-  render() { 
+  render() {
     return (
       <div className="add-product">
         { this.props.fields.map((product, index) => (
@@ -93,11 +66,9 @@ class ProductInvoice extends React.Component {
             {...this.props}
             product={product}
             index={index}
-            products={this.state.products}
-            loading={this.state.loading}
+            products={this.props.products}
             productSubmit={this.productSubmit}
             remove={this.remove}
-            // fillPrice={this.props.fillPrice}
           />
         )) }
         <Button
@@ -129,25 +100,26 @@ class ProductInvoice extends React.Component {
 }
 
 ProductInvoice.propTypes = {
+  products: PropTypes.array.isRequired,
   changeProducts: PropTypes.func.isRequired,
-  fillPrice: PropTypes.func.isRequired,
   fields: PropTypes.object.isRequired,
   remiseCustomer: PropTypes.string,
   changeAmountsTotal: PropTypes.func.isRequired,
 };
 
-ProductInvoice.defaultPropTypes = {
+ProductInvoice.defaultProps = {
   remiseCustomer: '0',
 };
 
 const selector = formValueSelector('facture');
 
 const mapStateToProps = state => ({
+  products: state.data.products,
   allFields: selector(state, 'invoiceHasProducts'),
   remiseCustomer: selector(state, 'remise'),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   changeAmountsTotal: (amountCustomerRemise, prixHT, montantTVA, prixTTC) => {
     dispatch(change('facture', 'amountCustomerRemise', amountCustomerRemise));
     dispatch(change('facture', 'amountDuttyFree', prixHT));

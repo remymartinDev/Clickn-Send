@@ -5,7 +5,7 @@ import Media from 'react-media';
 import Dashboard from '~/components/Dashboard';
 import NavClick from '~/components/NavClick';
 import NavVertical from '~/components/NavVertical';
-import Factures from '~/components/Factures';
+import Factures from '~/components/Invoices';
 import Products from '~/components/Products';
 import Customers from '~/components/Customers';
 import Profile from '~/components/Profile';

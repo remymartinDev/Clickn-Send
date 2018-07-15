@@ -6,7 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import './formClient.scss';
 
 /* eslint-disable */
-let CreateClient = props => {
+let CreateCustomer = props => {
   const { handleSubmit } = props
   return (
     <form className="form form-client" onSubmit={handleSubmit}>
@@ -58,9 +58,9 @@ let CreateClient = props => {
   )
 }
 
-CreateClient = reduxForm({
+CreateCustomer = reduxForm({
   // a unique name for the form
   form: 'client',
-})(CreateClient);
+})(CreateCustomer);
 
-export default CreateClient;
+export default CreateCustomer;

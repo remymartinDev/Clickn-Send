@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import ButtonCreate from '~/components/ButtonCreate';
 import ProductItem from './ComponentsProducts/ProductItem';
@@ -9,24 +10,24 @@ import './produits.scss';
 
 class Home extends React.Component {
   state = {
-    products: [],
+    // products: [],
     filter: {
       type: 'id',
       asc: false,
     }
   }
 
-  componentDidMount() {
-    axios.get('/api/products')
-      .then(({ data: products }) => {
-        this.setState({
-          products,
-        });
-      });
-  }
+  // componentDidMount() {
+  //   axios.get('/api/products')
+  //     .then(({ data: products }) => {
+  //       this.setState({
+  //         products,
+  //       });
+  //     });
+  // }
 
   getProductJSX = () => {
-    const orderedProducts = [...this.state.products].sort((a, b) => {
+    const orderedProducts = [...this.props.products].sort((a, b) => {
       const filter = b.id - a.id;
       return this.state.filter.asc ? filter : -filter;
     });
@@ -96,10 +97,10 @@ class Home extends React.Component {
 
   handleDelete = id => () => {
     axios.delete('/api/product/'+id)
-      .then(response => {
+      .then((response) => {
         console.log(response);
-        if (response.data.success){
-          const products = this.state.products.filter(({ id: productId }) => id !== productId );
+        if (response.data.success) {
+          const products = this.props.products.filter(({ id: productId }) => id !== productId );
           this.setState({
             products,
           });
@@ -120,5 +121,9 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  products: PropTypes.array.isRequired,
+};
 
 export default Home;

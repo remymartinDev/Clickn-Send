@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateForm from '~/components/Forms/Produit/Create';
+import CreateForm from '~/components/Forms/Product/Create';
 import axios from 'axios';
 
 /* eslint-disable */

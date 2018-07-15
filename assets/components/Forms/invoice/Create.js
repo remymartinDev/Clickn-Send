@@ -56,6 +56,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(change('facture', fieldName, response.data.price));
       });
   },
+  onSubmit: (values) => {
+    console.log(values);
+  },
 });
 
 export default connect(

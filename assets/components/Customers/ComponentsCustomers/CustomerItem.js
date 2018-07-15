@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 import './ClientItem.scss';
 
-const ClientItem = ({
+const CustomerItem = ({
   customerCompany,
   lastname,
   firstname,
@@ -23,19 +23,18 @@ const ClientItem = ({
   pro,
   vatNumber,
   remise,
-  invoices,
   id,
-  clickDelete,
+  deleteCustomer,
 }) => {
   const proIcon = {
     true: faBuilding,
     false: faUserTie,
-  }
+  };
 
   return (
     <div className="list-contain-client">
       <FontAwesomeIcon className="list-item--icon" icon={proIcon[pro]} />
-      <div className="list-item"> {pro ? customerCompany : lastname}</div>
+      <div className="list-item"> {pro ? customerCompany : `${lastname} ${firstname}` }</div>
       <div className="list-item">{vatNumber}</div>
       <div className="list-item">{companyAdress}</div>
       <div className="list-item">{countryCode}</div>
@@ -49,15 +48,16 @@ const ClientItem = ({
       <FontAwesomeIcon className="list-item--icon" icon={faFileInvoiceDollar} />
       <FaTrash
         className="list-item--icon"
-        onClick={clickDelete(id)}
+        onClick={deleteCustomer(id)}
       />
       <div className="list-item last-item">{comment}</div>
     </div>
   );
 };
 
-ClientItem.propTypes = {
+CustomerItem.propTypes = {
   lastname: PropTypes.string.isRequired,
+  pro: PropTypes.bool.isRequired,
   firstname: PropTypes.string.isRequired,
   companyAdress: PropTypes.string.isRequired,
   countryCode: PropTypes.string.isRequired,
@@ -66,11 +66,15 @@ ClientItem.propTypes = {
   customerCompany: PropTypes.string,
   phone: PropTypes.string.isRequired,
   comment: PropTypes.string,
-  clickDelete: PropTypes.func.isRequired,
+  deleteCustomer: PropTypes.func.isRequired,
+  vatNumber: PropTypes.string.isRequired,
+  remise: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
-ClientItem.defautProps = {
+CustomerItem.defaultProps = {
   comment: '',
+  customerCompany: null,
 };
 
-export default ClientItem;
+export default CustomerItem;

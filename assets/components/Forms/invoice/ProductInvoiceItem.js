@@ -1,47 +1,23 @@
 import React from 'react';
-import { Field, reduxForm, formValueSelector, change, arrayRemove } from 'redux-form';
+import { Field, reduxForm, formValueSelector, change } from 'redux-form';
 import { connect } from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import FaTrash from 'react-icons/lib/fa/trash';
-import axios from 'axios';
 
-import CreateProduct from '~/components/Forms/Produit/Create';
-import Loading from '~/components/utils/Loading';
+import { openModal } from '~/store/reducers/localActionCreator';
 
 class ProductInvoiceItem extends React.Component {
-  state = {
-    modal: false,
-  }
-
   getProductsJSX = () => (
     this.props.products.map(product => (
       <option key={product.id} value={product.id} >{product.denomination}</option>
     ))
   )
 
-  productSubmit = fieldName => (values) => {
-    console.log('in product Submit', values);
-    axios.post('/api/product/new', values)
-      .then((response) => {
-        console.log(response);
-        if (response.succes) {
-          this.props.selectProduct(response.id, fieldName);
-          this.props.fillPrice(values.price, fieldName);
-        }
-      });
-    this.props.productSubmit(fieldName, values, this.toggle);
-  }
   handleChange = fieldName => (e) => {
     this.props.fillPrice(e.target.value, fieldName);
-  }
-
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-    });
   }
 
   calculate = () => {
@@ -72,7 +48,6 @@ class ProductInvoiceItem extends React.Component {
 
   render() {
     const { product, index, remove } = this.props;
-    console.log(product, index);
     return (
       <div className="add-product-select">
         <div className="add-product-select-product">
@@ -80,20 +55,10 @@ class ProductInvoiceItem extends React.Component {
             <option>Sélectionner votre produit</option>
             {this.getProductsJSX()}
           </Field>
-          <Button onClick={this.toggle} className="modal-button">
+          <Button onClick={this.props.openModal('product', product)} className="modal-button">
             <FontAwesomeIcon className="modal-icon" icon={faPlus} />
           </Button>
-          {this.props.loading && <Loading />}
         </div>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className="custom-modal">
-          <ModalHeader toggle={this.toggle}>Créer votre produit</ModalHeader>
-          <ModalBody>
-            <CreateProduct onSubmit={this.productSubmit(`${product}`)} />
-          </ModalBody>
-          <ModalFooter>
-            <Button color="secondary" onClick={this.toggle}>Annuler</Button>
-          </ModalFooter>
-        </Modal>
         <label
           htmlFor={`${product}.price`}
           className="form-create-invoice-label"
@@ -226,9 +191,7 @@ class ProductInvoiceItem extends React.Component {
           title="Remove Product"
           className="btn-remove"
           onClick={() => {
-            console.log(index);
-            console.log(this.props.fields.getAll());
-            this.props.fields.remove(index);
+            this.props.remove(index);
           }}
         >
           <FaTrash className="trash-icon" />
@@ -240,10 +203,10 @@ class ProductInvoiceItem extends React.Component {
 
 ProductInvoiceItem.propTypes = {
   product: PropTypes.string.isRequired,
+  openModal: PropTypes.func.isRequired,
   products: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
   fields: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
   productSubmit: PropTypes.func.isRequired,
   changeAmounts: PropTypes.func.isRequired,
   price: PropTypes.oneOfType([
@@ -294,12 +257,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   fillPrice: (price, fieldName) => {
     dispatch(change('facture', `${fieldName}.price`, price));
-  },  
+  },
+  openModal: (view, field) => () => {
+    dispatch(openModal(view, field));
+  },
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(reduxForm({
-  form: 'facture',
-})(ProductInvoiceItem));
+)(ProductInvoiceItem);

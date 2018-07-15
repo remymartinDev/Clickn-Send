@@ -1,17 +1,16 @@
 import React from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import ButtonCreate from '~/components/ButtonCreate';
-import FactureItem from './componentsFactures/FactureItem';
-import FacturesListHead from './componentsFactures/FacturesListHead';
-import FactureEchueListHead from './componentsFactures/FactureEchueListHead';
-import FactureEchue from './componentsFactures/FactureEchue';
+import FactureItem from './componentsInvoices/FactureItem';
+import FacturesListHead from './componentsInvoices/FacturesListHead';
+import FactureEchueListHead from './componentsInvoices/FactureEchueListHead';
+import FactureEchue from './componentsInvoices/FactureEchue';
 
 import './factures.scss';
 
 class Home extends React.Component {
   state = {
-    factures: [],
     filter: {
       type: 'date',
       asc: false,
@@ -20,27 +19,6 @@ class Home extends React.Component {
       type: 'nbJours',
       asc: false,
     },
-  }
-
-  componentDidMount() {
-    axios.get('/api/invoices')
-      .then(({ data: factures }) => {
-        this.setState({
-          factures,
-        });
-      });
-  }
-
-  addReminder = id => () => {
-    const factures = this.state.factures.map((facture) => {
-      if (facture.id === id) {
-        return { ...facture, reminder: 1 };
-      }
-      return facture;
-    });
-    this.setState({
-      factures,
-    });
   }
 
   handleChevron = type => () => {
@@ -119,30 +97,28 @@ class Home extends React.Component {
     }
   }
 
+  addReminder = id => () => {
+    this.props.addReminder(id);
+  }
+
   render() {
-    const today = new Date();
-    // Pour les factures échues
-    const listFacturesEchues = this.state.factures.filter((facture) => {
-      const deadLine = new Date(facture.deadline1);
-      return !facture.paid && deadLine < today;
-    });
-    const orderedFacturesEchues = this.order(listFacturesEchues, this.state.filterEchue.type);
-    const facturesEchuesJSX = orderedFacturesEchues.map(facture => (
+    const invoices = this.order(this.props.invoices, this.state.filter.type);
+    const InvoicesJSX = invoices.map(invoice => (
+      <FactureItem
+        key={invoice.id}
+        {...invoice}
+      />
+    ));
+
+    const lateInvoices = this.order(this.props.lateInvoices, this.state.filterEchue.type);
+    const lateInvoicesJSX = lateInvoices.map(invoice => (
       <FactureEchue
-        key={facture.id}
-        {...facture}
+        key={invoice.id}
+        {...invoice}
         onClick={this.addReminder}
       />
     ));
-    // pour les 5 derniers factures
-    const orderedFactures = this.order(this.state.factures, this.state.filter.type);
-    const facturesJSX = orderedFactures.map(facture => (
-      <FactureItem
-        key={facture.id}
-        {...facture}
-      />
-    ));
-    const lastFactures = facturesJSX.slice(0, 5);
+
     return (
       <div className="page-container-facture">
         {/* titre */}
@@ -154,7 +130,7 @@ class Home extends React.Component {
           {/* en tête de la liste */}
           <FacturesListHead clickChevron={this.handleChevron} />
           {/* 5 dernière factures */}
-          {lastFactures}
+          {InvoicesJSX}
         </div>
         {/* div des factures echues */}
         <div className="factures-echues">
@@ -165,14 +141,20 @@ class Home extends React.Component {
           {/* div de la liste des echues */}
           <div className="facture-echues-contain">
             {/* list des echues */}
-            {facturesEchuesJSX}
+            {lateInvoicesJSX}
           </div>
         </div>
-        {/* bouton pour totue les factures */}
+        {/* bouton pour toute les factures */}
         <button className="btn-fact-home">Voir toutes mes factures</button>
       </div>
     );
   }
 }
+
+Home.propTypes = {
+  invoices: PropTypes.array.isRequired,
+  lateInvoices: PropTypes.array.isRequired,
+  addReminder: PropTypes.func.isRequired,
+};
 
 export default Home;
