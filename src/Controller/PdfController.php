@@ -39,11 +39,14 @@ class PdfController extends Controller
         );
 
         $message = $this->renderView('mailer/index.html.twig', [
-            'title' => 'Facture'
+            'title' => 'Facture',
+            'invoice' => $invoice
         ]);
-        $urlFilePath = 'PDF/facture_' . $invoice->getReference() . '.pdf';
 
-        $mailer->sendInvoice($message, $urlFilePath, $swiftMailer);
+        $urlFilePath = 'PDF/facture_' . $invoice->getReference() . '.pdf';
+        $clienMail = $invoice->getCustomer()->getEmail();
+
+        $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $clienMail);
 
         return $html;
     }
