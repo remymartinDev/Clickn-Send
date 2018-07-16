@@ -1,4 +1,4 @@
-import { CLOSE_MODAL, OPEN_MODAL } from './localActions';
+import { CLOSE_MODAL, OPEN_MODAL, OPEN_MODAL_HOME, CLOSE_MODAL_HOME } from './localActions';
 /**
  * État initial pour le state de l'application
  */
@@ -7,6 +7,7 @@ const initialState = {
   modal: false,
   view: '',
   field: '',
+  modalHome: false,
 };
 
 /**
@@ -35,6 +36,20 @@ const reducer = (currentState = initialState, action = {}) => {
         modal: true,
         view: action.view,
         field: action.field,
+      };
+    }
+
+    case OPEN_MODAL_HOME: {
+      return {
+        ...currentState,
+        modalHome: true,
+      };
+    }
+
+    case CLOSE_MODAL_HOME: {
+      return {
+        ...currentState,
+        modalHome: false,
       };
     }
     default: return currentState;
