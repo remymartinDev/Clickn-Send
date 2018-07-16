@@ -385,6 +385,8 @@ class Customer
     {
         
         $this->setComment($data_array['comment']);
+        $this->setCity($data_array['city']);
+        $this->setZipCode($data_array['zipCode']);
         $this->setCompanyAdress($data_array['companyAdress']);
         $this->setCountryCode($data_array['countryCode']);
         $this->setCustomerCompany($data_array['customerCompany']);
