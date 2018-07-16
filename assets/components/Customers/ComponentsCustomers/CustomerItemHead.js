@@ -23,7 +23,7 @@ const ProductItemHead = ({ clickChevron }) => (
     </div>
     <div className="list-item">
       Pays
-      <ChevronDown className="chevron" onClick={clickChevron('prix')} />
+      <ChevronDown className="chevron" onClick={clickChevron('pays')} />
     </div>
     <div className="list-item">
       Téléphone
@@ -36,7 +36,7 @@ const ProductItemHead = ({ clickChevron }) => (
     </div>
     <div className="list-item">
       Remise
-      <ChevronDown className="chevron" onClick={clickChevron('unité')} />
+      <ChevronDown className="chevron" onClick={clickChevron('remise')} />
     </div>
     
   </div>
