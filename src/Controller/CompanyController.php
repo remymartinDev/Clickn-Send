@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ConfiguredSerializer;
 
 /**
- * @Route("/api")
+ * @Route("/api/company")
  */
 class CompanyController extends Controller
 {
@@ -41,7 +41,7 @@ class CompanyController extends Controller
 
     // ici le parametre id est temporaire, car on ne peut pas recupérer l id de l entreprise du user connecté
     /**
-     * @Route("/admin/company/{id}", name="company_show", methods="GET")
+     * @Route("/admin", name="company_show", methods="GET")
      */
     public function show(Company $company, ConfiguredSerializer $configuredSerializer): Response
     {
@@ -51,7 +51,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="company_edit", methods="GET|POST")
+     * @Route("/admin/edit", name="company_edit", methods="GET|POST")
      */
     public function edit(Request $request, Company $company): Response
     {

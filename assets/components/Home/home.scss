@@ -43,10 +43,18 @@
   box-shadow: 1px 1px 6px 2px rgba(255,255,255,0.6);
   border-radius: 8px;
   font-weight: bold;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   transition: box-shadow 1s;
+  margin: 1rem;
   justify-self: center;
   &:hover {
     box-shadow: 1px 1px 35px 10px rgba(255,255,255,0.6);
   }
+
+}
+.home-in {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

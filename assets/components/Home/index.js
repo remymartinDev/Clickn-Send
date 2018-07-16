@@ -1,24 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { openModalHome } from '~/store/reducers/localActionCreator';
 import logo from '~/images/click-n-send_logo.png';
+import ModalHome from './ModalHome';
 import './home.scss';
 
-const Home = () => (
+const Home = ({ openModalHome }) => (
   <Container className="home" fluid>
-    <Link to="/dashboard" href="/dashboard" className="home-link">
-      <img src={logo} alt="logo" className="home-logo" />
-    </Link>
-    <div>
-      <Link to="/login">
-        <button className="home-button">Login</button>
+    <div className="home-link">
+      <Link to="/dashboard" href="/dashboard">
+        <img src={logo} alt="logo" className="home-logo" />
       </Link>
-      <Link to="/signin">
-        <button className="home-button">Créer un compte</button>
-      </Link>
+      <div className="home-in">
+        <Link to="/login">
+          <button className="home-button">Login</button>
+        </Link>
+        <button className="home-button" onClick={openModalHome}>Créer un compte</button>
+      </div>
     </div>
+    <ModalHome />
   </Container>
 );
+Home.propTypes = {
+  openModalHome: PropTypes.func.isRequired,
+};
 
-export default Home;
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ openModalHome }, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home);
