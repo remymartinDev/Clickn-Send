@@ -19,6 +19,7 @@
 /public/build/
 npm-debug.log
 yarn-error.log
+public/PDF
 ###< symfony/webpack-encore-pack ###
 
 ###> symfony/phpunit-bridge ###
@@ -26,4 +27,5 @@ yarn-error.log
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 .vs
-public/PDF
+.vscode
+
