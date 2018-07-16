@@ -6,34 +6,32 @@ import { closeModal } from '~/store/reducers/localActionCreator';
 import CreateCustomer from './CustomerCreate';
 import CreateProduct from './ProductCreate';
 
-// const CustomeModal = ({ modal }) => (
-//   <Modal isOpen={modal} toggle={this.toggle} className="custom-modal">
-//     <ModalHeader toggle={this.toggle}>Créer votre client</ModalHeader>
-//     <ModalBody>
-//       <CreateClient onSubmit={this.customerSubmit} />
-//     </ModalBody>
-//     <ModalFooter>
-//       <Button color="secondary" onClick={this.toggle}>Annuler</Button>
-//     </ModalFooter>
-//   </Modal>
-// );
-
 const ModalList = {
   customer: <CreateCustomer />,
   product: <CreateProduct />,
 };
+class CustomeModal extends React.Component {
+  componentDidMount() {
+    if (this.props.modal) {
+      this.props.closeModal();
+    }
+  }
 
-const CustomeModal = ({ modal, closeModal: close, Component }) => (
-  <Modal isOpen={modal} toggle={() => {}} className="custom-modal">
-    <ModalHeader toggle={close} />
-    <ModalBody>
-      {Component}
-    </ModalBody>
-    <ModalFooter>
-      <Button color="secondary" onClick={close}>Annuler</Button>
-    </ModalFooter>
-  </Modal>
-);
+  render() {
+    const { modal, closeModal: close, Component } = this.props;
+    return (
+      <Modal isOpen={modal} toggle={() => {}} className="custom-modal">
+        <ModalHeader toggle={close} />
+        <ModalBody>
+          {Component}
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={close}>Annuler</Button>
+        </ModalFooter>
+      </Modal>
+    );
+  }
+}
 
 CustomeModal.propTypes = {
   modal: PropTypes.bool.isRequired,
