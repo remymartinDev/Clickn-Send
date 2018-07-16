@@ -1,16 +1,26 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
+import { Field, reduxForm, FormSection } from 'redux-form';
 import { connect } from 'react-redux';
 
 import { createCompany } from '~/store/reducers/dataActionCreator';
+import InputFile from './InputFile';
+import './signupForm.scss';
 
 const SignupForm = (props) => {
   const { handleSubmit } = props;
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form signup-form" onSubmit={handleSubmit}>
       <h1 className="form-title">Créer votre compte</h1>
       <label className="form-label" htmlFor="companyName">Nom de l'entreprise</label>
       <Field className="form-field" name="companyName" component="input" type="text" />
+      <label className="form-label" htmlFor="_username">Votre identifiant</label>
+      <Field className="form-field" name="_username" component="input" type="text" />
+      <label className="form-label" htmlFor="_password">Votre mot de passe</label>
+      <Field className="form-field" name="_password" component="input" type="password" />
+      <label className="form-label" htmlFor="_password2">confirmation de votre mot de passe</label>
+      <Field className="form-field" name="_password2" component="input" type="password" />
+      <div className="separation" />
       <label className="form-label" htmlFor="companyAdress">Adresse de votre entreprise</label>
       <Field className="form-field" name="companyAdress" component="input" type="text" />
       <label className="form-label" htmlFor="zipCode">Code postal</label>
@@ -35,13 +45,17 @@ const SignupForm = (props) => {
       <Field className="form-field" name="bankDomiciliation" component="input" type="text" />
       <label className="form-label" htmlFor="paymentTerm">Délai de paiement accordé à vos clients</label>
       <Field className="form-field" name="paymentTerm" component="input" type="text" />
-      <label className="form-label" htmlFor="logo">Votre Logo</label>
-      <Field className="form-field" name="logo" component="input" type="text" />
       <label className="form-label" htmlFor="companyInformation">Informations légales</label>
       <Field className="form-field" name="companyInformation" component="input" type="text" />
+      <label className="form-label" htmlFor="logo">Votre Logo</label>
+      <Field className="form-field" name="logo" component="InputFile" />
       <button className="form-button">Créer</button>
     </form>
   );
+};
+
+SignupForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = null;

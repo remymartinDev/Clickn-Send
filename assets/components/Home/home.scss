@@ -17,6 +17,9 @@
   align-items: center;
   justify-content: center;
   margin: auto;
+  & > a {
+    text-align: center;
+  }
 }
 .home-logo {
   background-color: white;
