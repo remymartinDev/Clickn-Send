@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Media from 'react-media';
 import { FormattedDate } from 'react-intl';
 import FaEye from 'react-icons/lib/fa/eye';
@@ -15,6 +16,7 @@ const FactureItem = ({
   date,
   amountAllTaxes,
   status,
+  id,
 }) => {
   const statusIcons = {
     devis: faFileInvoice,
@@ -37,7 +39,9 @@ const FactureItem = ({
         {matches => (matches && <div className="list-item">{status.invoiceStatus}</div>)}
       </Media>
       <FaEye className="list-item--icon" />
-      <FaPencil className="list-item--icon" />
+      <Link to={`/invoices/${id}`} className="list-item--icon">
+        <FaPencil className="list-item--icon" />
+      </Link>
       <FaDownload className="list-item--icon" />
     </div>
   );
@@ -48,6 +52,7 @@ FactureItem.propTypes = {
   date: PropTypes.string.isRequired,
   amountAllTaxes: PropTypes.string.isRequired,
   status: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default FactureItem;

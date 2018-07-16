@@ -7,7 +7,7 @@ import Modal from './componentsInvoices/Modal';
 const Create = ({ createInvoice }) => (
   <React.Fragment>
     <CreateFacture onSubmit={createInvoice} />;
-    <Modal />
+    {/* <Modal /> */}
   </React.Fragment>
 );
 

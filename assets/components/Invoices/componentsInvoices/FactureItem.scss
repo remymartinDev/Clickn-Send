@@ -19,6 +19,7 @@
 .list-item--icon {
     margin: auto;
     color: $color-mauve-4;
+    cursor: pointer;
     &:hover {
         color: $color-mauve-1;
     }

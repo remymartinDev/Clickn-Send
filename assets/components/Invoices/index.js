@@ -3,12 +3,18 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from '~/containers/invoices/Home';
 import Create from '~/containers/invoices/Create';
+import Edit from '~/containers/invoices/Edit';
+import Modal from './componentsInvoices/Modal';
 
 const Facture = () => (
-  <Switch>
-    <Route path="/invoices/create" exact component={Create} />
-    <Route path="/invoices" component={Home} />
-  </Switch>
+  <React.Fragment>
+    <Switch>
+      <Route path="/invoices/create" exact component={Create} />
+      <Route path="/invoices" exact component={Home} />
+      <Route path="/invoices/:id" component={Edit} />
+    </Switch>
+    <Modal />
+  </React.Fragment>
 );
 
 export default Facture;

@@ -29,7 +29,7 @@ const getDataCreator = (next, action) => async (url) => {
 
 const deleteDataCreator = (next, action) => async (url) => {
   const { data } = await ajaxDelete(`${url}/${action.id}`);
-  // TODO::
+  console.log(data);
 };
 
 const createDataCreator = (next, action) => async (url) => {
