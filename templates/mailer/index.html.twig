@@ -7,9 +7,16 @@
 
 Bonjour, {% if invoice.customer.pro %}
 {% else %}
-M,Mdm {{invoice.customer.lastname}}
+M,Mm {{invoice.customer.lastname}}
 {% endif %}
-Voici votre facture du {{invoice.date}}, numero {{ invoice.reference }}
+Voici votre facture du {{invoice.date|date('d-m-Y')}}, numero {{ invoice.reference }}
 cordialement.
+
+{{invoice.company.companyName}}
+{{invoice.company.companyAdress}}
+{{invoice.company.zipCode}}, {{invoice.company.city}}
+{{invoice.company.phone}}
+{{invoice.company.fax}}
+{{invoice.company.email}}
 
 {% endblock %}
