@@ -23,18 +23,17 @@ composer require symfony/apache-pack
 
 Une question va etre posé pendant l instalation :   
 ```
-reponder : yes
+repondre : yes
 ```
 (si la question n est pas posée , exécuter :
 ```PHP
 composer remove symfony/apache-pack 
-// puis denouveau : 
+// puis de nouveau : 
 composer require symfony/apache-pack
 ```
 
 -  si la commande a bien fonctionné, un fichier ***.htaccess*** est apparus dans public.  
 Remplacer son contenu par : 
-
 ```
 RewriteEngine On
 RewriteBase /
@@ -44,7 +43,7 @@ RewriteRule ^(.*)$ index.php?params=$1 [L,QSA]
 ```
 
 - ensuite créer un virtual host, pour ce faire : 
-    - ouvrer le fichier /etc/hosts 
+    - ouvrir le fichier /etc/hosts 
 ```
 sudo nano /etc/hosts
 ```
