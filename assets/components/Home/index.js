@@ -9,8 +9,15 @@ const Home = () => (
   <Container className="home" fluid>
     <Link to="/dashboard" href="/dashboard" className="home-link">
       <img src={logo} alt="logo" className="home-logo" />
-      <button className="home-button">entrez</button>
     </Link>
+    <div>
+      <Link to="/login">
+        <button className="home-button">Login</button>
+      </Link>
+      <Link to="/signin">
+        <button className="home-button">Créer un compte</button>
+      </Link>
+    </div>
   </Container>
 );
 
