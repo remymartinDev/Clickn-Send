@@ -13,7 +13,7 @@ class Home extends React.Component {
   state = {
     filter: {
       type: 'date',
-      asc: false,
+      asc: true,
     },
     filterEchue: {
       type: 'nbJours',
@@ -102,7 +102,9 @@ class Home extends React.Component {
   }
 
   render() {
+    console.log(this.props.invoices);
     const invoices = this.order(this.props.invoices, this.state.filter.type);
+    console.log(invoices);
     const InvoicesJSX = invoices.map(invoice => (
       <FactureItem
         key={invoice.id}
