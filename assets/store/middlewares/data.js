@@ -77,7 +77,6 @@ const dataMiddleware = store => next => (action) => {
       break;
     }
     case CREATE_INVOICE: {
-      console.log('in m create invoice');
       createData('/api/invoice/new');
       break;
     }
