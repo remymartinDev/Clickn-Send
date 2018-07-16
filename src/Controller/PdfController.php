@@ -34,16 +34,23 @@ class PdfController extends Controller
             'calendar' => $calendar
         ]);
 
+        //eraze the elder invoice
+        if (file_exists('PDF/facture.pdf')) {
+            unlink('PDF/facture.pdf');
+        }
+
+        //create new invoice
         $this->get('knp_snappy.pdf')->generateFromHtml($html,
-                'PDF/facture_' . $invoice->getReference() . '.pdf'
+                'PDF/facture.pdf'
         );
 
+        //set the mail message
         $message = $this->renderView('mailer/index.html.twig', [
             'title' => 'Facture',
             'invoice' => $invoice
         ]);
 
-        $urlFilePath = 'PDF/facture_' . $invoice->getReference() . '.pdf';
+        $urlFilePath = 'PDF/facture.pdf';
         $clienMail = $invoice->getCustomer()->getEmail();
 
         $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $clienMail);
