@@ -8,7 +8,7 @@ class Mailer
     {
         $message = (new \Swift_Message('Facture'))
         ->setFrom('clicknsend2018@gmail.com')
-        ->setTo('juriens.rodrigue@gmail.com')
+        ->setTo('virginie.gruber@gmail.com')
         ->setBody($html, 'text/html')
         ->attach(\Swift_Attachment::fromPath($urlFilePath));
 
