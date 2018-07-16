@@ -10,6 +10,7 @@ import {
   CREATE_INVOICE,
   CREATE_CUSTOMER,
   CREATE_PRODUCT,
+  CREATE_COMPANY,
 } from '~/store/reducers/dataActions';
 import {
   loadCustomers,
@@ -86,6 +87,11 @@ const dataMiddleware = store => next => (action) => {
     }
     case CREATE_PRODUCT: {
       createData('/api/product/new');
+      break;
+    }
+    case CREATE_COMPANY: {
+      console.log('in middle');
+      createData('api/company/new');
       break;
     }
     default:

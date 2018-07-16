@@ -5,6 +5,7 @@ import {
   LOAD_INVOICES,
   ADD_CUSTOMER,
   ADD_PRODUCT,
+  CREATE_COMPANY,
 } from './dataActions';
 
 const initialState = {

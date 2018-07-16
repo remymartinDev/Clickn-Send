@@ -17,7 +17,7 @@ use App\Service\ConfiguredSerializer;
 class CompanyController extends Controller
 {
     /**
-     * @Route("/new", name="company_new", methods="GET|POST")
+     * @Route("/company/new", name="company_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { closeModalHome } from '~/store/reducers/localActionCreator';
 
-import SigninForm from './SigninForm';
+import SignupForm from '~/components/Forms/Signup/SignupForm';
 
 class ModalHome extends React.Component {
   componentDidMount() {
@@ -20,7 +20,7 @@ class ModalHome extends React.Component {
       <Modal isOpen={modalHome} toggle={() => {}} className="custom-modal">
         <ModalHeader toggle={close} />
         <ModalBody>
-          <SigninForm />
+          <SignupForm />
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={close}>Annuler</Button>

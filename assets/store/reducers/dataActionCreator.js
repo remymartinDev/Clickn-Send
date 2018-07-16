@@ -10,6 +10,7 @@ import {
   ADD_CUSTOMER,
   CREATE_PRODUCT,
   ADD_PRODUCT,
+  CREATE_COMPANY,
 } from './dataActions';
 
 export const loadCustomers = () => ({
@@ -60,4 +61,9 @@ export const createProduct = values => ({
 export const addProduct = product => ({
   type: ADD_PRODUCT,
   product,
+});
+
+export const createCompany = values => ({
+  type: CREATE_COMPANY,
+  values,
 });
