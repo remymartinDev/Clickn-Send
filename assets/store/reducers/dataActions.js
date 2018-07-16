@@ -9,3 +9,4 @@ export const CREATE_CUSTOMER = 'CREATE_CUSTOMER';
 export const ADD_CUSTOMER = 'ADD_CUSTOMER';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const ADD_INVOICE = 'ADD_INVOICE';

@@ -32,7 +32,9 @@ const deleteDataCreator = (next, action) => async (url) => {
 };
 
 const createDataCreator = (next, action) => async (url) => {
+  console.log(action);
   const { data } = await ajaxCreate(url, action.values);
+  console.log(data);
   if (data.succes) {
     next({
       ...action,
@@ -75,6 +77,7 @@ const dataMiddleware = store => next => (action) => {
       break;
     }
     case CREATE_INVOICE: {
+      console.log('in m create invoice');
       createData('/api/invoice/new');
       break;
     }
@@ -83,7 +86,6 @@ const dataMiddleware = store => next => (action) => {
       break;
     }
     case CREATE_PRODUCT: {
-      console.log('in data m');
       createData('/api/product/new');
       break;
     }

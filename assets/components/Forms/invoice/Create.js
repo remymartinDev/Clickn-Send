@@ -5,6 +5,7 @@ import { Field, reduxForm, change, FieldArray } from 'redux-form';
 import { Button } from 'reactstrap';
 import axios from 'axios';
 
+import { createInvoice, loadInvoices } from '~/store/reducers/dataActionCreator';
 import ProductInvoice from './ProductInvoice';
 import CustomerInvoice from './CustomerInvoice';
 import StatusInvoice from './StatusInvoice';
@@ -57,7 +58,9 @@ const mapDispatchToProps = dispatch => ({
       });
   },
   onSubmit: (values) => {
-    console.log(values);
+    console.log('create invoice');
+    dispatch(createInvoice(values));
+    dispatch(loadInvoices());
   },
 });
 
