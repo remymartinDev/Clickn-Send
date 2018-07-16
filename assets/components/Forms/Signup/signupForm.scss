@@ -1,0 +1,14 @@
+@import '~/styles/vars.scss';
+
+.form.signup-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+}
+
+.separation {
+  border-top: 2px solid $color-orange-0;
+  grid-column: 1 / -1;
+  margin: 2rem;
+}
