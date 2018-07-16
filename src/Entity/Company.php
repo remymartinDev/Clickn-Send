@@ -98,27 +98,6 @@ class Company
      */
     private $countryCode;
 
-    /** 
-     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="company")
-     */
-/*     private $invoices; */
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Customer", mappedBy="company")
-     */
-/*     private $customers; */
-
-    /*
-     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="company")
-     */
-/*     private $members; */
-
-/*     public function __construct()
-    {
-        $this->invoices = new ArrayCollection();
-        $this->customers = new ArrayCollection();
-        $this->members = new ArrayCollection();
-    } */
 
     public function getId()
     {

@@ -387,35 +387,14 @@ class AppFixtures extends Fixture
             $payment2->setCompany(($companies[1]));
             $manager->persist($payment2);
         }
-        
-  
-            $userAdmin = new Member();
-            $userAdmin->setUsername('admin');
-            $userAdmin->setCompany($companies[0]);
-            $userAdmin->setPassword('admin');
-            $userAdmin->setRole($roleAdmin);
-            $manager->persist($userAdmin);
 
-            $userUserFull = new Member();
-            $userUserFull->setUsername('UserFull');
-            $userUserFull->setCompany($companies[0]);
-            $userUserFull->setPassword('UserFull');
-            $userUserFull->setRole($roleFull);
-            $manager->persist($userUserFull);
-
-            $userUserRog = new Member();
-            $userUserRog->setUsername('UserRog');
-            $userUserRog->setCompany($companies[0]);
-            $userUserRog->setPassword('UserRog');
-            $userUserRog->setRole($roleRog);
-            $manager->persist($userUserRog);
-
-            $userUserRol = new Member();
-            $userUserRol->setUsername('UserRol');
-            $userUserRol->setCompany($companies[0]);
-            $userUserRol->setPassword('UserRol');
-            $userUserRol->setRole($roleRol);
-            $manager->persist($userUserRol);
+            $member = new Member;
+            $member->setCompany($companies[0]);
+            $member->setSuperAdmin(true);
+            $member->setUsername('admin');
+            $member->setPlainPassword('admin');
+            $member->setEmail('admin@admin.com');
+            $manager->persist($member);
 
 
         $manager->flush();

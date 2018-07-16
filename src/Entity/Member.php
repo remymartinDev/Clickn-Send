@@ -5,40 +5,26 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
  */
-class Member
+class Member extends BaseUser
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $password;
+    protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="members")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $company;
+    protected $company;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="members")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $role;
 
     public function getId()
     {
@@ -50,7 +36,7 @@ class Member
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername($username): self
     {
         $this->username = $username;
 
@@ -62,7 +48,7 @@ class Member
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password): self
     {
         $this->password = $password;
 
@@ -74,7 +60,7 @@ class Member
         return $this->company;
     }
 
-    public function setCompany(?Company $company): self
+    public function setCompany($company): self
     {
         $this->company = $company;
 
@@ -86,7 +72,7 @@ class Member
         return $this->role;
     }
 
-    public function setRole(?Role $role): self
+    public function setRole($role): self
     {
         $this->role = $role;
 
