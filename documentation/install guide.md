@@ -82,6 +82,20 @@ Serveur web à reconfigurer automatiquement : "
 
 - indiquer un mot de passe   
 
+il ne reste plus qu'à indiquer à Apache que vous allez utiliser PhpMyAdmin  
+```
+sudo nano /etc/apache2/apache2.conf
+```
+
+Ajoutez-y à la fin :
+```
+Include /etc/phpmyadmin/apache.conf
+```
+Et redémarrez apache.
+```
+sudo service apache2 restart
+```
+
 Rendez-vous à l'URL ***localhost/phpmyadmin***, et entrez le username "***root***" et votre mot de passe  
 ![alt tag](images/phpmyadmin.png)  
 
