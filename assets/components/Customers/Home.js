@@ -15,6 +15,11 @@ class Home extends React.Component {
     },
   }
 
+  componentDidMount() {
+    console.log(this.props);
+    this.props.loadCustomers();
+  }
+
   getClientJSX = () => {
     const orderedclient = [...this.props.customers].sort((a, b) => {
       const filter = b.id - a.id;
@@ -29,7 +34,7 @@ class Home extends React.Component {
   handleChevron = type => () => {
     console.log('je clique');
     const { type: stateType, asc } = this.state.filter;
-   
+
     this.setState({
       filter: {
         type,
@@ -40,7 +45,6 @@ class Home extends React.Component {
   }
 
   orderByPro = client => (
-    
     [...client].sort((a, b) => {
       const filter = (a === b) ? 0 : a? -1 : 1;
       console.log('je trie');
@@ -55,7 +59,7 @@ class Home extends React.Component {
       [...client].sort((a, b) => {
         const filter = (b.price - a.price);
         return this.state.filer.asc ? filter : -filter;
-      }))
+      }));
   }
 
   orderByCountry = client => (
@@ -98,6 +102,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   customers: PropTypes.array.isRequired,
+  loadCustomers: PropTypes.func.isRequired,
 };
 
 export default Home;
