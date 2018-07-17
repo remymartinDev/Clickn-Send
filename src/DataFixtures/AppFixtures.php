@@ -242,7 +242,7 @@ class AppFixtures extends Fixture
             'pièce',
             'm²',
             'kg',
-            'lot (6)'
+            'lot(6)'
         ];
 
 
@@ -392,15 +392,79 @@ class AppFixtures extends Fixture
             $manager->persist($payment2);
         }
 
-            $member = new Member;
-            $member->setCompany($companies[0]);
-            $member->setSuperAdmin(true);
-            $member->setEnabled(true);
-            $member->setUsername('admin');
-            $member->setPlainPassword('admin');
-            $member->setEmail('admin@admin.com');
-            $manager->persist($member);
+            $admin = new Member;
+            $admin->setCompany($companies[0]);
+            $admin->addRole('ROLE_ADMIN');
+            $admin->setEnabled(true);
+            $admin->setUsername('admin');
+            $admin->setPlainPassword('admin');
+            $admin->setEmail('admin@admin.com');
+            $manager->persist($admin);
 
+            $userFull = new Member;
+            $userFull->setCompany($companies[0]);
+            $userFull->addRole('ROLE_FULL');
+            $userFull->setEnabled(true);
+            $userFull->setUsername('userFull');
+            $userFull->setPlainPassword('userFull');
+            $userFull->setEmail('userFull@userFull.com');
+            $manager->persist($userFull);
+
+            $userRog = new Member;
+            $userRog->setCompany($companies[0]);
+            $userRog->addRole('ROLE_ROG');
+            $userRog->setEnabled(true);
+            $userRog->setUsername('userRog');
+            $userRog->setPlainPassword('userRog');
+            $userRog->setEmail('userRog@userRog.com');
+            $manager->persist($userRog);
+
+            $userRol = new Member;
+            $userRol->setCompany($companies[0]);
+            $userRol->addRole('ROLE_ROL');
+            $userRol->setEnabled(true);
+            $userRol->setUsername('userRol');
+            $userRol->setPlainPassword('userRol');
+            $userRol->setEmail('userRol@userRol.com');
+            $manager->persist($userRol);
+
+
+
+            $admin2 = new Member;
+            $admin2->setCompany($companies[1]);
+            $admin2->addRole('ROLE_ADMIN');
+            $admin2->setEnabled(true);
+            $admin2->setUsername('admin2');
+            $admin2->setPlainPassword('admin2');
+            $admin2->setEmail('admin2@admin.com');
+            $manager->persist($admin2);
+
+            $userFull2 = new Member;
+            $userFull2->setCompany($companies[1]);
+            $userFull2->addRole('ROLE_FULL');
+            $userFull2->setEnabled(true);
+            $userFull2->setUsername('userFull2');
+            $userFull2->setPlainPassword('userFull2');
+            $userFull2->setEmail('userFull2@userFull.com');
+            $manager->persist($userFull2);
+
+            $userRog2 = new Member;
+            $userRog2->setCompany($companies[1]);
+            $userRog2->addRole('ROLE_ROG');
+            $userRog2->setEnabled(true);
+            $userRog2->setUsername('userRog2');
+            $userRog2->setPlainPassword('userRog2');
+            $userRog2->setEmail('userRog2@userRog.com');
+            $manager->persist($userRog2);
+
+            $userRol2 = new Member;
+            $userRol2->setCompany($companies[1]);
+            $userRol2->addRole('ROLE_ROL');
+            $userRol2->setEnabled(true);
+            $userRol2->setUsername('userRol2');
+            $userRol2->setPlainPassword('userRol2');
+            $userRol2->setEmail('userRol2@userRol.com');
+            $manager->persist($userRol2);
 
         $manager->flush();
     }

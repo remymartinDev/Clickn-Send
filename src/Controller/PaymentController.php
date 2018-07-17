@@ -29,7 +29,8 @@ class PaymentController extends Controller
      */
     public function index(PaymentRepository $paymentRepository, ConfiguredSerializer $configuredSerializer)
     {
-        $payments = $paymentRepository->findByCompany(1);
+        $companyId = $this->getUser()->getCompany()->getId();
+        $payments = $paymentRepository->findByCompany($companyId);
 
         foreach ($payments as $payment) {
 
@@ -66,7 +67,7 @@ class PaymentController extends Controller
         
         //take relational object for product
         $customer = $invoice->getCustomer();
-        $company = $companyRepository->findOneById(1);
+        $company = $this->getUser()->getCompany();
         
         //set product
         $customer->setCompany($company);

@@ -26,7 +26,8 @@ class ProductController extends Controller
      */
     public function list(ProductRepository $productRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $products = $productRepository->findActivProducts(1);
+        $companyId = $this->getUser()->getCompany()->getId();
+        $products = $productRepository->findActivProducts($companyId);
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($products, 'json');
@@ -45,7 +46,7 @@ class ProductController extends Controller
         $product = $serializer->deserialize($data, Product::class, 'json');
         
         //take relational object for product
-        $company = $companyRepository->findOneById(1);
+        $company = $this->getUser()->getCompany();
         
         //set product
         $product->setCompany($company);

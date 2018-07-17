@@ -476,6 +476,30 @@ class Invoice
         $this->setPaid(false);
         $this->setReminder(0);
         $this->setDeadline1($deadline);
+        //$this->setDownPayment();
+    }
+
+    public function hydrateEdit($data_array, $customer, $status, $company)
+    {
+        $payment_term = 'P' . $company->getPaymentTerm() . 'D';
+        $date = new \Datetime();
+        $reference = $date->format('Ymdh-is');
+        $datedeadline = new \Datetime();
+        $deadline = $datedeadline->add(new \DateInterval($payment_term));
+
+        $this->setCustomer($customer);
+        $this->setStatus($status);
+        $this->setCompany($company);
+        $this->setDate($date);
+        $this->setReference($reference);
+        $this->setDeadline1($deadline);
+        $this->setAmountAllTaxes($data_array['amountAllTaxes']);
+        $this->setAmountCustomerRemise($data_array['amountCustomerRemise']);
+        $this->setAmountDuttyFree($data_array['amountDuttyFree']);
+        //$this->setComment($data_array['comment']);
+        $this->setLegalNotice($data_array['legalNotice']);
+        //$this->setDownPayment($data_array['downPayment']);
+        $this->setTaxesAmount($data_array['taxesAmount']);
     }
 
 }
