@@ -21,16 +21,14 @@ const mapDispatchToProps = dispatch => ({
       });
   },
   onSubmit: (values) => {
-    console.log('create invoice');
+    console.log('update invoice');
     console.log(values);
-    dispatch(createInvoice(values));
-    dispatch(loadInvoices());
   },
 });
 
 const mapStateToProps = (state) => {
+  // Récupération de la facture
   const currentInvoice = state.notreReducer.data;
-  console.log(currentInvoice);
   if (currentInvoice) {
     const {
       id,

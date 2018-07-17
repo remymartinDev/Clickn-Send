@@ -8,10 +8,10 @@ import axios from 'axios';
 const LoginForm = ({ handleSubmit }) => (
   <form className="form signup-form" onSubmit={handleSubmit}>
     <h1>Login</h1>
-    <label htmlFor="_username" className="form-label">identifiant</label>
-    <Field className="form-field" name="_username" component="input" type="text" />
-    <label htmlFor="_password" className="form-label">Mot de passe</label>
-    <Field className="form-field" name="_password" component="input" type="password" />
+    <label htmlFor="username" className="form-label">identifiant</label>
+    <Field className="form-field" name="username" component="input" type="text" />
+    <label htmlFor="password" className="form-label">Mot de passe</label>
+    <Field className="form-field" name="password" component="input" type="password" />
     <button type="submit">s'identifier</button>
   </form>
 );

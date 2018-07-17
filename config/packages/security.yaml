@@ -13,10 +13,12 @@ security:
 
     firewalls:
         main:
-            pattern: ^/
-            form_login:
+#            pattern: ^/
+#            form_login:
+#                provider: fos_userbundle
+            json_login:
+                check_path: /login
                 provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
 
             logout:       true
             anonymous:    true

@@ -25,34 +25,14 @@ class Member extends BaseUser
      */
     protected $company;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername($username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword($password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     public function getCompany(): ?Company
@@ -63,18 +43,6 @@ class Member extends BaseUser
     public function setCompany($company): self
     {
         $this->company = $company;
-
-        return $this;
-    }
-
-    public function getRole(): ?Role
-    {
-        return $this->role;
-    }
-
-    public function setRole($role): self
-    {
-        $this->role = $role;
 
         return $this;
     }
