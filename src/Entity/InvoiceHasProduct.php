@@ -58,6 +58,16 @@ class InvoiceHasProduct
      */
     private $amountDuttyFree;
 
+    /**
+     * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $taxesAmount;
+
+    /**
+     * @ORM\Column(type="decimal", precision=7, scale=2)
+     */
+    private $amountAllTaxes;
+
     public function getId()
     {
         return $this->id;
@@ -121,6 +131,8 @@ class InvoiceHasProduct
         $this->setAmountDuttyFree($datas['amountDuttyFree']);
         $this->setAmountProductRemise($datas['amountProductRemise']);
         $this->setRemiseType($datas['remiseType']);
+        $this->setTaxesAmount($datas['taxesAmount']);
+        $this->setAmountAllTaxes($datas['amountAllTaxes']);
 
     }
 
@@ -168,6 +180,30 @@ class InvoiceHasProduct
     public function setAmountDuttyFree($amountDuttyFree): self
     {
         $this->amountDuttyFree = $amountDuttyFree;
+
+        return $this;
+    }
+
+    public function getTaxesAmount()
+    {
+        return $this->taxesAmount;
+    }
+
+    public function setTaxesAmount($vatAmount): self
+    {
+        $this->taxesAmount = $taxesAmount;
+
+        return $this;
+    }
+
+    public function getAmountAllTaxes()
+    {
+        return $this->amountAllTaxes;
+    }
+
+    public function setAmountAllTaxes($amountAllTaxes): self
+    {
+        $this->amountAllTaxes = $amountAllTaxes;
 
         return $this;
     }

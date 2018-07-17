@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from '~/containers/invoices/Home';
 import Create from '~/containers/invoices/Create';
-import Edit from '~/containers/invoices/Edit';
+import Edit from './Edit';
 import Modal from './componentsInvoices/Modal';
 
 const Facture = () => (

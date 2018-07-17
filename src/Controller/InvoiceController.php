@@ -64,7 +64,7 @@ class InvoiceController extends Controller
 
         //take relational object for invoice 
         $customer = $customerRepository->findOneById($data_array['customer']);
-        $status = $statusRepository->findOneByInvoiceStatus($data_array['status']);
+        $status = $statusRepository->findOneById($data_array['status']);
         $company = $companyRepository->findOneById(1);
         
         $invoice->hydrate($customer, $status, $company);
