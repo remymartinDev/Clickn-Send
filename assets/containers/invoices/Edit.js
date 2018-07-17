@@ -1,13 +1,44 @@
 import { connect } from 'react-redux';
 import { change } from 'redux-form';
-import { axios } from 'axios';
+import axios from 'axios';
 
 import { createInvoice, loadInvoices } from '~/store/reducers/dataActionCreator';
 import Edit from '~/components/Forms/invoice/Edit';
 
-const mapStateToProps = state => ({
-  products: state.data.products,
-});
+const mapStateToProps = (state, ownProps) => {
+  const { match: { params: { id } } } = ownProps;
+  const currentInvoice = state.data.invoices.find(invoice => Number(invoice.id) === Number(id));
+  const {
+    id: invoiceId,
+    customer: { id: customer },
+    customer: { remise },
+    amountDuttyFree,
+    taxesAmount,
+    amountAllTaxes,
+    legalNotice,
+    status: { id: statusId },
+    invoiceHasProducts,
+  } = currentInvoice;
+
+  const initialValues = {
+    id: invoiceId,
+    customer,
+    remise,
+    amountDuttyFree,
+    taxesAmount,
+    amountAllTaxes,
+    legalNotice,
+    status: statusId,
+    invoiceHasProducts,
+  };
+  console.log(initialValues);
+  if (currentInvoice) {
+    return {
+      initialValues,
+    };
+  }
+  return {};
+};
 
 const mapDispatchToProps = dispatch => ({
   changeCustomers: (id, callback) => {
@@ -19,7 +50,7 @@ const mapDispatchToProps = dispatch => ({
     callback();
   },
   fillPrice: (id, fieldName) => {
-    axios.get('/api/product/' + id)
+    axios.get(`/api/product/${id}`)
       .then((response) => {
         dispatch(change('facture', fieldName, response.data.price));
       });

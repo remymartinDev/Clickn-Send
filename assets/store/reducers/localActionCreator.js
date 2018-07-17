@@ -1,4 +1,9 @@
-import { OPEN_MODAL, CLOSE_MODAL, OPEN_MODAL_HOME, CLOSE_MODAL_HOME } from './localActions';
+import {
+  OPEN_MODAL,
+  CLOSE_MODAL,
+  OPEN_MODAL_HOME,
+  CLOSE_MODAL_HOME,
+} from './localActions';
 
 export const openModal = (view, field) => ({
   type: OPEN_MODAL,

@@ -14,6 +14,7 @@ import { bindActionCreators } from 'redux';
 /**
  * Connection du composant au store via connect()()
  */
+const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => ({
   // === loadAllData: () => { dispatch(loadAllData() ) }
@@ -21,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const AppContainer = connect(
-  null, // Props en lecture
+  mapStateToProps, // Props en lecture
   mapDispatchToProps, // Props en écriture
   null,
   {

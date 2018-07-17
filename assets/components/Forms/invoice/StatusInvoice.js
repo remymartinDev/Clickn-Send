@@ -19,7 +19,7 @@ class StatusInvoice extends React.Component {
 
   getStatusJSX = () => (
     this.state.status.map(({ id, invoiceStatus }) => (
-      <option key={id}>{invoiceStatus}</option>
+      <option key={id} value={id}>{invoiceStatus}</option>
     ))
   )
 

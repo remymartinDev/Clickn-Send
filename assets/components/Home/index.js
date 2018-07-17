@@ -10,7 +10,7 @@ import logo from '~/images/click-n-send_logo.png';
 import ModalHome from './ModalHome';
 import './home.scss';
 
-const Home = ({ openModalHome }) => (
+const Home = ({ openModalHome: open }) => (
   <Container className="home" fluid>
     <div className="home-link">
       <Link to="/dashboard" href="/dashboard">
@@ -20,7 +20,7 @@ const Home = ({ openModalHome }) => (
         <Link to="/login">
           <button className="home-button">Login</button>
         </Link>
-        <button className="home-button" onClick={openModalHome}>Créer un compte</button>
+        <button className="home-button" onClick={open}>Créer un compte</button>
       </div>
     </div>
     <ModalHome />
