@@ -33,7 +33,8 @@ class InvoiceController extends Controller
      */
     public function list(InvoiceRepository $invoiceRepository, ConfiguredSerializer $configuredSerializer)
     {
-        $invoices = $invoiceRepository->findByCompany(1);
+        $companyId = $this->getUser()->getCompany()->getId();
+        $invoices = $invoiceRepository->findByCompany($companyId);
 
         foreach ($invoices as $invoice) {
             $invoice->getCustomer()->setCompany(null);
@@ -65,7 +66,7 @@ class InvoiceController extends Controller
         //take relational object for invoice 
         $customer = $customerRepository->findOneById($data_array['customer']);
         $status = $statusRepository->findOneById($data_array['status']);
-        $company = $companyRepository->findOneById(1);
+        $company = $this->getUser()->getCompany();
         
         $invoice->hydrate($customer, $status, $company);
         

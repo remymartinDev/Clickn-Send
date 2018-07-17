@@ -30,8 +30,8 @@ class CustomerController extends Controller
      */
     public function list(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $company_id = $this->getUser()->getCompany()->getId();
-        $customers = $customerRepository->findActivCustomers($company_id);    
+        $companyId = $this->getUser()->getCompany()->getId();
+        $customers = $customerRepository->findActivCustomers($companyId);    
 
         foreach ($customers as $customer) {
 
@@ -61,7 +61,7 @@ class CustomerController extends Controller
         $customer = $serializer->deserialize($data, Customer::class, 'json');
         
         //take relational object for product
-        $company = $companyRepository->findOneById(1);
+        $company = $this->getUser()->getCompany();
         
         //set product
         $customer->setCompany($company);
