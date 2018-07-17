@@ -19,7 +19,7 @@ import {
   loadProducts,
 } from '~/store/reducers/dataActionCreator';
 import { LOGGED_OUT } from '~/store/reducers/localActions';
-import { loggedOut } from '../reducers/localActionCreator';
+import { loggedOut, loggedIn, userConnected } from '../reducers/localActionCreator';
 
 const getDataCreator = (next, action) => async (url) => {
   const { data } = await ajaxGet(url);
@@ -92,7 +92,17 @@ const dataMiddleware = store => next => (action) => {
       break;
     }
     case CREATE_COMPANY: {
-      createData('api/company/new');
+      axios.post('api/company/new', action.values)
+        .then((response) => {
+          if (response.data.succes) {
+            axios.post('/login', values)
+              .then((response) => {
+                store.dispatch(loggedIn());
+                store.dispatch(userConnected(response.data.user));
+              });
+          }
+    });
+      
       break;
     }
     case LOGGED_OUT: {

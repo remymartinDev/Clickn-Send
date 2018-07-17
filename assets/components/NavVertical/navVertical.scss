@@ -35,10 +35,12 @@
   background-color: $color-mauve-4;
   border: none;
   &:focus {
-    border: none !important;
+    border: 1px solid $color-mauve-4 !important;
+    outline: none;
   }
   &:active {
-    border: none !important;
+    border: 1px solid $color-mauve-4 !important;
+    outline: none;
   }
 }
 .navV-contain {

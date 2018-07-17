@@ -10,7 +10,9 @@ import '~/components/Forms/forms.scss';
 
 class App extends React.Component {
   componentDidMount() {
-    // chargement des données
+
+    // chargement des données 
+    //TODO A refaire:
     this.props.loadAllData();
   }
 
