@@ -36,7 +36,7 @@ class MainController extends Controller
     * @Route("/company/create")
     * @Route("/payments")
     * @Route("/admin/payment/edit")
-    * @Route("/payment/create")
+    * @Route("/payment/create/{id}")
     * @Route("/test")
     */
     public function home()

@@ -14,7 +14,7 @@ security:
 
     firewalls:
         main:
-#            pattern: ^/
+            pattern: ^/
 #            form_login:
 #                provider: fos_userbundle
             json_login:
@@ -38,10 +38,12 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/signin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        - { path: /invoices/^, roles: ROLE_ROG }
-        - { path: /invoice/^, roles: ROLE_ROG }
+        - { path: ^/dashboard, roles: ROLE_ROL }
+
+        - { path: ^/invoices, roles: ROLE_ROG }
+        - { path: ^/invoice, roles: ROLE_ROG }
 
         - { path: ^/edit, roles: ROLE_FULL }
         - { path: ^/create, roles: ROLE_FULL }
         
-        - { path: /admin/^, roles: ROLE_ADMIN }
+        - { path: /admin, roles: ROLE_ADMIN }
