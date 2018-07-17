@@ -1,5 +1,5 @@
 import { ajaxGet, ajaxDelete, ajaxCreate } from '~/components/utils/ajax';
-
+import axios from 'axios';
 import {
   LOAD_CUSTOMERS,
   LOAD_INVOICES,
@@ -18,6 +18,8 @@ import {
   loadStatus,
   loadProducts,
 } from '~/store/reducers/dataActionCreator';
+import { LOGGED_OUT } from '~/store/reducers/localActions';
+import { loggedOut } from '../reducers/localActionCreator';
 
 const getDataCreator = (next, action) => async (url) => {
   const { data } = await ajaxGet(url);
@@ -90,8 +92,15 @@ const dataMiddleware = store => next => (action) => {
       break;
     }
     case CREATE_COMPANY: {
-      console.log('in middle');
       createData('api/company/new');
+      break;
+    }
+    case LOGGED_OUT: {
+      axios.get('/logout')
+        .then((response) => {
+          console.log(response);
+          next(action);
+        });
       break;
     }
     default:

@@ -12,10 +12,7 @@ class App extends React.Component {
   componentDidMount() {
     // chargement des données
     this.props.loadAllData();
-    console.log(this.props.loggedIn);
   }
-
-  
 
   render() {
     return (
@@ -29,7 +26,7 @@ class App extends React.Component {
         />
         {/* On redirigie toutes les autre route vers le composant Routes */}
         <Route path="/test" component={Test} />
-        <Route component={Routes} />
+        { this.props.loggedIn ? <Route component={Routes} /> : <Redirect to="/" />}
       </Switch>
     );
   }

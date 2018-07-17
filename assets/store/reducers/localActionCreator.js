@@ -6,6 +6,7 @@ import {
   LOAD,
   LOGGED_OUT,
   LOGGED_IN,
+  USER_CONNECTED,
 } from './localActions';
 
 export const openModal = (view, field) => ({
@@ -38,4 +39,9 @@ export const loggedIn = () => ({
 
 export const loggedOut = () => ({
   type: LOGGED_OUT,
+});
+
+export const userConnected = values => ({
+  type: USER_CONNECTED,
+  values,
 });

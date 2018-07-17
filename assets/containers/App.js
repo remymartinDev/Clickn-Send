@@ -16,6 +16,7 @@ import { bindActionCreators } from 'redux';
  */
 const mapStateToProps = state => ({
   loggedIn: state.notreReducer.loggedIn,
+  userConnected: state.notreReducer.userConnected,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -2,8 +2,10 @@
 .navVHead {
   background-color: $color-mauve-4;
   width: 100%;
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: 14fr 1fr 1fr 1fr;
+  justify-content: end;
+  justify-items: end;
   padding: 0.3rem 2rem 0.3rem 0.3rem;
   align-items: center;
   position: sticky;
@@ -26,7 +28,18 @@
 .question {
   width: 20px;
   height: 20px;
-  
+}
+.signout {
+  min-width: 20px;
+  min-height: 20px;
+  background-color: $color-mauve-4;
+  border: none;
+  &:focus {
+    border: none !important;
+  }
+  &:active {
+    border: none !important;
+  }
 }
 .navV-contain {
   width: max-content;
