@@ -3,6 +3,7 @@ import {
   CLOSE_MODAL,
   OPEN_MODAL_HOME,
   CLOSE_MODAL_HOME,
+  LOAD,
 } from './localActions';
 
 export const openModal = (view, field) => ({
@@ -22,4 +23,9 @@ export const openModalHome = homeView => ({
 
 export const closeModalHome = () => ({
   type: CLOSE_MODAL_HOME,
+});
+
+export const load = data => ({
+  type: LOAD,
+  data,
 });

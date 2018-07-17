@@ -1,9 +1,15 @@
-import { CLOSE_MODAL, OPEN_MODAL, OPEN_MODAL_HOME, CLOSE_MODAL_HOME } from './localActions';
+import {
+  CLOSE_MODAL,
+  OPEN_MODAL,
+  OPEN_MODAL_HOME,
+  CLOSE_MODAL_HOME,
+  LOAD,
+} from './localActions';
 /**
  * État initial pour le state de l'application
  */
 const initialState = {
-  data: {},
+  data: null,
   modal: false,
   view: '',
   field: '',
@@ -16,7 +22,7 @@ const initialState = {
  */
 const reducer = (currentState = initialState, action = {}) => {
   switch (action.type) {
-    case 'LOAD': {
+    case LOAD: {
       return {
         ...currentState,
         data: action.data,
@@ -41,7 +47,6 @@ const reducer = (currentState = initialState, action = {}) => {
     }
 
     case OPEN_MODAL_HOME: {
-      console.log(action);
       return {
         ...currentState,
         modalHome: true,
