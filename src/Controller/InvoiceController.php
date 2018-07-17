@@ -20,6 +20,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\InvoiceHasProduct;
 use App\Repository\ProductRepository;
+use App\Repository\InvoiceHasProductRepository;
 
 
 /**
@@ -116,21 +117,42 @@ class InvoiceController extends Controller
     /**
      * @Route("/{id}/edit", name="invoice_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Invoice $invoice): Response
+    public function edit(Request $request, Invoice $invoice, SerializerInterface $serializer, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository, ProductRepository $productRepository, InvoiceHasProductRepository $invoiceHPR): Response
     {
-        $form = $this->createForm(InvoiceType::class, $invoice);
-        $form->handleRequest($request);
+        $data = $request->getContent();
+        $data_array = json_decode($data, true);   
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $em = $this->getDoctrine()->getManager();
 
-            return $this->redirectToRoute('invoice_edit', ['id' => $invoice->getId()]);
+        //take relational object for invoice 
+        $customer = $customerRepository->findOneById($data_array['customer']);
+        $status = $statusRepository->findOneById($data_array['status']);
+        $company = $this->getUser()->getCompany();
+        
+        $invoice->hydrateEdit($data_array, $customer, $status, $company);
+
+        foreach ($invoice->getInvoiceHasProducts() as $iHP) {
+            $em->remove($iHP);
+        }
+        
+        //set invoice has product
+        foreach ($data_array['invoiceHasProducts'] as $datas) {
+            
+            $product = $productRepository->findOneById($datas['product']);
+
+                $invoiceHasProduct = new InvoiceHasProduct();
+                $invoiceHasProduct->hydrate($invoice, $product, $datas);
+    
+                $em->persist($invoiceHasProduct);
         }
 
-        return $this->render('invoice/edit.html.twig', [
-            'invoice' => $invoice,
-            'form' => $form->createView(),
-        ]);
+        $em->flush();
+        $response = [
+            'succes' => true,
+            'id' => $invoice->getId()
+            ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 
     /**
