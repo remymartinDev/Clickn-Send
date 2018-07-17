@@ -14,8 +14,13 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function login(Request $request)
+    public function login(Request $request, SerializerInterface $serializer)
     {
-        return new Response('Lala');
+        $response = [
+            'succes' => true,
+            'user' => $this->getUser()
+            ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 }
