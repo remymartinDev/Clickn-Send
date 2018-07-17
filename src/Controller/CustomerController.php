@@ -30,10 +30,8 @@ class CustomerController extends Controller
      */
     public function list(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        
-        $customers = $customerRepository->findActivCustomers(1);
-
-        
+        $company_id = $this->getUser()->getCompany()->getId();
+        $customers = $customerRepository->findActivCustomers($company_id);    
 
         foreach ($customers as $customer) {
 

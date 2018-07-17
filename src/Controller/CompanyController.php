@@ -30,7 +30,6 @@ class CompanyController extends Controller
         $company = $serializer->deserialize($data, Company::class, 'json');
 
         $countryCode = preg_split('[0-9]',$company->getVatNumber());
-        $role = $roleRepo->findOneById(1);
 
         $company->setCountryCode($countryCode[0]);
 
@@ -43,6 +42,7 @@ class CompanyController extends Controller
         $member->setSuperAdmin(true);
         $member->setUsername($data_array['_username']);
         $member->setPlainPassword($data_array['_password']);
+        $member->setEnabled(true);
         $member->setEmail($data_array['email']);
 
         $em->persist($member);
@@ -60,9 +60,11 @@ class CompanyController extends Controller
     /**
      * @Route("/admin", name="company_show", methods="GET")
      */
-    public function show(Company $company, ConfiguredSerializer $configuredSerializer): Response
+    public function show(ConfiguredSerializer $configuredSerializer): Response
     {
-        $json = $json = $configuredSerializer->getConfiguredSerializer()->serialize($company, 'json');
+        $company = $this->getUser()->getCompany();
+        
+        $json = $configuredSerializer->getConfiguredSerializer()->serialize($company, 'json');
 
         return new Response($json);
     }
