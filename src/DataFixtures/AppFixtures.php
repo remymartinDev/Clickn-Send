@@ -350,6 +350,7 @@ class AppFixtures extends Fixture
                 $invoiceHasProduct->setInvoice($invoices1[$i]);
                 $invoiceHasProduct->setProduct($products1[mt_rand(0,19)]);
                 $invoiceHasProduct->setAmountDuttyFree(mt_rand(2000, 99999)/100);
+                $invoiceHasProduct->setTaxesAmount(mt_rand(200, 9999)/100);
                 $invoiceHasProduct->setAmountAllTaxes(mt_rand(2000, 99999)/100);
                 $manager->persist($invoiceHasProduct);
             }
@@ -362,6 +363,7 @@ class AppFixtures extends Fixture
                 $invoiceHasProduct->setInvoice($invoices2[$i]);
                 $invoiceHasProduct->setProduct($products2[mt_rand(0,19)]);
                 $invoiceHasProduct->setAmountDuttyFree(mt_rand(2000, 99999)/100);
+                $invoiceHasProduct->setTaxesAmount(mt_rand(200, 9999)/100);
                 $invoiceHasProduct->setAmountAllTaxes(mt_rand(2000, 99999)/100);
                 $manager->persist($invoiceHasProduct);
             }
@@ -393,6 +395,7 @@ class AppFixtures extends Fixture
             $member = new Member;
             $member->setCompany($companies[0]);
             $member->setSuperAdmin(true);
+            $member->setEnabled(true);
             $member->setUsername('admin');
             $member->setPlainPassword('admin');
             $member->setEmail('admin@admin.com');

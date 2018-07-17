@@ -189,7 +189,7 @@ class InvoiceHasProduct
         return $this->taxesAmount;
     }
 
-    public function setTaxesAmount($vatAmount): self
+    public function setTaxesAmount($taxesAmount): self
     {
         $this->taxesAmount = $taxesAmount;
 
