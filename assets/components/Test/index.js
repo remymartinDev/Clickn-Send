@@ -7,7 +7,7 @@ class Test extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/invoice/1/pdf')
+    axios.get('/api/invoice/17')
       .then((response) => {
         console.log(response);
         this.setState({

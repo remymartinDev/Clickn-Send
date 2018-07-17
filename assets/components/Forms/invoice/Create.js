@@ -59,6 +59,7 @@ const mapDispatchToProps = dispatch => ({
   },
   onSubmit: (values) => {
     console.log('create invoice');
+    console.log(values);
     dispatch(createInvoice(values));
     dispatch(loadInvoices());
   },

@@ -40,4 +40,5 @@ EditInvoice.propTypes = {
 
 export default reduxForm({
   form: 'facture',
+  enableReinitialize: true,
 })(EditInvoice);
