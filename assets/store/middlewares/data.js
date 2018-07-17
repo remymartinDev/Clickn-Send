@@ -109,6 +109,7 @@ const dataMiddleware = store => next => (action) => {
       axios.get('/logout')
         .then((response) => {
           console.log(response);
+          sessionStorage.removeItem('user');
           next(action);
         });
       break;

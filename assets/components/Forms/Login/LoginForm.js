@@ -26,6 +26,8 @@ const mapDispatchToProps = dispatch => ({
     axios.post('/login', values)
       .then((response) => {
         if (response.data.succes) {
+          const user = JSON.stringify(response.data.user);
+          sessionStorage.setItem('user', user);
           dispatch(loggedIn());
           dispatch(userConnected(response.data.user));
         }
