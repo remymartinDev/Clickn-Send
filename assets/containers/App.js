@@ -8,17 +8,19 @@ import { connect } from 'react-redux';
  */
 import App from '~/components/App';
 
-import { loadAllData } from '~/store/reducers/dataActionCreator';
+import { loadAllData, loggedIn, loggedOut } from '~/store/reducers/dataActionCreator';
 import { bindActionCreators } from 'redux';
 
 /**
  * Connection du composant au store via connect()()
  */
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  loggedIn: state.notreReducer.loggedIn,
+});
 
 const mapDispatchToProps = dispatch => ({
   // === loadAllData: () => { dispatch(loadAllData() ) }
-  ...bindActionCreators({ loadAllData }, dispatch),
+  ...bindActionCreators({ loadAllData, loggedIn, loggedOut }, dispatch),
 });
 
 const AppContainer = connect(

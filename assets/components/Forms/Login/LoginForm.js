@@ -2,8 +2,9 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import axios from 'axios';
+
+import { loggedIn } from '~/store/reducers/localActionCreator';
 
 const LoginForm = ({ handleSubmit }) => (
   <form className="form signup-form" onSubmit={handleSubmit}>
@@ -24,8 +25,13 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: (values) => {
     console.log(values);
     axios.post('/login', values)
-      .then(response => console.log(response));
-  },
+      .then((response) => {
+        console.log(response);
+        if (response.data.succes) {
+          dispatch(loggedIn());
+        }
+      });
+  },   
 });
 
 export default connect(
