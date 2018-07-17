@@ -284,11 +284,11 @@ sudo a2enmod rewrite
 service apache2 restart
 ```
 ---
-## installer **WkHtmlToPdf** 
-le paquet se télécharge ICI => https://wkhtmltopdf.org/downloads.html
-## ***ATTENTION*** il faut choisir la version compatible avec l'OS qui fait tourner votre serveur   
+- installer _WkHtmlToPdf_   
+le paquet se télécharge ICI => https://wkhtmltopdf.org/downloads.html  
+#### ***ATTENTION*** il faut choisir la version compatible avec l'OS qui fait tourner votre serveur
+puis vérifier que le fichier est bien installé sur le chemin ***/usr/local/bin/whhtmltopdf***  
 
-puis vérifier que le fichier est bien installé sur le chemin ***/usr/local/bin/whhtmltopdf***
 
 - installer _knp-snappy-bundle_
 ```
@@ -300,5 +300,5 @@ composer require knplabs/knp-snappy-bundle
 composer require symfony/swiftmailer-bundle
 ```
 
-dev-mo : méthode bourrine en cas de soucis  
+dev-mode : méthode bourrine en cas de soucis  
 chmod 777 -R /var/www/html/apothéose/Click-n-send/
