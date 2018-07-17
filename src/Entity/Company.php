@@ -98,6 +98,11 @@ class Company
      */
     private $countryCode;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $website;
+
 
     public function getId()
     {
@@ -292,6 +297,18 @@ class Company
     public function setCountryCode(string $countryCode): self
     {
         $this->countryCode = $countryCode;
+
+        return $this;
+    }
+
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    public function setWebsite(?string $website): self
+    {
+        $this->website = $website;
 
         return $this;
     }
