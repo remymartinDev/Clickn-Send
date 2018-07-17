@@ -4,6 +4,8 @@ import {
   OPEN_MODAL_HOME,
   CLOSE_MODAL_HOME,
   LOAD,
+  LOGGED_IN,
+  LOGGED_OUT,        
 } from './localActions';
 /**
  * État initial pour le state de l'application
@@ -15,6 +17,7 @@ const initialState = {
   field: '',
   modalHome: false,
   homeView: '',
+  loggedIn: false,
 };
 
 /**
@@ -59,6 +62,18 @@ const reducer = (currentState = initialState, action = {}) => {
         ...currentState,
         modalHome: false,
         homeView: '',
+      };
+    }
+    case LOGGED_IN: {
+      return {
+        ...currentState,
+        loggedIn: true,
+      };
+    }
+    case LOGGED_OUT: {
+      return {
+        ...currentState,
+        loggedIn: false,
       };
     }
     default: return currentState;

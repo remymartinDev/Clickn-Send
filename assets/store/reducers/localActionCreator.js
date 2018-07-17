@@ -4,6 +4,8 @@ import {
   OPEN_MODAL_HOME,
   CLOSE_MODAL_HOME,
   LOAD,
+  LOGGED_OUT,
+  LOGGED_IN,
 } from './localActions';
 
 export const openModal = (view, field) => ({
@@ -28,4 +30,12 @@ export const closeModalHome = () => ({
 export const load = data => ({
   type: LOAD,
   data,
+});
+
+export const loggedIn = () => ({
+  type: LOGGED_IN,
+});
+
+export const loggedOut = () => ({
+  type: LOGGED_OUT,
 });

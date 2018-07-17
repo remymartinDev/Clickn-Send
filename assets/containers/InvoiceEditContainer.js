@@ -45,6 +45,7 @@ const mapStateToProps = (state) => {
       legalNotice,
     } = currentInvoice;
     const invoiceHasProducts = currentInvoice.invoiceHasProducts.map(product => ({
+      id: product.id,
       product: product.product.id,
       price: product.product.price,
       quantity: product.quantity,
@@ -67,7 +68,7 @@ const mapStateToProps = (state) => {
       taxesAmount,
       status,
       legalNotice,
-      invoiceHasProducts,      
+      invoiceHasProducts,
     };
     return { initialValues };
   }
