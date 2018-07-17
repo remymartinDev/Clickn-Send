@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm, change } from 'redux-form';
 import axios from 'axios';
 
-import { createInvoice, loadInvoices } from '~/store/reducers/dataActionCreator';
+import { loadInvoices } from '~/store/reducers/dataActionCreator';
 import InvoiceForm from '~/components/Forms/invoice/InvoiceForm';
 
 const mapDispatchToProps = dispatch => ({
@@ -21,8 +21,11 @@ const mapDispatchToProps = dispatch => ({
       });
   },
   onSubmit: (values) => {
-    console.log('update invoice');
-    console.log(values);
+    axios.post(`/api/invoice/${values.id}/edit`, values)
+      .then((response) => {
+        console.log(response);
+        dispatch(loadInvoices());
+      });
   },
 });
 
@@ -64,7 +67,7 @@ const mapStateToProps = (state) => {
       taxesAmount,
       status,
       legalNotice,
-      invoiceHasProducts,                            
+      invoiceHasProducts,      
     };
     return { initialValues };
   }
