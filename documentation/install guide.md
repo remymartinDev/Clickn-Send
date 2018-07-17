@@ -103,7 +103,7 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 ```
 ```
-apt-get update && sudo apt-get install yarn
+apt-get update && apt-get install yarn
 ```
 
 ---
@@ -120,6 +120,10 @@ php -r "unlink('composer-setup.php');"
 puis installation globale
 ```
 mv composer.phar /usr/local/bin/composer
+```
+enfin
+```
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 ---
 # préparation du  dossier CLICK-N-SEND
