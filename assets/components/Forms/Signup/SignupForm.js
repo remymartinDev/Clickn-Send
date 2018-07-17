@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm, FormSection } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
 import { createCompany } from '~/store/reducers/dataActionCreator';
@@ -48,7 +48,7 @@ const SignupForm = (props) => {
       <label className="form-label" htmlFor="companyInformation">Informations légales</label>
       <Field className="form-field" name="companyInformation" component="input" type="text" />
       <label className="form-label" htmlFor="logo">Votre Logo</label>
-      <Field className="form-field" name="logo" component="InputFile" />
+      <Field className="form-field" name="logo" component={InputFile} />
       <button className="form-button">Créer</button>
     </form>
   );

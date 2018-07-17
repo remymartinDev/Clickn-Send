@@ -15,8 +15,9 @@ export const closeModal = () => ({
   type: CLOSE_MODAL,
 });
 
-export const openModalHome = () => ({
+export const openModalHome = homeView => ({
   type: OPEN_MODAL_HOME,
+  homeView,
 });
 
 export const closeModalHome = () => ({

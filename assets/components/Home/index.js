@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { openModalHome } from '~/store/reducers/localActionCreator';
 import logo from '~/images/click-n-send_logo.png';
@@ -17,10 +16,8 @@ const Home = ({ openModalHome: open }) => (
         <img src={logo} alt="logo" className="home-logo" />
       </Link>
       <div className="home-in">
-        <Link to="/login">
-          <button className="home-button">Login</button>
-        </Link>
-        <button className="home-button" onClick={open}>Créer un compte</button>
+        <button className="home-button" onClick={open('login')}>Login</button>
+        <button className="home-button" onClick={open('signup')}>Créer un compte</button>
       </div>
     </div>
     <ModalHome />
@@ -30,11 +27,13 @@ Home.propTypes = {
   openModalHome: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ openModalHome }, dispatch),
+  openModalHome: view => () => {
+    console.log(view);
+    dispatch(openModalHome(view));
+  },
 });
 
 export default connect(

@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { closeModalHome } from '~/store/reducers/localActionCreator';
 
 import SignupForm from '~/components/Forms/Signup/SignupForm';
+import LoginForm from '~/components/Forms/Login/LoginForm';
+
+const ModalList = {
+  signup: <SignupForm />,
+  login: <LoginForm />,
+};
 
 class ModalHome extends React.Component {
   componentDidMount() {
@@ -16,11 +22,13 @@ class ModalHome extends React.Component {
 
   render() {
     const { modalHome, closeModalHome: close } = this.props;
+    console.log(this.props.component);
+    console.log(this.props);
     return (
       <Modal isOpen={modalHome} toggle={() => {}} className="custom-modal">
         <ModalHeader toggle={close} />
         <ModalBody>
-          <SignupForm />
+          {this.props.Component}
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={close}>Annuler</Button>
@@ -37,6 +45,7 @@ ModalHome.propTypes = {
 
 const mapStateToProps = state => ({
   modalHome: state.notreReducer.modalHome,
+  Component: ModalList[state.notreReducer.homeView],
 });
 
 const mapDispatchToProps = dispatch => ({

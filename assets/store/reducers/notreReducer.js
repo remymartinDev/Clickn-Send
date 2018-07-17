@@ -8,6 +8,7 @@ const initialState = {
   view: '',
   field: '',
   modalHome: false,
+  homeView: '',
 };
 
 /**
@@ -40,9 +41,11 @@ const reducer = (currentState = initialState, action = {}) => {
     }
 
     case OPEN_MODAL_HOME: {
+      console.log(action);
       return {
         ...currentState,
         modalHome: true,
+        homeView: action.homeView,
       };
     }
 
@@ -50,6 +53,7 @@ const reducer = (currentState = initialState, action = {}) => {
       return {
         ...currentState,
         modalHome: false,
+        homeView: '',
       };
     }
     default: return currentState;

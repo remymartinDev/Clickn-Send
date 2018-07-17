@@ -25,7 +25,7 @@ const EditInvoice = ({
         <Field component="textarea" name="legalNotice" className="form-mentions-field" />
       </div>
       <StatusInvoice />
-      <Button type="submit" className="form-btn form-btn-submit">Générer votre facture</Button>
+      <Button type="submit" className="form-btn form-btn-submit">Editer</Button>
     </form>
   </div>
 );

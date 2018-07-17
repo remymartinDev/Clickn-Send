@@ -38,8 +38,6 @@ class MainController extends Controller
     * @Route("/admin/payment/edit")
     * @Route("/payment/create")
     * @Route("/test")
-    * @Route("/login")
-    * @Route("/signin")
     */
     public function home()
     {
