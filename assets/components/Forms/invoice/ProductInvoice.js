@@ -4,11 +4,14 @@ import axios from 'axios';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Field, reduxForm, change, formValueSelector } from 'redux-form';
+import { bindActionCreators } from 'redux';
+import { loadProducts } from '~/store/reducers/dataActionCreator';
 
 import ProductInvoiceItem from './ProductInvoiceItem';
 
 class ProductInvoice extends React.Component {
-  state = {
+  componentDidMount() {
+    this.props.loadProducts();
   }
 
   getProductsJSX = () => (
@@ -33,7 +36,7 @@ class ProductInvoice extends React.Component {
       return {
         amountAllTaxes: total.amountAllTaxes + Number(item.amountAllTaxes),
         amountDuttyFree: total.amountDuttyFree + Number(item.amountDuttyFree),
-        taxesAmount: total.taxesAmount + Number(item.taxesAmount), 
+        taxesAmount: total.taxesAmount + Number(item.taxesAmount),
       };
     }, {
       amountAllTaxes: 0,
@@ -87,13 +90,13 @@ class ProductInvoice extends React.Component {
           Calculer le total
         </Button>
         <label htmlFor="amountCustomerRemise" className="form-create-invoice-label-disable">Montant de la remise client</label>
-        <Field component="input" type="number" name="amountCustomerRemise" parse={value => Number(value)} disabled className="form-create-invoice-field-disable"/>
+        <Field component="input" type="number" name="amountCustomerRemise" parse={value => Number(value)} disabled className="form-create-invoice-field-disable" />
         <label htmlFor="amountDuttyFree" className="form-create-invoice-label-disable">Prix Total HT</label>
-        <Field component="input" type="number" name="amountDuttyFree" parse={value => Number(value)} disabled className="form-create-invoice-field-disable"/>
+        <Field component="input" type="number" name="amountDuttyFree" parse={value => Number(value)} disabled className="form-create-invoice-field-disable" />
         <label htmlFor="taxesAmount" className="form-create-invoice-label-disable">Montant Total de la TVA</label>
-        <Field component="input" type="number" name="taxesAmount" parse={value => Number(value)} disabled className="form-create-invoice-field-disable"/>
+        <Field component="input" type="number" name="taxesAmount" parse={value => Number(value)} disabled className="form-create-invoice-field-disable" />
         <label htmlFor="amountAllTaxes" className="form-create-invoice-label-disable">Prix Total TTC</label>
-        <Field component="input" type="number" name="amountAllTaxes" parse={value => Number(value)} disabled className="form-create-invoice-field-disable"/>
+        <Field component="input" type="number" name="amountAllTaxes" parse={value => Number(value)} disabled className="form-create-invoice-field-disable" />
       </div>
     );
   }
@@ -105,10 +108,13 @@ ProductInvoice.propTypes = {
   fields: PropTypes.object.isRequired,
   remiseCustomer: PropTypes.string,
   changeAmountsTotal: PropTypes.func.isRequired,
+  loadProducts: PropTypes.func.isRequired,
+  allFields: PropTypes.array,
 };
 
 ProductInvoice.defaultProps = {
   remiseCustomer: '0',
+  allFields: [],
 };
 
 const selector = formValueSelector('facture');
@@ -126,6 +132,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(change('facture', 'taxesAmount', montantTVA));
     dispatch(change('facture', 'amountAllTaxes', prixTTC));
   },
+  ...bindActionCreators({ loadProducts }, dispatch),
 });
 
 export default connect(

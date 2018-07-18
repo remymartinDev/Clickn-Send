@@ -1,15 +1,21 @@
 import React from 'react';
 import { Field, reduxForm, change } from 'redux-form';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { openModal } from '~/store/reducers/localActionCreator';
+import { loadCustomers } from '~/store/reducers/dataActionCreator';
 
 class CustomerInvoice extends React.Component {
   state = {
     modal: false,
+  }
+
+  componentDidMount() {
+    this.props.loadCustomers();
   }
 
   getCustomersJSX = () => (
@@ -63,6 +69,7 @@ CustomerInvoice.propTypes = {
   openModal: PropTypes.func.isRequired,
   customers: PropTypes.array.isRequired,
   fillRemise: PropTypes.func.isRequired,
+  loadCustomers: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
   customers: state.data.customers,
@@ -75,6 +82,7 @@ const mapDispatchToProps = dispatch => ({
   openModal: (view, field) => () => {
     dispatch(openModal(view, field));
   },
+  ...bindActionCreators({ loadCustomers }, dispatch),
 });
 
 export default connect(
