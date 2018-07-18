@@ -195,19 +195,41 @@ class InvoiceController extends Controller
       /**
      * @Route("/{id}/copy", name="invoice_copy", methods="GET|POST")
      */
-    public function copy(Request $request, Invoice $invoice)
+    public function copy(Request $request, Invoice $invoice, SerializerInterface $serializer)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $newInvoice = clone $invoice;
-        $em->persiste($newInvoice);
+
+        $company = $this->getUser()->getCompany();
+
+        $payment_term = 'P' . $company->getPaymentTerm() . 'D';
+        $date = new \Datetime();
+        $reference = $date->format('Ymdh-is');
+        $datedeadline = new \Datetime();
+        $deadline = $datedeadline->add(new \DateInterval($payment_term));
+
+        $newInvoice->setDate($date);
+        $newInvoice->setReference($reference);
+        $newInvoice->setDeadline1($deadline);
+        $newInvoice->setRecurringDate();
+        
+        $em->persist($newInvoice);
         $em->flush();
         
         foreach ($invoice->getInvoiceHasProducts() as $ihp) {
             $newIhp = clone $ihp;
             $newIhp->setInvoice($newInvoice);
-            $em->persiste(newIhp);
+            $em->persist($newIhp);
         }
         
         $em->flush();
+
+        $response = [
+            'succes' => true,
+            ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
 
     }
 
@@ -216,13 +238,19 @@ class InvoiceController extends Controller
     */
     public function recurring(Request $request, Invoice $invoice, StatusRepository $statusRepo )
     {
+
+        $data = $request->getContent();
+        $data_array = json_decode($data, true);
+
         $actualStatus = $invoice->getStatus();
         $statusRec = $statusRepo->findOneByInvoiceStatus('facture récurrente');
-        $statusInv = $statusRepo->findOneByInvoiceStatus('facture récurrente');
+        $statusInv = $statusRepo->findOneByInvoiceStatus('facture');
 
         if ($actualStatus === $statusRec) {
 
-            $invoice->setStatus($status);
+            $invoice->setStatus($statusInv);
+            $invoice->setRecurringTerm(null);
+            $invoice->setRecurringDate();
             $response = [
                 'succes' => true,
                 'id' => $invoice->getId()
@@ -230,7 +258,9 @@ class InvoiceController extends Controller
 
         }elseif ($actualStatus === $statusInv) {
 
-            $invoice->setStatus($status);
+            $invoice->setStatus($statusRec);
+            $this->setRecurringTerm($data_array['recurringTerm']);
+            $this->setRecurringDate();
             $response = [
                 'succes' => true,
                 'id' => $invoice->getId()
@@ -249,4 +279,22 @@ class InvoiceController extends Controller
         return new Response($json);
     }
 
+      /**
+     * @Route("/{id}/reminder", name="invoice_reminder", methods="GET|POST")
+     */
+    public function recurred(Request $request, Invoice $invoice)
+    {
+        $invoice = clone $invoice;
+        $em->persiste($newInvoice);
+        $em->flush();
+        
+        foreach ($invoice->getInvoiceHasProducts() as $ihp) {
+            $newIhp = clone $ihp;
+            $newIhp->setInvoice($newInvoice);
+            $em->persiste(newIhp);
+        }
+        
+        $em->flush();
+
+    }
 }

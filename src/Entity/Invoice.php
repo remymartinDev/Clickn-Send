@@ -428,14 +428,17 @@ class Invoice
         return $this->recurringDate;
     }
 
-    public function setRecurringDate($recDate): self
+    public function setRecurringDate()
     {
-        if (is_string($recDate)) {
-            $this->recurringDate = new \Datetime($recDate);
-            return $this;     
-        }else {
-            $this->recurringDate = $recDate;
-            return $this;
+        if ($this->getRecurringTerm() === null) {
+            return $this->recurringDate = null;
+        }
+        else {
+            $rtDate= new \Datetime();
+            $RT = $this->getRecurringTerm();
+            $recurring_term = 'P' . $RT . 'D';
+            $recDate = $rtDate->add(new \DateInterval($recurring_term));
+            return $this->recurringDate = $recDate;
         }
     }
 
@@ -483,10 +486,6 @@ class Invoice
         $reference = $date->format('Ymdh-is');
         $datedeadline = new \Datetime();
         $deadline = $datedeadline->add(new \DateInterval($payment_term));
-        
-        $RT = $invoice->getRecurringTerm();
-        $recurring_term = 'P' . $RT . 'D';
-        $recurringDate = $date->add(new \DateInterval($recurring_term));
 
         //set invoice
         $this->setCustomer($customer);
@@ -498,8 +497,8 @@ class Invoice
         $this->setReminder(0);
         $this->setDeadline1($deadline);
         //$this->setDownPayment();
-        $this->setRecurringTerm($RT);
-        $this->setRecurringDate($recurringDate);
+        $this->setRecurringTerm($data_array['recurringTerm']);
+        $this->setRecurringDate();
     }
 
     public function hydrateEdit($data_array, $customer, $status, $company)
@@ -509,15 +508,6 @@ class Invoice
         $reference = $date->format('Ymdh-is');
         $datedeadline = new \Datetime();
         $deadline = $datedeadline->add(new \DateInterval($payment_term));
-
-        if ($invoice->getRecurringTerm() == null){
-            $RT = $data_array['recurringTerm'];
-        }
-        else {
-            $RT = $invoice->getRecurringTerm();
-        }
-        $recurring_term = 'P' . $RT . 'D';
-        $recurringDate = $date->add(new \DateInterval($recurring_term));
 
         $this->setCustomer($customer);
         $this->setStatus($status);
@@ -532,9 +522,8 @@ class Invoice
         $this->setLegalNotice($data_array['legalNotice']);
         //$this->setDownPayment($data_array['downPayment']);
         $this->setTaxesAmount($data_array['taxesAmount']);
-        $this->setRecurringTerm($RT);
-        $this->setRecurringDate($recurringDate);
-
+        $this->setRecurringTerm($data_array['recurringTerm']);
+        $this->setRecurringDate();
     }
 
 }
