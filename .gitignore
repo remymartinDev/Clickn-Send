@@ -4,12 +4,14 @@
 /public/bundles/
 /var/
 /vendor/*
-!/vendor/friendofsymfony
-/vendor/friendofsymfony/*
-!/vendor/friendofsymfony/user-bundle
-/vendor/friendofsymfony/user-bundle/model/*
-!/vendor/friendofsymfony/user-bundle/model/user.php
-!/vendor/friendofsymfony/user-bundle/model/userInterface.php
+!/vendor/friendsofsymfony
+/vendor/friendsofsymfony/*
+!/vendor/friendsofsymfony/user-bundle
+/vendor/friendsofsymfony/user-bundle/*
+!/vendor/friendsofsymfony/user-bundle/Model
+/vendor/friendsofsymfony/user-bundle/Model/*
+!/vendor/friendsofsymfony/user-bundle/Model/UserInterface.php
+!/vendor/friendsofsymfony/user-bundle/Model/User.php
 /src/Migrations
 ###< symfony/framework-bundle ###
 
