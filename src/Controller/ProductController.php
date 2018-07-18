@@ -6,7 +6,6 @@ use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Repository\CompanyRepository;
 use App\Service\ConfiguredSerializer;
-use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +37,7 @@ class ProductController extends Controller
     /**
      * @Route("/new", name="product_new", methods="GET|POST")
      */
-    public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer, InjectionEntity $injectionEntity): Response
+    public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer): Response
     {
         $data = $request->getContent();
         

@@ -8,7 +8,6 @@ use App\Form\CustomerType;
 use App\Repository\CustomerRepository;
 use App\Repository\CompanyRepository;
 use App\Service\ConfiguredSerializer;
-use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +52,7 @@ class CustomerController extends Controller
     /**
      * @Route("/new", name="customer_new", methods="GET|POST")
      */
-    public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer, InjectionEntity $injectionEntity)
+    public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer)
     {
         $data = $request->getContent();
         

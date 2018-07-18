@@ -25,7 +25,8 @@ class CustomerController extends Controller
     public function listInactiv(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
     {
         
-        $customers = $customerRepository->findInactivCustomers(1);
+        $companyId = $this->getUser()->getCompany()->getId();
+        $customers = $customerRepository->findInactivCustomers($companyId);
 
         foreach ($customers as $customer) {
 

@@ -8,7 +8,6 @@ use App\Form\PaymentType;
 use App\Repository\CompanyRepository;
 use App\Repository\PaymentRepository;
 use App\Service\ConfiguredSerializer;
-use App\Service\InjectionEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,7 +57,7 @@ class PaymentController extends Controller
     /**
      * @Route("/new/{id}", name="payment_new", methods="GET|POST")
      */ 
-    public function new(Request $request, Invoice $invoice, CompanyRepository $companyRepository, SerializerInterface $serializer, InjectionEntity $injectionEntity)
+    public function new(Request $request, Invoice $invoice, CompanyRepository $companyRepository, SerializerInterface $serializer)
     {
         $data = $request->getContent();
         

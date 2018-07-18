@@ -24,7 +24,8 @@ class MemberController extends Controller
      */
     public function list(MemberRepository $memberRepository, ConfiguredSerializer $configuredSerializer): Response
     {
-        $Members = $memberRepository->findByCompany(1);
+        $companyId = $this->getUser()->getCompany()->getId();
+        $Members = $memberRepository->findByCompany($companyId);
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($Members, 'json');
@@ -44,7 +45,7 @@ class MemberController extends Controller
         $member = $serializer->deserialize($data, Member::class, 'json');
         
         //take relational object for member
-        $company = $companyRepository->findOneById(1);
+        $company = $this->getUser()->getCompany();
         $role = $roleRepository->findOneById($data_array['role']['id']);
         
         //set member

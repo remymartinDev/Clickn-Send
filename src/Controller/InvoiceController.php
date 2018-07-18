@@ -161,12 +161,12 @@ class InvoiceController extends Controller
     public function delete(Request $request, Invoice $invoice)
     {
 
-/*         if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { */
+         if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { 
             $em = $this->getDoctrine()->getManager();
             $em->remove($invoice);
             $em->flush();
+        } 
         
-       /*  } */
        $response = [
         'succes' => true,
         ];
