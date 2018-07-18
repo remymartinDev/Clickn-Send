@@ -5,15 +5,16 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { loggedIn, userConnected } from '~/store/reducers/localActionCreator';
+import './login.scss';
 
 const LoginForm = ({ handleSubmit }) => (
   <form className="form signup-form" onSubmit={handleSubmit}>
-    <h1>Login</h1>
-    <label htmlFor="username" className="form-label">identifiant</label>
+    <h1 className="form signup-form-title">Login</h1>
+    <label htmlFor="username" className="form-label">Identifiant</label>
     <Field className="form-field" name="username" component="input" type="text" />
     <label htmlFor="password" className="form-label">Mot de passe</label>
     <Field className="form-field" name="password" component="input" type="password" />
-    <button type="submit">s'identifier</button>
+    <button className="form signup-form-btn" type="submit">s'identifier</button>
   </form>
 );
 
@@ -32,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
           dispatch(userConnected(response.data.user));
         }
       });
-  },   
+  },
 });
 
 export default connect(

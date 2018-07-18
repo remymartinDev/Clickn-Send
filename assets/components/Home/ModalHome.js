@@ -13,6 +13,11 @@ const ModalList = {
   login: <LoginForm />,
 };
 
+const classList = {
+  signup: 'signup-modal',
+  login: 'login-modal',
+};
+
 class ModalHome extends React.Component {
   componentDidMount() {
     if (this.props.modalHome) {
@@ -21,11 +26,10 @@ class ModalHome extends React.Component {
   }
 
   render() {
-    const { modalHome, closeModalHome: close } = this.props;
-    console.log(this.props.component);
-    console.log(this.props);
+    const { modalHome, closeModalHome: close, modalClass } = this.props;
+    console.log(modalClass);
     return (
-      <Modal isOpen={modalHome} toggle={() => {}} className="custom-modal">
+      <Modal isOpen={modalHome} toggle={() => {}} className={`custom-modal ${modalClass}`}>
         <ModalHeader toggle={close} />
         <ModalBody>
           {this.props.Component}
@@ -41,11 +45,17 @@ class ModalHome extends React.Component {
 ModalHome.propTypes = {
   modalHome: PropTypes.bool.isRequired,
   closeModalHome: PropTypes.func.isRequired,
+  modalClass: PropTypes.string.isRequired,
+  Component: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.element,
+  ]).isRequired,
 };
 
 const mapStateToProps = state => ({
   modalHome: state.notreReducer.modalHome,
-  Component: ModalList[state.notreReducer.homeView],
+  Component: ModalList[state.notreReducer.homeView] || false,
+  modalClass: classList[state.notreReducer.homeView] || '',
 });
 
 const mapDispatchToProps = dispatch => ({
