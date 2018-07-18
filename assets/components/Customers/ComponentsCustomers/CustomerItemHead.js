@@ -6,7 +6,7 @@ import ChevronDown from 'react-icons/lib/fa/chevron-down';
 
 
 const ProductItemHead = ({ clickChevron }) => (
-  <div className="list-contain-client list-contain--head">
+  <div className="list-contain-client list-contain-client--head">
     <div className="list-item">
       Pro
       <ChevronDown className="chevron" onClick={clickChevron('pro')} />
@@ -18,26 +18,35 @@ const ProductItemHead = ({ clickChevron }) => (
     <div className="list-item">
       TVA
     </div>
-    <div className="list-item">
-      Adresse
-    </div>
-    <div className="list-item">
-      Pays
-      <ChevronDown className="chevron" onClick={clickChevron('pays')} />
-    </div>
-    <div className="list-item">
-      Téléphone
-    </div>
-    <div className="list-item">
-      Portable
-    </div>
-    <div className="list-item">
-      E-mail
-    </div>
-    <div className="list-item">
-      Remise
-      <ChevronDown className="chevron" onClick={clickChevron('remise')} />
-    </div>
+    <Media query="(min-width: 769px)">
+      {matches => (
+        matches
+        &&
+        <div>
+          <div className="list-item">
+            Adresse
+          </div>
+          <div className="list-item">
+            Pays
+            <ChevronDown className="chevron" onClick={clickChevron('pays')} />
+          </div>
+          <div className="list-item">
+            Téléphone
+          </div>
+          <div className="list-item">
+            Portable
+          </div>
+          <div className="list-item">
+            E-mail
+          </div>
+          <div className="list-item">
+            Remise
+            <ChevronDown className="chevron" onClick={clickChevron('remise')} />
+          </div>
+        </div>
+      )}
+    </Media>
+   
     
   </div>
 );

@@ -6,15 +6,47 @@ import ChevronDown from 'react-icons/lib/fa/chevron-down';
 
 
 const ProductItemHead = ({ clickChevron }) => (
-  <div className="list-contain-product list-contain--head">
-    <div className="list-item">
-      Dénomination
-      <ChevronDown className="chevron" onClick={clickChevron('denomination')} />
-    </div>
-    <div className="list-item">
-      Référence
-      <ChevronDown className="chevron" onClick={clickChevron('reference')} />
-    </div>
+  <div className="list-contain-product list-contain-product--head">
+    <Media query="(max-width: 768px)">
+      {matches => (
+        matches
+        &&
+        <div className="list-item">
+          Dén.
+          <ChevronDown className="chevron" onClick={clickChevron('denomination')} />
+        </div>
+      )}
+    </Media>
+    <Media query="(min-width: 769px)">
+      {matches => (
+        matches
+        &&
+        <div className="list-item">
+          Dénomination
+          <ChevronDown className="chevron" onClick={clickChevron('denomination')} />
+        </div>
+      )}
+    </Media>
+    <Media query="(max-width: 768px)">
+      {matches => (
+        matches
+        &&
+        <div className="list-item">
+          Réf.
+          <ChevronDown className="chevron" onClick={clickChevron('denomination')} />
+        </div>
+      )}
+    </Media>
+    <Media query="(min-width: 769px)">
+      {matches => (
+        matches
+        &&
+        <div className="list-item">
+          Référence
+          <ChevronDown className="chevron" onClick={clickChevron('reference')} />
+        </div>
+      )}
+    </Media>
     <Media query="(min-width: 769px)">
       {matches => (
         matches
@@ -29,10 +61,17 @@ const ProductItemHead = ({ clickChevron }) => (
       Prix
       <ChevronDown className="chevron" onClick={clickChevron('prix')} />
     </div>
-    <div className="list-item">
-      Unité
-      <ChevronDown className="chevron" onClick={clickChevron('unite')} />
-    </div>
+    <Media query="(min-width: 769px)">
+      {matches => (
+        matches
+        &&
+        <div className="list-item">
+          Unité
+          <ChevronDown className="chevron" onClick={clickChevron('unite')} />
+        </div>
+      )}
+    </Media>
+    
   </div>
 );
 

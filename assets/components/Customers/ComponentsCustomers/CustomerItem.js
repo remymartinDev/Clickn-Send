@@ -7,6 +7,7 @@ import FaTrash from 'react-icons/lib/fa/trash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserTie, faFileInvoiceDollar, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import Media from 'react-media';
 
 import './ClientItem.scss';
 import DropdownButton from '../../utils/DropdownButton';
@@ -25,7 +26,6 @@ const CustomerItem = ({
   vatNumber,
   remise,
   id,
-  deleteCustomer,
 }) => {
   const proIcon = {
     true: faBuilding,
@@ -37,21 +37,21 @@ const CustomerItem = ({
       <FontAwesomeIcon className="list-item--icon" icon={proIcon[pro]} />
       <div className="list-item"> {pro ? customerCompany : `${lastname} ${firstname}` }</div>
       <div className="list-item">{vatNumber}</div>
-      <div className="list-item">{companyAdress}</div>
-      <div className="list-item">{countryCode}</div>
-      <div className="list-item">{phone}</div>
-      <div className="list-item">{mobile}</div>
-      <div className="list-item">{email}</div>
-      <div className="list-item">{remise} %</div>
+      <Media query="(min-width: 769px)" >
+        {matches => (
+          matches
+          &&
+          <div>
+            <div className="list-item">{companyAdress}</div>
+            <div className="list-item">{countryCode}</div>
+            <div className="list-item">{phone}</div>
+            <div className="list-item">{mobile}</div>
+            <div className="list-item">{email}</div>
+            <div className="list-item">{remise} %</div>
+          </div>
+        )}
+      </Media>
       <DropdownButton componentType="customer" id={id} />
-      {/* <FaEye className="list-item--icon" />
-      <Link to={`/customers/${id}`} className="list-item--icon"> <FaPencil /> </Link>
-      <FaDownload className="list-item--icon" />
-      <FontAwesomeIcon className="list-item--icon" icon={faFileInvoiceDollar} />
-      <FaTrash
-        className="list-item--icon"
-        onClick={deleteCustomer(id)}
-      /> */}
       <div className="list-item last-item">{comment}</div>
     </div>
   );
@@ -68,7 +68,6 @@ CustomerItem.propTypes = {
   customerCompany: PropTypes.string,
   phone: PropTypes.string.isRequired,
   comment: PropTypes.string,
-  deleteCustomer: PropTypes.func.isRequired,
   vatNumber: PropTypes.string.isRequired,
   remise: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,

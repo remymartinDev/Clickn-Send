@@ -1,8 +1,19 @@
 @import '~/styles/vars.scss';
 
 .page-container-product {
+  padding-top: 2rem;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "addProduct"
+    "title"
+    "listProducts";
+
+}
+.product-create-button {
+    justify-self: center;
+    align-items: center;
+    grid-area: addProduct;
 }
 
 .contain-products {
@@ -11,8 +22,26 @@
 
 .titl-product {
   color:$color-orange-0;
+  font-size: 2rem;
+  grid-area: title;
 }
 
 .list-prod-btn {
   margin: auto;
+}
+
+
+@media (min-width: 768px) {
+  .page-container-product {
+      grid-template-columns: 2fr 1fr;
+      grid-template-areas: none;
+      align-items: baseline;
+      justify-content: space-between;
+  }
+  .product-create-button {
+      grid-area: auto;
+  }
+  .titl-product {
+    grid-area: auto;
+  }
 }

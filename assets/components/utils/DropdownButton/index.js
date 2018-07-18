@@ -10,74 +10,76 @@ import { bindActionCreators } from 'redux';
 
 import { loadCustomers, loadInvoices, loadProducts } from '~/store/reducers/dataActionCreator';
 
+import './dropdownButton.scss';
+
 class DropdownButton extends React.Component {
   state = {
     dropdownOpen: false,
   }
 
-  getLoadAction = () => {
+  loadAction = () => {
     const loadList = {
-      invoice: loadInvoices,
-      product: loadProducts,
-      customer: loadCustomers,
+      invoice: this.props.loadInvoices,
+      product: this.props.loadProducts,
+      customer: this.props.loadCustomers,
     };
-    return loadList[this.props.componentType];
+    loadList[this.props.componentType]();
   }
+
   toggle = () => {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
     });
   }
+
   handleDelete = () => {
-    const { componentType, id, componentObject } = this.props;
-    console.log('avant', componentObject);
-    const newObject = { ...componentObject, active: false };
-    console.log('après', newObject);
-    axios.post(`/api/${componentType}/${id}/edit`, newObject)
+    const { componentType, id } = this.props;
+    axios.post(`/api/${componentType}/${id}/activ`)
       .then((response) => {
         console.log(response);
         if (response.data.succes) {
-          this.getLoadAction();
+          this.loadAction();
         }
       });
   }
 
   render() {
-    const { componentType, id, componentObject } = this.props;
+    const { componentType, id } = this.props;
 
     return (
       <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle>
-          <FontAwesomeIcon className="list-item--icon" icon={faEllipsisV} />
+        <DropdownToggle className="dropdown-btn">
+          <FontAwesomeIcon icon={faEllipsisV} />
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem>
-            <Link to="/customers" className="list-item--icon">
-              <FontAwesomeIcon className="list-item--icon" icon={faEye} />
+          <DropdownItem className="dropdown-box">
+            <Link to="/customers" className="dropdown-link">
+              <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
                Voir
             </Link>
           </DropdownItem>
-          <DropdownItem>
-            <Link to={`/${componentType}s/${id}`} className="list-item--icon">
-              <FontAwesomeIcon className="list-item--icon" icon={faPencilAlt} />
+          <DropdownItem className="dropdown-box">
+            <Link to={`/${componentType}s/${id}`} className="dropdown-link">
+              <FontAwesomeIcon className="dropdown-link-icon" icon={faPencilAlt} />
                Editer
             </Link>
           </DropdownItem>
           {
             componentType === 'invoice'
             &&
-            <DropdownItem>
-              <Link to={`/${componentType}/${id}/pdf`} className="list-item--icon">
-                <FontAwesomeIcon className="list-item--icon" icon={faDownload} />
+            <DropdownItem className="dropdown-box">
+              <Link to={`/${componentType}/${id}/pdf`} className="dropdown-link">
+                <FontAwesomeIcon className="dropdown-link-icon" icon={faDownload} />
                  Télécharger
               </Link>
             </DropdownItem>
           }
           <DropdownItem
             onClick={this.handleDelete}
+            className="dropdown-link dropdown-box"
           >
             <FontAwesomeIcon
-              className="list-item--icon"
+              className="dropdown-link-icon"
               icon={faTrashAlt}
             />
               Archiver
@@ -91,7 +93,6 @@ class DropdownButton extends React.Component {
 DropdownButton.propTypes = {
   componentType: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  componentObject: PropTypes.object.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

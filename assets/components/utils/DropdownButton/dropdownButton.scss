@@ -1,0 +1,51 @@
+@import '~/styles/vars.scss';
+
+.dropdown-btn {
+  background-color: white;
+  color: $color-mauve-4;
+  border: none;
+  &:hover {
+    background-color: white;
+    color: $color-mauve-1;
+    border: none;
+  }
+  &:focus {
+    border: 1px solid white !important;
+    outline: none;
+    box-shadow: 1px 1px 1px white !important;
+  }
+  &:active {
+    border: 1px solid white !important;
+    outline: none;
+    background-color: white !important;
+    color: $color-mauve-2 !important;
+    box-shadow: 0px 0px 0px white !important;
+  }
+}
+.dropdown-link {
+  color: white;
+  &:hover {
+    color: $color-mauve-4;
+  }
+  &-icon {
+    color: white;
+    margin: 0 0.5rem;
+    &:hover {
+      color: $color-mauve-4;
+    }
+  }
+}
+.dropdown-box{
+  &:hover {
+    color: $color-mauve-4 !important;
+    .dropdown-link {
+      color: $color-mauve-4 !important;
+      &-icon {
+        color: $color-mauve-4;
+      }
+    }
+  }
+  &:focus {
+    color: $color-mauve-4 !important;
+  }
+}

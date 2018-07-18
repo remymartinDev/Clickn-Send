@@ -1,8 +1,14 @@
 @import '~/styles/vars.scss';
 
 .page-container-clients {
+  padding-top: 2rem;
   display: grid;
   grid-template-columns: 3fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "addCustomer"
+    "title"
+    "listCustomers";
 }
 
 .contain-clients {
@@ -11,8 +17,29 @@
 
 .titl-clients {
   color:$color-vert-0;
+  grid-area: title;
+}
+.client-create-button {
+  justify-self: center;
+  align-items: center;
+  grid-area: addCustomer;
 }
 
 .list-cli-btn {
   margin: auto;
+}
+
+@media (min-width: 768px) {
+  .page-container-clients {
+      grid-template-columns: 2fr 1fr;
+      grid-template-areas: none;
+      align-items: baseline;
+      justify-content: space-between;
+  }
+  .client-create-button {
+      grid-area: auto;
+  }
+  .titl-clients {
+    grid-area: auto;
+  }
 }
