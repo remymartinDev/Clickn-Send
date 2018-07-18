@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import Media from 'react-media';
 import { FormattedDate } from 'react-intl';
-import FaEye from 'react-icons/lib/fa/eye';
-import FaPencil from 'react-icons/lib/fa/pencil';
-import FaDownload from 'react-icons/lib/fa/download';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faFileInvoiceDollar, faFileInvoice, faFileExcel, faUndoAlt } from '@fortawesome/free-solid-svg-icons';
+
+import DropdownButton from '~/components/utils/DropdownButton';
 
 import './FactureItem.scss';
 
@@ -38,11 +36,7 @@ const FactureItem = ({
       <Media query="(min-width: 769px)">
         {matches => (matches && <div className="list-item">{status.invoiceStatus}</div>)}
       </Media>
-      <FaEye className="list-item--icon" />
-      <Link to={`/invoices/${id}`} className="list-item--icon">
-        <FaPencil className="list-item--icon" />
-      </Link>
-      <FaDownload className="list-item--icon" />
+      <DropdownButton componentType="invoice" id={id} />
     </div>
   );
 };

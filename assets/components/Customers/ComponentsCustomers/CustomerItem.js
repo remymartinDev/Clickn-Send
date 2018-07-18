@@ -9,6 +9,7 @@ import { faUserTie, faFileInvoiceDollar, faBuilding } from '@fortawesome/free-so
 import { Link } from 'react-router-dom';
 
 import './ClientItem.scss';
+import DropdownButton from '../../utils/DropdownButton';
 
 const CustomerItem = ({
   customerCompany,
@@ -42,14 +43,15 @@ const CustomerItem = ({
       <div className="list-item">{mobile}</div>
       <div className="list-item">{email}</div>
       <div className="list-item">{remise} %</div>
-      <FaEye className="list-item--icon" />
+      <DropdownButton componentType="customer" id={id} />
+      {/* <FaEye className="list-item--icon" />
       <Link to={`/customers/${id}`} className="list-item--icon"> <FaPencil /> </Link>
       <FaDownload className="list-item--icon" />
       <FontAwesomeIcon className="list-item--icon" icon={faFileInvoiceDollar} />
       <FaTrash
         className="list-item--icon"
         onClick={deleteCustomer(id)}
-      />
+      /> */}
       <div className="list-item last-item">{comment}</div>
     </div>
   );
