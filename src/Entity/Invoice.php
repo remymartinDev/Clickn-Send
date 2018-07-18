@@ -121,6 +121,11 @@ class Invoice
      */
     private $amountCustomerRemise;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $recurringTerm;
+
     public function __construct()
     {
         $this->payments = new ArrayCollection();
@@ -457,7 +462,19 @@ class Invoice
 
         return $this;
     }
+    
+    public function getRecurringTerm(): ?int
+    {
+        return $this->recurringTerm;
+    }
 
+    public function setRecurringTerm(?int $recurringTerm): self
+    {
+        $this->recurringTerm = $recurringTerm;
+
+        return $this;
+    }
+    
     public function hydrate($customer, $status, $company)
     {
         //make autocomplet variable
@@ -466,6 +483,10 @@ class Invoice
         $reference = $date->format('Ymdh-is');
         $datedeadline = new \Datetime();
         $deadline = $datedeadline->add(new \DateInterval($payment_term));
+        
+        $RT = $invoice->getRecurringTerm();
+        $recurring_term = 'P' . $RT . 'D';
+        $recurringDate = $date->add(new \DateInterval($recurring_term));
 
         //set invoice
         $this->setCustomer($customer);
@@ -477,6 +498,8 @@ class Invoice
         $this->setReminder(0);
         $this->setDeadline1($deadline);
         //$this->setDownPayment();
+        $this->setRecurringTerm($RT);
+        $this->setRecurringDate($recurringDate);
     }
 
     public function hydrateEdit($data_array, $customer, $status, $company)

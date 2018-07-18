@@ -211,4 +211,42 @@ class InvoiceController extends Controller
 
     }
 
+    /**
+    * @Route("/{id}/recurring", name="invoice_recurring", methods="GET|POST")
+    */
+    public function recurring(Request $request, Invoice $invoice, StatusRepository $statusRepo )
+    {
+        $actualStatus = $invoice->getStatus();
+        $statusRec = $statusRepo->findOneByInvoiceStatus('facture récurrente');
+        $statusInv = $statusRepo->findOneByInvoiceStatus('facture récurrente');
+
+        if ($actualStatus === $statusRec) {
+
+            $invoice->setStatus($status);
+            $response = [
+                'succes' => true,
+                'id' => $invoice->getId()
+                ];
+
+        }elseif ($actualStatus === $statusInv) {
+
+            $invoice->setStatus($status);
+            $response = [
+                'succes' => true,
+                'id' => $invoice->getId()
+                ];
+
+        }else {
+            $response = [
+                'succes' => false,
+                'id' => $invoice->getId(),
+                'error' => 'l objet passé n\'a pas le status facture'
+                ];
+
+        }
+
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
+    }
+
 }

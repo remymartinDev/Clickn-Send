@@ -126,38 +126,11 @@ class AppFixtures extends Fixture
             $BOR
         ];
 
-        $city = [
-            'Paris',
-            'Marseille',
-            'Lyon',
-            'Toulouse',
-            'Nice',
-            'Nantes',
-            'Strasbourg',
-            'Montpellier',
-            'Bordeaux',
-            'Lille',
-            'Rennes',
-            'Reims',
-            'Le Havre',
-            'Saint-Étienne',
-            'Toulon',
-        ];       
+        $city = ['Paris','Marseille','Lyon','Toulouse','Nice','Nantes','Strasbourg','Montpellier','Bordeaux','Lille','Rennes','Reims','Le Havre','Saint-Étienne','Toulon'];       
         
-        $country = [
-            'FR',
-            'BE',
-            'LU',
-            'DE',
-            'ES',
-            'IT',
-            'NL'
-        ];
+        $country = ['FR','BE','LU','DE','ES','IT','NL'];
 
-        $sarl = [
-            'Clickn\'Send',
-            'Société Lambda'
-        ];
+        $sarl = [ 'Clickn\'Send','Société Lambda' ];
         
         $companies = [];
         for ($i=0; $i < 2; $i++) { 
@@ -182,18 +155,18 @@ class AppFixtures extends Fixture
         }
 
 
-        $pro = [
-            true,
-            false
-        ];
+        $pro = [true, false];
+
+        $nom = ['GOUGEON','THOUVENIN','ROUYER','JEHANNO','BOUR','MICHOT','NATTEAU','BOITEL','LEPRINCE','FLAHAUT','TIXIER','ETCHEVERRY','ABADIE','CANAL','WENDLING','SUTTER','RIVOIRE','GALMICHE','BOUILLOT','BOUTTIER'];
+        $prenom = [];
 
         $customers1 = [];
         for ($i=0; $i < 6; $i++) { 
             $customer = new Customer();
             $pays = $country[mt_rand(0, 6)];
-            $customer->setLastname('LASTNAME'.$i);
+            $customer->setLastname($nom[mt_rand(0, 19)]);
             $customer->setFirstname('Firstname'.$i);
-            $customer->setCompanyAdress((1 + $i).', rue du customer '.(1 + $i));
+            $customer->setCompanyAdress((1 + $i).', route de '. $city[mt_rand(0, 14)]);
             $customer->setZipCode(mt_rand(11111, 99999));
             $customer->setCity($city[mt_rand(0, 6)]);
             $customer->setCountryCode($pays);
@@ -218,7 +191,7 @@ class AppFixtures extends Fixture
             $pays = $country[mt_rand(0, 6)];
             $customer->setLastname('LASTNAME'.$i);
             $customer->setFirstname('Firstname'.$i);
-            $customer->setCompanyAdress((1 + $i).', rue du customer '.(1 + $i));
+            $customer->setCompanyAdress((1 + $i).', route de '. $city[mt_rand(0, 14)]);
             $customer->setZipCode(mt_rand(01000, 99999));
             $customer->setCity($city[mt_rand(0, 6)]);
             $customer->setCountryCode($pays);
@@ -259,6 +232,10 @@ class AppFixtures extends Fixture
             'Solet salutis quicquid insontium fecit luctuosam insontium etiam aut angustus offensis animus ita tener salutis existimans et angustus aut ita',
             'Restituit qui mihi qui mihi quod perennis impendentibus incredibili capitis cum quodam amore ac cum in reducit in periculis viderem',
             'Ob Orfitus minus urbem huius sese ad prudens dignitatis liberalium ultra oppido vulgus sunt minus excitatur decuerat haec haec vulgus'
+        ];
+
+        $prod = [
+            
         ];
 
         $products1 = [];

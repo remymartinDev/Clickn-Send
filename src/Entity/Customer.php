@@ -84,12 +84,12 @@ class Customer
     private $remise;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="customer", orphanRemoval="true")
+     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="customer", orphanRemoval=true)
      */
     private $invoices;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="customer", orphanRemoval="true")
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="customer", orphanRemoval=true)
      */
     private $payments;
 
