@@ -269,15 +269,18 @@ et ajoutez votre VH (ex : ***127.0.0.1 clicknsend.local***  ou ***192.168.xx.xx 
 cd /etc/apache2/sites-available
 sudo touch clicknsend.local.conf
 ```
-- dans ce fichier créé, copiez ceci (en adaptant bien sûr les données a votre VH) : 
+- allez dans le fichier créé 
 ```PHP     
 sudo nano /etc/apache2/sites-available/clicknsend.local.conf
 ```
+et copiez ceci (en adaptant bien sûr les données a votre VH) :
+```PHP  
+//attention : mettre le bon chemin de son dossier
 
-```PHP     
+
 <VirtualHost *:80>
   ServerAdmin MonAdresseMail@MonMail.com
-  DocumentRoot "/var/www/html/CheminDeMonDossier/Click-n-send/public/" //attention mettre le bon chemin de son dossier
+  DocumentRoot "/var/www/html/CheminDeMonDossier/Click-n-send/public/" 
   ServerName clicknsend.local
   ServerAlias www.clicknsend.local
 </VirtualHost>
@@ -301,7 +304,7 @@ service apache2 restart
 - installer _WkHtmlToPdf_   
 le paquet se télécharge ICI => https://wkhtmltopdf.org/downloads.html  
 #### ***ATTENTION*** il faut choisir la version compatible avec l'OS qui fait tourner votre serveur
-puis vérifier que le fichier est bien installé sur le chemin ***/usr/local/bin/whhtmltopdf***  
+puis vérifier que le fichier est bien installé sur le chemin ***/usr/local/bin/wkhtmltopdf***  
 
 
 - installer _knp-snappy-bundle_

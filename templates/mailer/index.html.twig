@@ -12,11 +12,14 @@ M,Mm {{invoice.customer.lastname}}
 Voici votre facture du {{invoice.date|date('d-m-Y')}}, numero {{ invoice.reference }}
 cordialement.
 
-{{invoice.company.companyName}}
-{{invoice.company.companyAdress}}
-{{invoice.company.zipCode}}, {{invoice.company.city}}
-{{invoice.company.phone}}
-{{invoice.company.fax}}
-{{invoice.company.email}}
+<div>
+    {{invoice.company.companyName}} <br>
+    {{invoice.company.companyAdress}} <br>
+    {{invoice.company.zipCode}}, {{invoice.company.city}} <br>
+    {{invoice.company.phone}} <br>
+    {{invoice.company.fax}} <br>
+    {{invoice.company.email}} <br>
+    {{invoice.company.webSite}}
+</div>
 
 {% endblock %}
