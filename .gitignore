@@ -3,7 +3,13 @@
 /.env
 /public/bundles/
 /var/
-/vendor/
+/vendor/*
+!/vendor/friendofsymfony
+/vendor/friendofsymfony/*
+!/vendor/friendofsymfony/user-bundle
+/vendor/friendofsymfony/user-bundle/model/*
+!/vendor/friendofsymfony/user-bundle/model/user.php
+!/vendor/friendofsymfony/user-bundle/model/userInterface.php
 /src/Migrations
 ###< symfony/framework-bundle ###
 

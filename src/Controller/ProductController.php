@@ -26,7 +26,12 @@ class ProductController extends Controller
     public function list(ProductRepository $productRepository, ConfiguredSerializer $configuredSerializer): Response
     {
         $companyId = $this->getUser()->getCompany()->getId();
-        $products = $productRepository->findActivProducts($companyId);
+
+        if ($this->getUser()->getRole()[0] === 'ROLE_ADMIN') {
+            $products = $productRepository->findByCompany($companyId);
+        }else {
+            $products = $productRepository->findActivProducts($companyId);
+        }
         
         //on utilise un service créé par nos soin pour configurer le serializer
         $json = $configuredSerializer->getConfiguredSerializer()->serialize($products, 'json');
