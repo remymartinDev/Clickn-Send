@@ -23,7 +23,7 @@ class Home extends React.Component {
   getProductJSX = () => {
     const orderedProducts = this.order();
     const productsJsx = orderedProducts.map(product => (
-      <ProductItem key={product.id} {...product} clickDelete={this.handleDelete} />
+      <ProductItem key={product.id} product={product} clickDelete={this.handleDelete} />
     ));
     return productsJsx;
   }
@@ -94,15 +94,6 @@ class Home extends React.Component {
     });
   }
 
-  handleDelete = id => () => {
-    axios.delete(`/api/product/${id}`)
-      .then((response) => {
-        console.log(response);
-        if (response.data.success) {
-          this.props.loadProducts();
-        }
-      });
-  }
 
   render() {
     return (
