@@ -10,7 +10,6 @@ import '~/components/Forms/forms.scss';
 
 class App extends React.Component {
   componentDidMount() {
-    console.log(sessionStorage);
     if (sessionStorage.getItem('user')) {
       const user = JSON.parse(sessionStorage.getItem('user'));
       console.log(user);
@@ -20,6 +19,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props.loggedIn);
     return (
       <Switch>
         <Route

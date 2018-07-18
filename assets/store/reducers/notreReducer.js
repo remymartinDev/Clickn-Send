@@ -11,6 +11,8 @@ import {
 /**
  * État initial pour le state de l'application
  */
+const isLogged = sessionStorage.getItem('user') ? true : false;
+
 const initialState = {
   data: null,
   modal: false,
@@ -18,8 +20,8 @@ const initialState = {
   field: '',
   modalHome: false,
   homeView: '',
-  loggedIn: false,
-  userConnected: false,
+  loggedIn: isLogged,
+  userConnected: isLogged ? JSON.parse(sessionStorage.getItem('user')) : false,
 };
 
 /**
