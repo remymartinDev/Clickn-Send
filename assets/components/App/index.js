@@ -10,10 +10,13 @@ import '~/components/Forms/forms.scss';
 
 class App extends React.Component {
   componentDidMount() {
-
-    // chargement des données 
-    //TODO A refaire:
-    this.props.loadAllData();
+    console.log(sessionStorage);
+    if (sessionStorage.getItem('user')) {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      console.log(user);
+      this.props.login();
+      this.props.userConnected(user);
+    }
   }
 
   render() {
@@ -35,8 +38,9 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  loadAllData: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
+  userConnected: PropTypes.func.isRequired,
 };
 
 export default App;

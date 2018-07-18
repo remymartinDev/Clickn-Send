@@ -21,6 +21,10 @@ class Home extends React.Component {
     },
   }
 
+  componentDidMount() {
+    this.props.loadInvoices();
+  }
+
   handleChevron = type => () => {
     const { type: stateType, asc } = this.state.filter;
     this.setState({
@@ -155,6 +159,7 @@ Home.propTypes = {
   invoices: PropTypes.array.isRequired,
   lateInvoices: PropTypes.array.isRequired,
   addReminder: PropTypes.func.isRequired,
+  loadInvoices: PropTypes.func.isRequired,
 };
 
 export default Home;

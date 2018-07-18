@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import App from '~/components/App';
 
 import { loadAllData, loggedIn, loggedOut } from '~/store/reducers/dataActionCreator';
+import { loggedIn as login, userConnected } from '~/store/reducers/localActionCreator';
 import { bindActionCreators } from 'redux';
 
 /**
@@ -21,7 +22,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   // === loadAllData: () => { dispatch(loadAllData() ) }
-  ...bindActionCreators({ loadAllData, loggedIn, loggedOut }, dispatch),
+  ...bindActionCreators({
+    // loadAllData,
+    loggedIn,
+    loggedOut,
+    login,
+    userConnected,
+  }, dispatch),
 });
 
 const AppContainer = connect(

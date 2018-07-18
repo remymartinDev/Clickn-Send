@@ -10,7 +10,7 @@ import {
   CREATE_INVOICE,
   CREATE_CUSTOMER,
   CREATE_PRODUCT,
-  CREATE_COMPANY,
+  // CREATE_COMPANY,
 } from '~/store/reducers/dataActions';
 import {
   loadCustomers,
@@ -19,7 +19,7 @@ import {
   loadProducts,
 } from '~/store/reducers/dataActionCreator';
 import { LOGGED_OUT } from '~/store/reducers/localActions';
-import { loggedOut, loggedIn, userConnected } from '../reducers/localActionCreator';
+// import { loggedOut, loggedIn, userConnected } from '../reducers/localActionCreator';
 
 const getDataCreator = (next, action) => async (url) => {
   const { data } = await ajaxGet(url);
@@ -91,24 +91,24 @@ const dataMiddleware = store => next => (action) => {
       createData('/api/product/new');
       break;
     }
-    case CREATE_COMPANY: {
-      axios.post('api/company/new', action.values)
-        .then((response) => {
-          if (response.data.succes) {
-            axios.post('/login', values)
-              .then((response) => {
-                store.dispatch(loggedIn());
-                store.dispatch(userConnected(response.data.user));
-              });
-          }
-    });
-      
-      break;
-    }
+    // case CREATE_COMPANY: {
+    //   axios.post('api/company/new', action.values)
+    //     .then((response) => {
+    //       if (response.data.succes) {
+    //         axios.post('/login', values)
+    //           .then((responseLogin) => {
+    //             store.dispatch(loggedIn());
+    //             store.dispatch(userConnected(responseLogin.data.user));
+    //           });
+    //       }
+    //     });
+    //   break;
+    // }
     case LOGGED_OUT: {
       axios.get('/logout')
         .then((response) => {
           console.log(response);
+          sessionStorage.removeItem('user');
           next(action);
         });
       break;
