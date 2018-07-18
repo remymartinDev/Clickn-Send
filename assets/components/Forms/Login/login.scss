@@ -1,17 +1,14 @@
 @import '~/styles/vars.scss';
 
-.form.signup-form {
+.form.login-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  width: 60%;
+  grid-template-columns: 1fr;
+  padding: 0;
+  grid-gap: 0.5rem;
   &-title {
-    grid-column: 1 / -1;
-    text-align: left;
-    justify-self: left;
+    padding: 0 1rem 0 0;
   }
   &-btn {
-    grid-column: 1 / -1;
     padding: 0.8rem;
     background-color: $color-vert-0;
     color: white;
@@ -28,13 +25,46 @@
     }
   }
 }
-
-.login-modal {
-  padding: 0 2rem ;
-  width: 150px;
+@media (min-width: 769px) {
+  .form.login-form {
+    display: grid;
+    grid-template-columns: max-content auto;
+    grid-template-rows: auto;
+    justify-content: center;
+    align-items: end;
+    padding: 0.5rem;
+    &-title {
+      grid-column: 1 / -1;
+      text-align: left;
+      justify-self: left;
+      display: inline;
+    }
+    &-btn {
+      grid-column: 1 / -1;
+      padding: 0.8rem;
+      background-color: $color-vert-0;
+      color: white;
+      border: none;
+      box-shadow: 2px 2px 5px rgba(129,224,224,0.5);
+      font-weight: bold;
+      &:focus {
+        border: 1px solid $color-vert-0;
+        outline: none;
+      }
+      &:active {
+        border: 1px solid $color-vert-0;
+        outline: none;
+      }
+    }
+  }
   
-  .modal-content {
-    width: 50%;
-    margin: auto;
+  .login-modal {
+    padding: 0 2rem ;
+    width: 150px;
+    
+    .modal-content {
+      width: 50%;
+      margin: auto;
+    }
   }
 }

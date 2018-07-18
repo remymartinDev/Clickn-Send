@@ -1,14 +1,33 @@
 @import '~/styles/vars.scss';
-
 .form.signup-form {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-auto-rows: auto;
-  grid-gap: 1rem;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: 1fr;
+  grid-row-gap: 0.5rem;
+  * {
+    width: 100%;
+    margin: 0;
+  }
+  .form-title {
+    text-align: left;
+    display: inline;
+  }
 }
-
-.separation {
-  border-top: 2px solid $color-orange-0;
-  grid-column: 1 / -1;
-  margin: 2rem;
+@media (min-width: 769px) {
+  .form.signup-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+    .form-button {
+      width: auto;
+    }
+  }
+  
+  .separation {
+    border-top: 2px solid $color-orange-0;
+    grid-column: 1 / -1;
+    margin: 2rem;
+  }
 }

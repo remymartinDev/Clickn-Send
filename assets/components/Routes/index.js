@@ -3,8 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import Media from 'react-media';
 
 import Dashboard from '~/components/Dashboard';
-import Login from '~/components/Login';
-import Signin from '~/components/Signin';
 import NavClick from '~/components/NavClick';
 import NavVertical from '~/components/NavVertical';
 import Factures from '~/components/Invoices';
@@ -24,8 +22,6 @@ const Routes = () => (
     </Media>
     <Switch>
       <Route path="/dashboard" component={Dashboard} />
-      <Route path="/login" component={Login} />
-      <Route path="/signin" component={Signin} />
       <Route path="/invoices" component={Factures} />
       <Route path="/products" component={Products} />
       <Route path="/customers" component={Customers} />
