@@ -44,4 +44,24 @@ class MainController extends Controller
         require('build/index.html');
         exit;
     }
+
+    /**
+     * @Route("/api/user")
+     */
+    public function getConnectedUser(SerializerInterface $serializer)
+    {
+
+        if ($this->getUser() === null) {
+            $response = [
+                'connected' => false,
+                ];
+        } else {
+            $response = [
+                'connected' => true,
+                ];
+        }
+
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
+    }
 }

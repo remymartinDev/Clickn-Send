@@ -271,7 +271,7 @@ sudo touch clicknsend.local.conf
 ```
 - dans ce fichier créé, copiez ceci (en adaptant bien sûr les données a votre VH) : 
 ```PHP     
-sudo nano 
+sudo nano /etc/apache2/sites-available/clicknsend.local.conf
 ```
 
 ```PHP     

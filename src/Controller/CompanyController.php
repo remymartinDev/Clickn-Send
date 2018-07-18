@@ -56,7 +56,6 @@ class CompanyController extends Controller
         return new Response($json);
     }
 
-    // ici le parametre id est temporaire, car on ne peut pas recupérer l id de l entreprise du user connecté
     /**
      * @Route("/admin", name="company_show", methods="GET")
      */
