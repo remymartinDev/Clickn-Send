@@ -27,7 +27,7 @@ class ProductController extends Controller
     {
         $companyId = $this->getUser()->getCompany()->getId();
 
-        if ($this->getUser()->getRole()[0] === 'ROLE_ADMIN') {
+        if ($this->getUser()->getRoles()[0] === 'ROLE_ADMIN') {
             $products = $productRepository->findByCompany($companyId);
         }else {
             $products = $productRepository->findActivProducts($companyId);

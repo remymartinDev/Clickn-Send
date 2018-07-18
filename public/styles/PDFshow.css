@@ -1,0 +1,209 @@
+body {
+  width: 100%;
+  margin: auto;
+}
+
+
+.invoice-content {
+  margin: auto;
+  background-color: white;
+}
+
+ .invoice-content-border {
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+} 
+
+.customer {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: rgba(255,189,147,0.3);
+}
+
+.purple-border {
+  border: 0.25rem solid #D7D7D7;
+}
+
+.ecart {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.inside-products {
+  margin: 0.9rem 0rem 1.5rem 0.75rem;
+}
+
+.th {
+  font-size: 1.2rem;
+  padding: 0.6rem 1.5rem 0.6rem 0.6rem;
+  padding-left: 0.45rem;
+  text-align: left;
+  color: #DE5700;
+}
+
+.thd {
+  font-size: 1.2rem;
+  padding: 0.6rem 1.5rem 0.6rem 0.4rem;
+  padding-left: 0.45rem;
+  text-align: right;
+  color: #DE5700;
+}
+
+
+.product {
+  margin: 0;
+
+}
+
+.description {
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.trm {margin-top: 0.5rem;
+}
+
+.tr {
+  font-size: 1.1rem;
+  padding: 1.1rem 0rem 0rem 0rem;
+  padding-left: 0.45rem;
+  text-align: left;
+}
+
+.trr {
+  font-size: 1.1rem;
+  padding-left: 0.45rem;
+  text-align: left;
+  padding: 0;
+}
+
+.trd {
+  font-size: 1.4rem;
+  padding: 1.1rem 1rem 0rem 0rem;
+  text-align: right;
+}
+
+.customerRemise {
+  font-size: 0.8rem;
+  color: #DE5700;
+  line-height: 0.5rem;
+  }
+
+.date {
+  text-align: right;
+  margin-right: 3rem;
+}
+
+.invoice-ref {
+  margin: auto;
+  text-align: center;
+  border: 0.25rem solid #FFBD93;
+  font-size: 1.8rem;
+}
+
+.invoice-ref p {
+  margin-top: 1rem;
+}
+
+.inside {
+  margin: 0.75rem;
+}
+
+.bank-ref {
+  margin-top: 2rem;
+  line-height: 1.5rem;
+}
+
+.bank-ref-inf {
+  margin-top: 1.1rem;
+  font-size: 1.5rem;
+}
+
+.bank-inf {
+  font-size: 1.2rem;
+}
+
+.companyRef {
+  padding-left: 0;
+}
+
+.amounts {
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.remise {
+  font-size: 1.2rem
+}
+
+.total {
+  margin: 0;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+.amounts {
+  border: 0.25rem solid #D7D7D7;
+  margin: 0;
+}
+
+.pre-amount {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+  padding: 0.45rem 0.3rem;
+  margin-right: 1.5rem;
+}
+
+.ttc {
+  display: flex;
+  justify-content: space-between;
+  padding : 1.95rem 0.3rem;
+  margin-top: 2.25rem;
+  font-weight: bold;
+}
+
+.amount {
+  text-align: right;
+}
+
+.company-refs {
+  width: 90%;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  border-top: 0.25rem solid #FFBD93;
+  margin: auto;
+}
+
+.company-refs p {
+  line-height: 1rem;
+  margin:0;
+  text-align: center;
+}
+
+.company-name {
+  font-weight: bold;
+  font-size: 1.35rem;
+}
+
+.deadline {
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.clicknsend {
+  font-size: 0.6rem;
+  font-style: italic;
+  padding-bottom: 0;
+  text-align: left;
+}
+
+#clicknsend {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+

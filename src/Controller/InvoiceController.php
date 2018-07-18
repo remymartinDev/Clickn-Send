@@ -279,7 +279,8 @@ class InvoiceController extends Controller
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
-/**
+
+    /**
     * @Route("/{id}/recurred", name="invoice_recurred", methods="GET|POST")
     */
     public function recurred(Invoice $invoice, SerializerInterface $serializer)
@@ -292,4 +293,13 @@ class InvoiceController extends Controller
            'id' => $response['id'], 
         ]);  
     }
+
+    /**
+    * @Route("/{id}/abord", name="invoice_abord", methods="GET")
+    */
+    public function abordInvoiceCreation(Request $request, Invoice $invoice)
+    {
+        
+    }
+
 }

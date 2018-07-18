@@ -31,8 +31,8 @@ class CustomerController extends Controller
     {
         $companyId = $this->getUser()->getCompany()->getId();
 
-        if ($this->getUser()->getRole()[0] === 'ROLE_ADMIN') {
-            $customer = $customerRepository->findByCompany($companyId);
+        if ($this->getUser()->getRoles()[0] === 'ROLE_ADMIN') {
+            $customers = $customerRepository->findByCompany($companyId);
         }else {
             $customers = $customerRepository->findActivCustomers($companyId);    
         }
