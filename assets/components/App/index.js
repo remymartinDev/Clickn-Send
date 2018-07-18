@@ -20,7 +20,7 @@ class App extends React.Component {
     }
     // chargement des données 
     //TODO A refaire:
-    this.props.loadAllData();
+    // this.props.loadAllData();
   }
 
   render() {
@@ -42,7 +42,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  loadAllData: PropTypes.func.isRequired,
+  // loadAllData: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   userConnected: PropTypes.func.isRequired,

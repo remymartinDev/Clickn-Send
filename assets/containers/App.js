@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   // === loadAllData: () => { dispatch(loadAllData() ) }
   ...bindActionCreators({
-    loadAllData,
+    // loadAllData,
     loggedIn,
     loggedOut,
     login,

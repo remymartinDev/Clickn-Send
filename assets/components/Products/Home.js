@@ -14,17 +14,12 @@ class Home extends React.Component {
     filter: {
       type: 'id',
       asc: false,
-    }
+    },
   }
 
-  // componentDidMount() {
-  //   axios.get('/api/products')
-  //     .then(({ data: products }) => {
-  //       this.setState({
-  //         products,
-  //       });
-  //     });
-  // }
+  componentDidMount() {
+    this.props.loadProducts();
+  }
 
   getProductJSX = () => {
     const orderedProducts = [...this.props.products].sort((a, b) => {
@@ -124,6 +119,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   products: PropTypes.array.isRequired,
+  loadProducts: PropTypes.func.isRequired,
 };
 
 export default Home;

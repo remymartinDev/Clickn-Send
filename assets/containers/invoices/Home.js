@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Home from '~/components/Invoices/Home';
+import { loadInvoices } from '~/store/reducers/dataActionCreator';
 
 const sortInvoices = invoices => invoices.sort((a, b) => new Date(b.date) - new Date(a.date));
 const lastInvoices = invoices => sortInvoices(invoices).slice(0, 5);
@@ -18,7 +20,11 @@ const mapStateToProps = state => ({
   addReminder: id => console.log('TODO: faire le reminder ', id),
 });
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ loadInvoices }, dispatch),
+});
+
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(Home);
