@@ -17,6 +17,7 @@ class SecurityController extends Controller
     public function login(Request $request, SerializerInterface $serializer)
     {
         $response = [
+            'succes' => true,
             'user' => $this->getUser()
             ];
         $json = $serializer->serialize($response, 'json');
