@@ -31,7 +31,7 @@ const ProductItemHead = ({ clickChevron }) => (
     </div>
     <div className="list-item">
       Unité
-      <ChevronDown className="chevron" onClick={clickChevron('unité')} />
+      <ChevronDown className="chevron" onClick={clickChevron('unite')} />
     </div>
   </div>
 );

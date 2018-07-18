@@ -20,68 +20,74 @@ class Home extends React.Component {
   }
 
   getClientJSX = () => {
-    const orderedclient = [...this.props.customers].sort((a, b) => {
-      const filter = b.id - a.id;
-      return this.state.filter.asc ? filter : -filter;
-    });
-    const clientJsx = orderedclient.map(customer => (
+    const orderedCustomers = this.order();
+    const clientJsx = orderedCustomers.map(customer => (
       <CustomerItem key={customer.id} {...customer} />
     ));
     return clientJsx;
   }
 
   handleChevron = type => () => {
-    console.log('je clique');
     const { type: stateType, asc } = this.state.filter;
-
     this.setState({
       filter: {
         type,
         asc: type === stateType ? !asc : false,
       },
     });
-    this.order(this.props.customers, type);
   }
 
-  orderByPro = client => (
-    [...client].sort((a, b) => {
-      const filter = (a === b) ? 0 : a ? -1 : 1;
-      console.log('je trie');
-      console.log(filter);
-      return this.state.filer.asc ? filter : -filter;
+  orderById = () => (
+    [...this.props.customers].sort((a, b) => {
+      const filter = (b.id - a.id);
+      return this.state.filter.asc ? filter : -filter;
     })
   )
 
-  orderByRemise = (client) => {
-    console.log('je trie');
+  orderByPro = () => (
+    [...this.props.customers].sort((a, b) => {
+      const filter = (a.pro === b.pro) ? 0 : a.pro ? -1 : 1;
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+
+  orderByRemise = () => {
     return (
-      [...client].sort((a, b) => {
-        const filter = (b.price - a.price);
-        return this.state.filer.asc ? filter : -filter;
+      [...this.props.customers].sort((a, b) => {
+        const filter = (b.remise - a.remise);
+        return this.state.filter.asc ? filter : -filter;
       }));
   }
 
-  orderByCountry = client => (
-    [...client].sort((a, b) => {
-      const filter = (b.unity - a.unity);
-      console.log('je trie');
-      return this.state.filer.asc ? filter : -filter;
+  orderByCountry = () => (
+    [...this.props.customers].sort((a, b) => {
+      const filter = b.countryCode.localeCompare(a.countryCode);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  orderByName = () => (
+    [...this.props.customers].sort((a, b) => {
+      const nameA = a.pro ? a.customerCompany : a.lastname;
+      const nameB = b.pro ? b.customerCompany : b.lastname;
+      const filter = nameB.localeCompare(nameA);
+      return this.state.filter.asc ? filter : -filter;
     })
   )
 
-  order = (client, type) => {
-    console.log('j\'ordonne');
-    switch (type) {
+  order = () => {
+    switch (this.state.filter.type) {
       case 'pro':
-        return this.orderByPro(client);
+        return this.orderByPro();
       case 'nom':
-        return this.orderByName(client);
-      case 'prix':
-        return this.orderByRemise(client);
+        return this.orderByName();
+      case 'remise':
+        return this.orderByRemise();
       case 'pays':
-        return this.orderByCountry(client);
+        return this.orderByCountry();
+      case 'id':
+        return this.orderById();
       default:
-        return client;
+        return this.props.customers;
     }
   }
 

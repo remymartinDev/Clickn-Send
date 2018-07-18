@@ -21,14 +21,67 @@ class Home extends React.Component {
   }
 
   getProductJSX = () => {
-    const orderedProducts = [...this.props.products].sort((a, b) => {
-      const filter = b.id - a.id;
-      return this.state.filter.asc ? filter : -filter;
-    });
+    const orderedProducts = this.order();
     const productsJsx = orderedProducts.map(product => (
       <ProductItem key={product.id} {...product} clickDelete={this.handleDelete} />
     ));
     return productsJsx;
+  }
+
+  orderById = () => (
+    [...this.props.products].sort((a, b) => {
+      const filter = (b.id - a.id);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  orderByDenomination = () => (
+    [...this.props.products].sort((a, b) => {
+      const filter = b.denomination.localeCompare(a.denomination);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  orderByRef = () => (
+    [...this.props.products].sort((a, b) => {
+      const filter = b.reference.localeCompare(a.reference);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  orderByDescription = () => (
+    [...this.props.products].sort((a, b) => {
+      const filter = b.description.localeCompare(a.description);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  orderByPrice = () => (
+    [...this.props.products].sort((a, b) => {
+      const filter = (b.price - a.price);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+  orderByUnity = () => (
+    [...this.props.products].sort((a, b) => {
+      const filter = b.unity.localeCompare(a.unity);
+      return this.state.filter.asc ? filter : -filter;
+    })
+  )
+
+  order = () => {
+    switch (this.state.filter.type) {
+      case 'denomination':
+        return this.orderByDenomination();
+      case 'reference':
+        return this.orderByRef();
+      case 'description':
+        return this.orderByDescription();
+      case 'prix':
+        return this.orderByPrice();
+      case 'unite':
+        return this.orderByUnity();
+      case 'id':
+        return this.orderById();
+      default:
+        return this.props.products;
+    }
   }
 
   handleChevron = type => () => {
@@ -41,63 +94,12 @@ class Home extends React.Component {
     });
   }
 
-  orderByDenomination = products => (
-    [...products].sort((a, b) => {
-      const filter = (b.denomination - a.denomination);
-      return this.state.filer.asc ? filter : -filter;
-    })
-  )
-  orderByRef = products => (
-    [...products].sort((a, b) => {
-      const filter = (b.reference - a.reference);
-      return this.state.filer.asc ? filter : -filter;
-    })
-  )
-  orderByDescription = products => (
-    [...products].sort((a, b) => {
-      const filter = (b.description - a.description);
-      return this.state.filer.asc ? filter : -filter;
-    })
-  )
-  orderByPrice = products => (
-    [...products].sort((a, b) => {
-      const filter = (b.price - a.price);
-      return this.state.filer.asc ? filter : -filter;
-    })
-  )
-  orderByUnity = products => (
-    [...products].sort((a, b) => {
-      const filter = (b.unity - a.unity);
-      return this.state.filer.asc ? filter : -filter;
-    })
-  )
-
-  order = (products, type) => {
-    switch (type) {
-      case 'denomination':
-        return this.orderByDenomination(products);
-      case 'reference':
-        return this.orderByRef(products);
-      case 'description':
-        return this.orderByDescription(products);
-      case 'prix':
-        return this.orderByPrice(products);
-      case 'unite':
-        return this.orderByUnity(products);
-      default:
-        return products;
-    }
-  }
-
   handleDelete = id => () => {
-    axios.delete('/api/product/'+id)
+    axios.delete(`/api/product/${id}`)
       .then((response) => {
         console.log(response);
         if (response.data.success) {
-          const products = this.props.products.filter(({ id: productId }) => id !== productId );
-          this.setState({
-            products,
-          });
+          this.props.loadProducts();
         }
       });
   }
