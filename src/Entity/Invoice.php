@@ -487,6 +487,15 @@ class Invoice
         $datedeadline = new \Datetime();
         $deadline = $datedeadline->add(new \DateInterval($payment_term));
 
+        if ($invoice->getRecurringTerm() == null){
+            $RT = $data_array['recurringTerm'];
+        }
+        else {
+            $RT = $invoice->getRecurringTerm();
+        }
+        $recurring_term = 'P' . $RT . 'D';
+        $recurringDate = $date->add(new \DateInterval($recurring_term));
+
         $this->setCustomer($customer);
         $this->setStatus($status);
         $this->setCompany($company);
@@ -500,6 +509,9 @@ class Invoice
         $this->setLegalNotice($data_array['legalNotice']);
         //$this->setDownPayment($data_array['downPayment']);
         $this->setTaxesAmount($data_array['taxesAmount']);
+        $this->setRecurringTerm($RT);
+        $this->setRecurringDate($recurringDate);
+
     }
 
 }

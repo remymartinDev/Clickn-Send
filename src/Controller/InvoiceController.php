@@ -119,38 +119,48 @@ class InvoiceController extends Controller
      */
     public function edit(Request $request, Invoice $invoice, SerializerInterface $serializer, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository, ProductRepository $productRepository, InvoiceHasProductRepository $invoiceHPR): Response
     {
-        $data = $request->getContent();
-        $data_array = json_decode($data, true);   
-
-        $em = $this->getDoctrine()->getManager();
-
-        //take relational object for invoice 
-        $customer = $customerRepository->findOneById($data_array['customer']);
-        $status = $statusRepository->findOneById($data_array['status']);
-        $company = $this->getUser()->getCompany();
-        
-        $invoice->hydrateEdit($data_array, $customer, $status, $company);
-
-        foreach ($invoice->getInvoiceHasProducts() as $iHP) {
-            $em->remove($iHP);
-        }
-        
-        //set invoice has product
-        foreach ($data_array['invoiceHasProducts'] as $datas) {
-            
-            $product = $productRepository->findOneById($datas['product']);
-
-                $invoiceHasProduct = new InvoiceHasProduct();
-                $invoiceHasProduct->hydrate($invoice, $product, $datas);
+        //edition restriction
+        if ($invoice->getStatus() !== 'facture' || $invoice->getStatus() !== 'facture récurrente') {
+            $data = $request->getContent();
+            $data_array = json_decode($data, true);   
     
-                $em->persist($invoiceHasProduct);
+            $em = $this->getDoctrine()->getManager();
+    
+            //take relational object for invoice 
+            $customer = $customerRepository->findOneById($data_array['customer']);
+            $status = $statusRepository->findOneById($data_array['status']);
+            $company = $this->getUser()->getCompany();
+            
+            $invoice->hydrateEdit($data_array, $customer, $status, $company);
+    
+            foreach ($invoice->getInvoiceHasProducts() as $iHP) {
+                $em->remove($iHP);
+            }
+            
+            //set invoice has product
+            foreach ($data_array['invoiceHasProducts'] as $datas) {
+                
+                $product = $productRepository->findOneById($datas['product']);
+    
+                    $invoiceHasProduct = new InvoiceHasProduct();
+                    $invoiceHasProduct->hydrate($invoice, $product, $datas);
+        
+                    $em->persist($invoiceHasProduct);
+            }
+    
+            $em->flush();
+            $response = [
+                'succes' => true,
+                'id' => $invoice->getId()
+                ];
+        }else {
+            $response = [
+                'succes' => false,
+                'id' => $invoice->getId(),
+                'error' => 'les factures ou facture récurrente ne peuvent pas etre édité'
+                ];
         }
 
-        $em->flush();
-        $response = [
-            'succes' => true,
-            'id' => $invoice->getId()
-            ];
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
@@ -160,18 +170,45 @@ class InvoiceController extends Controller
      */ 
     public function delete(Request $request, Invoice $invoice)
     {
+        //delete resrtiction
+        if ($invoice->getStatus() !== 'facture' && $invoice->getStatus() !== 'facture récurrente') {
 
-         if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { 
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($invoice);
-            $em->flush();
-        } 
+            if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { 
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($invoice);
+                $em->flush();
+            }
+            $response = [
+                'succes' => true,
+                ];
+        }else {
+            $response = [
+                'succes' => false,
+                'error' => 'les factures ou facture récurrente ne peuvent pas etre supprimés'
+                ];
+        }
         
-       $response = [
-        'succes' => true,
-        ];
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
+    }
+
+      /**
+     * @Route("/{id}/copy", name="invoice_copy", methods="GET|POST")
+     */
+    public function copy(Request $request, Invoice $invoice)
+    {
+        $newInvoice = clone $invoice;
+        $em->persiste($newInvoice);
+        $em->flush();
+        
+        foreach ($invoice->getInvoiceHasProducts() as $ihp) {
+            $newIhp = clone $ihp;
+            $newIhp->setInvoice($newInvoice);
+            $em->persiste(newIhp);
+        }
+        
+        $em->flush();
+
     }
 
 }
