@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
 
 import Home from '~/components/Home';
 import Routes from '~/components/Routes';
@@ -18,9 +17,6 @@ class App extends React.Component {
       this.props.login();
       this.props.userConnected(user);
     }
-    // chargement des données 
-    //TODO A refaire:
-    // this.props.loadAllData();
   }
 
   render() {
@@ -42,7 +38,6 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  // loadAllData: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   userConnected: PropTypes.func.isRequired,

@@ -10,7 +10,6 @@ import './produits.scss';
 
 class Home extends React.Component {
   state = {
-    // products: [],
     filter: {
       type: 'id',
       asc: false,

@@ -16,7 +16,6 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.props.loadCustomers();
   }
 
@@ -46,7 +45,7 @@ class Home extends React.Component {
 
   orderByPro = client => (
     [...client].sort((a, b) => {
-      const filter = (a === b) ? 0 : a? -1 : 1;
+      const filter = (a === b) ? 0 : a ? -1 : 1;
       console.log('je trie');
       console.log(filter);
       return this.state.filer.asc ? filter : -filter;
