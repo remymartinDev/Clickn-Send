@@ -43,20 +43,6 @@ class CustomerRepository extends ServiceEntityRepository
         return $query->execute();
     } 
 
-    public function findInactivCustomers($company)
-    {
-        $em = $this->getEntityManager();
-
-        $query = $em->createQuery(
-             "SELECT cu
-                FROM App\Entity\Customer cu
-                WHERE cu.active = false
-                AND cu.company = :company"
-        )->setParameter('company', $company);
-        return $query->execute();
-    }
-    
-
     /*
     public function findOneBySomeField($value): ?Customer
     {

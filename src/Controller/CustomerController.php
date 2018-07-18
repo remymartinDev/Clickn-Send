@@ -30,7 +30,12 @@ class CustomerController extends Controller
     public function list(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
     {
         $companyId = $this->getUser()->getCompany()->getId();
-        $customers = $customerRepository->findActivCustomers($companyId);    
+
+        if ($this->getUser()->getRoles()[0] === 'ROLE_ADMIN') {
+            $customers = $customerRepository->findByCompany($companyId);
+        }else {
+            $customers = $customerRepository->findActivCustomers($companyId);    
+        }
 
         foreach ($customers as $customer) {
 

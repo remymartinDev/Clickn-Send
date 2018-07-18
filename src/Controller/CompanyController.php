@@ -42,7 +42,6 @@ class CompanyController extends Controller
         $member->setSuperAdmin(true);
         $member->setUsername($data_array['_username']);
         $member->setPlainPassword($data_array['_password']);
-        $member->setEnabled(true);
         $member->setEmail($data_array['email']);
 
         $em->persist($member);
