@@ -118,23 +118,6 @@ class CustomerController extends Controller
         return new Response($json);
     }
 
-    /**
-     * @Route("/{id}", name="customer_delete", methods="DELETE")
-     */
-    public function delete(Request $request, Customer $customer, SerializerInterface $serializer): Response
-    {
-       /*  if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->request->get('_token'))) { */
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($customer);
-            $em->flush();
-      /*   } */
-      $response = [
-        'succes' => true,
-        ];
-    $json = $serializer->serialize($response, 'json');
-    return new Response($json);
-    }
-
      /**
      * @Route("/{id}/activ", name="customer_activ", methods="GET|POST")
      */
