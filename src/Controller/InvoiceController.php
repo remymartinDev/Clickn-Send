@@ -170,7 +170,7 @@ class InvoiceController extends Controller
      */ 
     public function delete(Request $request, Invoice $invoice)
     {
-        //delete resrtiction
+        //delete resrtictionjson_decode($data, true);
         if ($invoice->getStatus() !== 'facture' && $invoice->getStatus() !== 'facture récurrente') {
 
             if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { 
@@ -195,7 +195,7 @@ class InvoiceController extends Controller
       /**
      * @Route("/{id}/copy", name="invoice_copy", methods="GET|POST")
      */
-    public function copy(Request $request, Invoice $invoice, SerializerInterface $serializer)
+    public function copy(Invoice $invoice, SerializerInterface $serializer)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -227,6 +227,7 @@ class InvoiceController extends Controller
 
         $response = [
             'succes' => true,
+            'id' => $newInvoice->getId()
             ];
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
@@ -241,7 +242,7 @@ class InvoiceController extends Controller
 
         $data = $request->getContent();
         $data_array = json_decode($data, true);
-
+        
         $actualStatus = $invoice->getStatus();
         $statusRec = $statusRepo->findOneByInvoiceStatus('facture récurrente');
         $statusInv = $statusRepo->findOneByInvoiceStatus('facture');
@@ -278,23 +279,17 @@ class InvoiceController extends Controller
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
-
-      /**
-     * @Route("/{id}/reminder", name="invoice_reminder", methods="GET|POST")
-     */
-    public function recurred(Request $request, Invoice $invoice)
+/**
+    * @Route("/{id}/recurred", name="invoice_recurred", methods="GET|POST")
+    */
+    public function recurred(Invoice $invoice, SerializerInterface $serializer)
     {
-        $invoice = clone $invoice;
-        $em->persiste($newInvoice);
-        $em->flush();
-        
-        foreach ($invoice->getInvoiceHasProducts() as $ihp) {
-            $newIhp = clone $ihp;
-            $newIhp->setInvoice($newInvoice);
-            $em->persiste(newIhp);
-        }
-        
-        $em->flush();
+        $jsonResponse = $this->copy($invoice, $serializer);
+        $jsonContent = $jsonResponse->getContent();
+        $response = json_decode($jsonContent, true);
 
+        return $this->redirectToRoute('pdf', [
+           'id' => $response['id'], 
+        ]);  
     }
 }
