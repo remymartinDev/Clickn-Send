@@ -14,7 +14,7 @@ class PdfController extends Controller
 
 
     /**
-     * @Route("/invoice/{id}/pdf", name="pdf_factory")
+     * @Route("/invoice/{id}/pdfFactory", name="pdf_factory")
      */
     public function pdfFactory(Invoice $invoice, PaymentMethodRepository $pmRepo, Mailer $mailer, \Swift_Mailer $swiftMailer)
     {   
@@ -27,7 +27,7 @@ class PdfController extends Controller
         $paymentMethod = $pmRepo->findAll();
 
 
-        $html = $this->render('pdf/index.html.twig', [
+        $html = $this->render('pdf/factory.html.twig', [
             'title' => 'Facture PDF',
             'invoice' => $invoice,
             'paymentMethod' => $paymentMethod,
@@ -60,7 +60,7 @@ class PdfController extends Controller
     }
 
      /**
-     * @Route("/invoice/{id}/pdf", name="pdf_show")
+     * @Route("/invoice/{id}/pdfShow", name="pdf_show")
      */
     public function pdfShow(Invoice $invoice, PaymentMethodRepository $pmRepo, Mailer $mailer, \Swift_Mailer $swiftMailer)
     {   
@@ -73,7 +73,7 @@ class PdfController extends Controller
         $paymentMethod = $pmRepo->findAll();
 
 
-        $html = $this->render('pdf/show.html.twig', [
+        return $this->render('pdf/show.html.twig', [
             'title' => 'Facture PDF',
             'invoice' => $invoice,
             'paymentMethod' => $paymentMethod,

@@ -3,6 +3,11 @@ body {
   margin: auto;
 }
 
+.logo {
+  background-image: url(intensePC.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
 .invoice-content {
   margin: auto;
@@ -14,7 +19,7 @@ body {
 } 
 
 .customer {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1.5rem;
   margin-top: 3rem;
   padding-top: 1.5rem;
