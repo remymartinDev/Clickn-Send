@@ -1,8 +1,14 @@
 body {
   width: 100%;
   margin: auto;
+  text-align: none;
 }
 
+.logo {
+  background-image: url(intensePC.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
 .invoice-content {
   margin: auto;
@@ -14,8 +20,8 @@ body {
 } 
 
 .customer {
-  font-size: 1.5rem;
-  line-height: 1.5rem;
+  font-size: 0.6rem;
+    line-height: 0;
   margin-top: 3rem;
   padding-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -28,7 +34,7 @@ body {
 
 .ecart {
   margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 0.8rem;
 }
 
 .inside-products {
@@ -36,22 +42,24 @@ body {
 }
 
 .th {
-  font-size: 1.2rem;
+  font-size: 0.6rem;
   padding: 0.6rem 1.5rem 0.6rem 0.6rem;
-  padding-left: 0.45rem;
+  /* padding-left: 0.45rem; */
   text-align: left;
   color: #DE5700;
 }
 
 .thd {
-  font-size: 1.2rem;
+  font-size: 0.6rem;
   padding: 0.6rem 1.5rem 0.6rem 0.4rem;
-  padding-left: 0.45rem;
+  /* padding-left: 0.45rem; */
   text-align: right;
   color: #DE5700;
 }
 
-
+.thead {
+  height: 4rem;
+}
 .product {
   margin: 0;
 
@@ -60,28 +68,29 @@ body {
 .description {
   padding: 0;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.4rem;
 }
 
-.trm {margin-top: 0.5rem;
+.trm {
+  margin-top: 0.5rem;
 }
 
 .tr {
-  font-size: 1.1rem;
+  font-size: 0.6rem;
   padding: 1.1rem 0rem 0rem 0rem;
-  padding-left: 0.45rem;
-  text-align: left;
+  /* padding-left: 0.45rem; */
+  text-align: centert;
 }
 
 .trr {
-  font-size: 1.1rem;
-  padding-left: 0.45rem;
+  font-size: 0.5rem;
+  /* padding-left: 0.45rem; */
   text-align: left;
   padding: 0;
 }
 
 .trd {
-  font-size: 1.4rem;
+  font-size: 0.6rem;
   padding: 1.1rem 1rem 0rem 0rem;
   text-align: right;
 }
@@ -101,7 +110,7 @@ body {
   margin: auto;
   text-align: center;
   border: 0.25rem solid #FFBD93;
-  font-size: 1.8rem;
+  font-size: 0.9rem;
 }
 
 .invoice-ref p {
@@ -113,30 +122,31 @@ body {
 }
 
 .bank-ref {
-  margin-top: 2rem;
-  line-height: 1.5rem;
+  margin-top: 0.5rem;
+  line-height: 0.5rem;
 }
 
 .bank-ref-inf {
-  margin-top: 1.1rem;
-  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.6rem;
 }
 
 .bank-inf {
-  font-size: 1.2rem;
+  font-size: 0.4rem;
 }
 
 .companyRef {
   padding-left: 0;
+  padding-right: 0;  
 }
 
 .amounts {
   padding: 0;
-  font-size: 1.5rem;
+  font-size: 0.7rem;
 }
 
 .remise {
-  font-size: 1.2rem
+  font-size: 0.6rem
 }
 
 .total {
@@ -153,50 +163,52 @@ body {
 .pre-amount {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.2rem;
+  /* margin-top: 1.2rem; */
   padding: 0.45rem 0.3rem;
-  margin-right: 1.5rem;
+  /* margin-right: 1.5rem; */
+  font-size: 0.5rem;
 }
 
 .ttc {
   display: flex;
   justify-content: space-between;
   padding : 1.95rem 0.3rem;
-  margin-top: 2.25rem;
+  /* margin-top: 2.25rem; */
   font-weight: bold;
 }
 
 .amount {
   text-align: right;
+  font-size: 0.7rem;
 }
 
 .company-refs {
-  width: 90%;
-  font-size: 0.9rem;
+  /* width: 90%; */
+  font-size: 0.4rem;
   margin-bottom: 0;
   border-top: 0.25rem solid #FFBD93;
   margin: auto;
 }
 
 .company-refs p {
-  line-height: 1rem;
+  /* line-height: 1rem; */
   margin:0;
   text-align: center;
 }
 
 .company-name {
   font-weight: bold;
-  font-size: 1.35rem;
+  font-size: 0.5rem;
 }
 
 .deadline {
   text-decoration: underline;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.4rem;
 }
 
 .clicknsend {
-  font-size: 0.6rem;
+  font-size: 0.2rem;
   font-style: italic;
   padding-bottom: 0;
   text-align: left;
@@ -204,6 +216,9 @@ body {
 
 #clicknsend {
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.3rem;
 }
 
+.produit {
+  text-align: left;
+}

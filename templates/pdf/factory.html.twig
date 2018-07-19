@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ absolute_url(asset('styles/PDF.css')) }}">
+<link rel="stylesheet" href="{{ absolute_url(asset('styles/pdfFactory.css')) }}">
 {% endblock %}
 
 {% block body %}
@@ -11,8 +11,9 @@
 
         <div class="container-fluid ecart">
             <div class="row">
-                <div class="col-4 logo">COUCOU</div>
-                <div class="col-3 void"></div>
+                
+                <div class="col-5 logo"></div>
+                <div class="col-2 void"></div>
                 <div class="col-5 customer">
 
                 {% if invoice.customer.pro == true %}
@@ -220,7 +221,7 @@
                  <p>
                     <span class="company-name">{{ invoice.company.companyName }} 
                     </span> 
-                 {{ invoice.company.companyInformation }}
+                 {{ invoice.company.companyInformation }} - {{ invoice.company.website }}
                  </p>
                  <p>{{ invoice.company.companyAdress }} 
                  {{ invoice.company.zipCode }} 

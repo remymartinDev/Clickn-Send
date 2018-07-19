@@ -20,7 +20,7 @@ const FactureItem = ({
     devis: faFileInvoice,
     'devis refusé': faFileExcel,
     brouillon: faFileAlt,
-    list: faFileInvoiceDollar,
+    facture: faFileInvoiceDollar,
     'facture récurrente': faUndoAlt,
   };
   return (

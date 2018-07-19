@@ -22,7 +22,7 @@ const ProductItemHead = ({ clickChevron }) => (
       {matches => (
         matches
         &&
-        <div>
+        <React.Fragment>
           <div className="list-item">
             Adresse
           </div>
@@ -43,11 +43,9 @@ const ProductItemHead = ({ clickChevron }) => (
             Remise
             <ChevronDown className="chevron" onClick={clickChevron('remise')} />
           </div>
-        </div>
+        </React.Fragment>
       )}
     </Media>
-   
-    
   </div>
 );
 

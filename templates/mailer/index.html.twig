@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Facture{% endblock %}
-
 {% block body %}
 <h3>Voici votre facture</h3>
 
-Bonjour, {% if invoice.customer.pro %}
-{% else %}
-M,Mm {{invoice.customer.lastname}}
-{% endif %}
-Voici votre facture du {{invoice.date|date('d-m-Y')}}, numero {{ invoice.reference }}
-cordialement.
+Bonjour, {% if invoice.customer.pro == true %}{{invoice.customer.customerCompany}}{% else %}M,Mm {{invoice.customer.lastname}}{% endif %}
+
+Ci-jointe votre facture n°{{ invoice.reference }} en date du {{invoice.date|date('d-m-Y')}}
+
+cordialement,
+
+{{invoice.company.companyName}}
+
 
 <div>
     {{invoice.company.companyName}} <br>

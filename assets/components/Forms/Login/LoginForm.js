@@ -8,13 +8,13 @@ import { loggedIn, userConnected } from '~/store/reducers/localActionCreator';
 import './login.scss';
 
 const LoginForm = ({ handleSubmit }) => (
-  <form className="form signup-form" onSubmit={handleSubmit}>
-    <h1 className="form signup-form-title">Login</h1>
+  <form className="form login-form" onSubmit={handleSubmit}>
+    <h1 className="form login-form-title">Login</h1>
     <label htmlFor="username" className="form-label">Identifiant</label>
     <Field className="form-field" name="username" component="input" type="text" />
     <label htmlFor="password" className="form-label">Mot de passe</label>
     <Field className="form-field" name="password" component="input" type="password" />
-    <button className="form signup-form-btn" type="submit">s'identifier</button>
+    <button className="form login-form-btn" type="submit">s'identifier</button>
   </form>
 );
 

@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FaEye from 'react-icons/lib/fa/eye';
-import FaPencil from 'react-icons/lib/fa/pencil';
-import FaDownload from 'react-icons/lib/fa/download';
-import FaTrash from 'react-icons/lib/fa/trash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserTie, faFileInvoiceDollar, faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { faUserTie, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import Media from 'react-media';
 
 import './ClientItem.scss';
@@ -41,14 +36,14 @@ const CustomerItem = ({
         {matches => (
           matches
           &&
-          <div>
+          <React.Fragment>
             <div className="list-item">{companyAdress}</div>
             <div className="list-item">{countryCode}</div>
             <div className="list-item">{phone}</div>
             <div className="list-item">{mobile}</div>
             <div className="list-item">{email}</div>
             <div className="list-item">{remise} %</div>
-          </div>
+          </React.Fragment>
         )}
       </Media>
       <DropdownButton componentType="customer" id={id} />

@@ -27,7 +27,7 @@ class PdfController extends Controller
         $paymentMethod = $pmRepo->findAll();
 
 
-        $html = $this->render('pdf/index.html.twig', [
+        $html = $this->render('pdf/factory.html.twig', [
             'title' => 'Facture PDF',
             'invoice' => $invoice,
             'paymentMethod' => $paymentMethod,
@@ -74,7 +74,7 @@ class PdfController extends Controller
         $paymentMethod = $pmRepo->findAll();
 
 
-        $html = $this->render('pdf/show.html.twig', [
+        return $this->render('pdf/show.html.twig', [
             'title' => 'Facture PDF',
             'invoice' => $invoice,
             'paymentMethod' => $paymentMethod,
