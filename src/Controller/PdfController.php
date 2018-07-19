@@ -8,10 +8,15 @@ use App\Repository\PaymentMethodRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Service\Mailer;
+use Symfony\Component\DependencyInjection\Tests\Compiler\PrivateConstructor;
+use Symfony\Component\HttpFoundation\Response;
 
 class PdfController extends Controller
 {
 
+    private $phoneIndex = ['DE'=>'+49', 'AT'=>'+43', 'BE'=>'+32', 'BG'=>'+359', 'CY'=>'+357', 'HR'=>'+385', 'DK'=>'+45', 'ESX'=>'+32', 'EE'=>'+372', 'FI'=>'+358', 'FR'=>'+33', 'EL'=>'+30', 'HU'=>'+36', 'IE'=>'+353', 'IT'=>'+39', 'LV'=>'+371', 'LT'=>'+372', 'LU'=>'+352', 'MT'=>'+356', 'NL'=>'+31', 'PL'=>'+48', 'PT'=>'+351', 'CZ'=>'+420', 'RO'=>'+40', 'GB'=>'+44', 'SK'=>'+421', 'SI'=>'+386', 'SE'=>'+46', 'SW'=>'+41'];
+
+    private $calendar = ['Jan'=>'janvier', 'Feb'=>'février', 'Mar'=>'mars', 'Apr'=>'avril', 'May'=>'mai', 'Jun'=>'juin', 'Jul'=>'juillet', 'Aug'=>'août', 'Sep'=>'septembre', 'Oct'=>'octobre', 'Nov'=>'novembre', 'Dec'=>'décembre'];
 
     /**
      * @Route("/invoice/{id}/pdfFactory", name="pdf_factory")
@@ -19,15 +24,15 @@ class PdfController extends Controller
     public function pdfFactory(Invoice $invoice, PaymentMethodRepository $pmRepo, Mailer $mailer, \Swift_Mailer $swiftMailer)
     {   
 
-        $phoneIndex = ['DE'=>'+49', 'AT'=>'+43', 'BE'=>'+32', 'BG'=>'+359', 'CY'=>'+357', 'HR'=>'+385', 'DK'=>'+45', 'ESX'=>'+32', 'EE'=>'+372', 'FI'=>'+358', 'FR'=>'+33', 'EL'=>'+30', 'HU'=>'+36', 'IE'=>'+353', 'IT'=>'+39', 'LV'=>'+371', 'LT'=>'+372', 'LU'=>'+352', 'MT'=>'+356', 'NL'=>'+31', 'PL'=>'+48', 'PT'=>'+351', 'CZ'=>'+420', 'RO'=>'+40', 'GB'=>'+44', 'SK'=>'+421', 'SI'=>'+386', 'SE'=>'+46', 'SW'=>'+41'];
+        $phoneIndex = $this->phoneIndex;
 
-        $calendar = ['Jan'=>'janvier', 'Feb'=>'février', 'Mar'=>'mars', 'Apr'=>'avril', 'May'=>'mai', 'Jun'=>'juin', 'Jul'=>'juillet', 'Aug'=>'août', 'Sep'=>'septembre', 'Oct'=>'octobre', 'Nov'=>'novembre', 'Dec'=>'décembre'];
+        $calendar = $this->calendar;
 
 
         $paymentMethod = $pmRepo->findAll();
 
 
-        $html = $this->render('pdf/factory.html.twig', [
+        $html = $this->renderView('pdf/factory.html.twig', [
             'title' => 'Facture PDF',
             'invoice' => $invoice,
             'paymentMethod' => $paymentMethod,
@@ -53,8 +58,11 @@ class PdfController extends Controller
 
         $urlFilePath = 'PDF/facture.pdf';
         $clienMail = $invoice->getCustomer()->getEmail();
+        $userMail = $this->getUser()->getCompany()->getEmail();
 
-        $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $clienMail);
+        $destinataire = [$clienMail, $userMail];
+
+        $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $destinataire);
 
         return $this->redirectToRoute('home');
     }
@@ -63,12 +71,12 @@ class PdfController extends Controller
      /**
      * @Route("/invoice/{id}/pdfShow", name="pdf_show")
      */
-    public function pdfShow(Invoice $invoice, PaymentMethodRepository $pmRepo, Mailer $mailer, \Swift_Mailer $swiftMailer)
+    public function pdfShow(Invoice $invoice, PaymentMethodRepository $pmRepo)
     {   
 
-        $phoneIndex = ['DE'=>'+49', 'AT'=>'+43', 'BE'=>'+32', 'BG'=>'+359', 'CY'=>'+357', 'HR'=>'+385', 'DK'=>'+45', 'ESX'=>'+32', 'EE'=>'+372', 'FI'=>'+358', 'FR'=>'+33', 'EL'=>'+30', 'HU'=>'+36', 'IE'=>'+353', 'IT'=>'+39', 'LV'=>'+371', 'LT'=>'+372', 'LU'=>'+352', 'MT'=>'+356', 'NL'=>'+31', 'PL'=>'+48', 'PT'=>'+351', 'CZ'=>'+420', 'RO'=>'+40', 'GB'=>'+44', 'SK'=>'+421', 'SI'=>'+386', 'SE'=>'+46', 'SW'=>'+41'];
+        $phoneIndex = $this->phoneIndex;
 
-        $calendar = ['Jan'=>'janvier', 'Feb'=>'février', 'Mar'=>'mars', 'Apr'=>'avril', 'May'=>'mai', 'Jun'=>'juin', 'Jul'=>'juillet', 'Aug'=>'août', 'Sep'=>'septembre', 'Oct'=>'octobre', 'Nov'=>'novembre', 'Dec'=>'décembre'];
+        $calendar = $this->calendar;
 
 
         $paymentMethod = $pmRepo->findAll();
@@ -81,5 +89,34 @@ class PdfController extends Controller
             'phoneIndex' => $phoneIndex,
             'calendar' => $calendar
         ]);
+    }
+
+    /**
+    * @Route("/invoice/{id}/pdfdownload", name="pdf_dl")
+    */
+    public function pdfDownload(Invoice $invoice, PaymentMethodRepository $pmRepo)
+    {
+        $phoneIndex = $this->phoneIndex;
+        $calendar = $this->calendar;
+
+
+        $paymentMethod = $pmRepo->findAll();
+
+
+        $html = $this->renderView('pdf/factory.html.twig', [
+            'title' => 'Facture PDF',
+            'invoice' => $invoice,
+            'paymentMethod' => $paymentMethod,
+            'phoneIndex' => $phoneIndex,
+            'calendar' => $calendar
+        ]);
+
+        return new Response(
+        $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200,
+        array(
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="facture-' . $invoice->getReference() . '.pdf"'
+        )
+    );
     }
 }

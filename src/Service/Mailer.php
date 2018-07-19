@@ -4,15 +4,18 @@ namespace App\Service;
 class Mailer
 {
 
-    public function sendInvoice($html, $urlFilePath, $mailer, $clientMail)
+    public function sendInvoice($html, $urlFilePath, $mailer, $destinataire)
     {
-        $message = (new \Swift_Message('Facture'))
-        ->setFrom('clicknsend2018@gmail.com')
-        ->setTo($clientMail)
-        ->setBody($html, 'text/html')
-        ->attach(\Swift_Attachment::fromPath($urlFilePath));
+        foreach ($destinataire as $email) {
+            $message = (new \Swift_Message('Facture'))
+            ->setFrom('clicknsend2018@gmail.com')
+            ->setTo($email)
+            ->setBody($html, 'text/html')
+            ->attach(\Swift_Attachment::fromPath($urlFilePath));
+    
+            $mailer->send($message);
+        }
 
-        $mailer->send($message);
         return true;
     }
     

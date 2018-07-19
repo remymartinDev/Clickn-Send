@@ -120,7 +120,11 @@ class InvoiceController extends Controller
     public function edit(Request $request, Invoice $invoice, SerializerInterface $serializer, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository, ProductRepository $productRepository, InvoiceHasProductRepository $invoiceHPR): Response
     {
         //edition restriction
-        if ($invoice->getStatus() !== 'facture' || $invoice->getStatus() !== 'facture récurrente') {
+        $actualStatus = $invoice->getStatus();
+        $statusRec = $statusRepository->findOneByInvoiceStatus('facture récurrente');
+        $statusInv = $statusRepository->findOneByInvoiceStatus('facture');
+
+        if ($actualStatus !== $statusRec && $actualStatus !== $statusInv) {
             $data = $request->getContent();
             $data_array = json_decode($data, true);   
     
@@ -168,16 +172,19 @@ class InvoiceController extends Controller
     /**
      * @Route("s/{id}", name="invoice_delete", methods="DELETE")
      */ 
-    public function delete(Request $request, Invoice $invoice)
+    public function delete(Request $request, Invoice $invoice, StatusRepository $statusRepository)
     {
-        //delete resrtictionjson_decode($data, true);
-        if ($invoice->getStatus() !== 'facture' && $invoice->getStatus() !== 'facture récurrente') {
+        //edition restriction
+        $actualStatus = $invoice->getStatus();
+        $statusRec = $statusRepository->findOneByInvoiceStatus('facture récurrente');
+        $statusInv = $statusRepository->findOneByInvoiceStatus('facture');
 
-            if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) { 
+        if ($actualStatus !== $statusRec && $actualStatus !== $statusInv) {
+
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($invoice);
                 $em->flush();
-            }
+
             $response = [
                 'succes' => true,
                 ];
@@ -291,15 +298,24 @@ class InvoiceController extends Controller
 
         return $this->redirectToRoute('pdf', [
            'id' => $response['id'], 
-        ]);  
+        ]);
     }
 
     /**
-    * @Route("/{id}/abord", name="invoice_abord", methods="GET")
+    * @Route("/{id}/abord", name="invoice_abord", methods="POST")
     */
-    public function abordInvoiceCreation(Request $request, Invoice $invoice)
+    public function abordInvoiceCreation(Request $request, Invoice $invoice, StatusRepository $statusRepo)
     {
-        
+        $actualStatus = $invoice->getStatus();
+        $statusRec = $statusRepo->findOneByInvoiceStatus('facture récurrente');
+        $statusInv = $statusRepo->findOneByInvoiceStatus('facture');
+        $statusBrou = $statusRepo->findOneByInvoiceStatus('brouillon');
+
+        if ($actualStatus === $statusRec || $actualStatus === $statusInv) {
+            $invoice->setStatus($statusBrou);
+        }
+
+        return $this->redirectToRoute('listlast');
     }
 
 }

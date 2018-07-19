@@ -13,7 +13,7 @@ class MainController extends Controller
     /**
     * @Route("/", name="home")
     * @Route("/dashboard")
-    * @Route("/invoices")
+    * @Route("/invoices", name="listlast")
     * @Route("/invoices/create")
     * @Route("/invoices/{id}")
     * @Route("/invoices/{id}/edit")
