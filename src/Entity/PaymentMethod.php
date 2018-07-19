@@ -24,17 +24,6 @@ class PaymentMethod
     private $method;
 
 
-// USELESS RELATION    
-    ///**
-    // * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="paymentMethode")
-    // */
-    //private $payments;
-
-// USELESS RELATION
-    /* public function __construct()
-    {
-        $this->payments = new ArrayCollection();
-    }*/
     public function getId()
     {
         return $this->id;
@@ -52,36 +41,4 @@ class PaymentMethod
         return $this;
     }
 
-
-// USELESS RELATION
-    ///**
-    // * @return Collection|Payment[]
-    // */
-    /* public function getPayments(): Collection
-    {
-        return $this->payments;
-    }
-
-    public function addPayment(Payment $payment): self
-    {
-        if (!$this->payments->contains($payment)) {
-            $this->payments[] = $payment;
-            $payment->setPaymentMethode($this);
-        }
-
-        return $this;
-    }
-
-    public function removePayment(Payment $payment): self
-    {
-        if ($this->payments->contains($payment)) {
-            $this->payments->removeElement($payment);
-            // set the owning side to null (unless already changed)
-            if ($payment->getPaymentMethode() === $this) {
-                $payment->setPaymentMethode(null);
-            }
-        }
-
-        return $this;
-    } */
 }

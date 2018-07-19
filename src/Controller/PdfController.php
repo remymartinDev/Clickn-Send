@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Invoice;
+use App\Repository\StatusRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\PaymentMethodRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,16 +22,26 @@ class PdfController extends Controller
     /**
      * @Route("/invoice/{id}/pdfFactory", name="pdf_factory")
      */
-    public function pdfFactory(Invoice $invoice, PaymentMethodRepository $pmRepo, Mailer $mailer, \Swift_Mailer $swiftMailer)
+    public function pdfFactory(Invoice $invoice, PaymentMethodRepository $pmRepo, Mailer $mailer, \Swift_Mailer $swiftMailer, StatusRepository $statusRepository)
     {   
 
         $phoneIndex = $this->phoneIndex;
-
         $calendar = $this->calendar;
 
-
         $paymentMethod = $pmRepo->findAll();
+      
+        $actualStatus = $invoice->getStatus();
+        $statusRec = $statusRepository->findOneByInvoiceStatus('facture récurrente');
+        $statusInv = $statusRepository->findOneByInvoiceStatus('facture');
+        $statusBrou = $statusRepository->findOneByInvoiceStatus('brouillon');
 
+        if ($actualStatus === $statusBrou) {
+            if ($invoice->getRecurringTerm() === null || $invoice->getRecurringTerm() === 0) {
+                $invoice->setStatus($statusInv);
+            } else {
+                $invoice->setStatus($statusRec);
+            }
+        }
 
         $html = $this->renderView('pdf/factory.html.twig', [
             'title' => 'Facture PDF',
@@ -38,23 +49,23 @@ class PdfController extends Controller
             'paymentMethod' => $paymentMethod,
             'phoneIndex' => $phoneIndex,
             'calendar' => $calendar
-        ]);
+        ]);    
 
         //eraze the elder invoice
         if (file_exists('PDF/facture.pdf')) {
             unlink('PDF/facture.pdf');
-        }
+        }    
 
         //create new invoice
         $this->get('knp_snappy.pdf')->generateFromHtml($html,
                 'PDF/facture.pdf'
-        );
+        );        
 
         //set the mail message
         $message = $this->renderView('mailer/index.html.twig', [
             'title' => 'Facture',
             'invoice' => $invoice
-        ]);
+        ]);    
 
         $urlFilePath = 'PDF/facture.pdf';
         $clienMail = $invoice->getCustomer()->getEmail();
@@ -63,7 +74,6 @@ class PdfController extends Controller
         $destinataire = [$clienMail, $userMail];
 
         $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $destinataire);
-
         return $this->redirectToRoute('home');
     }
 
@@ -75,7 +85,6 @@ class PdfController extends Controller
     {   
 
         $phoneIndex = $this->phoneIndex;
-
         $calendar = $this->calendar;
 
 

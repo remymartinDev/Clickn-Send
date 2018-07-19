@@ -126,4 +126,16 @@ class Payment
 
         return $this;
     }
+    
+    public function hydrate($customer, $company, $paymentMethode, $invoice, $timeStamp)
+    {
+        $date = new \DateTime();
+        $paymentdate = $date->setTimestamp($timeStamp);
+
+        $this->setCompany($company);
+        $this->setCustomer($customer);
+        $this->setInvoice($invoice);
+        $this->setPaymentMethode($paymentMethode);
+        $this->setDate($paymentdate);
+    }
 }
