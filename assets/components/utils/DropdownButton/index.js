@@ -66,7 +66,7 @@ class DropdownButton extends React.Component {
             (componentType === 'product' || componentType === 'customer')
             &&
             <DropdownItem className="dropdown-box">
-              <Link to={`/${componentType}/${id}/pdfShow`} className="dropdown-link">
+              <Link to={`/${componentType}/${id}`} className="dropdown-link">
                 <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
                  Voir
               </Link>
