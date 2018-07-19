@@ -17,7 +17,9 @@
     "jsx-a11y/anchor-is-valid": "off",
     "import/prefer-default-export": "off",
     "no-nested-ternary": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "no-unneeded-ternary": "off",
+    "react/no-danger": "off"
   },
   "settings": {
     "import/resolver": {

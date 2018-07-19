@@ -7,6 +7,7 @@ import {
   LOGGED_OUT,
   LOGGED_IN,
   USER_CONNECTED,
+  OPEN_PDF,
 } from './localActions';
 
 export const openModal = (view, field) => ({
@@ -44,4 +45,10 @@ export const loggedOut = () => ({
 export const userConnected = values => ({
   type: USER_CONNECTED,
   values,
+});
+
+export const openPdf = id => ({
+  type: OPEN_PDF,
+  view: 'show',
+  id,
 });

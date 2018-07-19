@@ -27,6 +27,7 @@ const Routes = () => (
       <Route path="/customers" component={Customers} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
+      <Route render={() => (<div>404</div>)} />
     </Switch>
   </div>
 );

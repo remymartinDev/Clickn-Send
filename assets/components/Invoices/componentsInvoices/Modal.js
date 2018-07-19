@@ -5,10 +5,12 @@ import { Modal, ModalBody, ModalHeader, Button, ModalFooter } from 'reactstrap';
 import { closeModal } from '~/store/reducers/localActionCreator';
 import CreateCustomer from './CustomerCreate';
 import CreateProduct from './ProductCreate';
+import ShowInvoicePdf from './ShowInvoicePdf';
 
 const ModalList = {
   customer: <CreateCustomer />,
   product: <CreateProduct />,
+  show: <ShowInvoicePdf />,
 };
 class CustomeModal extends React.Component {
   componentDidMount() {

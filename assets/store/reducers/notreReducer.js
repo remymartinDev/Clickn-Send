@@ -7,6 +7,7 @@ import {
   LOGGED_IN,
   LOGGED_OUT,
   USER_CONNECTED,
+  OPEN_PDF,
 } from './localActions';
 /**
  * État initial pour le state de l'application
@@ -22,6 +23,7 @@ const initialState = {
   homeView: '',
   loggedIn: isLogged,
   userConnected: isLogged ? JSON.parse(sessionStorage.getItem('user')) : false,
+  selectedInvoiceId: null,
 };
 
 /**
@@ -41,6 +43,7 @@ const reducer = (currentState = initialState, action = {}) => {
         modal: false,
         view: '',
         field: '',
+        selectedInvoiceId: null,
       };
     }
 
@@ -84,6 +87,14 @@ const reducer = (currentState = initialState, action = {}) => {
       return {
         ...currentState,
         userConnected: action.values,
+      };
+    }
+    case OPEN_PDF: {
+      return {
+        ...currentState,
+        selectedInvoiceId: action.id,
+        view: action.view,
+        modal: true,
       };
     }
     default: return currentState;

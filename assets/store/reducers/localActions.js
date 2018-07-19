@@ -6,3 +6,4 @@ export const LOAD = 'LOAD';
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGGED_OUT = 'LOGGED_OUT';
 export const USER_CONNECTED = 'USER_CONNECTED';
+export const OPEN_PDF = 'OPEN_PDF';

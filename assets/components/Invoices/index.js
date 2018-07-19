@@ -16,6 +16,7 @@ const Facture = () => (
       <Route path="/invoices" exact component={AllInvoices} />
       <Route path="/invoices/:id" exact component={InvoiceView} />
       <Route path="/invoices/:id/edit" exact component={Edit} />
+      <Route render={() => (<div>404</div>)} />
     </Switch>
     <Modal />
   </React.Fragment>
