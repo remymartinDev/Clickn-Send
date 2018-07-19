@@ -3,17 +3,16 @@
 {% block body %}
 <h3>Voici votre facture</h3>
 
-Bonjour, {% if invoice.customer.pro == true %}{{invoice.customer.customerCompany}}{% else %}M,Mm {{invoice.customer.lastname}}{% endif %}
+Bonjour, {% if invoice.customer.pro == true %}{{invoice.customer.customerCompany}}{% else %}M,Mm {{invoice.customer.lastname}}{% endif %}<br><br>
 
-Ci-jointe votre facture n°{{ invoice.reference }} en date du {{invoice.date|date('d-m-Y')}}
+Ci-jointe votre facture n°{{ invoice.reference }}<br><br>en date du {{invoice.date|date('d-m-Y')}}<br><br>
 
-cordialement,
+cordialement,<br><br>
 
-{{invoice.company.companyName}}
+{{invoice.company.companyName}}<br>
 
 
 <div>
-    {{invoice.company.companyName}} <br>
     {{invoice.company.companyAdress}} <br>
     {{invoice.company.zipCode}}, {{invoice.company.city}} <br>
     {{invoice.company.phone}} <br>
