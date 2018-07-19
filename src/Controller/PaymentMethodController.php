@@ -12,7 +12,7 @@ use App\Service\ConfiguredSerializer;
 class PaymentMethodController extends Controller
 {
     /**
-     * @Route("api/payment/methods", name="payment_methods_index", methode="GET")
+     * @Route("api/payment/methods", name="payment_methods_index", methods="GET")
      */
     public function list(PaymentMethodRepository $paymentMethodRepo, ConfiguredSerializer $configuredSerializer)
     {
