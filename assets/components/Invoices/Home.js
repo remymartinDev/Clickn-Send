@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ButtonCreate from '~/components/ButtonCreate';
@@ -149,7 +150,9 @@ class Home extends React.Component {
           </div>
         </div>
         {/* bouton pour toute les factures */}
-        <button className="btn-fact-home">Voir toutes mes factures</button>
+        <Link to="/invoices/all">
+          <button className="btn-fact-home">Voir toutes mes factures</button>
+        </Link>
       </div>
     );
   }

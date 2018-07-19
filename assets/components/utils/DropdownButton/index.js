@@ -52,12 +52,26 @@ class DropdownButton extends React.Component {
           <FontAwesomeIcon icon={faEllipsisV} />
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem className="dropdown-box">
-            <Link to={`/${componentType}s/${id}`} className="dropdown-link">
-              <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
-               Voir
-            </Link>
-          </DropdownItem>
+          {
+            componentType === 'invoice'
+            &&
+            <DropdownItem className="dropdown-box">
+              <Link to={`/${componentType}/${id}/pdfShow`} className="dropdown-link">
+                <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
+                 Voir
+              </Link>
+            </DropdownItem>
+          }
+          {
+            (componentType === 'product' || componentType === 'customer')
+            &&
+            <DropdownItem className="dropdown-box">
+              <Link to={`/${componentType}/${id}/pdfShow`} className="dropdown-link">
+                <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
+                 Voir
+              </Link>
+            </DropdownItem>
+          }
           <DropdownItem className="dropdown-box">
             <Link to={`/${componentType}s/${id}/edit`} className="dropdown-link">
               <FontAwesomeIcon className="dropdown-link-icon" icon={faPencilAlt} />
@@ -68,7 +82,7 @@ class DropdownButton extends React.Component {
             componentType === 'invoice'
             &&
             <DropdownItem className="dropdown-box">
-              <Link to={`/${componentType}/${id}/pdf`} className="dropdown-link">
+              <Link to={`/${componentType}/${id}/pdfdownload`} className="dropdown-link">
                 <FontAwesomeIcon className="dropdown-link-icon" icon={faDownload} />
                  Télécharger
               </Link>

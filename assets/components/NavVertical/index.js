@@ -43,6 +43,7 @@ const NavVertical = ({ userConnected, loggedOut: clickLogOut }) => (
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem tag={Link} to="/invoices/create">Créer une facture</DropdownItem>
+            <DropdownItem tag={Link} to="/invoices/last">Mes dernières factures</DropdownItem>
             <DropdownItem tag={Link} to="/invoices">Mes factures</DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
