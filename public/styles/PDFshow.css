@@ -222,3 +222,71 @@ body {
 .produit {
   text-align: left;
 }
+
+.choices {
+  position: fixed;
+  z-index: 50;
+  font-size: 1rem;
+  right: -1px;
+  top: 1rem;
+  text-align: right
+}
+
+.cns {
+  background-color: white;
+  color: #5C0895;
+  border: 1px solid#5C0895;
+  border-radius: 40px 0px 0px 40px;
+  box-shadow: -2px 3px 5px #5C0895;
+  padding: 0.4rem 1rem;
+  text-decoration: none;
+}
+
+.cns:hover {
+  background-color: #5C0895;
+  color: white;
+  border: 1px solid white;
+  text-decoration: none;
+}
+
+.cns img { 
+  height: 20px;
+  width: 20px;
+}
+
+.suppr {
+  background-color: white;
+  color: #FF8B40;
+  border: 1px solid#FF8B40;
+  border-radius: 40px 0px 0px 40px;
+  box-shadow: -2px 3px 5px #FF8B40;
+  padding: 0.4rem 1rem;
+}
+
+.suppr:hover {
+  background-color: #FF8B40;
+  color: white;
+  border: 1px solid white;
+  text-decoration: none;
+}
+
+.dl {
+  background-color: white;
+  color: #2FBABA;
+  border: 1px solid#2FBABA;
+  border-radius: 40px 0px 0px 40px;
+  box-shadow: -2px 3px 5px #2FBABA;
+  padding: 0.4rem 1rem;
+}
+
+.dl:hover {
+  background-color: #2FBABA;
+  color: white;
+  border: 1px solid white;
+  text-decoration: none;
+}
+
+hr {
+  margin: 1.7rem;
+  border-top: 0;
+}

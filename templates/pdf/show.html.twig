@@ -6,6 +6,20 @@
 
 {% block body %}
 
+<div class="choices">
+
+    <a href="{{ path('pdf_dl', {'id': invoice.id})  }}" class="dl" data-toggle="tooltip" data-placement="left" title="Revenir à la liste des factures"> <i class="fas fa-download"></i> Télécharger PDF</a><hr>
+    {% if invoice.status.invoiceStatus == 'brouillon' %}
+    <a href="{{ path('pdf_factory', {'id': invoice.id})  }}" class="cns" data-toggle="tooltip" data-placement="left" title="Transformer ce Brouillon en Facture et l'envoyer par mail à votre client"><img src="{{ asset('styles/favIcon.png') }}" alt="logo clicknsend"> Click & Send</a> <hr>
+    {% elseif invoice.status.invoiceStatus == 'devis' %}
+    <a href="{{ path('pdf_factory', {'id': invoice.id})  }}" class="cns" data-toggle="tooltip" data-placement="left" title="Envoyer ce Devis par mail à votre client"><img src="{{ asset('styles/favIcon.png') }}" alt="logo clicknsend"> Click & Send</a> <hr>
+    {% elseif invoice.status.invoiceStatus == 'facture' or invoice.status == 'facture récurrente'%}
+    <a href="{{ path('pdf_factory', {'id': invoice.id})  }}" class="cns" data-toggle="tooltip" data-placement="left" title="Envoyer cette Facture par mail à votre client"><img src="{{ asset('styles/favIcon.png') }}" alt="logo clicknsend"> Click & Send</a> <hr>
+    {% endif %}
+    <a href="{{ path('listlast') }}" class="suppr" data-toggle="tooltip" data-placement="left" title="Revenir à la liste des factures"> <i class="fas fa-ban"></i> Annuler</a><hr>
+
+</div>
+
 <div class="invoice-content">
     <div class="invoice-content-border">
 
