@@ -14,7 +14,7 @@ class PdfController extends Controller
 
 
     /**
-     * @Route("/invoice/{id}/pdf", name="pdf_factory")
+     * @Route("/invoice/{id}/pdfFactory", name="pdf_factory")
      */
     public function pdfFactory(Invoice $invoice, PaymentMethodRepository $pmRepo, Mailer $mailer, \Swift_Mailer $swiftMailer)
     {   
@@ -56,11 +56,12 @@ class PdfController extends Controller
 
         $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $clienMail);
 
-        return $html;
+        return $this->redirectToRoute('home');
     }
 
+
      /**
-     * @Route("/invoice/{id}/pdf", name="pdf_show")
+     * @Route("/invoice/{id}/pdfShow", name="pdf_show")
      */
     public function pdfShow(Invoice $invoice, PaymentMethodRepository $pmRepo, Mailer $mailer, \Swift_Mailer $swiftMailer)
     {   
