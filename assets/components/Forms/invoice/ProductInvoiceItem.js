@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, reduxForm, formValueSelector, change } from 'redux-form';
+import { Field, formValueSelector, change } from 'redux-form';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -17,7 +17,13 @@ class ProductInvoiceItem extends React.Component {
   )
 
   handleChange = fieldName => (e) => {
-    this.props.fillPrice(e.target.value, fieldName);
+    const selectedId = Number(e.target.value);
+    const selectedProduct = this.props.products.find(product => Number(product.id) === selectedId);
+    let productPrice = null;
+    if (selectedProduct) {
+      productPrice = selectedProduct.price;
+    }
+    this.props.fillPrice(productPrice, fieldName);
   }
 
   calculate = () => {
@@ -43,11 +49,16 @@ class ProductInvoiceItem extends React.Component {
 
     const montantTVA = prixHT * vatRate / 100;
     const prixTTC = prixHT + montantTVA;
-    this.props.changeAmounts(amountProductRemise.toFixed(2), prixHT.toFixed(2), montantTVA.toFixed(2), prixTTC.toFixed(2));
+    this.props.changeAmounts(
+      amountProductRemise.toFixed(2),
+      prixHT.toFixed(2),
+      montantTVA.toFixed(2),
+      prixTTC.toFixed(2),
+    );
   }
 
   render() {
-    const { product, index, remove } = this.props;
+    const { product, index } = this.props;
     return (
       <div className="add-product-select">
         <div className="add-product-select-product">
@@ -155,7 +166,6 @@ class ProductInvoiceItem extends React.Component {
           parse={value => Number(value)}
           className="form-create-invoice-field-disable"
         />
-          
         <label
           htmlFor={`${product}.taxesAmount`}
           className="form-create-invoice-label-disable"
@@ -170,7 +180,6 @@ class ProductInvoiceItem extends React.Component {
           parse={value => Number(value)}
           className="form-create-invoice-field-disable"
         />
-        
         <label
           htmlFor={`${product}.amountAllTaxes`}
           className="form-create-invoice-label-disable"
@@ -185,7 +194,6 @@ class ProductInvoiceItem extends React.Component {
           parse={value => Number(value)}
           className="form-create-invoice-field-disable"
         />
-        
         <button
           type="button"
           title="Remove Product"
@@ -206,8 +214,6 @@ ProductInvoiceItem.propTypes = {
   openModal: PropTypes.func.isRequired,
   products: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
-  fields: PropTypes.object.isRequired,
-  productSubmit: PropTypes.func.isRequired,
   changeAmounts: PropTypes.func.isRequired,
   price: PropTypes.oneOfType([
     PropTypes.string,
@@ -225,7 +231,9 @@ ProductInvoiceItem.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  remiseType: PropTypes.string,
   fillPrice: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
 };
 
 ProductInvoiceItem.defaultProps = {
@@ -233,6 +241,7 @@ ProductInvoiceItem.defaultProps = {
   quantity: 0,
   remise: 0,
   vatRate: 0,
+  remiseType: 'percent',
 };
 
 const selector = formValueSelector('facture');

@@ -32,17 +32,16 @@ class ProductInvoice extends React.Component {
 
   calculateTotal = () => {
     const allInfosProducts = this.props.allFields;
-    const allTotals = allInfosProducts.reduce((total, item) => {
-      return {
-        amountAllTaxes: total.amountAllTaxes + Number(item.amountAllTaxes),
-        amountDuttyFree: total.amountDuttyFree + Number(item.amountDuttyFree),
-        taxesAmount: total.taxesAmount + Number(item.taxesAmount),
-      };
-    }, {
+    const allTotals = allInfosProducts.reduce((total, item) => ({
+      amountAllTaxes: total.amountAllTaxes + Number(item.amountAllTaxes),
+      amountDuttyFree: total.amountDuttyFree + Number(item.amountDuttyFree),
+      taxesAmount: total.taxesAmount + Number(item.taxesAmount),
+    }), {
       amountAllTaxes: 0,
       amountDuttyFree: 0,
       taxesAmount: 0,
     });
+
     const { remiseCustomer } = this.props;
 
     const amountCustomerRemise = allTotals.amountDuttyFree * remiseCustomer / 100;
@@ -78,7 +77,7 @@ class ProductInvoice extends React.Component {
           className="form-btn form-btn-add-product"
           id="btn-activated"
           type="button"
-          onClick={() => this.props.fields.push({})}
+          onClick={() => this.props.fields.push({ remiseType: 'percent' })}
         >
           Ajouter un produit
         </Button>
