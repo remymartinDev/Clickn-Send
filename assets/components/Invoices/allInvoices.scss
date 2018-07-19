@@ -1,0 +1,23 @@
+.page-container-facture.page-container-facture--all {
+  grid-row-gap: 0.8rem;
+  width: 100vw;
+  .titre {
+    width: 100vw;
+  }
+  .dash-link {
+    justify-self: center;
+  }
+}
+@media (min-width: 768px) {
+  .page-container-facture.page-container-facture--all {
+    grid-template-columns: 1fr auto;
+    width: auto;
+    padding-right: 0.5rem;
+    .titre {
+      width: auto;
+    }
+    .factures-box {
+      grid-column: 1 / -1;
+    }
+  }
+}

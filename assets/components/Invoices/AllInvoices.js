@@ -8,6 +8,7 @@ import { loadInvoices } from '~/store/reducers/dataActionCreator';
 import FacturesListHead from '~/components/Invoices/componentsInvoices/FacturesListHead';
 import FactureItem from '~/components/Invoices/componentsInvoices/FactureItem';
 
+import './allInvoices.scss';
 
 class AllInvoices extends React.Component {
   state = {
@@ -86,12 +87,12 @@ class AllInvoices extends React.Component {
 
   render() {
     return (
-      <div className="page-container-facture--all">
-        <h1>Toute vos factures</h1>
+      <div className="page-container-facture page-container-facture--all">
+        <h1 className="titre">Toute vos factures</h1>
         <ButtonCreate class="dacture-create-button" type="facture" />
         <div className="factures-box">
           <FacturesListHead clickChevron={this.handleChevron} />
-          {this.getInvoicesJSX}
+          {this.getInvoicesJSX()}
         </div>
       </div>
     );

@@ -150,7 +150,7 @@ class Home extends React.Component {
           </div>
         </div>
         {/* bouton pour toute les factures */}
-        <Link to="/invoices/all">
+        <Link to="/invoices" className="btn-center">
           <button className="btn-fact-home">Voir toutes mes factures</button>
         </Link>
       </div>
