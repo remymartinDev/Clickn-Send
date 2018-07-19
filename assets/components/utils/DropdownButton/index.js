@@ -53,13 +53,13 @@ class DropdownButton extends React.Component {
         </DropdownToggle>
         <DropdownMenu>
           <DropdownItem className="dropdown-box">
-            <Link to="/customers" className="dropdown-link">
+            <Link to={`/${componentType}s/${id}`} className="dropdown-link">
               <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
                Voir
             </Link>
           </DropdownItem>
           <DropdownItem className="dropdown-box">
-            <Link to={`/${componentType}s/${id}`} className="dropdown-link">
+            <Link to={`/${componentType}s/${id}/edit`} className="dropdown-link">
               <FontAwesomeIcon className="dropdown-link-icon" icon={faPencilAlt} />
                Editer
             </Link>

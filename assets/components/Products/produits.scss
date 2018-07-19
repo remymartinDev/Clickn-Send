@@ -30,6 +30,39 @@
   margin: auto;
 }
 
+.view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 2fr 1fr 0.5fr;
+  width: 90%;
+  margin: 2rem auto;
+  grid-gap: 1rem;
+  border: 2px solid $color-orange-0;
+  box-shadow: 1px 1px 20px 2px $color-orange-0;
+  padding: 2rem;
+  color: $color-mauve-4;
+
+  &-title {
+    font-size: 1.5rem;
+    justify-self: end;
+    color: $color-vert-0;
+    margin-bottom: 2rem;
+    margin-left: 2rem; 
+  }
+  &-link {
+    color: $color-orange-0;
+    justify-self: end;
+    padding-right: 2rem;
+    &-icon {
+      margin-right: 1rem;
+    }
+    &:hover {
+      color: $color-orange-1;
+    }
+  }
+}
+
+
 
 @media (min-width: 768px) {
   .page-container-product {
@@ -43,5 +76,9 @@
   }
   .titl-product {
     grid-area: auto;
+  }
+  .view {
+    margin: auto;
+    width: 40%;
   }
 }

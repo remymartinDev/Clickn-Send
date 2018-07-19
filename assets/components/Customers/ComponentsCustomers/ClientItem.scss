@@ -20,6 +20,13 @@
   
 }
 
+.disable {
+  color: grey;
+  .list-item--icon {
+    color: grey;
+  }
+}
+
 @media (min-width: 768px) {
   .list-contain-client{
     grid-template-columns: 1fr 3fr 1fr 2fr 1fr 1fr 1fr 2fr 1fr 0.5fr;

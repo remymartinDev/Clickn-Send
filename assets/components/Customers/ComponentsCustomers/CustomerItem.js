@@ -21,14 +21,17 @@ const CustomerItem = ({
   vatNumber,
   remise,
   id,
+  active,
 }) => {
   const proIcon = {
     true: faBuilding,
     false: faUserTie,
   };
 
+  const divClass = (!active) ? 'disable' : '';
+
   return (
-    <div className="list-contain-client">
+    <div className={`list-contain-client ${divClass}`}>
       <FontAwesomeIcon className="list-item--icon" icon={proIcon[pro]} />
       <div className="list-item"> {pro ? customerCompany : `${lastname} ${firstname}` }</div>
       <div className="list-item">{vatNumber}</div>
@@ -66,6 +69,7 @@ CustomerItem.propTypes = {
   vatNumber: PropTypes.string.isRequired,
   remise: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  active: PropTypes.bool.isRequired,
 };
 
 CustomerItem.defaultProps = {
