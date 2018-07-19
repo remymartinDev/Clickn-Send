@@ -526,4 +526,20 @@ class Invoice
         $this->setRecurringDate();
     }
 
+    public function checkPayment($payments)
+    {       
+        if ($this->down_payment === null) {
+            $total = 0;
+        } else {
+            $total = $this->down_payment;
+        }
+
+        foreach ($payments as $payment) {
+            $total += $payment->getAmount();
+        }
+
+        if ($total >= $this->getAmountAllTaxes()) {
+            $this->setPaid(true);
+        }
+    }
 }

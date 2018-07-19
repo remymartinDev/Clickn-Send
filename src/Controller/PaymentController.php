@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Repository\PaymentMethodRepository;
 
 
 /**
@@ -57,9 +58,10 @@ class PaymentController extends Controller
     /**
      * @Route("/new/{id}", name="payment_new", methods="GET|POST")
      */ 
-    public function new(Request $request, Invoice $invoice, CompanyRepository $companyRepository, SerializerInterface $serializer)
+    public function new(Request $request, Invoice $invoice, SerializerInterface $serializer, PaymentMethodRepository $paymentMethodRepo, PaymentRepository $paymentRepo)
     {
         $data = $request->getContent();
+        $data_array = json_decode($data, true);
         
         //hydrate an invoice object with data
         $payment = $serializer->deserialize($data, Payment::class, 'json');
@@ -67,16 +69,23 @@ class PaymentController extends Controller
         //take relational object for product
         $customer = $invoice->getCustomer();
         $company = $this->getUser()->getCompany();
-        
-        //set product
-        $customer->setCompany($company);
+
+        //take json datas
+        $timeStamp = $data_array['date'];
+        $paymentMethod = $paymentMethodRepo->findOneById($data_array['paymentMethod']);
+
+        $payment->hydrate($customer, $company, $paymentMethod, $invoice, $timeStamp);
         
         $em = $this->getDoctrine()->getManager();
-        $em->persist($customer);
+        $em->persist($payment);
         $em->flush();
+
+        $payments = $paymentRepo->findByInvoice($invoice);
+        $invoice->checkPayment($payments);
 
         $response = [
             'succes' => true,
+            'invoicePaid' => $invoice->getPaid()
         ];
         $json = $serializer->serialize($response, 'json');
         return new Response($json);

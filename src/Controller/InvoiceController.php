@@ -66,7 +66,15 @@ class InvoiceController extends Controller
 
         //take relational object for invoice 
         $customer = $customerRepository->findOneById($data_array['customer']);
+
         $status = $statusRepository->findOneById($data_array['status']);
+        $statusRec = $statusRepository->findOneByInvoiceStatus('facture récurrente');
+        $statusInv = $statusRepository->findOneByInvoiceStatus('facture');
+
+        //on creation, ivoices are saved like draft copy, they take there invoices status when the invoice is send 
+        if ($status === $statusRec || $status === $statusInv) {
+            $status = $statusRepository->findOneByInvoiceStatus('brouillon');
+        }
         $company = $this->getUser()->getCompany();
         
         $invoice->hydrate($customer, $status, $company);
@@ -300,22 +308,4 @@ class InvoiceController extends Controller
            'id' => $response['id'], 
         ]);
     }
-
-    /**
-    * @Route("/{id}/abord", name="invoice_abord", methods="POST")
-    */
-    public function abordInvoiceCreation(Request $request, Invoice $invoice, StatusRepository $statusRepo)
-    {
-        $actualStatus = $invoice->getStatus();
-        $statusRec = $statusRepo->findOneByInvoiceStatus('facture récurrente');
-        $statusInv = $statusRepo->findOneByInvoiceStatus('facture');
-        $statusBrou = $statusRepo->findOneByInvoiceStatus('brouillon');
-
-        if ($actualStatus === $statusRec || $actualStatus === $statusInv) {
-            $invoice->setStatus($statusBrou);
-        }
-
-        return $this->redirectToRoute('listlast');
-    }
-
 }
