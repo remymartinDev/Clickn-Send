@@ -77,6 +77,7 @@ class PdfController extends Controller
 
         $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $destinataire);
         return $this->redirectToRoute('home');
+        
     }
 
 

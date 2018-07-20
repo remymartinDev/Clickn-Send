@@ -107,7 +107,7 @@ class Invoice
     private $deadline3;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $recurringDate;
 
@@ -425,7 +425,9 @@ class Invoice
 
     public function getRecurringDate()
     {
-        return $this->recurringDate;
+        if (isset($this->recurringDate)) {
+            return $this->recurringDate->format('c');
+        }
     }
 
     public function setRecurringDate()
