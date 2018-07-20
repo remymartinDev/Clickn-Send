@@ -38,6 +38,9 @@
                 <div class="col-3"></div>
                 <div class="col-6 invoice-ref">
                 <p> {{invoice.status.invoiceStatus}} N° {{invoice.reference}} </p>
+                {% if invoice.deadline2 != null %}
+                <p class="rappel">RAPPEL</p>
+                {% endif %}
                 </div>
                 <div class="col-3"></div>
             </div>

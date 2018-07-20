@@ -245,7 +245,6 @@ body {
 .cns:hover {
   background-color: #5C0895;
   color: white;
-  border: 1px solid white;
   text-decoration: none;
 }
 
@@ -266,7 +265,6 @@ body {
 .suppr:hover {
   background-color: #FF8B40;
   color: white;
-  border: 1px solid white;
   text-decoration: none;
 }
 
@@ -282,11 +280,17 @@ body {
 .dl:hover {
   background-color: #2FBABA;
   color: white;
-  border: 1px solid white;
   text-decoration: none;
 }
 
 hr {
   margin: 1.7rem;
   border-top: 0;
+}
+
+.rappel {
+  font-size: 1.5rem;
+  color: red;
+  font-weight: bold;
+  text-decoration: underline;
 }

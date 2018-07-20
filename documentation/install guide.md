@@ -57,7 +57,7 @@ touch phpinfo.php
 echo "<?php phpinfo();" > phpinfo.php
 ```
 
-allez sur votre navigateur à l'URL "***localhost***" et cliquez sur `phpinfo.php`.  
+allez sur votre navigateur à l'URL `localhost/phpinfo.php`.  
 vous devriez avoir cette écran qui affiche la version de PHP
 ![alt tag](images/phpinfo.png)
 
@@ -317,5 +317,28 @@ composer require knplabs/knp-snappy-bundle
 composer require symfony/swiftmailer-bundle
 ```
 
-dev-mode : méthode bourrine en cas de soucis  
-chmod 777 -R /var/www/html/apothéose/Click-n-send/
+## commandes utiles en cas de bug :
+
+
+- le .htaccess n'est pas interprété :  
+
+ouvrez _apache2.conf_
+```
+sudo nano /etc/apache2/apache2.conf
+```
+et remplacez  
+```
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+</Directory>
+```
+par  
+```
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+```

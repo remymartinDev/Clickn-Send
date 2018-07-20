@@ -29,9 +29,20 @@ class CompanyController extends Controller
 
         $company = $serializer->deserialize($data, Company::class, 'json');
 
-        $countryCode = preg_split('[0-9]',$company->getVatNumber());
 
+
+        $countryCode = preg_split('[0-9]',$company->getVatNumber());
         $company->setCountryCode($countryCode[0]);
+
+        $file = $company->getLogo();
+        $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
+        $file->move(
+            $this->getParameter('brochures_directory'),
+            $fileName
+        );
+        
+        $company->setLogo($fileName);
+
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($company);
@@ -85,5 +96,11 @@ class CompanyController extends Controller
             'company' => $company,
             'form' => $form->createView(),
         ]);
+    }
+
+
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
     }
 }
