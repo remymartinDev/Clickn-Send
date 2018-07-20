@@ -126,7 +126,7 @@ class AppFixtures extends Fixture
             $BOR
         ];
 
-        $city = ['Paris','Marseille','Lyon','Toulouse','Nice','Nantes','Strasbourg','Montpellier','Bordeaux','Lille','Rennes','Reims','Le Havre','Saint-Étienne','Toulon'];       
+        $city = ['Paris','Marseille','Lyon','Toulouse','Nice','Nantes','Strasbourg','Montpellier','Bordeaux','Lille','Rennes','Reims','Biarritz','Saint-Étienne','Toulon'];       
         
         $country = ['FR','BE','LU','DE','ES','IT','NL'];
 
