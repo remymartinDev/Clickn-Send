@@ -64,6 +64,7 @@ const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: (values) => {
+    console.log(values);
     dispatch(createCompany(values));
   },
 });
