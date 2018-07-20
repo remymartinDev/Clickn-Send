@@ -212,3 +212,9 @@ body {
   font-size: 0.8rem;
 }
 
+.rappel {
+  font-size: 2.1rem;
+  color: red;
+  font-weight: bold;
+  text-decoration: underline;
+}

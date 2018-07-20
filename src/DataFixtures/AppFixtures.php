@@ -154,7 +154,7 @@ class AppFixtures extends Fixture
             $manager->persist($company1);
 
             $company2 = new Company();
-            $company2->setCompanyName('Société LAmbda');
+            $company2->setCompanyName('Société Lambda');
             $company2->setCompanyAdress((mt_rand(1, 75)).', route de '. ($city[mt_rand(0, 14)]));
             $company2->setPhone('0'.(mt_rand(1, 5)).(mt_rand(11111111, 99999999)));
             $company2->setFax('0'.(mt_rand(1, 5)).(mt_rand(1111111, 99999999)));
