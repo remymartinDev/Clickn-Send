@@ -24,12 +24,11 @@ class CompanyController extends Controller
      */
     public function new(Request $request, SerializerInterface $serializer, RoleRepository $roleRepo): Response
     {
-        $data = $request->getContent();
+
         $data_array = json_decode($data, true);
-
-        $company = $serializer->deserialize($data, Company::class, 'json');
-
-
+        $data = $request->getContent();
+        
+        $company = $serializer->deserialize($data, Company::class, 'json'); 
 
         $countryCode = preg_split('[0-9]',$company->getVatNumber());
         $company->setCountryCode($countryCode[0]);
@@ -63,7 +62,7 @@ class CompanyController extends Controller
             'id' => $company->getId()
             ];
         $json = $serializer->serialize($response, 'json');
-        return new Response($json);
+        return new Response($json); 
     }
 
     /**
