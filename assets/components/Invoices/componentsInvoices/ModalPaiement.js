@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Field, Form, reduxForm } from 'redux-form';
 import axios from 'axios';
 
+
+
 class ModalPaiement extends React.Component {
 
   state = {
@@ -30,30 +32,24 @@ class ModalPaiement extends React.Component {
     return (
 
       <div>
-        <h1>Paiement reçu</h1>
-        <Form onSubmit={this.props.handleSubmit}>
-          <label htmlFor="date">Date</label>
-          <Field name="date" type="date" component="input" />
-          <label htmlFor="amount">Montant</label>
-          <Field name="amount" type="number" component="input" />
-          <Field name="paymentMethod" component="select">
-            <option>Sélectionner votre mode de payement</option>
+        <h1 className="form-title">Paiement reçu</h1>
+        <Form onSubmit={this.props.handleSubmit} className="form form-paiement">
+          <label htmlFor="date" className="form-label">Date</label>
+          <Field name="date" type="date" component="input" className="form-field" />
+          <label htmlFor="amount" className="form-label">Montant</label>
+          <Field name="amount" type="number" component="input" className="form-field" />
+          <Field name="paymentMethod" component="select" className="fieldSelect-paiement">
+            <option>méthode de paiement</option>
             {this.getMethodesJSX()}
           </Field>
-          <button type="submit">
+          <button type="submit" className="form-button form-button-paiement">
             Valider
           </button>
         </Form>
-        
       </div>
-    )
+    );
   }
-
 }
-
-ModalPaiement.propTypes = {
-  selectedInvoiceId: PropTypes.number.isRequired,
-};
 
 const mapStateToProps = state => ({
   selectedInvoiceId: state.notreReducer.selectedInvoiceId,
@@ -75,5 +71,4 @@ export default connect(
 )(reduxForm({
   form: 'method',
 })(ModalPaiement));
-
 

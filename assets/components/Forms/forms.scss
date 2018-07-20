@@ -30,6 +30,9 @@
        color: white; 
        box-shadow: 2px 2px 5px 0 rgba( 255,139, 64,1);
       }
+      &-paiement {
+        grid-column: 1 / -1;
+      }
     }
 
     &-field {
@@ -39,6 +42,19 @@
         padding: 0.5rem;
     }   
   }
+
+  .fieldSelect-paiement {
+    border: 1px solid $color-mauve-4;
+    background-color: white;
+    padding: 0.5rem;
+    grid-column: 1 / -1;
+    margin: auto;
+    box-shadow: 1px 1px 5px 0 rgba( 142, 59,198,0.8);
+}
+
+.form-paiement {
+  width: 60%;
+}
 
 @media (min-width: 769px) {
   .form {
