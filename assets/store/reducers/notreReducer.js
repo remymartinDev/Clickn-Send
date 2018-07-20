@@ -8,6 +8,7 @@ import {
   LOGGED_OUT,
   USER_CONNECTED,
   OPEN_PDF,
+  OPEN_PAIEMENT,
 } from './localActions';
 /**
  * État initial pour le state de l'application
@@ -90,6 +91,14 @@ const reducer = (currentState = initialState, action = {}) => {
       };
     }
     case OPEN_PDF: {
+      return {
+        ...currentState,
+        selectedInvoiceId: action.id,
+        view: action.view,
+        modal: true,
+      };
+    }
+    case OPEN_PAIEMENT: {
       return {
         ...currentState,
         selectedInvoiceId: action.id,

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import { loadCustomers, loadInvoices, loadProducts } from '~/store/reducers/dataActionCreator';
-import { openPdf } from '~/store/reducers/localActionCreator';
+import { openPdf, openPaiement } from '~/store/reducers/localActionCreator';
 
 import './dropdownButton.scss';
 
@@ -44,7 +44,7 @@ class DropdownButton extends React.Component {
   }
 
   render() {
-    const { componentType, id, openModal } = this.props;
+    const { componentType, id, openModal, openModalPaiement } = this.props;
 
     return (
       <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -88,6 +88,16 @@ class DropdownButton extends React.Component {
               </a>
             </DropdownItem>
           }
+          {
+            componentType === 'invoice'
+            &&
+            <DropdownItem className="dropdown-box">
+              <div onClick={openModalPaiement(id)} className="dropdown-link">
+                <FontAwesomeIcon className="dropdown-link-icon" icon={faHandHoldingUsd} />
+                 Paiement reçu
+              </div>
+            </DropdownItem>
+          }
           <DropdownItem
             onClick={this.handleDelete}
             className="dropdown-link dropdown-box"
@@ -117,6 +127,9 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ loadCustomers, loadInvoices, loadProducts }, dispatch),
   openModal: id => () => {
     dispatch(openPdf(id));
+  },
+  openModalPaiement: id => () => {
+    dispatch(openPaiement(id));
   },
 });
 
