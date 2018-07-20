@@ -35,6 +35,22 @@
     }
   }
 }
+.dropdown-item {
+  &:active {
+    border: none !important;
+    outline: none;
+    background-color: white !important;
+    color: $color-mauve-2 !important;
+    box-shadow: 0px 0px 0px white !important;
+  }
+  &:focus {
+    border: none !important;
+    outline: none;
+    background-color: white !important;
+    color: $color-mauve-2 !important;
+    box-shadow: 0px 0px 0px white !important;
+  }
+}
 .dropdown-box{
   &:hover {
     color: $color-mauve-4 !important;

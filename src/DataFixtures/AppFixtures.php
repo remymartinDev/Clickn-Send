@@ -184,7 +184,7 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 10; $i++) { 
             $customer = new Customer();
             $pays = $country[mt_rand(0, 6)];
-            $customer->setLastname($nom[mt_rand(0, 19)]);
+            $customer->setLastname($nom[mt_rand(0, 18)]);
             $customer->setFirstname($prenom[mt_rand(0, 18)]);
             $customer->setCompanyAdress((mt_rand(1, 75)).', route de '. ($city[mt_rand(0, 14)]));
             $customer->setZipCode(mt_rand(11111, 99999));
@@ -209,7 +209,11 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 10; $i++) { 
             $customer = new Customer();
             $pays = $country[mt_rand(0, 6)];
+<<<<<<< HEAD
             $customer->setLastname($nom[mt_rand(0, 19)]);
+=======
+            $customer->setLastname($nom[mt_rand(0, 18)]);
+>>>>>>> refs/remotes/origin/V3
             $customer->setFirstname($prenom[mt_rand(0, 18)]);
             $customer->setCompanyAdress((mt_rand(1, 75)).', route de '. ($city[mt_rand(0, 14)]));
             $customer->setZipCode(mt_rand(11111, 99999));

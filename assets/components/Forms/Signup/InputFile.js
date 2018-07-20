@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const handleChange = handler => ({ target: { files } }) =>
+const handleChange = handler => ({ target: { files } }) => {
   handler(files.length ? { file: files[0], name: files[0].name } : {});
+};
 
 const InputFile = ({
   input: {

@@ -8,6 +8,7 @@ import {
   LOGGED_IN,
   USER_CONNECTED,
   OPEN_PDF,
+  OPEN_PAIEMENT,
 } from './localActions';
 
 export const openModal = (view, field) => ({
@@ -50,5 +51,10 @@ export const userConnected = values => ({
 export const openPdf = id => ({
   type: OPEN_PDF,
   view: 'show',
+  id,
+});
+export const openPaiement = id => ({
+  type: OPEN_PAIEMENT,
+  view: 'paiement',
   id,
 });
