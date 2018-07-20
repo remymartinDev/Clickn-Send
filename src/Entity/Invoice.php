@@ -425,7 +425,9 @@ class Invoice
 
     public function getRecurringDate()
     {
-        return $this->recurringDate;
+        if (isset($this->recurringDate)) {
+            return $this->recurringDate->format('c');
+        }
     }
 
     public function setRecurringDate()
