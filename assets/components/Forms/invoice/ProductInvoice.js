@@ -139,6 +139,5 @@ export default connect(
   mapDispatchToProps,
 )(reduxForm({
   form: 'facture',
-  asyncBlurFields: [],
 })(ProductInvoice));
 

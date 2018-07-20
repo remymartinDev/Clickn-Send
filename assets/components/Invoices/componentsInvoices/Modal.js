@@ -6,11 +6,13 @@ import { closeModal } from '~/store/reducers/localActionCreator';
 import CreateCustomer from './CustomerCreate';
 import CreateProduct from './ProductCreate';
 import ShowInvoicePdf from './ShowInvoicePdf';
+import ModalPaiement from './ModalPaiement';
 
 const ModalList = {
   customer: <CreateCustomer />,
   product: <CreateProduct />,
   show: <ShowInvoicePdf />,
+  paiement: <ModalPaiement />,
 };
 class CustomeModal extends React.Component {
   componentDidMount() {
