@@ -107,7 +107,7 @@ class Invoice
     private $deadline3;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $recurringDate;
 
