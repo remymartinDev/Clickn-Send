@@ -39,7 +39,7 @@ class ModalPaiement extends React.Component {
 
       <div>
         <h1>Paiement reçu</h1>
-        <Form onSubmit={this.submit}>
+        <Form onSubmit={this.handleSubmit}>
           <label htmlFor="date">Date</label>
           <Field name="date" type="date" component="input" />
           <label htmlFor="amount">Montant</label>
@@ -59,10 +59,21 @@ class ModalPaiement extends React.Component {
 
 }
 
+ModalPaiement.propTypes = {
+  selectedInvoiceId: PropTypes.number.isRequired,
+};
+
 const mapStateToProps = state => ({
   selectedInvoiceId: state.notreReducer.selectedInvoiceId,
 });
-const mapDispatchToProps = null;
+const mapDispatchToProps = ({
+  onSubmit: (values) => {
+    axios.post(`/api/payment/new/${this.props.selectedInvoiceId}`, values)
+      .then((response) => {
+        console.log(response);
+      });
+  },
+});
 
 export default connect(
   mapStateToProps,
