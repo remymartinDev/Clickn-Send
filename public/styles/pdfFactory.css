@@ -4,10 +4,19 @@ body {
 }
 
 .logo {
-  background-image: url(intensePC.png);
-  background-size: contain;
-  background-repeat: no-repeat;
+  font-size: 1.1rem;
 }
+
+.logo p{
+  line-height: 0.8rem;
+  padding-left: 1rem;
+}
+
+.logo .brand {
+   font-weight: bold;
+   font-size: 1.6rem;
+   padding-top: 3rem;
+ }
 
 .invoice-content {
   margin: auto;
@@ -23,13 +32,13 @@ body {
   line-height: 1.5rem;
   margin-top: 3rem;
   padding-top: 1.5rem;
-  margin-bottom: 1.5rem;
   background-color: rgba(255,189,147,0.3);
 }
 
 .purple-border {
   border: 0.25rem solid #D7D7D7;
 }
+
 
 .ecart {
   margin-bottom: 1.5rem;
@@ -133,6 +142,7 @@ body {
 
 .companyRef {
   padding-left: 0;
+  margin-top: 2rem;
 }
 
 .amounts {
@@ -147,27 +157,25 @@ body {
 .total {
   margin: 0;
   padding: 0;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
-
 .amounts {
   border: 0.25rem solid #D7D7D7;
   margin: 0;
 }
 
 .pre-amount {
-  display: flex;
-  justify-content: space-between;
   margin-top: 1.2rem;
-  padding: 0.45rem 0.3rem;
-  margin-right: 1.5rem;
+  padding: 0.45rem 0.3rem; 
+  margin-right: 0rem; 
 }
+
 
 .ttc {
   display: flex;
   justify-content: space-between;
-  padding : 1.95rem 0.3rem;
-  margin-top: 2.25rem;
+  padding : 1.95rem 0.3rem; 
+   margin-top: 2.25rem; 
   font-weight: bold;
 }
 

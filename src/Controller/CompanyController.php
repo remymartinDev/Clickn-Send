@@ -34,13 +34,15 @@ class CompanyController extends Controller
         $countryCode = preg_split('[0-9]',$company->getVatNumber());
         $company->setCountryCode($countryCode[0]);
 
-        $file = $company->getLogo();
+        dump($company);
+        $file = $company->getLogo(); 
+        dump($file);
+        die;
         $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
         $file->move(
             $this->getParameter('brochures_directory'),
             $fileName
-        );
-        
+        );        
         $company->setLogo($fileName);
 
 
