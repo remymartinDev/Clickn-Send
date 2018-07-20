@@ -497,8 +497,8 @@ class Invoice
         $this->setReminder(0);
         $this->setDeadline1($deadline);
         //$this->setDownPayment();
-        $this->setRecurringTerm($data_array['recurringTerm']);
-        $this->setRecurringDate();
+        //$this->setRecurringTerm($data_array['recurringTerm']);
+        //$this->setRecurringDate();
     }
 
     public function hydrateEdit($data_array, $customer, $status, $company)

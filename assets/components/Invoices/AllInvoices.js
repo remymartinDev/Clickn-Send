@@ -88,7 +88,7 @@ class AllInvoices extends React.Component {
   render() {
     return (
       <div className="page-container-facture page-container-facture--all">
-        <h1 className="titre">Toute vos factures</h1>
+        <h1 className="titre">Toutes vos factures</h1>
         <ButtonCreate class="dacture-create-button" type="facture" />
         <div className="factures-box">
           <FacturesListHead clickChevron={this.handleChevron} />

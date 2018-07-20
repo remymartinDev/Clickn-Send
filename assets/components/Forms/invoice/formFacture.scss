@@ -48,8 +48,13 @@
   .form-create-invoice {
     display: grid;
     grid-row-gap: 1rem;
-
+    margin: auto;
+    justify-content: center;
+    text-align: center;
     &-field {
+      margin: auto;
+      width: auto;
+      max-width: 10rem;
       border: 1px solid $color-vert-0;
       box-shadow: 1px 1px 5px 2px rgba(47,186,186,0.5);
       &-disable {
