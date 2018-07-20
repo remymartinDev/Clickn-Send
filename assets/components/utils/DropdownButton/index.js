@@ -66,7 +66,7 @@ class DropdownButton extends React.Component {
             (componentType === 'product' || componentType === 'customer')
             &&
             <DropdownItem className="dropdown-box">
-              <Link to={`/${componentType}/${id}`} className="dropdown-link">
+              <Link to={`/${componentType}s/${id}`} className="dropdown-link">
                 <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
                  Voir
               </Link>
@@ -82,10 +82,10 @@ class DropdownButton extends React.Component {
             componentType === 'invoice'
             &&
             <DropdownItem className="dropdown-box">
-              <Link to={`/${componentType}/${id}/pdfdownload`} className="dropdown-link">
+              <a href={`/${componentType}/${id}/pdfdownload`} className="dropdown-link">
                 <FontAwesomeIcon className="dropdown-link-icon" icon={faDownload} />
                  Télécharger
-              </Link>
+              </a>
             </DropdownItem>
           }
           <DropdownItem

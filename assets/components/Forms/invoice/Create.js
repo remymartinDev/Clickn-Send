@@ -42,7 +42,7 @@ CreateFacture.propTypes = {
 };
 
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownprops) => ({
   changeCustomers: (id, callback) => {
     dispatch(change('facture', 'customer', id));
     callback();
@@ -58,10 +58,13 @@ const mapDispatchToProps = dispatch => ({
       });
   },
   onSubmit: (values) => {
-    console.log('create invoice');
-    console.log(values);
-    dispatch(createInvoice(values));
-    dispatch(loadInvoices());
+    axios.post('/api/invoice/new', values)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.succes) {
+          ownprops.history.push('/invoices');
+        }
+      });
   },
 });
 

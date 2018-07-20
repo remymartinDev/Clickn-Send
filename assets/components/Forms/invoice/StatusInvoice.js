@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
-import { Field } from 'redux-form';
+import { Field, formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
 
 class StatusInvoice extends React.Component {
   state = {
@@ -25,12 +26,31 @@ class StatusInvoice extends React.Component {
 
   render() {
     return (
-      <Field component="select" name="status" className="fieldSelect status">
-        <option>Sélectionner le statut</option>
-        {this.getStatusJSX()}
-      </Field>
+      <React.Fragment>
+        <Field component="select" name="status" className="fieldSelect status">
+          <option>Sélectionner le statut</option>
+          {this.getStatusJSX()}
+        </Field>
+        {
+            (this.props.selectedStatus == 5) &&
+            <div className="form-create-invoice recurringStatus">
+              <label htmlFor="recurringTerm" className="form-create-invoice-label">Nombre de jours de récurrence</label>
+              <Field component="input" type="number" name="recurringTerm" className="form-create-invoice-field" />
+            </div>
+        }
+      </React.Fragment>
     );
   }
 }
 
-export default StatusInvoice;
+const selector = formValueSelector('facture');
+
+const mapStateToProps = state => ({
+  selectedStatus: selector(state, 'status'),
+});
+const mapDispatchToProps = null;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(StatusInvoice);

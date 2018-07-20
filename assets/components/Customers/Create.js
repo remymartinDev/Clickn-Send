@@ -9,6 +9,7 @@ class Create extends React.Component {
       .then((response) => {
         console.log(response.data);
       });
+    this.props.history.push('/products');
   }
 
   render() {

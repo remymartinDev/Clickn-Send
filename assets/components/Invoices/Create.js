@@ -1,17 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import axios from 'axios';
+
 
 import CreateFacture from '~/components/Forms/invoice/Create';
 
-const Create = ({ createInvoice }) => (
-  <React.Fragment>
-    <CreateFacture onSubmit={createInvoice} />;
-    {/* <Modal /> */}
-  </React.Fragment>
-);
 
-Create.propTypes = {
-  createInvoice: PropTypes.func.isRequired,
-};
+class Create extends React.Component {
+
+  render() {
+    
+    return (
+      <React.Fragment>
+        <CreateFacture history={this.props.history} />;
+        {/* <Modal /> */}
+      </React.Fragment>
+    );
+  }
+}
 
 export default Create;

@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import { createCompany } from '~/store/reducers/dataActionCreator';
 import InputFile from './InputFile';
 import './signupForm.scss';
 
 const SignupForm = (props) => {
-  const { handleSubmit } = props;
   return (
-    <form className="form signup-form" onSubmit={handleSubmit}>
+    <form className="form signup-form" onSubmit={props.handleSubmit}>
       <h1 className="form-title">Créer votre compte</h1>
       <label className="form-label" htmlFor="companyName">Nom de l'entreprise *</label>
       <Field className="form-field" name="companyName" component="input" type="text" required />
@@ -65,7 +65,20 @@ const mapStateToProps = null;
 const mapDispatchToProps = dispatch => ({
   onSubmit: (values) => {
     console.log(values);
-    dispatch(createCompany(values));
+    const formData = new FormData();
+    for (let key in values) {
+      console.log(key);
+      formData.append(key, values[key]);
+    }
+    console.log(formData.get('logo'));
+
+    const config = {
+      headers: { 'content-type': 'multipart/form-data' },
+    };
+    // dispatch(createCompany(values));
+    axios.post('/api/company/new', formData, config)
+      .then(response => console.log(response));
+
   },
 });
 
