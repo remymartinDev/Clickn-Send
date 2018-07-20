@@ -43,6 +43,8 @@ class PdfController extends Controller
             }
         }
 
+        $this->getDoctrine()->getManager()->flush();
+
         $html = $this->renderView('pdf/factory.html.twig', [
             'title' => 'Facture PDF',
             'invoice' => $invoice,
