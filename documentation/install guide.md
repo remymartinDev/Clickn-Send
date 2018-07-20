@@ -341,4 +341,69 @@ par
         AllowOverride All
         Require all granted
 </Directory>
+
 ```
+puis redémarrez apache
+```
+sudo a2enmod rewrite
+sudo service apache2 restart
+```
+
+- PhpMyAdmin affiche des erreurs :
+
+    - locate sql.lib.php
+It will show something like: /usr/share/phpmyadmin/libraries/sql.lib.php
+
+    - dans le terminal tapez : 
+    ```
+    sudo /usr/sbin/pma-configure
+    ```
+    - puis 
+     ```
+    sudo gedit /usr/share/phpmyadmin/libraries/sql.lib.php
+    ```
+
+    - et trouvez
+    ```
+    function PMA_isRememberSortingOrder($analyzed_sql_results)
+     {
+        return $GLOBALS['cfg']['RememberSorting']
+            && ! ($analyzed_sql_results['is_count']
+                || $analyzed_sql_results['is_export']
+                || $analyzed_sql_results['is_func']
+                || $analyzed_sql_results['is_analyse'])
+            && $analyzed_sql_results['select_from']
+            && ((empty($analyzed_sql_results['select_expr']))
+                || (count($analyzed_sql_results['select_expr'] == 1)
+                    && ($analyzed_sql_results['select_expr'][0] == '*')))
+            && count($analyzed_sql_results['select_tables']) == 1;
+     }
+    ```
+
+    - remplacez
+
+    ```
+    function PMA_isRememberSortingOrder($analyzed_sql_results)
+    {
+    return $GLOBALS['cfg']['RememberSorting']
+        && ! ($analyzed_sql_results['is_count']
+            || $analyzed_sql_results['is_export']
+            || $analyzed_sql_results['is_func']
+            || $analyzed_sql_results['is_analyse'])
+        && $analyzed_sql_results['select_from']
+        && ((empty($analyzed_sql_results['select_expr']))
+            || (count($analyzed_sql_results['select_expr']) == 1)
+                && ($analyzed_sql_results['select_expr'][0] == '*'))
+        && count($analyzed_sql_results['select_tables']) == 1;
+    }
+    ```
+    - sauvegardez (Ctrl-o , Entrée, Ctrl-x) et tapez dans le terminal :
+    ```
+    sudo /usr/sbin/pma-secure
+    ```
+    ```
+    sudo service mysql reload
+    ```
+    ```
+    sudo service apache2 reload
+    ```

@@ -25,9 +25,19 @@
 
         <div class="container-fluid ecart">
             <div class="row">
-                <div class="col-5 logo"></div>
-                <div class="col-1 void"></div>
-                <div class="col-5 customer">
+                <div class="col-10 customer xsSize">
+                    {% if invoice.customer.pro == true %}
+                    <p> {{invoice.customer.customerCompany}}</p>
+                    {% else %}
+                    <p> {{invoice.customer.lastname}} {{invoice.customer.firstname}} </p>
+                    {% endif %}
+                    <p> {{invoice.customer.companyAdress}} </p>
+                    <p> {{invoice.customer.ZipCode}} {{invoice.customer.City}} </p>
+                    <p>VAT n° {{ invoice.customer.vatNumber|slice(0,2)}}&nbsp;{{ invoice.customer.vatNumber|slice(2,9)}} </p>  
+                </div>
+                <div class="col-5 logo smSize"> <img src=" {{invoice.company.logo}} " alt=""> </div>
+                <div class="col-1 void smSize"></div>
+                <div class="col-6 customer smSize">
 
                 {% if invoice.customer.pro == true %}
                 <p> {{invoice.customer.customerCompany}}</p>
@@ -53,7 +63,6 @@
                 {% if invoice.deadline2 != null %}
                 <p class="rappel">RAPPEL</p>
                 {% endif %}
-                <p class="rappel">RAPPEL</p>
                 </div>
                 <div class="d-xs-none col-md-3"></div>
             </div>
@@ -63,35 +72,45 @@
             <div class="inside-products">
                 <div class="container-fluid">
 
-                    <div class="row thead">
+                    <div class="row thead xsSize">
+                        <div class="col-6 th produit">Produit</div>
+                        <div class="col-3 th">Quantité</div>
+                        <div class="col-3 thd">Total H.T</div>
+                    </div>
+                    <div class="row thead smSizeRow">
                         <div class="col-4 th produit">Produit</div>
                         <div class="col-2 th">Quantité</div>
-                        <div class="col-1 th">Unité</div>
                         <div class="col-2 th">Prix</div>
-                        <div class="col-1 th">TVA</div>
+                        <div class="col-2 th">TVA</div>
                         <div class="col-2 thd">Total H.T</div>
                     </div>
                     
+                    
                     {% for thisOne in invoice.invoiceHasProducts %}
                     <div class="row thead">
-                        <div class="col-4 produit tr">
+                        <div class="col-6 produit tr xsSize">
                             <p class="product">
                                 {{thisOne.product.denomination}}
                                 <span class="description">(ref: {{thisOne.product.reference}})</span>
                             </p>
-                            <p class="description"> {{thisOne.product.description}} </p>
                         </div>
-                        <div class="col-2 tr trm">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
-                        <div class="col-1 tr trm">{{ thisOne.product.unity }}</div>
-                        <div class="col-2 tr trm">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
-                        <div class="col-1 tr trm">
-                            {% if thisOne.vatRate == null %}
-                            <span>0,00</span>
-                            {% else %}
-                            {{thisOne.vatRate}}
-                            {% endif %}
-                        </div>       
-                        <div class="col-2 trd"> 
+                        <div class="col-4 produit tr smSize">
+                            <p class="product">
+                                {{thisOne.product.denomination}}
+                                <span class="description">(ref: {{thisOne.product.reference}})</span>
+                            </p>
+                        </div>
+                        <div class="col-3 tr trm xsSize">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
+                        <div class="col-2 tr trm smSize">{{thisOne.quantity|number_format(2, ',', ' ') }}</div>
+                        <div class="col-2 tr trm smSize">{{thisOne.product.price|number_format(2, ',', ' ') }}&euro;</div>
+                        <div class="col-2 tr trm smSize">
+                                {% if thisOne.vatRate == null %}
+                                <span>0,00</span>
+                                {% else %}
+                                {{thisOne.vatRate}}
+                                {% endif %}
+                            </div>       
+                        <div class="col-3 trd xsSize"> 
                             {% if (thisOne.amountProductRemise != null) and (thisOne.amountProductRemise != 0) %}
                             {{(thisOne.amountDuttyFree)|number_format(2, ',', ' ') }} &euro;
                             <p class="customerRemise">(remise: -
@@ -103,7 +122,18 @@
                             {{(thisOne.amountDuttyFree) |number_format(2, ',', ' ') }} &euro;
                             {% endif %} 
                         </div>  
-                        
+                        <div class="col-2 trd smSize"> 
+                            {% if (thisOne.amountProductRemise != null) and (thisOne.amountProductRemise != 0) %}
+                            {{(thisOne.amountDuttyFree)|number_format(2, ',', ' ') }} &euro;
+                            <p class="customerRemise">(remise: -
+                                    {% if (thisOne.remiseType == 'absolute') %}{{thisOne.amountProductRemise}} &euro;{% endif %}
+                                    {% if (thisOne.remiseType == 'percent') %}{{thisOne.remise}} %{% endif %}
+                                    )
+                            </p>
+                            {% else %}
+                            {{(thisOne.amountDuttyFree) |number_format(2, ',', ' ') }} &euro;
+                            {% endif %} 
+                        </div>  
 
                     </div>
                     {% endfor %}
