@@ -82,6 +82,7 @@ class PaymentController extends Controller
 
         $payments = $paymentRepo->findByInvoice($invoice);
         $invoice->checkPayment($payments);
+        $em->flush();
 
         $response = [
             'succes' => true,

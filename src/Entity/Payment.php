@@ -60,7 +60,7 @@ class Payment
         return $this->date->format('c');
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate($date)
     {
         $this->date = $date;
 
@@ -79,12 +79,12 @@ class Payment
         return $this;
     }
 
-    public function getPaymentMethode(): ?PaymentMethod
+    public function getPaymentMethode()
     {
         return $this->paymentMethode;
     }
 
-    public function setPaymentMethode(?PaymentMethod $paymentMethode): self
+    public function setPaymentMethode($paymentMethode)
     {
         $this->paymentMethode = $paymentMethode;
 
@@ -129,13 +129,12 @@ class Payment
     
     public function hydrate($customer, $company, $paymentMethode, $invoice, $timeStamp)
     {
-        $date = new \DateTime();
-        $paymentdate = $date->setTimestamp($timeStamp);
+        $date = new \DateTime($timeStamp);
 
         $this->setCompany($company);
         $this->setCustomer($customer);
         $this->setInvoice($invoice);
         $this->setPaymentMethode($paymentMethode);
-        $this->setDate($paymentdate);
+        $this->setDate($date);
     }
 }

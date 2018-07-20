@@ -35,13 +35,9 @@ class ModalPaiement extends React.Component {
           <label htmlFor="date">Date</label>
           <Field name="date" type="date" component="input" />
           <label htmlFor="amount">Montant</label>
-          <Field name="amout" type="number" component="input" />
-          <Field name="paymentMethode" component="select">
-<<<<<<< HEAD
+          <Field name="amount" type="number" component="input" />
+          <Field name="paymentMethod" component="select">
             <option>Sélectionner votre mode de payement</option>
-=======
-            <option>méthode de paiement</option>
->>>>>>> bc76559ef670fad647eb6ce086c0a1a82b105fa4
             {this.getMethodesJSX()}
           </Field>
           <button type="submit">
