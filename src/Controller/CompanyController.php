@@ -13,36 +13,38 @@ use App\Service\ConfiguredSerializer;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Member;
 use App\Repository\RoleRepository;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 /**
  * @Route("/api/company")
  */
-class CompanyController extends Controller
+class CompanyController extends Controller 
 {
     /**
      * @Route("/new", name="company_new", methods="GET|POST")
      */
-    public function new(Request $request, SerializerInterface $serializer, RoleRepository $roleRepo): Response
+    public function new(Request $request, RoleRepository $roleRepo): Response
     {
-        $data = $request->files->all();
-        $post = $request->request->all();
-        var_dump('------------------filesbag-----------------');
-        var_dump($data);
-        var_dump('------------------data en post-----------------');
-        var_dump($post);
-        exit;
-        $data_array = json_decode($data, true);
-        $data = $request->getContent();
+        $fileup = $request->files->all();
+        $data_array = $request->request->all();
+
+        //$classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer(array($normalizer));
         
-        $company = $serializer->deserialize($data, Company::class, 'json'); 
+        $company = $serializer->denormalize($data_array, Company::class);
+        $file = $fileup["logo"];
+
 
         $countryCode = preg_split('[0-9]',$company->getVatNumber());
         $company->setCountryCode($countryCode[0]);
 
-        dump($company);
-        $file = $company->getLogo(); 
-        dump($file);
-        die;
         $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
         $file->move(
             $this->getParameter('brochures_directory'),
