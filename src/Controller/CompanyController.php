@@ -24,7 +24,13 @@ class CompanyController extends Controller
      */
     public function new(Request $request, SerializerInterface $serializer, RoleRepository $roleRepo): Response
     {
-
+        $data = $request->files->all();
+        $post = $request->request->all();
+        var_dump('------------------filesbag-----------------');
+        var_dump($data);
+        var_dump('------------------data en post-----------------');
+        var_dump($post);
+        exit;
         $data_array = json_decode($data, true);
         $data = $request->getContent();
         

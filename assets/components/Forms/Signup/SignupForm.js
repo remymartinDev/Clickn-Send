@@ -67,10 +67,14 @@ const mapDispatchToProps = () => ({
     listKey.forEach((key) => {
       formData.append(key, values[key]);
     });
+    console.log(values);
     console.log(formData.get('logo'));
 
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
+      onUploadProgress: (progress) => {
+        console.log('upload', progress.loaded, progress.total);
+      },
     };
     // dispatch(createCompany(values));
     axios.post('/api/company/new', formData, config)

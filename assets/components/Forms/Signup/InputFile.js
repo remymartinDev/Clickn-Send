@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const handleChange = handler => ({ target: { files } }) => {
-  handler(files.length ? { file: files[0], name: files[0].name } : {});
+  handler(files[0]);
 };
 
 const InputFile = ({

@@ -65,4 +65,14 @@ class MainController extends Controller
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
+    /**
+     * @Route("/data/logo")
+     */
+    public function getLogo(Request $request) {
+        $data = $request->files->all();
+        $get = $request->request->all();
+        var_dump($get);
+        var_dump($data);
+        exit;
+    }
 }
