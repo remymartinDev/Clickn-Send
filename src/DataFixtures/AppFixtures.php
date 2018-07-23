@@ -150,6 +150,8 @@ class AppFixtures extends Fixture
             $company1->setCompanyInformation('S.A au capital de 50.000€');
             $company1->setCountryCode('FR');
             $company1->setWebsite('www.intensePC.fr');
+            $company1->setLogo('intensePC.png');
+
             $companies[] = $company1;            
             $manager->persist($company1);
 
