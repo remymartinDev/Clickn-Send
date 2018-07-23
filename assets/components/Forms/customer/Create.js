@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector, change } from 'redux-form';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -62,7 +63,7 @@ let CreateCustomer = props => {
 
 CreateCustomer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  serachVat: PropTypes.func.isRequired,
+  searchVat: PropTypes.func.isRequired,
 };
 
 CreateCustomer = reduxForm({
@@ -70,15 +71,40 @@ CreateCustomer = reduxForm({
   form: 'client',
 })(CreateCustomer);
 
+const selector = formValueSelector('client');
+
 const mapStateToProps = state => ({
-  searchVat: () => console.log('ok'),
+  state,
 });
 
 const mapDispatchToProps = dispatch => ({
+  dispatch,
+});
 
+const mergeProps = ({ state }, { dispatch }) => ({
+  searchVat: () => {
+    const vatNumber = selector(state, 'vatNumber');
+    const key = '8483659eea282a0f9ab0232f1276a297';
+    console.log(vatNumber);
+    axios.get(`http://www.apilayer.net/api/validate&access_key=${key}&vat_number=${vatNumber}`)
+      .then(response => {
+        if (response.data.valid) {
+          const {
+            company_address,
+            company_name,
+            country_code,
+          } = response.data;
+          console.log(company_address);
+          dispatch(change('client', 'customerCompany', company_name));
+          dispatch(change('client', 'countryCode', country_code));
+          dispatch(change('client', 'companyAdress', company_address));
+        }
+      });
+  }
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
+  mergeProps,
 )(CreateCustomer);
