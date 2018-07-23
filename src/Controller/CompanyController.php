@@ -129,11 +129,11 @@ class CompanyController extends Controller
     }
 
     /**
-     * @Route("admin/delete", name="company_delete", methods="DELETE")
+     * @Route("/admin/delete", name="company_delete", methods="GET")
      */
     public function delete(Request $request)
     {
-            if ($this->getUser()->getRole()[0] === "ROLE_ADMIN") {
+            if ($this->getUser()->getRoles()[0] === "ROLE_ADMIN") {
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($this->getUser()->getCompany());
                 $em->flush();
