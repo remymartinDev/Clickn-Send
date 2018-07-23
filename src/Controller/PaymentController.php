@@ -25,32 +25,45 @@ class PaymentController extends Controller
 {
 
     /**
-     * @Route("s", name="payment_list", methods="GET")
+     * @Route("s/{id}", name="payment_list", methods="GET")
      */
-    public function index(PaymentRepository $paymentRepository, ConfiguredSerializer $configuredSerializer)
+    public function list(Invoice $invoice, PaymentRepository $paymentRepository, ConfiguredSerializer $configuredSerializer)
     {
         $companyId = $this->getUser()->getCompany()->getId();
-        $payments = $paymentRepository->findByCompany($companyId);
+        $invoiceCompanyId = $invoice->getCompany()->getId();
 
-        foreach ($payments as $payment) {
-
-            $customer = $payment->getCustomer();
+        if ($companyId === $invoiceCompanyId) {
             
-            $customer->delPayments();
-            $customer->delInvoices();
-            $customer->setCompany(null);
+            $payments = $paymentRepository->findByInvoice($invoice);
+    
+            foreach ($payments as $payment) {
+    
+                $customer = $payment->getCustomer();
+                
+                $customer->delPayments();
+                $customer->delInvoices();
+                $customer->setCompany(null);
+    
+                $invoice = $payment->getInvoice();                        
+    
+                $invoice->delPayments();
+                $invoice->delInvoiceHasProduct();
+                $invoice->setCompany(null);
+                $invoice->setCustomer(null);
+            }
+            
+            //on utilise un service créé par nos soin pour configurer le serializer
+            $json = $configuredSerializer->getConfiguredSerializer()->serialize($payments, 'json');
 
-            $invoice = $payment->getInvoice();                        
+        }else {
 
-            $invoice->delPayments();
-            $invoice->delInvoiceHasProduct();
-            $invoice->setCompany(null);
-            $invoice->setCustomer(null);
+            $response = [
+                'succes' => false,
+            ];
+            $json = $serializer->serialize($response, 'json');
+
         }
         
-        //on utilise un service créé par nos soin pour configurer le serializer
-        $json = $configuredSerializer->getConfiguredSerializer()->serialize($payments, 'json');
-
         return new Response($json);
     }
 
@@ -80,8 +93,7 @@ class PaymentController extends Controller
         $em->persist($payment);
         $em->flush();
 
-        $payments = $paymentRepo->findByInvoice($invoice);
-        $invoice->checkPayment($payments);
+        $invoice->checkPayment();
         $em->flush();
 
         $response = [
@@ -93,23 +105,34 @@ class PaymentController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="payment_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="payment_edit", methods="POST")
      */
-    public function edit(Request $request, Payment $payment): Response
+    public function edit(Request $request, Payment $payment)
     {
-        $form = $this->createForm(PaymentType::class, $payment);
-        $form->handleRequest($request);
+        $data = $request->getContent();
+        $data_array = json_decode($data, true);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        //take json datas
+        $timeStamp = $data_array['date'];
+        $paymentMethod = $paymentMethodRepo->findOneById($data_array['paymentMethod']);
 
-            return $this->redirectToRoute('payment_edit', ['id' => $payment->getId()]);
-        }
+        $payment->setDate($timeStamp);
+        $payment->setPaymentMethode($paymentMethod);
+        $payment->setAmount($data_array['amount']);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        
+        $invoice->checkPayment();
+        $em->flush();
 
-        return $this->render('payment/edit.html.twig', [
-            'payment' => $payment,
-            'form' => $form->createView(),
-        ]);
+        $response = [
+            'succes' => true,
+            'id' => $payment->getId(),
+            'invoicePaid' => $invoice->getPaid()
+        ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 
     /**
@@ -117,16 +140,16 @@ class PaymentController extends Controller
      */
     public function delete(Request $request, Payment $payment): Response
     {
-        /* if ($this->isCsrfTokenValid('delete'.$payment->getId(), $request->request->get('_token'))) { */
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($payment);
-            $em->flush();
-       /*  } */
 
-    $response = [
-    'succes' => true,
-    ];
-    $json = $serializer->serialize($response, 'json');
-    return new Response($json);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($payment);
+        $em->flush();
+
+        $response = [
+        'succes' => true,
+        ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
+
     }
 }

@@ -528,7 +528,7 @@ class Invoice
         $this->setRecurringDate();
     }
 
-    public function checkPayment($payments)
+    public function checkPayment()
     {       
         if ($this->down_payment === null) {
             $total = 0;
@@ -536,7 +536,7 @@ class Invoice
             $total = $this->down_payment;
         }
 
-        foreach ($payments as $payment) {
+        foreach ($this->getPayments() as $payment) {
             $total += $payment->getAmount();
         }
 
