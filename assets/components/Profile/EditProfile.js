@@ -39,7 +39,7 @@ const mapDispatchToProps = () => ({
     };
     axios.post('/api/company/admin/edit', formData, config)
       .then(response => console.log(response));
-  }
+  },
 });
 
 export default connect(
