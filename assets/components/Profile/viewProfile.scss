@@ -1,47 +1,48 @@
 @import '~/styles/vars.scss';
 
 .view-profile {
+  grid-template-columns: 1fr;
   grid-template-rows: auto;
-
-
+  grid-template-areas: 
+    "edit"
+    "titre";
+  .view-title {
+    grid-area: "titre";
+  }
+  .view-link {
+    grid-area: "edit";
+  }
   
 }
 
-.view {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 2fr 1fr 0.5fr;
-  width: 90%;
-  margin: 2rem auto;
-  grid-gap: 1rem;
-  border: 2px solid $color-orange-0;
-  box-shadow: 1px 1px 20px 2px $color-orange-0;
-  padding: 2rem;
-  color: $color-mauve-4;
 
-  &-title {
-    font-size: 1.5rem;
-    justify-self: end;
-    color: $color-vert-0;
-    margin-bottom: 2rem;
-    margin-left: 2rem; 
-  }
-  &-link {
-    color: $color-orange-0;
-    justify-self: end;
-    padding-right: 2rem;
-    &-icon {
-      margin-right: 1rem;
-    }
-    &:hover {
-      color: $color-orange-1;
-    }
-  }
+
+
+.left {
+  text-align: left;
 }
+.right {
+  text-align:right;
+  justify-content: end;
+}
+
+.view-logo {
+  max-width: 10rem;
+  grid-column: 1 / -1;
+  margin: auto;
+
+}
+
+
 
 @media (min-width: 768px) {
 
   .view-profile {
+    grid-template-columns: 1fr 1fr;
     min-width: 35rem;
+  }
+  .right {
+    text-align:left;
+    justify-content: start;
   }
 }
