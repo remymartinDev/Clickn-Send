@@ -113,7 +113,7 @@ SignupForm.propTypes = {
   buttonValue: PropTypes.string,
   style: PropTypes.object,
   editMode: PropTypes.bool,
-  loggedOut: PropTypes.func.isRequired,
+  loggedOut: PropTypes.func,
 };
 
 SignupForm.defaultProps = {
@@ -121,6 +121,7 @@ SignupForm.defaultProps = {
   buttonValue: 'Créer',
   style: {},
   editMode: false,
+  loggedOut: () => {},
 };
 
 export default SignupForm;

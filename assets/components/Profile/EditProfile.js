@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import axios from 'axios';
 import { push } from 'connected-react-router';
-import { bindActionCreator } from 'redux';
+import { bindActionCreators } from 'redux';
 
 import Form from '~/components/Forms/Signup/Form';
 import { userConnected, loggedOut } from '~/store/reducers/localActionCreator';
@@ -24,22 +24,16 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreator({ loggedOut }, dispatch),
+  ...bindActionCreators({ loggedOut }, dispatch),
   onSubmit: (values) => {
-    console.log('in edition', values);
     const formData = new FormData();
     const listKey = Object.keys(values);
     listKey.forEach((key) => {
       formData.append(key, values[key]);
     });
-    console.log(values);
-    console.log(formData.get('logo'));
 
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
-      onUploadProgress: (progress) => {
-        console.log('upload', progress.loaded, progress.total);
-      },
     };
     axios.post('/api/company/admin/edit', formData, config)
       .then(() => {
@@ -48,7 +42,7 @@ const mapDispatchToProps = dispatch => ({
             const userJSON = JSON.stringify(user);
             sessionStorage.setItem('user', userJSON);
             dispatch(userConnected(user));
-            dispatch(push('/'));
+            dispatch(push('/profile'));
           });
       });
   },
