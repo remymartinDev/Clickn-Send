@@ -51,12 +51,12 @@ class PdfController extends Controller
             'paymentMethod' => $paymentMethod,
             'phoneIndex' => $phoneIndex,
             'calendar' => $calendar
-        ]);    
+        ]);   
 
         //eraze the elder invoice
         if (file_exists('PDF/facture.pdf')) {
             unlink('PDF/facture.pdf');
-        }    
+        }
 
         //create new invoice
         $this->get('knp_snappy.pdf')->generateFromHtml($html,
@@ -76,7 +76,13 @@ class PdfController extends Controller
         $destinataire = [$clienMail, $userMail];
 
         $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $destinataire);
-        return $this->redirectToRoute('home');
+        return $this->render('pdf/factory.html.twig', [
+            'title' => 'Facture PDF',
+            'invoice' => $invoice,
+            'paymentMethod' => $paymentMethod,
+            'phoneIndex' => $phoneIndex,
+            'calendar' => $calendar
+        ]);    
         
     }
 

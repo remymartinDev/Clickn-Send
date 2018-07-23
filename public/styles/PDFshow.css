@@ -5,9 +5,14 @@ body {
 }
 
 .logo {
-  background-image: url(intensePC.png);
-  background-size: contain;
+  font-size: 1.1rem;
+  background-size: cover;
   background-repeat: no-repeat;
+}
+
+.logo img {
+  width:100%;
+  display:block;
 }
 
 .invoice-content {

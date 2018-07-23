@@ -105,7 +105,7 @@ abstract class User implements UserInterface, GroupableInterface
      */
     public function __construct()
     {
-        $this->enabled = false;
+        $this->enabled = true;
         $this->roles = array();
     }
 
@@ -280,10 +280,7 @@ abstract class User implements UserInterface, GroupableInterface
         foreach ($this->getGroups() as $group) {
             $roles = array_merge($roles, $group->getRoles());
         }
-
-        // we need to make sure to have at least one role
-        $roles[] = static::ROLE_DEFAULT;
-
+        
         return array_unique($roles);
     }
 

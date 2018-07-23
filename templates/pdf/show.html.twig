@@ -35,7 +35,19 @@
                     <p> {{invoice.customer.ZipCode}} {{invoice.customer.City}} </p>
                     <p>VAT n° {{ invoice.customer.vatNumber|slice(0,2)}}&nbsp;{{ invoice.customer.vatNumber|slice(2,9)}} </p>  
                 </div>
-                <div class="col-5 logo smSize"> <img src=" {{invoice.company.logo}} " alt=""> </div>
+                <div class="col-5 logo smSize"> 
+                    {% if invoice.company.logo != null %}
+                    <img src="{{  asset('data/logo/') }}{{invoice.company.logo}} " alt="logo {{invoice.company.companyName}}">
+                    {% else %}
+                    <p class="brand">{{ invoice.company.companyName }}</p>
+                    <p>{{ invoice.company.companyAdress }} </p>
+                    <p>{{ invoice.company.zipCode }} {{ invoice.company.city }}</p>
+                    <p>Tel: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.phone|slice(1,1)}}&nbsp;{{ invoice.company.phone|slice(2,2)}}.{{ invoice.company.phone|slice(4,2)}}.{{ invoice.company.phone|slice(6,2)}}.{{ invoice.company.phone|slice(8,20)}}</p>
+                    <p>Fax: {{phoneIndex[invoice.company.countryCode]}}{{ invoice.company.fax|slice(1,1)}}&nbsp;{{ invoice.company.fax|slice(2,2)}}.{{ invoice.company.fax|slice(4,2)}}.{{ invoice.company.fax|slice(6,2)}}.{{ invoice.company.fax|slice(8,20)}}</p>
+                    <p>Mail: {{ invoice.company.email}}</p>
+                    <p>{{ invoice.company.website }}</p>
+                    {% endif %}
+                </div>
                 <div class="col-1 void smSize"></div>
                 <div class="col-6 customer smSize">
 
