@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import axios from 'axios';
+import { push } from 'connected-react-router';
 
 import Form from '~/components/Forms/Signup/Form';
 import { userConnected } from '~/store/reducers/localActionCreator';
@@ -42,7 +43,10 @@ const mapDispatchToProps = dispatch => ({
       .then(() => {
         axios.get('/api/user')
           .then(({ data: { user } }) => {
+            const userJSON = JSON.stringify(user);
+            sessionStorage.setItem('user', userJSON);
             dispatch(userConnected(user));
+            dispatch(push('/'));
           });
       });
   },

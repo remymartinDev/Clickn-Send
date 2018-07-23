@@ -19,7 +19,7 @@ import {
   loadProducts,
 } from '~/store/reducers/dataActionCreator';
 import { LOGGED_OUT } from '~/store/reducers/localActions';
-import { loggedOut, loggedIn, userConnected } from '../reducers/localActionCreator';
+import { loggedIn, userConnected } from '../reducers/localActionCreator';
 
 const getDataCreator = (next, action) => async (url) => {
   const { data } = await ajaxGet(url);
@@ -35,9 +35,7 @@ const deleteDataCreator = (next, action) => async (url) => {
 };
 
 const createDataCreator = (next, action) => async (url) => {
-  console.log(action);
   const { data } = await ajaxCreate(url, action.values);
-  console.log(data);
   if (data.succes) {
     next({
       ...action,
@@ -95,7 +93,6 @@ const dataMiddleware = store => next => (action) => {
       axios.post('api/company/new', action.values)
         .then((response) => {
           if (response.data.succes) {
-            console.log(action.values);
             const values = {
               username: action.values._username,
               password: action.values._password,
@@ -111,8 +108,7 @@ const dataMiddleware = store => next => (action) => {
     }
     case LOGGED_OUT: {
       axios.get('/logout')
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           sessionStorage.removeItem('user');
           next(action);
         });

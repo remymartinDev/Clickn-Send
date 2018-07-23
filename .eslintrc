@@ -19,7 +19,8 @@
     "no-nested-ternary": "off",
     "react/no-array-index-key": "off",
     "no-unneeded-ternary": "off",
-    "react/no-danger": "off"
+    "react/no-danger": "off",
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {
