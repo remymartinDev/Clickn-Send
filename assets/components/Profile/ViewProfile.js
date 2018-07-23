@@ -6,8 +6,8 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './viewProfile.scss';
 
-const ViewDiv = ({ children, style }) => (
-  <div className="view-div" style={style}>
+const ViewDiv = ({ children, className }) => (
+  <div className={`view-div ${className ? className : ''}`}>
     {children}
   </div>
 );
@@ -17,40 +17,44 @@ const ViewProfile = ({ userConnected }) => {
   return (
     <div className="view-profile view">
       <h1 className="view-title">Profile de l'entreprise</h1>
-      <Link to="/profile/edit" className="view-link">
+      <Link to="/profile/edit" className="view-edit view-link">
         <FontAwesomeIcon className="view-link-icon" icon={faPencilAlt} />
           Editer
       </Link>
-      <ViewDiv>Nom de l'entreprise</ViewDiv>
-      <ViewDiv>{userConnected.company.companyName}</ViewDiv>
-      <ViewDiv>Numéro de TVA</ViewDiv>
-      <ViewDiv>{userConnected.company.vatNumber}</ViewDiv>
-      <ViewDiv>Adresse</ViewDiv>
-      <ViewDiv>{userConnected.company.companyAdress}</ViewDiv>
-      <ViewDiv>Code postal</ViewDiv>
-      <ViewDiv>{userConnected.company.zipCode}</ViewDiv>
-      <ViewDiv>Ville</ViewDiv>
-      <ViewDiv>{userConnected.company.city}</ViewDiv>
-      <ViewDiv>E-mail</ViewDiv>
-      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.email}</ViewDiv>
-      <ViewDiv>Téléphone</ViewDiv>
-      <ViewDiv>{userConnected.company.phone}</ViewDiv>
-      <ViewDiv>Fax</ViewDiv>
-      <ViewDiv>{userConnected.company.fax}</ViewDiv>
-      <ViewDiv>Banque</ViewDiv>
-      <ViewDiv>{userConnected.company.bankDomiciliation}</ViewDiv>
-      <ViewDiv>Numéro de compte</ViewDiv>
-      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.bankIban}</ViewDiv>
-      <ViewDiv>BIC</ViewDiv>
-      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.bankBic}</ViewDiv>
-      <ViewDiv>RIB</ViewDiv>
-      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.bankRib}</ViewDiv>
-      <ViewDiv>Délai de paiement des factures</ViewDiv>
-      <ViewDiv>{userConnected.company.paymentTerm}</ViewDiv>
-      <ViewDiv>Informations complémentaires</ViewDiv>
-      <ViewDiv>{userConnected.company.companyInformation}</ViewDiv>
-      <ViewDiv>Site Internet</ViewDiv>
-      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.website}</ViewDiv>
+      { userConnected.company.logo && <img className="view-logo" src={`/data/logo/${userConnected.company.logo}`} alt="logo" /> }
+      
+      <ViewDiv className="left">Nom d'utilisateur</ViewDiv>
+      <ViewDiv className="right">{userConnected.username}</ViewDiv>
+      <ViewDiv className="left">Nom de l'entreprise</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.companyName}</ViewDiv>
+      <ViewDiv className="left">Numéro de TVA</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.vatNumber}</ViewDiv>
+      <ViewDiv className="left">Adresse</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.companyAdress}</ViewDiv>
+      <ViewDiv className="left">Code postal</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.zipCode}</ViewDiv>
+      <ViewDiv className="left">Ville</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.city}</ViewDiv>
+      <ViewDiv className="left">E-mail</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.email}</ViewDiv>
+      <ViewDiv className="left">Téléphone</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.phone}</ViewDiv>
+      <ViewDiv className="left">Fax</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.fax}</ViewDiv>
+      <ViewDiv className="left">Banque</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.bankDomiciliation}</ViewDiv>
+      <ViewDiv className="left">Numéro de compte</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.bankIban}</ViewDiv>
+      <ViewDiv className="left">BIC</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.bankBic}</ViewDiv>
+      <ViewDiv className="left">RIB</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.bankRib}</ViewDiv>
+      <ViewDiv className="left">Délai de paiement des factures</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.paymentTerm}</ViewDiv>
+      <ViewDiv className="left">Informations complémentaires</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.companyInformation}</ViewDiv>
+      <ViewDiv className="left">Site Internet</ViewDiv>
+      <ViewDiv className="right">{userConnected.company.website}</ViewDiv>
     </div>
   );
 };
