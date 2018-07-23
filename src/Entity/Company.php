@@ -103,16 +103,6 @@ class Company
      */
     private $website;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="comp")
-     */
-    private $members;
-
-    public function __construct()
-    {
-        $this->members = new ArrayCollection();
-    }
-
 
     public function getId()
     {
@@ -323,35 +313,24 @@ class Company
         return $this;
     }
 
-    /**
-     * @return Collection|Member[]
-     */
-    public function getMembers(): Collection
+    public function hydrate($data_array)
     {
-        return $this->members;
+        $this->setBankBic($data_array['bankBic']);
+        $this->setBankDomiciliation($data_array['bankDomiciliation']);
+        $this->setBankIban($data_array['bankIban']);
+        $this->setBankRib($data_array['bankRib']);
+        $this->setCity($data_array['city']);
+        $this->setCompanyAdress($data_array['companyAdress']);
+        $this->setCompanyInformation($data_array['companyInformation']);
+        $this->setCompanyName($data_array['companyName']);
+        $this->setCountryCode($data_array['countryCode']);
+        $this->setEmail($data_array['email']);
+        $this->setFax($data_array['fax']);
+        $this->setPaymentTerm($data_array['paymentTerm']);
+        $this->setPhone($data_array['phone']);
+        $this->setWebsite($data_array['website']);
+        $this->setZipCode($data_array['zipCode']);
+        $this->setVatNumber($data_array['vatNumber']);
     }
 
-    public function addMember(Member $member): self
-    {
-        if (!$this->members->contains($member)) {
-            $this->members[] = $member;
-            $member->setComp($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMember(Member $member): self
-    {
-        if ($this->members->contains($member)) {
-            $this->members->removeElement($member);
-            // set the owning side to null (unless already changed)
-            if ($member->getComp() === $this) {
-                $member->setComp(null);
-            }
-        }
-
-        return $this;
-    }
-    
 }

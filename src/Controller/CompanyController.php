@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Repository\MemberRepository;
 
 
 /**
@@ -83,21 +84,33 @@ class CompanyController extends Controller
     /**
      * @Route("/admin/edit", name="company_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Company $company): Response
+    public function edit(Request $request, Company $company, MemberRepository $memberRepository): Response
     {
         $fileup = $request->files->all();
         $data_array = $request->request->all();
+        
+        $em = $this->getDoctrine()->getManager();
 
         //fuction for check if logo exist and set it to company
         $this->checkAndSetLogo("logo", $fileup);
 
         $company->hydrate($data_array);
 
-        foreach ($company->getMembers() as $member) {
-            $member->hydrate();
+        foreach ($data_array['member'] as $member_data) {
+
+            if (array_key_exists('id', $member_data)) {
+                $member = $memberRepository->findOneBy($member_data['id']);
+                $member->hydrate($member_data);
+            }else {
+                $member = new Member();
+                $member->hydrate($member_data);
+                $member->setCompany($company);
+                $em->persist($member);
+            }
+
         }
 
-        $this->getDoctrine()->getManager()->flush();
+       $em->flush();
     }
 
     private function checkAndSetLogo($logoIndex, $fileup)
@@ -113,5 +126,28 @@ class CompanyController extends Controller
             $company->setLogo($fileName);
 
         }
+    }
+
+    /**
+     * @Route("admin/delete", name="company_delete", methods="DELETE")
+     */
+    public function delete(Request $request)
+    {
+            if ($this->getUser()->getRole()[0] === "ROLE_ADMIN") {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($this->getUser()->getCompany());
+                $em->flush();
+        
+                $response = [
+                    'succes' => true,
+                    ];
+            }else{
+                $response = [
+                    'succes' => false,
+                    'error' => 'vous devez etre connecté en temps qu admin, pour supprimer votre compte'
+                    ];
+            }
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 }

@@ -46,11 +46,11 @@ class MemberController extends Controller
         
         //take relational object for member
         $company = $this->getUser()->getCompany();
-        $role = $roleRepository->findOneById($data_array['role']['id']);
+        $role = $data_array['role'];
         
         //set member
         $member->setCompany($company);
-        $member->setRole($role);
+        $member->hydrate($data_array);
         
         $em = $this->getDoctrine()->getManager();
         $em->persist($member);
@@ -99,11 +99,10 @@ class MemberController extends Controller
      */
     public function delete(Request $request, Member $member): Response
     {
-       /*  if ($this->isCsrfTokenValid('delete'.$member->getId(), $request->request->get('_token'))) { */
+
             $em = $this->getDoctrine()->getManager();
             $em->remove($member);
             $em->flush();
-        /* } */
 
         $response = [
             'succes' => true,
