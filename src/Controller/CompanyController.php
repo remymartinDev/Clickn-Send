@@ -39,18 +39,21 @@ class CompanyController extends Controller
         $serializer = new Serializer(array($normalizer));
         
         $company = $serializer->denormalize($data_array, Company::class);
-        $file = $fileup["logo"];
-
-
-        $countryCode = preg_split('[0-9]',$company->getVatNumber());
+           
+        $countryCode = preg_split("/[0-9]/",$company->getVatNumber());
         $company->setCountryCode($countryCode[0]);
+        
+        if (array_key_exists("logo", $fileup)) {
 
-        $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
-        $file->move(
-            $this->getParameter('brochures_directory'),
-            $fileName
-        );        
-        $company->setLogo($fileName);
+            $file = $fileup["logo"];
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
+            $file->move(
+                $this->getParameter('brochures_directory'),
+                $fileName
+            );        
+            $company->setLogo($fileName);
+
+        }
 
 
         $em = $this->getDoctrine()->getManager();
