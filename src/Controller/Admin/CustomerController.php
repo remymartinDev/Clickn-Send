@@ -19,32 +19,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 class CustomerController extends Controller
 {
     
-    /**
-     * @Route("s", name="customer_list", methods="GET")
-     */
-    public function listInactiv(CustomerRepository $customerRepository, ConfiguredSerializer $configuredSerializer): Response
-    {
-        
-        $companyId = $this->getUser()->getCompany()->getId();
-        $customers = $customerRepository->findInactivCustomers($companyId);
-
-        foreach ($customers as $customer) {
-
-            foreach ($customer->getInvoices() as $invoice) {
-                $invoice->setCompany($customer->getCompany()->getId());
-                $invoice->delPayments();
-            }
-            
-            foreach ($customer->getPayments() as $payment) {
-                $payment->setInvoice($payment->getInvoice()->getId());
-            }
-        }
-
-        $json = $configuredSerializer->getConfiguredSerializer()->serialize($customers, 'json');
-
-        return new Response($json);
-    }
-
      /**
      * @Route("/{id}/delete", name="customer_delete", methods="GET")
      */
