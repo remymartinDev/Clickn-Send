@@ -6,8 +6,8 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './viewProfile.scss';
 
-const ViewDiv = ({ children }) => (
-  <div className="view-div">
+const ViewDiv = ({ children, style }) => (
+  <div className="view-div" style={style}>
     {children}
   </div>
 );
@@ -32,7 +32,7 @@ const ViewProfile = ({ userConnected }) => {
       <ViewDiv>Ville</ViewDiv>
       <ViewDiv>{userConnected.company.city}</ViewDiv>
       <ViewDiv>E-mail</ViewDiv>
-      <ViewDiv>{userConnected.company.email}</ViewDiv>
+      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.email}</ViewDiv>
       <ViewDiv>Téléphone</ViewDiv>
       <ViewDiv>{userConnected.company.phone}</ViewDiv>
       <ViewDiv>Fax</ViewDiv>
@@ -40,20 +40,17 @@ const ViewProfile = ({ userConnected }) => {
       <ViewDiv>Banque</ViewDiv>
       <ViewDiv>{userConnected.company.bankDomiciliation}</ViewDiv>
       <ViewDiv>Numéro de compte</ViewDiv>
-      <ViewDiv>{userConnected.company.bankIban}</ViewDiv>
+      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.bankIban}</ViewDiv>
       <ViewDiv>BIC</ViewDiv>
-      <ViewDiv>{userConnected.company.bankBic}</ViewDiv>
+      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.bankBic}</ViewDiv>
       <ViewDiv>RIB</ViewDiv>
-      <ViewDiv>{userConnected.company.bankRib}</ViewDiv>
+      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.bankRib}</ViewDiv>
       <ViewDiv>Délai de paiement des factures</ViewDiv>
       <ViewDiv>{userConnected.company.paymentTerm}</ViewDiv>
       <ViewDiv>Informations complémentaires</ViewDiv>
       <ViewDiv>{userConnected.company.companyInformation}</ViewDiv>
       <ViewDiv>Site Internet</ViewDiv>
-      <ViewDiv>{userConnected.company.website}</ViewDiv>
-
-
-
+      <ViewDiv style={{ wordBreak: 'break-all' }}>{userConnected.company.website}</ViewDiv>
     </div>
   );
 };
