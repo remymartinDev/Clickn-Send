@@ -51,12 +51,12 @@ class PdfController extends Controller
             'paymentMethod' => $paymentMethod,
             'phoneIndex' => $phoneIndex,
             'calendar' => $calendar
-        ]);    
+        ]);   
 
         //eraze the elder invoice
         if (file_exists('PDF/facture.pdf')) {
             unlink('PDF/facture.pdf');
-        }    
+        }
 
         //create new invoice
         $this->get('knp_snappy.pdf')->generateFromHtml($html,
