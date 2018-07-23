@@ -145,7 +145,7 @@ class CompanyController extends Controller
     /**
      * @Route("/admin/delete", name="company_delete", methods="DELETE")
      */
-    public function delete(Request $request)
+    public function delete(Request $request, SerializerInterface $serializerinter)
     {
             if ($this->getUser()->getRoles()[0] === "ROLE_ADMIN") {
                 $em = $this->getDoctrine()->getManager();
@@ -161,7 +161,7 @@ class CompanyController extends Controller
                     'error' => 'vous devez etre connecté en temps qu admin, pour supprimer votre compte'
                     ];
             }
-        $json = $serializer->serialize($response, 'json');
+        $json = $serializerinter->serialize($response, 'json');
         return new Response($json);
     }
 }

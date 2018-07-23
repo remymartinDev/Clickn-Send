@@ -104,36 +104,32 @@ class Company
     private $website;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="invoice", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="company", orphanRemoval=true)
      */
     private $products;
 
         /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="invoice", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Payment", mappedBy="company", orphanRemoval=true)
      */
     private $payments;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\InvoiceHasProduct", mappedBy="invoice", orphanRemoval=true)
-     */
-    private $invoiceHasProducts;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="invoice", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="company", orphanRemoval=true)
      */
     private $members;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="invoice", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="company", orphanRemoval=true)
      */
     private $invoices;
 
         /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Customer", mappedBy="invoice", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Customer", mappedBy="company", orphanRemoval=true)
      */
     private $customers;
 
-    
+
     public function getId()
     {
         return $this->id;
