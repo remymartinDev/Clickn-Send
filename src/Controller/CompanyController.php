@@ -43,18 +43,8 @@ class CompanyController extends Controller
         $countryCode = preg_split("/[0-9]/",$company->getVatNumber());
         $company->setCountryCode($countryCode[0]);
         
-        if (array_key_exists("logo", $fileup)) {
-
-            $file = $fileup["logo"];
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
-            $file->move(
-                $this->getParameter('brochures_directory'),
-                $fileName
-            );        
-            $company->setLogo($fileName);
-
-        }
-
+        //fuction for check if logo exist and set it to company
+        $this->checkAndSetLogo("logo", $fileup);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($company);
@@ -95,24 +85,39 @@ class CompanyController extends Controller
      */
     public function edit(Request $request, Company $company): Response
     {
-        $form = $this->createForm(CompanyType::class, $company);
-        $form->handleRequest($request);
+        $fileup = $request->files->all();
+        $data_array = $request->request->all();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        //fuction for check if logo exist and set it to company
+        $this->checkAndSetLogo("logo", $fileup);
 
-            return $this->redirectToRoute('company_edit', ['id' => $company->getId()]);
+        $company->hydrate($data_array);
+
+        foreach ($company->getMembers() as $member) {
+            $member->hydrate();
         }
 
-        return $this->render('company/edit.html.twig', [
-            'company' => $company,
-            'form' => $form->createView(),
-        ]);
+        $this->getDoctrine()->getManager()->flush();
     }
 
 
     private function generateUniqueFileName()
     {
         return md5(uniqid());
+    }
+
+    private function checkAndSetLogo($logoIndex, $fileup)
+    {
+        if (array_key_exists($logoIndex, $fileup)) {
+
+            $file = $fileup[$logoIndex];
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
+            $file->move(
+                $this->getParameter('logo_directory'),
+                $fileName
+            );        
+            $company->setLogo($fileName);
+
+        }
     }
 }

@@ -103,6 +103,16 @@ class Company
      */
     private $website;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="comp")
+     */
+    private $members;
+
+    public function __construct()
+    {
+        $this->members = new ArrayCollection();
+    }
+
 
     public function getId()
     {
@@ -313,96 +323,35 @@ class Company
         return $this;
     }
 
-/*     /**
-     * @return Collection|Invoice[]
-     */
-/*     public function getInvoices(): Collection
-    {
-        return $this->invoices;
-    }
-
-    public function addInvoice(Invoice $invoice): self
-    {
-        if (!$this->invoices->contains($invoice)) {
-            $this->invoices[] = $invoice;
-            $invoice->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInvoice(Invoice $invoice): self
-    {
-        if ($this->invoices->contains($invoice)) {
-            $this->invoices->removeElement($invoice);
-            // set the owning side to null (unless already changed)
-            if ($invoice->getCompany() === $this) {
-                $invoice->setCompany(null);
-            }
-        }
-
-        return $this;
-    } */
-
-/*     /**
-     * @return Collection|Customer[]
-     */
-/*     public function getCustomers(): Collection
-    {
-        return $this->customers;
-    }
-
-    public function addCustomer(Customer $customer): self
-    {
-        if (!$this->customers->contains($customer)) {
-            $this->customers[] = $customer;
-            $customer->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCustomer(Customer $customer): self
-    {
-        if ($this->customers->contains($customer)) {
-            $this->customers->removeElement($customer);
-            // set the owning side to null (unless already changed)
-            if ($customer->getCompany() === $this) {
-                $customer->setCompany(null);
-            }
-        }
-
-        return $this;
-    } */
-
-/*     /**
+    /**
      * @return Collection|Member[]
      */
-/*     public function getMembers(): Collection
+    public function getMembers(): Collection
     {
         return $this->members;
-    } */
-/* 
+    }
+
     public function addMember(Member $member): self
     {
         if (!$this->members->contains($member)) {
             $this->members[] = $member;
-            $member->setCompany($this);
+            $member->setComp($this);
         }
 
         return $this;
-    } */
+    }
 
-/*     public function removeMember(Member $member): self
+    public function removeMember(Member $member): self
     {
         if ($this->members->contains($member)) {
             $this->members->removeElement($member);
             // set the owning side to null (unless already changed)
-            if ($member->getCompany() === $this) {
-                $member->setCompany(null);
+            if ($member->getComp() === $this) {
+                $member->setComp(null);
             }
-        } */
+        }
 
-/*         return $this;
-    } */
+        return $this;
+    }
+    
 }
