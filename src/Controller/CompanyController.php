@@ -30,7 +30,7 @@ class CompanyController extends Controller
     /**
      * @Route("/new", name="company_new", methods="GET|POST")
      */
-    public function new(Request $request, RoleRepository $roleRepo): Response
+    public function new(Request $request, RoleRepository $roleRepo, SerializerInterface $serializerinter): Response
     {
         $fileup = $request->files->all();
         $data_array = $request->request->all();
@@ -45,7 +45,7 @@ class CompanyController extends Controller
         $company->setCountryCode($countryCode[0]);
         
         //fuction for check if logo exist and set it to company
-        $this->checkAndSetLogo("logo", $fileup);
+        $this->checkAndSetLogo("logo", $fileup, $company);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($company);
@@ -65,7 +65,7 @@ class CompanyController extends Controller
             'succes' => true,
             'id' => $company->getId()
             ];
-        $json = $serializer->serialize($response, 'json');
+        $json = $serializerinter->serialize($response, 'json');
         return new Response($json); 
     }
 
@@ -92,7 +92,7 @@ class CompanyController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //fuction for check if logo exist and set it to company
-        $this->checkAndSetLogo("logo", $fileup);
+        $this->checkAndSetLogo("logo", $fileup, $company);
 
         $company->hydrate($data_array);
 
@@ -113,7 +113,7 @@ class CompanyController extends Controller
        $em->flush();
     }
 
-    private function checkAndSetLogo($logoIndex, $fileup)
+    private function checkAndSetLogo($logoIndex, $fileup, $company)
     {
         if (array_key_exists($logoIndex, $fileup)) {
 

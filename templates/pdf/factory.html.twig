@@ -14,7 +14,7 @@
                 
                 <div class="col-5 logo">
                     {% if invoice.company.logo != null %}
-                    <img src=" {{ asset(invoice.company.logo )}} " alt="logo {{invoice.company.companyName}}">
+                    <img src=" {{ absolute_url(asset(invoice.company.logo ))}} " alt="logo {{invoice.company.companyName}}">
                     {% else %}
                     <p class="brand">{{ invoice.company.companyName }}</p>
                     <p>{{ invoice.company.companyAdress }} </p>
