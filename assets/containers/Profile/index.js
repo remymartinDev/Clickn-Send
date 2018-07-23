@@ -1,8 +1,14 @@
 import { connect } from 'react-redux';
 
-import Profile from '~/components/Profile';
+import ViewProfile from '~/components/Profile/ViewProfile';
+
+const mapStateToProps = state => ({
+  userConnected: state.notreReducer.userConnected,
+});
+
+const mapDispatchToProps = null;
 
 export default connect(
-  null,
-  null,
-)(Profile);
+  mapStateToProps,
+  mapDispatchToProps,
+)(ViewProfile);
