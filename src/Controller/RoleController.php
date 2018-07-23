@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use App\Service\ConfiguredSerializer;
 use App\Repository\RoleRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/api/role")
