@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,14 +9,14 @@ import './formClient.scss';
 
 /* eslint-disable */
 let CreateCustomer = props => {
-  const { handleSubmit } = props
+  const { handleSubmit, searchVat } = props
   return (
     <form className="form form-client" onSubmit={handleSubmit}>
       <h1 className="form-title">Création d'un client</h1>
       <label className="form-label" htmlFor="vatNumber">Numéro de TVA</label>
       <div className="form-with-icon">
         <Field className="form-field" name="vatNumber" component="input" type="text" /> 
-        <FontAwesomeIcon className="form-icon" icon={faSearch} />        
+        <FontAwesomeIcon className="form-icon" icon={faSearch} onClick={searchVat}/>        
       </div>
       <label className="form-label" htmlFor="customerCompany">Nom de l'entreprise</label>
       <Field className="form-field" name="customerCompany" component="input" type="text" />
@@ -58,9 +60,25 @@ let CreateCustomer = props => {
   )
 }
 
+CreateCustomer.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  serachVat: PropTypes.func.isRequired,
+};
+
 CreateCustomer = reduxForm({
   // a unique name for the form
   form: 'client',
 })(CreateCustomer);
 
-export default CreateCustomer;
+const mapStateToProps = state => ({
+  searchVat: () => console.log('ok'),
+});
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CreateCustomer);

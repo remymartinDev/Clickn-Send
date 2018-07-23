@@ -3,6 +3,7 @@ import { reduxForm } from 'redux-form';
 import axios from 'axios';
 
 import Form from '~/components/Forms/Signup/Form';
+import { userConnected } from '~/store/reducers/localActionCreator';
 
 const mapStateToProps = (state) => {
   const initialValues = {
@@ -20,7 +21,7 @@ const mapStateToProps = (state) => {
   });
 };
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = dispatch => ({
   onSubmit: (values) => {
     console.log('in edition', values);
     const formData = new FormData();
@@ -38,7 +39,12 @@ const mapDispatchToProps = () => ({
       },
     };
     axios.post('/api/company/admin/edit', formData, config)
-      .then(response => console.log(response));
+      .then(() => {
+        axios.get('/api/user')
+          .then(({ data: { user } }) => {
+            dispatch(userConnected(user));
+          });
+      });
   },
 });
 

@@ -94,7 +94,7 @@ class SignupForm extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
-            Désirez vous vraiment supprimé l'entreprise ?
+            Désirez-vous vraiment supprimer l'entreprise ?
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.deleteCompany}>Supprimer</Button>{' '}
