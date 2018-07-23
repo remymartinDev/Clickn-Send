@@ -84,19 +84,26 @@ class CompanyController extends Controller
     /**
      * @Route("/admin/edit", name="company_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Company $company, MemberRepository $memberRepository): Response
+    public function edit(Request $request, MemberRepository $memberRepository, SerializerInterface $serializer): Response
     {
         $fileup = $request->files->all();
         $data_array = $request->request->all();
+        $company = $this->getUser()->getCompany();
+        
+        
         
         $em = $this->getDoctrine()->getManager();
-
+        
         //fuction for check if logo exist and set it to company
         $this->checkAndSetLogo("logo", $fileup, $company);
-
+        
         $company->hydrate($data_array);
-
-        foreach ($data_array['member'] as $member_data) {
+        
+        //if we have one member by company (beta)
+        $member = $memberRepository->findOneByCompany($company);
+        $member->setUsername($data_array['_username']);
+        $member->setEmail($data_array['email']);
+/*         foreach ($data_array['member'] as $member_data) {
 
             if (array_key_exists('id', $member_data)) {
                 $member = $memberRepository->findOneBy($member_data['id']);
@@ -108,9 +115,16 @@ class CompanyController extends Controller
                 $em->persist($member);
             }
 
-        }
+        } */
 
        $em->flush();
+
+       $response = [
+        'succes' => true,
+        ];
+
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 
     private function checkAndSetLogo($logoIndex, $fileup, $company)
@@ -129,7 +143,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @Route("/admin/delete", name="company_delete", methods="GET")
+     * @Route("/admin/delete", name="company_delete", methods="DELETE")
      */
     public function delete(Request $request)
     {

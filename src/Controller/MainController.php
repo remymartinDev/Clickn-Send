@@ -59,6 +59,7 @@ class MainController extends Controller
         } else {
             $response = [
                 'connected' => true,
+                'user' => $this->getUser()
                 ];
         }
 
