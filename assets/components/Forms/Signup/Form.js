@@ -30,6 +30,7 @@ class SignupForm extends React.Component {
     axios.delete('/api/company/admin/delete')
       .then(() => {
         this.toggle();
+        this.props.loggedOut();
       });
   }
 
@@ -112,6 +113,7 @@ SignupForm.propTypes = {
   buttonValue: PropTypes.string,
   style: PropTypes.object,
   editMode: PropTypes.bool,
+  loggedOut: PropTypes.func.isRequired,
 };
 
 SignupForm.defaultProps = {

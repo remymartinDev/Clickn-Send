@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import axios from 'axios';
 import { push } from 'connected-react-router';
+import { bindActionCreator } from 'redux';
 
 import Form from '~/components/Forms/Signup/Form';
-import { userConnected } from '~/store/reducers/localActionCreator';
+import { userConnected, loggedOut } from '~/store/reducers/localActionCreator';
 
 const mapStateToProps = (state) => {
   const initialValues = {
@@ -23,6 +24,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
+  ...bindActionCreator({ loggedOut }, dispatch),
   onSubmit: (values) => {
     console.log('in edition', values);
     const formData = new FormData();
