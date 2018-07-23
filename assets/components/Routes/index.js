@@ -8,7 +8,7 @@ import NavVertical from '~/components/NavVertical';
 import Factures from '~/components/Invoices';
 import Products from '~/components/Products';
 import Customers from '~/components/Customers';
-import Profile from '~/components/Profile';
+import Profile from '~/containers/Profile';
 import Contact from '~/components/Contact';
 
 import './routes.scss';
