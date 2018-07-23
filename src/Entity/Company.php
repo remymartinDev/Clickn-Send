@@ -313,96 +313,24 @@ class Company
         return $this;
     }
 
-/*     /**
-     * @return Collection|Invoice[]
-     */
-/*     public function getInvoices(): Collection
+    public function hydrate($data_array)
     {
-        return $this->invoices;
+        $this->setBankBic($data_array['bankBic']);
+        $this->setBankDomiciliation($data_array['bankDomiciliation']);
+        $this->setBankIban($data_array['bankIban']);
+        $this->setBankRib($data_array['bankRib']);
+        $this->setCity($data_array['city']);
+        $this->setCompanyAdress($data_array['companyAdress']);
+        $this->setCompanyInformation($data_array['companyInformation']);
+        $this->setCompanyName($data_array['companyName']);
+        $this->setCountryCode($data_array['countryCode']);
+        $this->setEmail($data_array['email']);
+        $this->setFax($data_array['fax']);
+        $this->setPaymentTerm($data_array['paymentTerm']);
+        $this->setPhone($data_array['phone']);
+        $this->setWebsite($data_array['website']);
+        $this->setZipCode($data_array['zipCode']);
+        $this->setVatNumber($data_array['vatNumber']);
     }
 
-    public function addInvoice(Invoice $invoice): self
-    {
-        if (!$this->invoices->contains($invoice)) {
-            $this->invoices[] = $invoice;
-            $invoice->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInvoice(Invoice $invoice): self
-    {
-        if ($this->invoices->contains($invoice)) {
-            $this->invoices->removeElement($invoice);
-            // set the owning side to null (unless already changed)
-            if ($invoice->getCompany() === $this) {
-                $invoice->setCompany(null);
-            }
-        }
-
-        return $this;
-    } */
-
-/*     /**
-     * @return Collection|Customer[]
-     */
-/*     public function getCustomers(): Collection
-    {
-        return $this->customers;
-    }
-
-    public function addCustomer(Customer $customer): self
-    {
-        if (!$this->customers->contains($customer)) {
-            $this->customers[] = $customer;
-            $customer->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCustomer(Customer $customer): self
-    {
-        if ($this->customers->contains($customer)) {
-            $this->customers->removeElement($customer);
-            // set the owning side to null (unless already changed)
-            if ($customer->getCompany() === $this) {
-                $customer->setCompany(null);
-            }
-        }
-
-        return $this;
-    } */
-
-/*     /**
-     * @return Collection|Member[]
-     */
-/*     public function getMembers(): Collection
-    {
-        return $this->members;
-    } */
-/* 
-    public function addMember(Member $member): self
-    {
-        if (!$this->members->contains($member)) {
-            $this->members[] = $member;
-            $member->setCompany($this);
-        }
-
-        return $this;
-    } */
-
-/*     public function removeMember(Member $member): self
-    {
-        if ($this->members->contains($member)) {
-            $this->members->removeElement($member);
-            // set the owning side to null (unless already changed)
-            if ($member->getCompany() === $this) {
-                $member->setCompany(null);
-            }
-        } */
-
-/*         return $this;
-    } */
 }

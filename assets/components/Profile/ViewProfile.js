@@ -17,7 +17,7 @@ const ViewProfile = ({ userConnected }) => {
   return (
     <div className="view-profile view">
       <h1 className="view-title">Profile de l'entreprise</h1>
-      <Link to="/profile/edit" className="view-link">
+      <Link to="/profile/edit" className="view-edit view-link">
         <FontAwesomeIcon className="view-link-icon" icon={faPencilAlt} />
           Editer
       </Link>

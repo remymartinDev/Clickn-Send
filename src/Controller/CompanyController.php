@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Repository\MemberRepository;
 
 
 /**
@@ -43,18 +44,8 @@ class CompanyController extends Controller
         $countryCode = preg_split("/[0-9]/",$company->getVatNumber());
         $company->setCountryCode($countryCode[0]);
         
-        if (array_key_exists("logo", $fileup)) {
-
-            $file = $fileup["logo"];
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
-            $file->move(
-                $this->getParameter('brochures_directory'),
-                $fileName
-            );        
-            $company->setLogo($fileName);
-
-        }
-
+        //fuction for check if logo exist and set it to company
+        $this->checkAndSetLogo("logo", $fileup);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($company);
@@ -93,26 +84,70 @@ class CompanyController extends Controller
     /**
      * @Route("/admin/edit", name="company_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Company $company): Response
+    public function edit(Request $request, Company $company, MemberRepository $memberRepository): Response
     {
-        $form = $this->createForm(CompanyType::class, $company);
-        $form->handleRequest($request);
+        $fileup = $request->files->all();
+        $data_array = $request->request->all();
+        
+        $em = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        //fuction for check if logo exist and set it to company
+        $this->checkAndSetLogo("logo", $fileup);
 
-            return $this->redirectToRoute('company_edit', ['id' => $company->getId()]);
+        $company->hydrate($data_array);
+
+        foreach ($data_array['member'] as $member_data) {
+
+            if (array_key_exists('id', $member_data)) {
+                $member = $memberRepository->findOneBy($member_data['id']);
+                $member->hydrate($member_data);
+            }else {
+                $member = new Member();
+                $member->hydrate($member_data);
+                $member->setCompany($company);
+                $em->persist($member);
+            }
+
         }
 
-        return $this->render('company/edit.html.twig', [
-            'company' => $company,
-            'form' => $form->createView(),
-        ]);
+       $em->flush();
     }
 
-
-    private function generateUniqueFileName()
+    private function checkAndSetLogo($logoIndex, $fileup)
     {
-        return md5(uniqid());
+        if (array_key_exists($logoIndex, $fileup)) {
+
+            $file = $fileup[$logoIndex];
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();       
+            $file->move(
+                $this->getParameter('logo_directory'),
+                $fileName
+            );        
+            $company->setLogo($fileName);
+
+        }
+    }
+
+    /**
+     * @Route("admin/delete", name="company_delete", methods="DELETE")
+     */
+    public function delete(Request $request)
+    {
+            if ($this->getUser()->getRole()[0] === "ROLE_ADMIN") {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($this->getUser()->getCompany());
+                $em->flush();
+        
+                $response = [
+                    'succes' => true,
+                    ];
+            }else{
+                $response = [
+                    'succes' => false,
+                    'error' => 'vous devez etre connecté en temps qu admin, pour supprimer votre compte'
+                    ];
+            }
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
     }
 }

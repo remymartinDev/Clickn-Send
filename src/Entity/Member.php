@@ -46,4 +46,11 @@ class Member extends BaseUser
 
         return $this;
     }
+
+    public function hydrate($member_data)
+    {
+        $this->setPlainPassword($member_data['_password']);
+        $this->addRole($member_data['role']);
+        $this->setUsername($member_data['_username']);
+    }
 }
