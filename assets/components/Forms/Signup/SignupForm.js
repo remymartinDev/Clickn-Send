@@ -2,11 +2,12 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import { userConnected, loggedIn } from '~/store/reducers/localActionCreator';
 import Form from './Form';
 
 const mapStateToProps = null;
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = dispatch => ({
   onSubmit: (values) => {
     console.log(values);
     const formData = new FormData();
@@ -23,9 +24,21 @@ const mapDispatchToProps = () => ({
         console.log('upload', progress.loaded, progress.total);
       },
     };
-    // dispatch(createCompany(values));
+    // dispatch(createCompany(formData));
     axios.post('/api/company/new', formData, config)
-      .then(response => console.log(response));
+      .then((response) => {
+        if (response.data.succes) {
+          const log = {
+            username: values._username,
+            password: values._password,
+          };
+          axios.post('/login', log)
+            .then((responseLogin) => {
+              dispatch(loggedIn());
+              dispatch(userConnected(responseLogin.data.user));
+            });
+        }
+      });
   },
 });
 
