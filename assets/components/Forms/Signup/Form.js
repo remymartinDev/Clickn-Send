@@ -5,17 +5,27 @@ import { Field } from 'redux-form';
 import InputFile from './InputFile';
 import './signupForm.scss';
 
-const SignupForm = ({ handleSubmit, title }) => (
-  <form className="form signup-form" onSubmit={handleSubmit}>
-    <h1 className="form-title">{title}</h1>
+const SignupForm = ({
+  handleSubmit,
+  title,
+  buttonValue,
+  style,
+  editMode,
+}) => (
+  <form style={style} className="form signup-form" onSubmit={handleSubmit}>
+    <h1 className="form-title" style={{ margin: '1.5rem' }}>{title}</h1>
     <label className="form-label" htmlFor="companyName">Nom de l'entreprise *</label>
     <Field className="form-field" name="companyName" component="input" type="text" required />
     <label className="form-label" htmlFor="_username">Votre identifiant *</label>
     <Field className="form-field" name="_username" component="input" type="text" required />
-    <label className="form-label" htmlFor="_password">Votre mot de passe *</label>
-    <Field className="form-field" name="_password" component="input" type="password" required />
-    <label className="form-label" htmlFor="_password2">confirmation de votre mot de passe *</label>
-    <Field className="form-field" name="_password2" component="input" type="password" required />
+    {!editMode &&
+      <React.Fragment>
+        <label className="form-label" htmlFor="_password">Votre mot de passe *</label>
+        <Field className="form-field" name="_password" component="input" type="password" required />
+        <label className="form-label" htmlFor="_password2">confirmation de votre mot de passe *</label>
+        <Field className="form-field" name="_password2" component="input" type="password" required />
+      </React.Fragment>
+    }
     <div className="separation" />
     <label className="form-label" htmlFor="companyAdress">Adresse de votre entreprise *</label>
     <Field className="form-field" name="companyAdress" component="input" type="text" required />
@@ -47,15 +57,23 @@ const SignupForm = ({ handleSubmit, title }) => (
     <Field className="form-field" name="website" component="input" type="text" />
     <label className="form-label" htmlFor="logo">Votre Logo</label>
     <Field className="form-field" name="logo" component={InputFile} />
-    <button className="form-button">Créer</button>
+    <button className="form-button">{buttonValue}</button>
   </form>
 );
 
 SignupForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   title: PropTypes.string,
+  buttonValue: PropTypes.string,
+  style: PropTypes.object,
+  editMode: PropTypes.bool,
 };
 
 SignupForm.defaultProps = {
   title: 'Créer votre compte',
+  buttonValue: 'Créer',
+  style: {},
+  editMode: false,
 };
+
+export default SignupForm;

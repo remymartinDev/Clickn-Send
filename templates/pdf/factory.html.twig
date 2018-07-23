@@ -12,10 +12,11 @@
         <div class="container-fluid ecart">
             <div class="row">
                 
-                <div class="col-5 logo">
                     {% if invoice.company.logo != null %}
-                    <img src=" {{ absolute_url(asset(invoice.company.logo ))}} " alt="logo {{invoice.company.companyName}}">
+                    <div class="col-5 logo">
+                    <img src=" {{absolute_url(asset('data/logo/')) }}{{invoice.company.logo}} " alt="logo {{invoice.company.companyName}}">
                     {% else %}
+                    <div class="col-5 logo">
                     <p class="brand">{{ invoice.company.companyName }}</p>
                     <p>{{ invoice.company.companyAdress }} </p>
                     <p>{{ invoice.company.zipCode }} {{ invoice.company.city }}</p>

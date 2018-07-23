@@ -3,8 +3,10 @@ body {
   margin: auto;
 }
 
-.logo {
-  font-size: 1.1rem;
+.logo img{ 
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
 }
 
 .logo p{
