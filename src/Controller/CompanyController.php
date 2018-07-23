@@ -100,18 +100,12 @@ class CompanyController extends Controller
         $this->getDoctrine()->getManager()->flush();
     }
 
-
-    private function generateUniqueFileName()
-    {
-        return md5(uniqid());
-    }
-
     private function checkAndSetLogo($logoIndex, $fileup)
     {
         if (array_key_exists($logoIndex, $fileup)) {
 
             $file = $fileup[$logoIndex];
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();       
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();       
             $file->move(
                 $this->getParameter('logo_directory'),
                 $fileName
