@@ -18,8 +18,8 @@ import {
   loadStatus,
   loadProducts,
 } from '~/store/reducers/dataActionCreator';
-import { LOGGED_OUT } from '~/store/reducers/localActions';
-import { loggedIn, userConnected } from '../reducers/localActionCreator';
+import { LOGGED_OUT, CHECK_CONNECTION } from '~/store/reducers/localActions';
+import { loggedIn, userConnected, loggedOut } from '../reducers/localActionCreator';
 
 const getDataCreator = (next, action) => async (url) => {
   const { data } = await ajaxGet(url);
@@ -111,6 +111,20 @@ const dataMiddleware = store => next => (action) => {
         .then(() => {
           sessionStorage.removeItem('user');
           next(action);
+        });
+      break;
+    }
+    case CHECK_CONNECTION: {
+      axios.get('/api/user')
+        .then((response) => {
+          const { connected, user } = response.data;
+          if (connected) {
+            store.dispatch(userConnected(user));
+            store.dispatch(loggedIn());
+          }
+          else {
+            store.dispatch(loggedOut());
+          }
         });
       break;
     }
