@@ -316,7 +316,7 @@ class InvoiceController extends Controller
     /**
      * @Route("/{id}/deadlined", name="invoice_deadlined", methods="GET|POST")
      */
-    public function deadlined (Request $request, Invoice $invoice, SerializerInterface $serializer): Response
+    public function deadlined (Request $request, Invoice $invoice, SerializerInterface $serializer)
     {  
         $em = $this->getDoctrine()->getManager();
         $company = $this->getUser()->getCompany();
@@ -338,12 +338,9 @@ class InvoiceController extends Controller
             }
             $em->flush();
 
-            $response = [
-                'succes' => true,
-                'id' => $invoice->getId()
-                ];
-        $json = $serializer->serialize($response, 'json');
-        return new Response($json);
+            return $this->redirectToRoute('pdf_show', [
+                'id' => $invoice->getId(), 
+             ]);
     }
 
 }
