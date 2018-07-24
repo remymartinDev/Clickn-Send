@@ -112,6 +112,16 @@ class DropdownButton extends React.Component {
             </DropdownItem>
           }
           {
+            (componentType === 'invoice' && invoiceType === 'facture récurrente')
+            &&
+            <DropdownItem className="dropdown-box">
+              <div onClick={openModal(id)} className="dropdown-link">
+                <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
+                 Envoyer
+              </div>
+            </DropdownItem>
+          }
+          {
             (componentType === 'product' || componentType === 'customer')
             &&
             <DropdownItem className="dropdown-box">

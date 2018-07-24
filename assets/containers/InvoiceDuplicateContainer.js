@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import { loadInvoices } from '~/store/reducers/dataActionCreator';
 import Duplicate from '~/components/Forms/invoice/Duplicate';
+import { push } from 'connected-react-router';
 
 const mapDispatchToProps = dispatch => ({
   changeCustomers: (id, callback) => {
@@ -26,6 +27,7 @@ const mapDispatchToProps = dispatch => ({
         console.log(response);
         console.log('je duplique');
         dispatch(loadInvoices());
+        dispatch(push('/invoices'));
       });
   },
 });
