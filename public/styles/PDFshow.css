@@ -24,6 +24,50 @@ body {
   margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 } 
 
+.paid {
+  position: fixed;
+  z-index: 50;
+  left: -12px;
+  top: -10px;
+  text-align: center;
+  color: #65bc64;
+  border: 1px solid #65bc64;
+  border-radius: 17px 0px 17px 0px;
+  box-shadow: 2px 4px 20px #65bc64;
+  width: 15rem;
+  background-color: white;
+}
+
+.paid p {
+  margin-top: 0.6rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+}
+
+.notpaid {
+  position: fixed;
+  z-index: 50;
+  left: -12px;
+  top: -10px;
+  text-align: center;
+  color: #b70000;
+  border: 1px solid #b70000;
+  border-radius: 17px 0px 17px 0px;
+  box-shadow: 2px 4px 20px #b70000;
+  width: 15rem;
+  background-color: white;
+}
+
+.notpaid p {
+  margin-top: 0.7rem;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+
 .customer {
   font-size: 0.7rem;
   line-height: 0;

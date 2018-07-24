@@ -186,7 +186,7 @@ pour sauvegarder les modifications, faites
 ---
 ### déploiement de la base de données
 
-(si vous n'avez pas créé une base avec PhpMyAdmin, tapez `php bin/console doctrine:database:create`, cela créera une table au nom que vous aurez choisi pour remplacer **db_name** dans le fichier .env)
+(si vous n'avez pas créé une base avec PhpMyAdmin, tapez `php bin/console doctrine:database:create`, cela créera une table au nom que vous aurez choisi pour remplacer **db_name** dans le fichier .env, mais nous vous rappellons encore une fois que d'un point de vue sécurité, il est préférable d'avoir un user et un password propre à votre database pour ne pas utiliser les informations de connection de relatives à l'utilisateur _root_)
 
 
 ```
@@ -197,7 +197,10 @@ php bin/console doctrine:migrations:migrate
 ```  
 - répondre YES
 
+
 ### Votre base de données est maintenant prête pour faire fonctionner l'appli
+
+(si vous souhaitez seulement tester l'appli et non l'utiliser dans un cadre professionnel, il est possible de générer des données factices à l'aide de fixtures avec la ligne `php bin/console doctrine:fixtures:load`. Il s'agit de données aléatoires, donc certaines sommes de factures pourront ne pas correspondre au total attendu)  
 
 ---
 ## le Mailer
@@ -413,9 +416,9 @@ It will show something like: /usr/share/phpmyadmin/libraries/sql.lib.php
 ---
 # REST API
 
-Dans un soucis de faciliter de l'utilisateur, Clickn'Send a été créé pour fonctionner avec avec une API permettant de fournir les données d'une entreprise à partir de son numéro de TVA Intercommunautaire (VAT).
+Dans un soucis de faciliter la vie de l'utilisateur, Clickn'Send a été conçu pour fonctionner avec avec une API permettant de fournir les données d'une entreprise à partir de son numéro de TVA Intercommunautaire (VAT).
 L'équipe a choisi d'utiliser l'API VATLAYER (https://vatlayer.com/) car elle est facile d'accès et un compte gratuit vous permettra 100 requêtes par mois.
 
-Une fois votre compte enregistré
+Une fois votre compte enregistré, vous obtiendrez un code d'accès. Il suffit de l'éditer dans le champ "codeAPI" de votre company. 
 
 
