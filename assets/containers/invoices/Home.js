@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 
 import Home from '~/components/Invoices/Home';
 import { loadInvoices } from '~/store/reducers/dataActionCreator';
+import { openRecurred } from '../../store/reducers/localActionCreator';
 
 const sortInvoices = invoices => invoices.sort((a, b) => new Date(b.date) - new Date(a.date));
 const lastInvoices = invoices => sortInvoices(invoices).slice(0, 5);
@@ -17,11 +19,17 @@ const lateInvoices = (invoices) => {
 const mapStateToProps = state => ({
   invoices: lastInvoices(state.data.invoices),
   lateInvoices: lateInvoices(state.data.invoices),
-  addReminder: id => console.log('TODO: faire le reminder ', id),
 });
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ loadInvoices }, dispatch),
+  addReminder: (id) => {
+    axios.post(`/api/invoice/${id}/deadlined`)
+      .then((response) => {
+        dispatch(loadInvoices());
+        dispatch(openRecurred(response.data));
+      });
+  },
 });
 
 export default connect(
