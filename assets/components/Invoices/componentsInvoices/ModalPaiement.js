@@ -20,7 +20,6 @@ class ModalPaiement extends React.Component {
   componentDidMount() {
     axios.get('/api/payment/methods')
       .then((response) => {
-        console.log(response.data);
         this.setState({
           methodes: response.data,
         });
@@ -32,11 +31,9 @@ class ModalPaiement extends React.Component {
   onSubmit = (values) => {
     axios.post(`/api/payment/new/${this.props.selectedInvoiceId}`, values)
       .then((response) => {
-        console.log(response.data);
         if (response.data.succes) {
           axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
             .then((response) => {
-              console.log(response.data);
               this.setState({
                 payments: response.data,
                 paid: response.data.invoicePaid,
@@ -67,14 +64,17 @@ class ModalPaiement extends React.Component {
 
   loadPayments = () => {
     axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
-      .then((response) => {
-        console.log(response.data);
+      .then((response) => {      
+        const { paid } = response.data[0] ? response.data[0].invoice : false;
+        
         this.setState({
           payments: response.data,
-          
+          paid,
         });
       });
   }
+
+ 
 
   render() {
     console.log('mon paiement', this.state.payments);
