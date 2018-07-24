@@ -76,13 +76,8 @@ class PdfController extends Controller
         $destinataire = [$clienMail, $userMail];
 
         $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $destinataire);
-        return $this->render('pdf/factory.html.twig', [
-            'title' => 'Facture PDF',
-            'invoice' => $invoice,
-            'paymentMethod' => $paymentMethod,
-            'phoneIndex' => $phoneIndex,
-            'calendar' => $calendar
-        ]);    
+
+        return $this->redirectToRoute('home'); 
         
     }
 
