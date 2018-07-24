@@ -34,7 +34,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/new", name="member_new", methods="GET|POST")
+     * @Route("/new", name="member_new", methods="POST")
      */
     public function new(Request $request, SerializerInterface $serializer, CompanyRepository $companyRepository, RoleRepository $roleRepository): Response
     {
@@ -75,7 +75,7 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="member_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="member_edit", methods="POST")
      */
     public function edit(Request $request, Member $member): Response
     {

@@ -69,7 +69,7 @@ class PaymentController extends Controller
 
 
     /**
-     * @Route("/new/{id}", name="payment_new", methods="GET|POST")
+     * @Route("/new/{id}", name="payment_new", methods="POST")
      */ 
     public function new(Request $request, Invoice $invoice, SerializerInterface $serializer, PaymentMethodRepository $paymentMethodRepo, PaymentRepository $paymentRepo)
     {

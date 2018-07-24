@@ -40,7 +40,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/new", name="product_new", methods="GET|POST")
+     * @Route("/new", name="product_new", methods="POST")
      */
     public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer): Response
     {
@@ -80,7 +80,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="product_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="product_edit", methods="POST")
      */
     public function edit(Request $request, Product $product, SerializerInterface $serializer): Response
     {
@@ -118,7 +118,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}/activ", name="product_activ", methods="GET|POST")
+     * @Route("/{id}/activ", name="product_activ", methods="POST")
      */
     public function activ(Request $request, Product $product, SerializerInterface $serializer): Response
     {

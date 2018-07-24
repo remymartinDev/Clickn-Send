@@ -30,7 +30,7 @@ class InvoiceController extends Controller
 {
     
     /**
-     * @Route("/{id}/edit", name="invoice_edit_admin", methods="GET|POST")
+     * @Route("/{id}/edit", name="invoice_edit_admin", methods="POST")
      */
     public function edit(Request $request, Invoice $invoice, SerializerInterface $serializer, StatusRepository $statusRepository): Response
     {

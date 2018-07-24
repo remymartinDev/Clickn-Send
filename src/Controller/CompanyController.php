@@ -28,7 +28,7 @@ use App\Repository\MemberRepository;
 class CompanyController extends Controller 
 {
     /**
-     * @Route("/new", name="company_new", methods="GET|POST")
+     * @Route("/new", name="company_new", methods="POST")
      */
     public function new(Request $request, RoleRepository $roleRepo, SerializerInterface $serializerinter): Response
     {
@@ -80,7 +80,7 @@ class CompanyController extends Controller
             if ($company->getLogo() !== null && $file !== null && $file !== "") {
                 unlink('data/logo/' . $company->getLogo());
             }
-            
+
             $fileName = md5(uniqid()).'.'.$file->guessExtension();       
             $file->move(
                 $this->getParameter('logo_directory'),
