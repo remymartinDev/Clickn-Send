@@ -308,4 +308,39 @@ class InvoiceController extends Controller
            'id' => $response['id'], 
         ]);
     }
+
+    /**
+     * @Route("/{id}/deadlined", name="invoice_deadlined", methods="GET|POST")
+     */
+    public function deadlined (Request $request, Invoice $invoice, SerializerInterface $serializer): Response
+    {  
+        $em = $this->getDoctrine()->getManager();
+        $company = $this->getUser()->getCompany();
+
+        $dL1 = $invoice->getObjectDeadline1();
+        $dL2 = $invoice->getObjectDeadline2();
+        $dL3 = $invoice->getObjectDeadline3();
+
+        $payment_term = 'P' . $company->getPaymentTerm() . 'D';
+        
+        if ($dL2 === null) {
+            /* $date = $dL1->format('Ymdh-is'); */
+            $deadline = $dL1->add(new \DateInterval($payment_term));
+            $invoice->setDeadline2($deadline);
+            }
+        else if ($dL2 !== null && $dL3 === null) { 
+            $deadline = $dL2->add(new \DateInterval($payment_term));
+            $invoice->setDeadline3($deadline);
+            }
+
+    
+            $em->flush();
+            $response = [
+                'succes' => true,
+                'id' => $invoice->getId()
+                ];
+        $json = $serializer->serialize($response, 'json');
+        return new Response($json);
+    }
+
 }

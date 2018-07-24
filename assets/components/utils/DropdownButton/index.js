@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload, faHandHoldingUsd, faCopy, faEraser } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload, faHandHoldingUsd, faCopy, faShareSquare, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import { loadCustomers, loadInvoices, loadProducts } from '~/store/reducers/dataActionCreator';
-import { openPdf, openPaiement } from '~/store/reducers/localActionCreator';
+import { openPdf, openPaiement, openRecurred } from '~/store/reducers/localActionCreator';
 
 import './dropdownButton.scss';
 
@@ -89,7 +89,7 @@ class DropdownButton extends React.Component {
     axios.delete(`/api/invoice/${id}`)
       .then((response) => {
         console(response);
-        this.loadInvoices();
+        this.props.loadInvoices();
       });
   }
 
@@ -99,6 +99,7 @@ class DropdownButton extends React.Component {
       id,
       openModal,
       openModalPaiement,
+      openModalRecurred,
       invoiceType,
       isAdmin,
     } = this.props;
@@ -123,8 +124,8 @@ class DropdownButton extends React.Component {
             (componentType === 'invoice' && invoiceType === 'facture récurrente')
             &&
             <DropdownItem className="dropdown-box">
-              <div onClick={openModal(id)} className="dropdown-link">
-                <FontAwesomeIcon className="dropdown-link-icon" icon={faEye} />
+              <div onClick={openModalRecurred(id)} className="dropdown-link">
+                <FontAwesomeIcon className="dropdown-link-icon" icon={faShareSquare} />
                  Envoyer
               </div>
             </DropdownItem>
@@ -241,6 +242,7 @@ DropdownButton.propTypes = {
   loadProducts: PropTypes.func.isRequired,
   loadCustomers: PropTypes.func.isRequired,
   openModalPaiement: PropTypes.func.isRequired,
+  openModalRecurred: PropTypes.func.isRequired,
   invoiceType: PropTypes.string,
   isAdmin: PropTypes.bool.isRequired,
   invoiceId: PropTypes.number,
@@ -264,6 +266,9 @@ const mapDispatchToProps = dispatch => ({
   },
   openModalPaiement: id => () => {
     dispatch(openPaiement(id));
+  },
+  openModalRecurred: id => () => {
+    dispatch(openRecurred(id));
   },
 });
 

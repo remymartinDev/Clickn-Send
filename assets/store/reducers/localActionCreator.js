@@ -10,6 +10,7 @@ import {
   OPEN_PDF,
   OPEN_PAIEMENT,
   CHECK_CONNECTION,
+  OPEN_RECURRED,
 } from './localActions';
 
 export const openModal = (view, field) => ({
@@ -57,6 +58,11 @@ export const openPdf = id => ({
 export const openPaiement = id => ({
   type: OPEN_PAIEMENT,
   view: 'paiement',
+  id,
+});
+export const openRecurred = id => ({
+  type: OPEN_RECURRED,
+  view: 'recurred',
   id,
 });
 export const checkConnection = () => ({
