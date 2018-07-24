@@ -6,12 +6,10 @@ import axios from 'axios';
 class Create extends React.Component {
   submit = (values) => {
     const { history } = this.props;
-    console.log(values);
     axios.post('/api/customer/new', values)
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
+        history.push('/customers');
       });
-    history.push('/customers');
   }
 
   render() {

@@ -10,12 +10,7 @@ import '~/components/Forms/forms.scss';
 
 class App extends React.Component {
   componentDidMount() {
-    if (sessionStorage.getItem('user')) {
-      const user = JSON.parse(sessionStorage.getItem('user'));
-      console.log(user);
-      this.props.login();
-      this.props.userConnected(user);
-    }
+    this.props.checkConnection();
   }
 
   render() {
@@ -38,8 +33,7 @@ class App extends React.Component {
 
 App.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired,
-  userConnected: PropTypes.func.isRequired,
+  checkConnection: PropTypes.func.isRequired,
 };
 
 export default App;

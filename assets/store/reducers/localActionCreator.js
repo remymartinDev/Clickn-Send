@@ -9,6 +9,7 @@ import {
   USER_CONNECTED,
   OPEN_PDF,
   OPEN_PAIEMENT,
+  CHECK_CONNECTION,
 } from './localActions';
 
 export const openModal = (view, field) => ({
@@ -57,4 +58,7 @@ export const openPaiement = id => ({
   type: OPEN_PAIEMENT,
   view: 'paiement',
   id,
+});
+export const checkConnection = () => ({
+  type: CHECK_CONNECTION,
 });
