@@ -211,7 +211,7 @@ class InvoiceController extends Controller
       /**
      * @Route("/{id}/copy", name="invoice_copy", methods="POST")
      */
-    public function copy(Invoice $invoice, SerializerInterface $serializer)
+    public function copy(Invoice $invoice, SerializerInterface $serializer, StatusRepository $statusRepository)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -231,6 +231,7 @@ class InvoiceController extends Controller
         $newInvoice->setRecurringDate();
         $newInvoice->delPayments();
         $newInvoice->setDownPayment(0);
+        $newInvoice->setStatus($statusRepository->findOneByInvoiceStatus('brouillon'));
         
         $em->persist($newInvoice);
         $em->flush();
