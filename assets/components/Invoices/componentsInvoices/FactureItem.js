@@ -36,7 +36,7 @@ const FactureItem = ({
       <Media query="(min-width: 769px)">
         {matches => (matches && <div className="list-item">{status.invoiceStatus}</div>)}
       </Media>
-      <DropdownButton componentType="invoice" id={id} />
+      <DropdownButton componentType="invoice" invoiceType={status.invoiceStatus} id={id} />
     </div>
   );
 };

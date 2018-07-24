@@ -76,7 +76,9 @@ class PdfController extends Controller
         $destinataire = [$clienMail, $userMail];
 
         $mailer->sendInvoice($message, $urlFilePath, $swiftMailer, $destinataire);
-        return $this->redirectToRoute('home');        
+
+        return $this->redirectToRoute('home'); 
+        
     }
 
 
