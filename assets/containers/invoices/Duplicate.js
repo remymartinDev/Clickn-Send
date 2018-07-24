@@ -59,8 +59,6 @@ const mapDispatchToProps = dispatch => ({
     console.log('create invoice');
     dispatch(createInvoice(values));
     dispatch(loadInvoices());
-
-    XXX JE CODE ICI MON APPEL AJAX ? XXX
   },
   dispatch: (actionCreator) => {
     dispatch(actionCreator);
