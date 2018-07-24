@@ -211,7 +211,7 @@ class InvoiceController extends Controller
       /**
      * @Route("/{id}/copy", name="invoice_copy", methods="POST")
      */
-    public function copy(Invoice $invoice, SerializerInterface $serializer)
+    public function copy(Invoice $invoice, SerializerInterface $serializer, StatusRepository $statusRepository)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -229,6 +229,9 @@ class InvoiceController extends Controller
         $newInvoice->setReference($reference);
         $newInvoice->setDeadline1($deadline);
         $newInvoice->setRecurringDate();
+        $newInvoice->delPayments();
+        $newInvoice->setDownPayment(0);
+        $newInvoice->setStatus($statusRepository->findOneByInvoiceStatus('brouillon'));
         
         $em->persist($newInvoice);
         $em->flush();
@@ -299,9 +302,9 @@ class InvoiceController extends Controller
     /**
     * @Route("/{id}/recurred", name="invoice_recurred", methods="GET|POST")
     */
-    public function recurred(Invoice $invoice, SerializerInterface $serializer)
+    public function recurred(Invoice $invoice, SerializerInterface $serializer, StatusRepository $statusRepository)
     {
-        $jsonResponse = $this->copy($invoice, $serializer);
+        $jsonResponse = $this->copy($invoice, $serializer, $statusRepository);
         $jsonContent = $jsonResponse->getContent();
         $response = json_decode($jsonContent, true);
 

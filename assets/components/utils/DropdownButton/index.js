@@ -36,8 +36,7 @@ class DropdownButton extends React.Component {
   handleStatusChange = status => () => {
     const { id } = this.props;
     axios.post(`/api/admin/invoice/${id}/edit`, { status })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         this.props.loadInvoices();
       });
   }
@@ -107,13 +106,20 @@ class DropdownButton extends React.Component {
     }
   }
 
+  reccuredHandle = () => {
+    axios.post(`/api/invoice/${this.props.id}/recurred`)
+      .then((response) => {
+        this.props.loadInvoices();
+        this.props.openRecurred(response.data);
+      });
+  }
+
   render() {
     const {
       componentType,
       id,
       openModal,
       openModalPaiement,
-      openModalRecurred,
       invoiceType,
       isAdmin,
     } = this.props;
@@ -138,7 +144,7 @@ class DropdownButton extends React.Component {
             (componentType === 'invoice' && invoiceType === 'facture récurrente')
             &&
             <DropdownItem className="dropdown-box">
-              <div onClick={openModalRecurred(id)} className="dropdown-link">
+              <div onClick={this.reccuredHandle} className="dropdown-link">
                 <FontAwesomeIcon className="dropdown-link-icon" icon={faShareSquare} />
                  Envoyer
               </div>
@@ -164,7 +170,7 @@ class DropdownButton extends React.Component {
             </DropdownItem>
           }
           {
-            (invoiceType !== 'facture récurrente') &&
+            (invoiceType !== 'facture récurrente' && componentType === 'facture') &&
             <DropdownItem className="dropdown-box">
               <Link to={`/${componentType}s/${id}/copy`} className="dropdown-link">
                 <FontAwesomeIcon className="dropdown-link-icon" icon={faCopy} />
@@ -257,7 +263,7 @@ DropdownButton.propTypes = {
   loadProducts: PropTypes.func.isRequired,
   loadCustomers: PropTypes.func.isRequired,
   openModalPaiement: PropTypes.func.isRequired,
-  openModalRecurred: PropTypes.func.isRequired,
+  openRecurred: PropTypes.func.isRequired,
   invoiceType: PropTypes.string,
   isAdmin: PropTypes.bool.isRequired,
   invoiceId: PropTypes.number,
@@ -275,15 +281,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ loadCustomers, loadInvoices, loadProducts }, dispatch),
+  ...bindActionCreators({ loadCustomers, loadInvoices, loadProducts, openRecurred }, dispatch),
   openModal: id => () => {
     dispatch(openPdf(id));
   },
   openModalPaiement: id => () => {
     dispatch(openPaiement(id));
-  },
-  openModalRecurred: id => () => {
-    dispatch(openRecurred(id));
   },
 });
 
