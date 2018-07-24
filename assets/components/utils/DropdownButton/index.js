@@ -28,9 +28,14 @@ class DropdownButton extends React.Component {
     ];
     const statusJSX = statusArray.filter(status => status !== this.props.invoiceType)
       .map(status => (
-        <DropdownItem key={status}>{status}</DropdownItem>
+        <DropdownItem key={status} onClick={this.handleStatusChange(status)}>{status}</DropdownItem>
       ));
     return statusJSX;
+  }
+
+  handleStatusChange = status => () => {
+    console.log('idInvoice', this.props.id);
+    console.log(status);
   }
 
   handleDelete = () => {
