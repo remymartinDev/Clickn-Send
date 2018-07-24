@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -43,6 +43,21 @@ class DropdownButton extends React.Component {
       });
   }
 
+  getStatusJSX = () => {
+    const statusArray = [
+      'facture',
+      'facture récurrente',
+      'brouillon',
+      'devis',
+      'devis refusé',
+    ];
+    const statusJSX = statusArray.filter(status => status !== this.props.invoiceType)
+      .map(status => (
+        <DropdownItem key={status}>{status}</DropdownItem>
+      ));
+    return statusJSX;
+  }
+
   render() {
     const {
       componentType,
@@ -50,6 +65,7 @@ class DropdownButton extends React.Component {
       openModal,
       openModalPaiement,
       invoiceType,
+      isAdmin,
     } = this.props;
 
     return (
@@ -78,12 +94,15 @@ class DropdownButton extends React.Component {
               </Link>
             </DropdownItem>
           }
-          <DropdownItem className="dropdown-box">
-            <Link to={`/${componentType}s/${id}/edit`} className="dropdown-link">
-              <FontAwesomeIcon className="dropdown-link-icon" icon={faPencilAlt} />
-               Editer
-            </Link>
-          </DropdownItem>
+          {
+            (invoiceType !== 'facture' && invoiceType !== 'facture récurrente') &&
+            <DropdownItem className="dropdown-box">
+              <Link to={`/${componentType}s/${id}/edit`} className="dropdown-link">
+                <FontAwesomeIcon className="dropdown-link-icon" icon={faPencilAlt} />
+                Editer
+              </Link>
+            </DropdownItem>
+          }
           {
             componentType === 'invoice'
             &&
@@ -117,6 +136,17 @@ class DropdownButton extends React.Component {
                 Archiver
             </DropdownItem>
           }
+          {
+            (isAdmin && componentType === 'invoice') &&
+            <UncontrolledDropdown direction="right" className="subdropdown" style={{}}>
+              <DropdownToggle caret>
+                Changer Status
+              </DropdownToggle>
+              <DropdownMenu>
+                {this.getStatusJSX()}
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          }
         </DropdownMenu>
       </ButtonDropdown>
     );
@@ -132,11 +162,16 @@ DropdownButton.propTypes = {
   loadCustomers: PropTypes.func.isRequired,
   openModalPaiement: PropTypes.func.isRequired,
   invoiceType: PropTypes.string,
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 DropdownButton.defaultProps = {
   invoiceType: '',
 };
+
+const mapStateToProps = state => ({
+  isAdmin: (state.notreReducer.userConnected.roles.find(role => role === 'ROLE_ADMIN')) ? true : false,
+});
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({ loadCustomers, loadInvoices, loadProducts }, dispatch),
@@ -149,6 +184,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(DropdownButton);
