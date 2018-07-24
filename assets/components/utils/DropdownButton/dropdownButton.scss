@@ -22,6 +22,32 @@
     box-shadow: 0px 0px 0px white !important;
   }
 }
+.subdropdown {
+  width: 100%;
+  display: flex;
+  button {
+    background-color: transparent !important;
+    border: none;
+    margin: auto;
+    &:hover {
+      background-color: white;
+      color: $color-mauve-1;
+      border: none;
+    }
+    &:focus {
+      border: 1px solid white !important;
+      outline: none;
+      box-shadow: 1px 1px 1px white !important;
+    }
+    &:active {
+      border: 1px solid white !important;
+      outline: none;
+      background-color: white !important;
+      color: $color-mauve-2 !important;
+      box-shadow: 0px 0px 0px white !important;
+    }
+  }
+}
 .dropdown-link {
   color: white;
   &:hover {
