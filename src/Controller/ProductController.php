@@ -100,24 +100,6 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="product_delete", methods="DELETE")
-     */
-    public function delete(Request $request, Product $product, SerializerInterface $serializer): Response
-    {
-       /*  if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) { */
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($product);
-            $em->flush();
-       /*  } */
-
-       $response = [
-        'succes' => true,
-    ];
-    $json = $serializer->serialize($response, 'json');
-    return new Response($json);
-    }
-
-    /**
      * @Route("/{id}/activ", name="product_activ", methods="POST")
      */
     public function activ(Request $request, Product $product, SerializerInterface $serializer): Response

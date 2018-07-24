@@ -24,11 +24,11 @@ class CustomerController extends Controller
      */
     public function delete(Request $request, Customer $customer, SerializerInterface $serializer): Response
     {
-       /*  if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->request->get('_token'))) { */
+        
             $em = $this->getDoctrine()->getManager();
             $em->remove($customer);
             $em->flush();
-      /*   } */
+
       $response = [
         'succes' => true,
         ];
