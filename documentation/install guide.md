@@ -301,6 +301,8 @@ sudo a2enmod rewrite
 service apache2 restart
 ```
 ---
+## installation des bundles
+
 - installer _WkHtmlToPdf_   
 le paquet se télécharge ICI => https://wkhtmltopdf.org/downloads.html  
 #### ***ATTENTION*** il faut choisir la version compatible avec l'OS qui fait tourner votre serveur
@@ -316,8 +318,9 @@ composer require knplabs/knp-snappy-bundle
 ```
 composer require symfony/swiftmailer-bundle
 ```
+---
 
-## commandes utiles en cas de bug :
+# commandes utiles en cas de bug :
 
 
 - le .htaccess n'est pas interprété :  
@@ -407,3 +410,12 @@ It will show something like: /usr/share/phpmyadmin/libraries/sql.lib.php
     ```
     sudo service apache2 reload
     ```
+---
+# REST API
+
+Dans un soucis de faciliter de l'utilisateur, Clickn'Send a été créé pour fonctionner avec avec une API permettant de fournir les données d'une entreprise à partir de son numéro de TVA Intercommunautaire (VAT).
+L'équipe a choisi d'utiliser l'API VATLAYER (https://vatlayer.com/) car elle est facile d'accès et un compte gratuit vous permettra 100 requêtes par mois.
+
+Une fois votre compte enregistré
+
+

@@ -45,7 +45,6 @@
             <p> le {{invoice.date|date('d')}} {{calendar[invoice.date|date('M')]}} {{invoice.date|date('Y')}} </p>
         </div>
 
-
         <div class="container-fluid">
             <div class="row ecart">
                 <div class="col-0"></div>
@@ -103,8 +102,7 @@
                             {% else %}
                             {{(thisOne.amountDuttyFree) |number_format(2, ',', ' ') }} &euro;
                             {% endif %} 
-                        </div>  
-                        
+                        </div>                       
 
                     </div>
                     {% endfor %}
@@ -184,53 +182,48 @@
 
                     <div class="amounts">
 
-                    <div class="pre-amount row">
-                        <div class="amount-cat col-6">Montant H.T</div>
-                        <div class="amount col-6">
-                            {{ invoice.amountDuttyFree|number_format(2, ',', ' ') }} &euro;
-                        </div>
-                    </div>  
-
-                    <div class="pre-amount row">
-                        <div class="amount-cat col-6">Montant TVA</div> 
+                        <div class="pre-amount row">
+                            <div class="amount-cat col-6">Montant H.T</div>
                             <div class="amount col-6">
-                                {{ invoice.taxesAmount|number_format(2, ',', ' ') }} &euro;
+                                {{ invoice.amountDuttyFree|number_format(2, ',', ' ') }} &euro;
                             </div>
-                    </div> 
+                        </div>  
 
-                    {% if invoice.customer.remise != null %}
-                    <div class="pre-amount row">
-                        <div class="amount-cat col-6">Remise <span class="remise">({{ invoice.customer.remise }}%)</span></div> 
-                        <div class="amount col-6">
-                            - {{ (invoice.amountCustomerRemise|number_format(2, '.', ''))}} &euro;
-                        </div>
-                    </div>  
-                    {% endif %}
-
-                    {% if invoice.downPayment != null %}
-                    <div class="pre-amount row">
-                            <div class="amount-cat col-6">Acompte</div> 
+                        <div class="pre-amount row">
+                            <div class="amount-cat col-6">Montant TVA</div> 
                                 <div class="amount col-6">
-                                   - {{ invoice.downPayment|number_format(2, ',', ' ') }} &euro;
+                                    {{ invoice.taxesAmount|number_format(2, ',', ' ') }} &euro;
+                                </div>
+                        </div> 
+
+                        {% if invoice.customer.remise != null %}
+                        <div class="pre-amount row">
+                            <div class="amount-cat col-6">Remise <span class="remise">({{ invoice.customer.remise }}%)</span></div> 
+                            <div class="amount col-6">
+                                - {{ (invoice.amountCustomerRemise|number_format(2, '.', ''))}} &euro;
+                            </div>
+                        </div>  
+                        {% endif %}
+
+                        {% if invoice.downPayment != null %}
+                        <div class="pre-amount row">
+                                <div class="amount-cat col-6">Acompte</div> 
+                                    <div class="amount col-6">
+                                    - {{ invoice.downPayment|number_format(2, ',', ' ') }} &euro;
+                                    </div>
+                            </div>  
+                        {% endif %} 
+
+                        <div class="pre-amount ttc row">
+                            <div class="amount-cat col-7 ">Montant TTC</div>  
+                                <div class="amount col-5">                                
+                                    {{ invoice.amountAllTaxes|number_format(2, ',', ' ') }} &euro;
                                 </div>
                         </div>  
-                    {% endif %} 
-
-                    <div class="pre-amount ttc row">
-                        <div class="amount-cat col-7 ">Montant TTC</div>  
-                            <div class="amount col-5">                                
-                                {{ invoice.amountAllTaxes|number_format(2, ',', ' ') }} &euro;
-                            </div>
-                    </div>  
-
-                </div> 
-
-                </div>
-                
+                    </div>                    
+                </div>              
             </div>
         </div>
-
-
 
         <div class="company-refs">
             <div class="inside">
@@ -249,8 +242,7 @@
                 TVA intracommunautaire: {{ invoice.company.vatNumber|slice(0,2)}}&nbsp;{{ invoice.company.vatNumber|slice(2,9)}}</p>
             </div>
                 <p class="clicknsend">invoice powered by <span id="clicknsend">Clickn'Send</p>
-        </div>
-        
+        </div>        
     </div>
 </div>
 
