@@ -34,6 +34,22 @@ class ModalPaiement extends React.Component {
       });
   }
 
+  onSubmit = (values) => {
+    axios.post(`/api/payment/new/${this.props.selectedInvoiceId}`, values)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.succes) {
+          axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
+            .then((response) => {
+              console.log(response.data);
+              this.setState({
+                payments: response.data,
+              });
+            });
+          }
+      });
+  }
+
   getMethodesJSX = () => (
     this.state.methodes.map(methode => (
       <option key={methode.id} value={methode.id}>{methode.method}</option>
@@ -49,7 +65,6 @@ class ModalPaiement extends React.Component {
         <DropdownButton componentType="paiment" id={payment.id} />
       </div>
     ))
-   
   )
 
   render() {
@@ -58,7 +73,7 @@ class ModalPaiement extends React.Component {
 
       <div>
         <h1 className="form-title">Paiement reçu</h1>
-        <Form onSubmit={this.props.handleSubmit} className="form form-paiement">
+        <Form onSubmit={this.props.handleSubmit(this.onSubmit)} className="form form-paiement">
           <label htmlFor="date" className="form-label">Date</label>
           <Field name="date" type="date" component="input" className="form-field" />
           <label htmlFor="amount" className="form-label">Montant</label>
@@ -92,22 +107,11 @@ class ModalPaiement extends React.Component {
 const mapStateToProps = state => ({
   selectedInvoiceId: state.notreReducer.selectedInvoiceId,
 });
-const mapDispatchToProps = null;
-const mergeProps = stateProps => ({
-  ...stateProps,
-  onSubmit: (values) => {
-    axios.post(`/api/payment/new/${stateProps.selectedInvoiceId}`, values)
-      .then((response) => {
-        console.log(response);
 
-      });
-  },
-});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-  mergeProps,
+  null,
 )(reduxForm({
   form: 'method',
 })(ModalPaiement));

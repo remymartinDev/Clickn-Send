@@ -5,6 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { push } from 'connected-react-router';
 
 import './formClient.scss';
 
@@ -82,10 +83,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mergeProps = ({ state }, { dispatch }) => ({
+  onSubmit: (values) => {
+    axios.post('/api/customer/new', values)
+      .then(() => {
+        dispatch(push('/customers'));
+      });
+  },
   searchVat: () => {
     const vatNumber = selector(state, 'vatNumber');
     const key = '8483659eea282a0f9ab0232f1276a297';
-    console.log(vatNumber);
     axios.get(`http://www.apilayer.net/api/validate&access_key=${key}&vat_number=${vatNumber}`)
       .then(response => {
         if (response.data.valid) {
@@ -97,12 +103,9 @@ const mergeProps = ({ state }, { dispatch }) => ({
           const arrayAddress = company_address.split('\n');
           const arrayZipCity = arrayAddress[1].split(' ');
           let city = arrayZipCity.slice(1);
-          console.log(typeof city);
           if (typeof city === 'array') {
             city = city.join(' ');
           }
-
-          console.log(arrayAddress);
           dispatch(change('client', 'customerCompany', company_name));
           dispatch(change('client', 'countryCode', country_code));
           dispatch(change('client', 'companyAdress', arrayAddress[0]));

@@ -44,7 +44,13 @@ class DropdownButton extends React.Component {
   }
 
   render() {
-    const { componentType, id, openModal, openModalPaiement } = this.props;
+    const {
+      componentType,
+      id,
+      openModal,
+      openModalPaiement,
+      invoiceType,
+    } = this.props;
 
     return (
       <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -98,16 +104,19 @@ class DropdownButton extends React.Component {
               </div>
             </DropdownItem>
           }
-          <DropdownItem
-            onClick={this.handleDelete}
-            className="dropdown-link dropdown-box"
-          >
-            <FontAwesomeIcon
-              className="dropdown-link-icon"
-              icon={faTrashAlt}
-            />
-              Archiver
-          </DropdownItem>
+          {
+            (invoiceType !== 'facture' && invoiceType !== 'facture récurrente') &&
+            <DropdownItem
+              onClick={this.handleDelete}
+              className="dropdown-link dropdown-box"
+            >
+              <FontAwesomeIcon
+                className="dropdown-link-icon"
+                icon={faTrashAlt}
+              />
+                Archiver
+            </DropdownItem>
+          }
         </DropdownMenu>
       </ButtonDropdown>
     );
@@ -121,6 +130,12 @@ DropdownButton.propTypes = {
   loadInvoices: PropTypes.func.isRequired,
   loadProducts: PropTypes.func.isRequired,
   loadCustomers: PropTypes.func.isRequired,
+  openModalPaiement: PropTypes.func.isRequired,
+  invoiceType: PropTypes.string,
+};
+
+DropdownButton.defaultProps = {
+  invoiceType: '',
 };
 
 const mapDispatchToProps = dispatch => ({
