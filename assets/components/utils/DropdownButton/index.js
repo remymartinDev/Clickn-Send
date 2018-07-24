@@ -89,7 +89,7 @@ class DropdownButton extends React.Component {
     axios.delete(`/api/invoice/${id}`)
       .then((response) => {
         console(response);
-        this.loadInvoices();
+        this.props.loadInvoices();
       });
   }
 
