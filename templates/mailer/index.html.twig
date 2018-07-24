@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ absolute_url(asset('styles/PDFshow.css')) }}">
+<link rel="stylesheet" href="{{ absolute_url(asset('styles/pdfFactory.css')) }}">
 {% endblock %}
 
 {% block body %}
 
 {% if invoice.company.logo != null %}
-<div class="col-2 d-block logo">
-    <img src="{{  absolute_url(asset('data/logo/')) }}{{invoice.company.logo}} " alt="logo {{invoice.company.companyName}}">
+<div class="col-2 logo">
+    <img src="{{ absolute_url(asset('data/logo/' ~ invoice.company.logo)) }} " alt="logo {{invoice.company.companyName}}">
 </div>   
 {% endif %}
 

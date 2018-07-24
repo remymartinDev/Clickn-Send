@@ -44,7 +44,7 @@ class PaymentController extends Controller
                 $customer->delInvoices();
                 $customer->setCompany(null);
     
-                $invoice = $payment->getInvoice();                        
+                $invoice = $payment->getInvoice();                       
     
                 $invoice->delPayments();
                 $invoice->delInvoiceHasProduct();
@@ -140,13 +140,18 @@ class PaymentController extends Controller
      */
     public function delete(Request $request, Payment $payment): Response
     {
+        $invoice = $payment->getInvoice();
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($payment);
         $em->flush();
 
+        $invoice->checkPayment();
+        $em->flush();
+
         $response = [
         'succes' => true,
+        'invoicePaid' => $invoice->getPaid()
         ];
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
