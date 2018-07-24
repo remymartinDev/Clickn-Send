@@ -546,4 +546,22 @@ class Invoice
             $this->setPaid(false);
         }
     }
+
+    public function getObjectDeadline1()
+    {
+        return $this->deadline1;
+        
+    }
+
+    public function getObjectDeadline2()
+    {
+        return $this->deadline2;
+        
+    }
+
+    public function getObjectDeadline3()
+    {
+        return $this->deadline3;
+        
+    }
 }
