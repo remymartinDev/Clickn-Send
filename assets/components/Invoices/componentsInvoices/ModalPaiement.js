@@ -15,6 +15,7 @@ class ModalPaiement extends React.Component {
     methodes: [],
     payments: [],
     paid: false,
+    totalInvoice: null,
   }
 
   componentDidMount() {
@@ -43,8 +44,6 @@ class ModalPaiement extends React.Component {
       });
   }
 
- 
-
   getMethodesJSX = () => (
     this.state.methodes.map(methode => (
       <option key={methode.id} value={methode.id}>{methode.method}</option>
@@ -65,16 +64,21 @@ class ModalPaiement extends React.Component {
   loadPayments = () => {
     axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
       .then((response) => {      
+        console.log(response.data);
         const { paid } = response.data[0] ? response.data[0].invoice : false;
+        const totalInvoice = response.data[0] ? response.data[0].invoice.amountAllTaxes : 0;
         
         this.setState({
           payments: response.data,
           paid,
+          totalInvoice,
         });
       });
   }
 
- 
+  restToPay = () => {
+    console.log(this.state.totalInvoice);
+  }
 
   render() {
     console.log('mon paiement', this.state.payments);
@@ -96,7 +100,7 @@ class ModalPaiement extends React.Component {
           </button>
         </Form>
         {
-          this.state.paid ? <div>Facture Payée</div> : <div>Reste à payer:</div>
+          this.state.paid ? <div className="invoice-paid">Facture Payée</div> : <div className="invoice-unpaid">Reste à payer:</div>
         }
         
         {
