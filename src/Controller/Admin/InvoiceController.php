@@ -34,7 +34,7 @@ class InvoiceController extends Controller
      */
     public function edit(Request $request, Invoice $invoice, SerializerInterface $serializer, CompanyRepository $companyRepository, StatusRepository $statusRepository): Response
     {
-        $role = $this->getUser()->getRole();
+        $role = $this->getUser()->getRoles();
 
         if ($role == 'admin') {
         $data = $request->getContent();
