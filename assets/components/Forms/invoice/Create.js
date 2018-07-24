@@ -28,6 +28,10 @@ const CreateFacture = ({
         <Field component="textarea" name="legalNotice" className="form-mentions-field" />
       </div>
       <StatusInvoice />
+      <div className="form-mentions">
+        <label htmlFor="downPayment">Acompte perçu</label>
+        <Field component="input" name="downPayment" type="number" className="form-mentions-field" />
+      </div>
       <Button type="submit" className="form-btn form-btn-submit">Générer votre facture</Button>
     </form>
   </div>
