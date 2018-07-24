@@ -8,15 +8,15 @@
 
 {% if (invoice.paid == true) %}
 <div class="paid">
-   <p> payé </p>
+   <p> Payée </p>
 </div> 
 {% elseif (invoice.paid != true and invoice.deadline2 != null) %}
 <div class="notpaid">
-   <p> Impayé : 
+   <p> Impayée : 
    {% if (invoice.deadline3 == null) %}
-       1ère relance </p>
+       <br class="cellPh">pas de relance </p>
    {% else %}
-       2nde relance </p>
+   <br class="cellPh"> 1 relance <br class="cellPh">envoyée </p>
    {% endif %}
 </div>
 {% endif %}

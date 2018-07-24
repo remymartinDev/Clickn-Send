@@ -27,14 +27,14 @@ body {
 .paid {
   position: fixed;
   z-index: 50;
-  left: -12px;
-  top: -10px;
+  left: 0px;
+  top: 0px;
   text-align: center;
   color: #65bc64;
   border: 1px solid #65bc64;
-  border-radius: 17px 0px 17px 0px;
+  border-radius: 6px 0px 17px 0px;
   box-shadow: 2px 4px 20px #65bc64;
-  width: 15rem;
+  width: 10rem;
   background-color: white;
 }
 
@@ -49,24 +49,23 @@ body {
 .notpaid {
   position: fixed;
   z-index: 50;
-  left: -12px;
-  top: -10px;
+  left: 0px;
+  top: 0px;
   text-align: center;
   color: #b70000;
   border: 1px solid #b70000;
-  border-radius: 17px 0px 17px 0px;
+  border-radius: 6px 0px 17px 0px;
   box-shadow: 2px 4px 20px #b70000;
-  width: 15rem;
+  width: 10rem;
   background-color: white;
 }
 
 .notpaid p {
   margin-top: 0.7rem;
   margin-bottom: 1rem;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: bold;
 }
-
 
 .customer {
   font-size: 0.7rem;
@@ -363,6 +362,27 @@ hr {
   .smSizeRow {
     display: flex;
   } 
+  .paid {
+    width: 16rem;
+    left: -12px;
+    top: -10px;
+    border-radius: 17px 0px 17px 0px;
+  }
+  .paid p {
+    margin-left: 0;
+  }
+  .notpaid {
+    width: 16rem;
+    left: -12px;
+    top: -10px;
+    border-radius: 17px 0px 17px 0px;
+  }
+  .notpaid p {
+    margin-left: 0;
+  }
+  .cellPh {
+    display: none;
+  }
 }
 @media (min-width: 768px) {
 }
