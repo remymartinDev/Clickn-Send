@@ -5,22 +5,19 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 import { load } from '~/store/reducers/localActionCreator';
-import InvoiceEditContainer from '~/containers/InvoiceEditContainer';
+import InvoiceDuplicateContainer from '~/containers/InvoiceDuplicateContainer';
 
 class DuplicateInvoice extends React.Component {
   componentDidMount() {
-    console.log(this.props);
     const { id } = this.props.match.params;
-    console.log(id);
     axios.get(`/api/invoice/${id}`)
       .then(({ data }) => {
-        console.log(data);
         this.props.load(data);
       });
   }
 
   render() {
-    return <InvoiceEditContainer buttonValidation="Dupliquer" />;
+    return <InvoiceDuplicateContainer />;
   }
 }
 

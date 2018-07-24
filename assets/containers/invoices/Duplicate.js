@@ -56,9 +56,11 @@ const mapDispatchToProps = dispatch => ({
       });
   },
   onSubmit: (values) => {
-    console.log('create invoice');
-    dispatch(createInvoice(values));
-    dispatch(loadInvoices());
+    console.log('duplicate invoice');
+    axios.post(`/api/invoice/${id}/copy`, values)
+      .then((response) => {
+        dispatch(loadInvoices());
+      });
   },
   dispatch: (actionCreator) => {
     dispatch(actionCreator);

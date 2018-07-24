@@ -20,7 +20,7 @@ class EditInvoice extends React.Component {
   }
 
   render() {
-    return <InvoiceEditContainer buttonValidation="Editer" />;
+    return <InvoiceEditContainer />;
   }
 }
 

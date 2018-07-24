@@ -18,6 +18,7 @@ class MainController extends Controller
     * @Route("/invoices/last")
     * @Route("/invoices/{id}")
     * @Route("/invoices/{id}/edit")
+    * @Route("/invoices/{id}/copy")
     * @Route("/products")
     * @Route("/admin/products")
     * @Route("/products/create")
