@@ -1,24 +1,40 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ absolute_url(asset('styles/PDFshow.css')) }}">
+{% endblock %}
+
 {% block body %}
-<h3>Voici votre facture</h3>
 
-Bonjour, {% if invoice.customer.pro == true %}{{invoice.customer.customerCompany}}{% else %}M,Mm {{invoice.customer.lastname}}{% endif %}<br><br>
+{% if invoice.company.logo != null %}
+<div class="col-2 d-block logo">
+    <img src="{{  absolute_url(asset('data/logo/')) }}{{invoice.company.logo}} " alt="logo {{invoice.company.companyName}}">
+</div>   
+{% endif %}
 
-Ci-jointe votre {{invoice.status.invoiceStatus}} n°{{ invoice.reference }}<br><br>en date du {{invoice.date|date('d-m-Y')}}<br><br>
+<div class="col-2">
+    <h3>Voici votre facture</h3>
+    
+    <p>Bonjour, {% if invoice.customer.pro == true %}{{invoice.customer.customerCompany}}{% else %}M,Mm {{invoice.customer.lastname}}{% endif %}<br>
+    
+    Ci-jointe votre {{invoice.status.invoiceStatus}} n°{{ invoice.reference }}<br>
+    en date du {{invoice.date|date('d-m-Y')}}<br>
+    
+    cordialement,<br></p>
+</div>
 
-cordialement,<br><br>
-
-{{invoice.company.companyName}}<br>
-
-
-<div>
+<div class="col-2">
+    {{invoice.company.companyName}}<br>
     {{invoice.company.companyAdress}} <br>
     {{invoice.company.zipCode}}, {{invoice.company.city}} <br>
     {{invoice.company.phone}} <br>
     {{invoice.company.fax}} <br>
-    {{invoice.company.email}} <br>
-    {{invoice.company.webSite}}
+    <a href="mailto:{{invoice.company.email}}">{{invoice.company.email}}</a><br>
+    <a href=" http://{{invoice.company.webSite}} ">{{invoice.company.webSite}}</a>
+</div>
+
+<div class="col-2">
+    <p class="clicknsend">mail powered by <span id="clicknsend">Clickn'Send</p>
 </div>
 
 {% endblock %}

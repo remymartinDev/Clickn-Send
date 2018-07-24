@@ -40,10 +40,14 @@ class CompanyController extends Controller
         $serializer = new Serializer(array($normalizer));
         
         $company = $serializer->denormalize($data_array, Company::class);
-           
+        
+        
+        if ($company->getVatNumber() !== null) {
         $countryCode = preg_split("/[0-9]/",$company->getVatNumber());
         $company->setCountryCode($countryCode[0]);
-        
+        } 
+        else { $company->setCountryCode('x');
+        }
         //fuction for check if logo exist and set it to company
         $this->checkAndSetLogo("logo", $fileup, $company);
 
