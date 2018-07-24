@@ -43,6 +43,13 @@ class PdfController extends Controller
             }
         }
 
+        if ($invoice->getReminder() === 0 && $invoice->getDeadline2() !== null){
+            $invoice->setReminder(1);
+        }
+        else if ($invoice->getReminder() === 1 && $invoice->getDeadline3() !== null){
+            $invoice->setReminder(2);
+        }
+
         $this->getDoctrine()->getManager()->flush();
 
         $html = $this->renderView('pdf/factory.html.twig', [

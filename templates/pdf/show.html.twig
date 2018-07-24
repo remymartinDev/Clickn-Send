@@ -10,13 +10,15 @@
 <div class="paid">
    <p> Payée </p>
 </div> 
-{% elseif (invoice.paid != true and invoice.deadline2 != null) %}
+{% else %}
 <div class="notpaid">
    <p> Impayée : 
-   {% if (invoice.deadline3 == null) %}
+   {% if (invoice.reminder == 0) %}
        <br class="cellPh">pas de relance </p>
-   {% else %}
+   {% elseif (invoice.reminder == 1) %}
    <br class="cellPh"> 1 relance <br class="cellPh">envoyée </p>
+   {% elseif (invoice.reminder == 2) %}
+   <br class="cellPh"> 2 relances <br class="cellPh">envoyées </p>
    {% endif %}
 </div>
 {% endif %}
