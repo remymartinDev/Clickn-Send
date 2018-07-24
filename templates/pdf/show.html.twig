@@ -6,6 +6,21 @@
 
 {% block body %}
 
+{% if (invoice.paid == true) %}
+<div class="paid">
+   <p> payé </p>
+</div> 
+{% elseif (invoice.paid != true and invoice.deadline2 != null) %}
+<div class="notpaid">
+   <p> Impayé : 
+   {% if (invoice.deadline3 == null) %}
+       1ère relance </p>
+   {% else %}
+       2nde relance </p>
+   {% endif %}
+</div>
+{% endif %}
+
 <div class="choices">
     <a href="{{ path('pdf_dl', {'id': invoice.id})  }}" class="dl" data-toggle="tooltip" data-placement="top" title="Télécharger au format PDF"> <i class="fas fa-download"></i> Télécharger PDF</a><hr>
     {% if invoice.status.invoiceStatus == 'brouillon' %}
