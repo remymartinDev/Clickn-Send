@@ -138,7 +138,7 @@ class PaymentController extends Controller
     /**
      * @Route("/{id}", name="payment_delete", methods="DELETE")
      */
-    public function delete(Request $request, Payment $payment): Response
+    public function delete(Request $request, Payment $payment, SerializerInterface $serializer): Response
     {
         $invoice = $payment->getInvoice();
 
