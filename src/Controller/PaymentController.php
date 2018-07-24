@@ -107,7 +107,7 @@ class PaymentController extends Controller
     /**
      * @Route("/{id}/edit", name="payment_edit", methods="POST")
      */
-    public function edit(Request $request, Payment $payment)
+    public function edit(Request $request, Payment $payment, SerializerInterface $serializer)
     {
         $data = $request->getContent();
         $data_array = json_decode($data, true);
