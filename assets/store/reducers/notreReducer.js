@@ -26,6 +26,7 @@ const initialState = {
   loggedIn: isLogged,
   userConnected: isLogged ? JSON.parse(sessionStorage.getItem('user')) : false,
   selectedInvoiceId: null,
+  pdf: null,
 };
 
 /**
@@ -110,7 +111,7 @@ const reducer = (currentState = initialState, action = {}) => {
     case OPEN_RECURRED: {
       return {
         ...currentState,
-        selectedInvoiceId: action.id,
+        pdf: action.pdf,
         view: action.view,
         modal: true,
       };
