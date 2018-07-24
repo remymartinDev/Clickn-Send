@@ -18,7 +18,7 @@ const FactureEchue = ({
     <div className="facture-echue-item">
       <FormattedRelative value={new Date(deadline1)} />
     </div>
-    { reminder > 0 ? <FaBellFull className="bell" /> : <FaBell className="bell" onClick={onClick(id)} /> }
+    { reminder > 0 ? <FaBellFull className="bell" /> : <FaBell className="bell" style={{ cursor: 'pointer' }} onClick={onClick(id)} /> }
   </div>
 );
 

@@ -141,7 +141,7 @@ class DropdownButton extends React.Component {
             </DropdownItem>
           }
           {
-            (invoiceType !== 'facture récurrente' ) &&
+            (invoiceType !== 'facture récurrente') &&
             <DropdownItem className="dropdown-box">
               <Link to={`/${componentType}s/${id}/copy`} className="dropdown-link">
                 <FontAwesomeIcon className="dropdown-link-icon" icon={faCopy} />
