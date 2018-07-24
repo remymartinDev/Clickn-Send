@@ -34,8 +34,12 @@ class DropdownButton extends React.Component {
   }
 
   handleStatusChange = status => () => {
-    console.log('idInvoice', this.props.id);
-    console.log(status);
+    const { id } = this.props;
+    axios.post(`/api/admin/invoice/${id}/edit`, { status })
+      .then((response) => {
+        console.log(response);
+        this.props.loadInvoices();
+      });
   }
 
   handleDelete = () => {

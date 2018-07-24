@@ -30,26 +30,34 @@ class InvoiceController extends Controller
 {
     
     /**
-     * @Route("/{id}/edit", name="invoice_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="invoice_edit_admin", methods="GET|POST")
      */
-    public function edit(Request $request, Invoice $invoice, SerializerInterface $serializer, CompanyRepository $companyRepository, StatusRepository $statusRepository): Response
+    public function edit(Request $request, Invoice $invoice, SerializerInterface $serializer, StatusRepository $statusRepository): Response
     {
-        $role = $this->getUser()->getRole();
+        $role = $this->getUser()->getRoles();
 
-        if ($role == 'admin') {
-        $data = $request->getContent();
-        $data_array = json_decode($data, true);   
+        if ($role[0] === 'ROLE_ADMIN') {
 
-        $em = $this->getDoctrine()->getManager();
-        
-        $invoice->setStatus($datas['status']);
+            $data = $request->getContent();
+            $data_array = json_decode($data, true);   
 
+            $em = $this->getDoctrine()->getManager();
+            $status = $statusRepository->findOneByInvoiceStatus($data_array['status']);
+
+            $invoice->setStatus($status);
+
+            $em->flush();
+            $response = [
+                'succes' => true,
+                'id' => $invoice->getId()
+                ];
+        } else {
+            $response = [
+                'succes' => false,
+                'id' => $invoice->getId()
+                ];
         }
-        $em->flush();
-        $response = [
-            'succes' => true,
-            'id' => $invoice->getId()
-            ];
+
         $json = $serializer->serialize($response, 'json');
         return new Response($json);
     }
