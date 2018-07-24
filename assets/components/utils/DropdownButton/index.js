@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload, faHandHoldingUsd, faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload, faHandHoldingUsd, faCopy, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
@@ -82,6 +82,14 @@ class DropdownButton extends React.Component {
               load();
             });
         }
+      });
+  }
+  removeInvoice = () => {
+    const { id } = this.props;
+    axios.delete(`/api/invoice/${id}`)
+      .then((response) => {
+        console(response);
+        this.loadInvoices();
       });
   }
 
@@ -198,14 +206,26 @@ class DropdownButton extends React.Component {
           }
           {
             (isAdmin && componentType === 'invoice') &&
-            <UncontrolledDropdown direction="right" className="subdropdown" style={{}}>
-              <DropdownToggle caret>
-                Changer Status
-              </DropdownToggle>
-              <DropdownMenu>
-                {this.getStatusJSX()}
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <React.Fragment>
+              <DropdownItem
+                onClick={this.removeInvoice}
+                className="dropdown-link dropdown-box"
+              >
+                <FontAwesomeIcon
+                  className="dropdown-link-icon"
+                  icon={faEraser}
+                />
+                  Supprimer
+              </DropdownItem>
+              <UncontrolledDropdown direction="right" className="subdropdown" style={{}}>
+                <DropdownToggle caret>
+                  Changer Status
+                </DropdownToggle>
+                <DropdownMenu>
+                  {this.getStatusJSX()}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </React.Fragment>
           }
         </DropdownMenu>
       </ButtonDropdown>
