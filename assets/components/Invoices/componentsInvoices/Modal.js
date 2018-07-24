@@ -7,12 +7,14 @@ import CreateCustomer from './CustomerCreate';
 import CreateProduct from './ProductCreate';
 import ShowInvoicePdf from './ShowInvoicePdf';
 import ModalPaiement from './ModalPaiement';
+import RecurredInvoicePdf from './RecurredInvoicePdf';
 
 const ModalList = {
   customer: <CreateCustomer />,
   product: <CreateProduct />,
   show: <ShowInvoicePdf />,
   paiement: <ModalPaiement />,
+  recurred: <RecurredInvoicePdf />,
 };
 class CustomeModal extends React.Component {
   componentDidMount() {
