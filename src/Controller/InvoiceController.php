@@ -228,6 +228,8 @@ class InvoiceController extends Controller
         $newInvoice->setReference($reference);
         $newInvoice->setDeadline1($deadline);
         $newInvoice->setRecurringDate();
+        $newInvoice->delPayments();
+        $newInvoice->setDownPayment(0);
         
         $em->persist($newInvoice);
         $em->flush();
