@@ -181,7 +181,7 @@ class InvoiceController extends Controller
     /**
      * @Route("/{id}", name="invoice_delete", methods="DELETE")
      */
-    public function delete(Request $request, Invoice $invoice, StatusRepository $statusRepository)
+    public function delete(Request $request, Invoice $invoice, StatusRepository $statusRepository, SerializerInterface $serializer)
     {
         //edition restriction
         $actualStatus = $invoice->getStatus();
@@ -190,9 +190,9 @@ class InvoiceController extends Controller
 
         if ($actualStatus !== $statusRec && $actualStatus !== $statusInv) {
 
-                $em = $this->getDoctrine()->getManager();
-                $em->remove($invoice);
-                $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($invoice);
+            $em->flush();
 
             $response = [
                 'succes' => true,
