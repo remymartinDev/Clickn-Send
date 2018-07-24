@@ -189,9 +189,9 @@ class InvoiceController extends Controller
 
         if ($actualStatus !== $statusRec && $actualStatus !== $statusInv) {
 
-                $em = $this->getDoctrine()->getManager();
-                $em->remove($invoice);
-                $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($invoice);
+            $em->flush();
 
             $response = [
                 'succes' => true,
