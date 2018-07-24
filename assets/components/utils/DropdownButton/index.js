@@ -18,31 +18,6 @@ class DropdownButton extends React.Component {
     dropdownOpen: false,
   }
 
-  loadAction = () => {
-    const loadList = {
-      invoice: this.props.loadInvoices,
-      product: this.props.loadProducts,
-      customer: this.props.loadCustomers,
-    };
-    loadList[this.props.componentType]();
-  }
-
-  toggle = () => {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-    });
-  }
-
-  handleDelete = () => {
-    const { componentType, id } = this.props;
-    axios.post(`/api/${componentType}/${id}/activ`)
-      .then((response) => {
-        if (response.data.succes) {
-          this.loadAction();
-        }
-      });
-  }
-
   getStatusJSX = () => {
     const statusArray = [
       'facture',
@@ -56,6 +31,49 @@ class DropdownButton extends React.Component {
         <DropdownItem key={status}>{status}</DropdownItem>
       ));
     return statusJSX;
+  }
+
+  handleDelete = () => {
+    const { componentType, id } = this.props;
+    axios.post(`/api/${componentType}/${id}/activ`)
+      .then((response) => {
+        if (response.data.succes) {
+          this.loadAction();
+        }
+      });
+  }
+
+  toggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    });
+  }
+
+  loadAction = () => {
+    const loadList = {
+      invoice: this.props.loadInvoices,
+      product: this.props.loadProducts,
+      customer: this.props.loadCustomers,
+    };
+    loadList[this.props.componentType]();
+  }
+
+  handleDeletePayment = () => {
+    const {
+      componentType,
+      id,
+      invoiceId,
+      load,
+    } = this.props;
+    axios.delete(`/api/${componentType}/${id}`)
+      .then((response) => {
+        if (response.data.succes) {
+          axios.get(`/api/payments/${invoiceId}`)
+            .then(() => {
+              load();
+            });
+        }
+      });
   }
 
   render() {
@@ -124,7 +142,21 @@ class DropdownButton extends React.Component {
             </DropdownItem>
           }
           {
-            (invoiceType !== 'facture' && invoiceType !== 'facture récurrente') &&
+            componentType === 'payment'
+            &&
+            <DropdownItem
+              onClick={this.handleDeletePayment}
+              className="dropdown-link dropdown-box"
+            >
+              <FontAwesomeIcon
+                className="dropdown-link-icon"
+                icon={faTrashAlt}
+              />
+                Effacer
+            </DropdownItem>
+          }
+          {
+            (invoiceType !== 'facture' && invoiceType !== 'facture récurrente' && componentType !== 'payment') &&
             <DropdownItem
               onClick={this.handleDelete}
               className="dropdown-link dropdown-box"
@@ -163,10 +195,14 @@ DropdownButton.propTypes = {
   openModalPaiement: PropTypes.func.isRequired,
   invoiceType: PropTypes.string,
   isAdmin: PropTypes.bool.isRequired,
+  invoiceId: PropTypes.number,
+  load: PropTypes.func,
 };
 
 DropdownButton.defaultProps = {
   invoiceType: '',
+  invoiceId: 0,
+  load: () => {},
 };
 
 const mapStateToProps = state => ({

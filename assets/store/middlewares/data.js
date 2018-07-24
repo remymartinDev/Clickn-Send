@@ -11,6 +11,7 @@ import {
   CREATE_CUSTOMER,
   CREATE_PRODUCT,
   CREATE_COMPANY,
+  LOAD_PAYMENTS,
 } from '~/store/reducers/dataActions';
 import {
   loadCustomers,

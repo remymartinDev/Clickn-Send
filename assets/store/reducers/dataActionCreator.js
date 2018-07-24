@@ -67,3 +67,4 @@ export const createCompany = values => ({
   type: CREATE_COMPANY,
   values,
 });
+

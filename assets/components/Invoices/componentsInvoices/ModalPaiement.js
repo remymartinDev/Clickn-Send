@@ -14,6 +14,7 @@ class ModalPaiement extends React.Component {
   state = {
     methodes: [],
     payments: [],
+    paid: false,
   }
 
   componentDidMount() {
@@ -25,14 +26,27 @@ class ModalPaiement extends React.Component {
         });
       });
 
-    axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
+    this.loadPayments();
+  }
+
+  onSubmit = (values) => {
+    axios.post(`/api/payment/new/${this.props.selectedInvoiceId}`, values)
       .then((response) => {
         console.log(response.data);
-        this.setState({
-          payments: response.data,
-        });
+        if (response.data.succes) {
+          axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
+            .then((response) => {
+              console.log(response.data);
+              this.setState({
+                payments: response.data,
+                paid: response.data.invoicePaid,
+              });
+            });
+        }
       });
   }
+
+ 
 
   getMethodesJSX = () => (
     this.state.methodes.map(methode => (
@@ -46,11 +60,21 @@ class ModalPaiement extends React.Component {
         <div className="list-item"><FormattedDate value={payment.date} /></div>
         <div className="list-item"> {payment.amount} €</div>
         <div className="list-item"> {payment.paymentMethode.method}</div>
-        <DropdownButton componentType="paiment" id={payment.id} />
+        <DropdownButton componentType="payment" id={payment.id} invoiceId={this.props.selectedInvoiceId} load={this.loadPayments} />
       </div>
     ))
-   
   )
+
+  loadPayments = () => {
+    axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          payments: response.data,
+          
+        });
+      });
+  }
 
   render() {
     console.log('mon paiement', this.state.payments);
@@ -58,7 +82,7 @@ class ModalPaiement extends React.Component {
 
       <div>
         <h1 className="form-title">Paiement reçu</h1>
-        <Form onSubmit={this.props.handleSubmit} className="form form-paiement">
+        <Form onSubmit={this.props.handleSubmit(this.onSubmit)} className="form form-paiement">
           <label htmlFor="date" className="form-label">Date</label>
           <Field name="date" type="date" component="input" className="form-field" />
           <label htmlFor="amount" className="form-label">Montant</label>
@@ -71,6 +95,10 @@ class ModalPaiement extends React.Component {
             Valider
           </button>
         </Form>
+        {
+          this.state.paid ? <div>Facture Payée</div> : <div>Reste à payer:</div>
+        }
+        
         {
           this.state.payments.length !== 0
           &&
@@ -92,22 +120,11 @@ class ModalPaiement extends React.Component {
 const mapStateToProps = state => ({
   selectedInvoiceId: state.notreReducer.selectedInvoiceId,
 });
-const mapDispatchToProps = null;
-const mergeProps = stateProps => ({
-  ...stateProps,
-  onSubmit: (values) => {
-    axios.post(`/api/payment/new/${stateProps.selectedInvoiceId}`, values)
-      .then((response) => {
-        console.log(response);
 
-      });
-  },
-});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-  mergeProps,
+  null,
 )(reduxForm({
   form: 'method',
 })(ModalPaiement));

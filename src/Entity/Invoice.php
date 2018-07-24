@@ -542,6 +542,8 @@ class Invoice
 
         if ($total >= $this->getAmountAllTaxes()) {
             $this->setPaid(true);
+        }else {
+            $this->setPaid(false);
         }
     }
 }
