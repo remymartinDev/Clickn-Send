@@ -32,7 +32,7 @@ class CustomeModal extends React.Component {
           {Component}
         </ModalBody>
         <ModalFooter>
-          <Button color="secondary" onClick={close}>Annuler</Button>
+          <Button color="secondary" onClick={close}>Fermer</Button>
         </ModalFooter>
       </Modal>
     );
