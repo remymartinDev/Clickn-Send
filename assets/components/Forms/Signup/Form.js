@@ -68,8 +68,8 @@ class SignupForm extends React.Component {
         <Field className="form-field" name="phone" component="input" type="text" />
         <label className="form-label" htmlFor="fax">Fax</label>
         <Field className="form-field" name="fax" component="input" type="text" />
-        <label className="form-label" htmlFor="vatNumber">N° de TVA *</label>
-        <Field className="form-field" name="vatNumber" component="input" type="text" required />
+        <label className="form-label" htmlFor="vatNumber">N° de TVA </label>
+        <Field className="form-field" name="vatNumber" component="input" type="text" />
         <label className="form-label" htmlFor="email">Votre email *</label>
         <Field className="form-field" name="email" component="input" type="email" required />
         <label className="form-label" htmlFor="bankIban">N° de compte IBAN *</label>
@@ -80,12 +80,14 @@ class SignupForm extends React.Component {
         <Field className="form-field" name="bankRib" component="input" type="text" />
         <label className="form-label" htmlFor="bankDomiciliation">Nom de la banque *</label>
         <Field className="form-field" name="bankDomiciliation" component="input" type="text" required />
-        <label className="form-label" htmlFor="paymentTerm">Délai de paiement accordé à vos clients *</label>
+        <label className="form-label" htmlFor="paymentTerm">Délai de paiement accordé à vos clients (en jours) *</label>
         <Field className="form-field" name="paymentTerm" component="input" type="text" required />
         <label className="form-label" htmlFor="companyInformation">Informations légales</label>
         <Field className="form-field" name="companyInformation" component="input" type="text" />
         <label className="form-label" htmlFor="website">Site internet</label>
         <Field className="form-field" name="website" component="input" type="text" />
+        <label className="form-label" htmlFor="codeApi">Code d'accès à l'API</label>
+        <Field className="form-field" name="codeApi" component="input" type="text" />
         <label className="form-label" htmlFor="logo">Votre Logo</label>
         <Field className="form-field" name="logo" component={InputFile} />
         <button className="form-button" type="submit">{buttonValue}</button>

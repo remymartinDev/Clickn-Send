@@ -15,6 +15,8 @@ class ModalPaiement extends React.Component {
     methodes: [],
     payments: [],
     paid: false,
+    totalInvoice: null,
+    restToPay: null,
   }
 
   componentDidMount() {
@@ -26,12 +28,15 @@ class ModalPaiement extends React.Component {
       });
 
     this.loadPayments();
+    this.loadInvoiceToPay();
+    this.restToPay();
   }
 
   onSubmit = (values) => {
     axios.post(`/api/payment/new/${this.props.selectedInvoiceId}`, values)
       .then((response) => {
         if (response.data.succes) {
+          this.restToPay();
           axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
             .then((response) => {
               this.setState({
@@ -42,8 +47,6 @@ class ModalPaiement extends React.Component {
         }
       });
   }
-
- 
 
   getMethodesJSX = () => (
     this.state.methodes.map(methode => (
@@ -64,20 +67,51 @@ class ModalPaiement extends React.Component {
 
   loadPayments = () => {
     axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
-      .then((response) => {      
+      .then((response) => {
         const { paid } = response.data[0] ? response.data[0].invoice : false;
-        
         this.setState({
           payments: response.data,
           paid,
         });
+        this.restToPay();
       });
   }
 
- 
+  loadInvoiceToPay = () => {
+    axios.get(`/api/invoice/${this.props.selectedInvoiceId}`)
+      .then((response) => {
+        console.log(response);
+        const totalInvoice = response.data.amountAllTaxes;
+        this.setState({
+          totalInvoice,
+        });
+        this.restToPay();
+      });
+  }
+
+  restToPay = () => {
+    console.log('total invoice to count', this.state.totalInvoice);
+    let restToPay = null;
+    if (this.state.payments.length !== 0) {
+      restToPay = this.state.payments.reduce((total, payment) => {
+       return total + payment.amount;
+      });
+    }
+    else {
+      restToPay = this.state.totalInvoice;
+
+    }
+    console.log('restToPay to return', this.state.restToPay);
+    this.setState({
+      restToPay,
+    });
+  }
 
   render() {
-    console.log('mon paiement', this.state.payments);
+    console.log('total invoice', this.state.totalInvoice);
+    console.log('payments', this.state.payments);
+    console.log('restToPay', this.state.restToPay);
+
     return (
 
       <div>
@@ -96,7 +130,7 @@ class ModalPaiement extends React.Component {
           </button>
         </Form>
         {
-          this.state.paid ? <div>Facture Payée</div> : <div>Reste à payer:</div>
+          this.state.paid ? <div className="invoice-paid">Facture Payée</div> : <div className="invoice-unpaid">Reste à payer: {this.state.restToPay} €</div>
         }
         
         {
