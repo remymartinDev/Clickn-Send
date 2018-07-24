@@ -55,7 +55,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * @Route("/new", name="customer_new", methods="GET|POST")
+     * @Route("/new", name="customer_new", methods="POST")
      */
     public function new(Request $request, CompanyRepository $companyRepository, SerializerInterface $serializer)
     {
@@ -104,7 +104,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="customer_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="customer_edit", methods="POST")
      */
     public function edit(Request $request, Customer $customer, SerializerInterface $serializer, CustomerRepository $customerRepository): Response
     {
@@ -124,7 +124,7 @@ class CustomerController extends Controller
     }
 
      /**
-     * @Route("/{id}/activ", name="customer_activ", methods="GET|POST")
+     * @Route("/{id}/activ", name="customer_activ", methods="POST")
      */
     public function activ(Request $request, Customer $customer, SerializerInterface $serializer): Response
     {    

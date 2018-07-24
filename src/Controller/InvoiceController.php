@@ -123,7 +123,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="invoice_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="invoice_edit", methods="POST")
      */
     public function edit(Request $request, Invoice $invoice, SerializerInterface $serializer, CompanyRepository $companyRepository, CustomerRepository $customerRepository, StatusRepository $statusRepository, ProductRepository $productRepository, InvoiceHasProductRepository $invoiceHPR): Response
     {
@@ -208,7 +208,7 @@ class InvoiceController extends Controller
     }
 
       /**
-     * @Route("/{id}/copy", name="invoice_copy", methods="GET|POST")
+     * @Route("/{id}/copy", name="invoice_copy", methods="POST")
      */
     public function copy(Invoice $invoice, SerializerInterface $serializer)
     {
