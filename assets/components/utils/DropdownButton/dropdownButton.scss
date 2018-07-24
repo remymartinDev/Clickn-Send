@@ -25,22 +25,26 @@
 .subdropdown {
   width: 100%;
   display: flex;
+  border: 1px solid transparent;
   button {
+    border: 1px solid transparent;
     background-color: transparent !important;
-    border: none;
+    width: 100%;
+    border-radius: 0 !important;
     margin: auto;
     &:hover {
-      background-color: white;
-      color: $color-mauve-1;
+      border: 1px solid transparent !important;
+      background-color: white !important;
+      color: $color-mauve-4 !important;
       border: none;
     }
     &:focus {
-      border: 1px solid white !important;
+      border: 1px solid transparent !important;
       outline: none;
       box-shadow: 1px 1px 1px white !important;
     }
     &:active {
-      border: 1px solid white !important;
+      border: 1px solid transparent !important;
       outline: none;
       background-color: white !important;
       color: $color-mauve-2 !important;
