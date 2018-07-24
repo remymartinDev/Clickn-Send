@@ -178,8 +178,8 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("s/{id}", name="invoice_delete", methods="DELETE")
-     */ 
+     * @Route("/{id}", name="invoice_delete", methods="DELETE")
+     */
     public function delete(Request $request, Invoice $invoice, StatusRepository $statusRepository)
     {
         //edition restriction

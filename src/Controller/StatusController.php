@@ -19,7 +19,7 @@ class StatusController extends Controller
     /**
      * @Route("s", name="status_index", methods="GET")
      */
-    public function list(StatusRepository $statusRepository, ConfiguredSerializer $configuredSerializer): Response
+    public function list(StatusRepository $statusRepository,ConfiguredSerializer $configuredSerializer)
     {
         $status = $statusRepository->findAll();
 
