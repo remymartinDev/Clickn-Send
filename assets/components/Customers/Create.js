@@ -4,7 +4,7 @@ import CreateClient from '~/components/Forms/customer/Create';
 import axios from 'axios';
 
 class Create extends React.Component {
-  submit = (values) => {
+  onSubmit = (values) => {
     const { history } = this.props;
     axios.post('/api/customer/new', values)
       .then(() => {
@@ -13,7 +13,7 @@ class Create extends React.Component {
   }
 
   render() {
-    return <CreateClient onSubmit={this.submit} />;
+    return <CreateClient onSubmit={this.onSubmit} />;
   }
 }
 
