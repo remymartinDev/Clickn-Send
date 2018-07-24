@@ -16,7 +16,7 @@ const DuplicateInvoice = ({
   fillPrice,
 }) => (
   <div className="page-container-invoice-create">
-    <h1 className="title-invoice">Edition facture</h1>
+    <h1 className="title-invoice">Dupliquer votre facture</h1>
     <form onSubmit={handleSubmit} className="form-create-invoice">
       <CustomerInvoice changeCustomers={changeCustomers} />
       <FieldArray name="invoiceHasProducts" component={ProductInvoice} fillPrice={fillPrice} changeProducts={changeProducts} />
