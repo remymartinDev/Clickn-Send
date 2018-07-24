@@ -14,6 +14,7 @@ class ModalPaiement extends React.Component {
   state = {
     methodes: [],
     payments: [],
+    paid: false,
   }
 
   componentDidMount() {
@@ -25,13 +26,7 @@ class ModalPaiement extends React.Component {
         });
       });
 
-    axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
-      .then((response) => {
-        console.log(response.data);
-        this.setState({
-          payments: response.data,
-        });
-      });
+    this.loadPayments();
   }
 
   onSubmit = (values) => {
@@ -44,11 +39,14 @@ class ModalPaiement extends React.Component {
               console.log(response.data);
               this.setState({
                 payments: response.data,
+                paid: response.data.invoicePaid,
               });
             });
-          }
+        }
       });
   }
+
+ 
 
   getMethodesJSX = () => (
     this.state.methodes.map(methode => (
@@ -62,10 +60,21 @@ class ModalPaiement extends React.Component {
         <div className="list-item"><FormattedDate value={payment.date} /></div>
         <div className="list-item"> {payment.amount} €</div>
         <div className="list-item"> {payment.paymentMethode.method}</div>
-        <DropdownButton componentType="paiment" id={payment.id} />
+        <DropdownButton componentType="payment" id={payment.id} invoiceId={this.props.selectedInvoiceId} load={this.loadPayments} />
       </div>
     ))
   )
+
+  loadPayments = () => {
+    axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          payments: response.data,
+          
+        });
+      });
+  }
 
   render() {
     console.log('mon paiement', this.state.payments);
@@ -86,6 +95,10 @@ class ModalPaiement extends React.Component {
             Valider
           </button>
         </Form>
+        {
+          this.state.paid ? <div>Facture Payée</div> : <div>Reste à payer:</div>
+        }
+        
         {
           this.state.payments.length !== 0
           &&

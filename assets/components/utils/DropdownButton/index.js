@@ -43,6 +43,19 @@ class DropdownButton extends React.Component {
       });
   }
 
+  handleDeletePayment = () => {
+    const { componentType, id, invoiceId, load } = this.props;
+    axios.delete(`/api/${componentType}/${id}`)
+      .then((response) => {
+        if (response.data.succes) {
+          axios.get(`/api/payments/${invoiceId}`)
+            .then((response) => {
+              load();
+            });
+        }
+      });
+  }
+
   render() {
     const {
       componentType,
@@ -105,7 +118,21 @@ class DropdownButton extends React.Component {
             </DropdownItem>
           }
           {
-            (invoiceType !== 'facture' && invoiceType !== 'facture récurrente') &&
+            componentType === 'payment'
+            &&
+            <DropdownItem
+              onClick={this.handleDeletePayment}
+              className="dropdown-link dropdown-box"
+            >
+              <FontAwesomeIcon
+                className="dropdown-link-icon"
+                icon={faTrashAlt}
+              />
+                Effacer
+            </DropdownItem>
+          }
+          {
+            (invoiceType !== 'facture' && invoiceType !== 'facture récurrente' && componentType !== 'payment' ) &&
             <DropdownItem
               onClick={this.handleDelete}
               className="dropdown-link dropdown-box"
@@ -117,6 +144,7 @@ class DropdownButton extends React.Component {
                 Archiver
             </DropdownItem>
           }
+          
         </DropdownMenu>
       </ButtonDropdown>
     );
