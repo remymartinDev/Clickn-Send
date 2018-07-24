@@ -180,7 +180,7 @@ class InvoiceController extends Controller
     /**
      * @Route("/{id}", name="invoice_delete", methods="DELETE")
      */
-    public function delete(Request $request, Invoice $invoice, StatusRepository $statusRepository)
+    public function delete(Request $request, Invoice $invoice, StatusRepository $statusRepository, SerializerInterface $serializer)
     {
         //edition restriction
         $actualStatus = $invoice->getStatus();
