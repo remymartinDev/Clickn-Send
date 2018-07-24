@@ -304,7 +304,7 @@ class InvoiceController extends Controller
         $jsonContent = $jsonResponse->getContent();
         $response = json_decode($jsonContent, true);
 
-        return $this->redirectToRoute('pdf', [
+        return $this->redirectToRoute('pdf_show', [
            'id' => $response['id'], 
         ]);
     }
