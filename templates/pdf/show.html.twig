@@ -7,7 +7,6 @@
 {% block body %}
 
 <div class="choices">
-
     <a href="{{ path('pdf_dl', {'id': invoice.id})  }}" class="dl" data-toggle="tooltip" data-placement="top" title="Télécharger au format PDF"> <i class="fas fa-download"></i> Télécharger PDF</a><hr>
     {% if invoice.status.invoiceStatus == 'brouillon' %}
     <a href="{{ path('pdf_factory', {'id': invoice.id})  }}" class="cns" data-toggle="tooltip" data-placement="left" title="Transformer ce Brouillon en Facture et l'envoyer par mail à votre client"><img src="{{ asset('styles/favIcon.png') }}" alt="logo clicknsend"> Click & Send</a> <hr>
@@ -17,7 +16,6 @@
     <a href="{{ path('pdf_factory', {'id': invoice.id})  }}" class="cns" data-toggle="tooltip" data-placement="left" title="Envoyer cette Facture par mail à votre client"><img src="{{ asset('styles/favIcon.png') }}" alt="logo clicknsend"> Click & Send</a> <hr>
     {% endif %}
     <a href="{{ path('listlast') }}" class="suppr" data-toggle="tooltip" data-placement="left" title="Revenir à la liste des factures"> <i class="fas fa-ban"></i> Annuler</a><hr>
-
 </div>
 
 <div class="invoice-content">
@@ -158,7 +156,7 @@
             <div class="row ecart">
                     <div class="col-xs-12 col-sm-12 order-md-last col-md-4 total">
 
-                            <div class="amounts">
+                        <div class="amounts">
         
                             <div class="pre-amount">
                                 <div class="amount-cat">Montant H.T</div>
@@ -201,7 +199,7 @@
         
                         </div> 
         
-                        </div>
+                    </div>
 
                 <div class="order-xs-last col-xs-12 order-md-first col-md-6 companyRef">
 
@@ -260,64 +258,11 @@
                                 </span>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
-                <div class="d-xs-none d-md-block col-md-2 void"></div>
-
-                {# <div class="d-xs-none d-sm-none order-md-last d-md-block col-md-4 total">
-
-                    <div class="amounts">
-
-                    <div class="pre-amount">
-                        <div class="amount-cat">Montant H.T</div>
-                        <div class="amount">
-                            {{ invoice.amountDuttyFree|number_format(2, ',', ' ') }} &euro;
-                        </div>
-                    </div>  
-
-                    <div class="pre-amount">
-                        <div class="amount-cat">Montant TVA</div> 
-                            <div class="amount">
-                                {{ invoice.taxesAmount|number_format(2, ',', ' ') }} &euro;
-                            </div>
-                    </div> 
-
-                    {% if invoice.customer.remise != null %}
-                    <div class="pre-amount">
-                        <div class="amount-cat">Remise <span class="remise">({{ invoice.customer.remise }}%)</span></div> 
-                        <div class="amount">
-                            - {{ (invoice.amountCustomerRemise|number_format(2, '.', ''))}} &euro;
-                        </div>
-                    </div>  
-                    {% endif %}
-
-                    {% if invoice.downPayment != null %}
-                    <div class="pre-amount">
-                            <div class="amount-cat">Acompte</div> 
-                                <div class="amount">
-                                   - {{ invoice.downPayment|number_format(2, ',', ' ') }} &euro;
-                                </div>
-                        </div>  
-                    {% endif %} 
-
-                    <div class="pre-amount ttc">
-                        <div class="amount-cat ">Montant TTC</div>  
-                            <div class="amount">                                
-                                {{ invoice.amountAllTaxes|number_format(2, ',', ' ') }} &euro;
-                            </div>
-                    </div>  
-
-                </div> 
-
-                </div>  #}
-               
-                
+                <div class="d-xs-none d-md-block col-md-2 void"></div>                 
             </div>
         </div>
-
 
         <div class="company-refs">
             <div class="inside">

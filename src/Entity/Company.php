@@ -39,7 +39,7 @@ class Company
     private $fax;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $vat_number;
 
@@ -128,6 +128,11 @@ class Company
      * @ORM\OneToMany(targetEntity="App\Entity\Customer", mappedBy="company", orphanRemoval=true)
      */
     private $customers;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $codeApi;
 
 
     public function getId()
@@ -338,6 +343,18 @@ class Company
 
         return $this;
     }
+    
+    public function getCodeApi(): ?string
+    {
+        return $this->codeApi;
+    }
+
+    public function setCodeApi(?string $codeApi): self
+    {
+        $this->codeApi = $codeApi;
+
+        return $this;
+    }
 
     public function hydrate($data_array)
     {
@@ -357,6 +374,8 @@ class Company
         $this->setWebsite($data_array['website']);
         $this->setZipCode($data_array['zipCode']);
         $this->setVatNumber($data_array['vatNumber']);
+        $this->setcodeApi($data_array['codeApi']);
     }
+
 
 }

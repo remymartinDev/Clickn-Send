@@ -3,6 +3,7 @@
 .page-container-clients {
   padding-top: 2rem;
   display: grid;
+  // width: 100vw;
   grid-template-columns: 3fr 1fr;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -13,6 +14,7 @@
 
 .contain-clients {
   grid-column: 1 / -1;
+  width: 100vw;
 }
 
 .titl-clients {
@@ -39,6 +41,9 @@
       grid-template-areas: none;
       align-items: baseline;
       justify-content: space-between;
+  }
+  .contain-clients {
+    width: auto;
   }
   .client-create-button {
       grid-area: auto;
