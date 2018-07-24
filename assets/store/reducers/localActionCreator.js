@@ -60,10 +60,10 @@ export const openPaiement = id => ({
   view: 'paiement',
   id,
 });
-export const openRecurred = id => ({
+export const openRecurred = pdf => ({
   type: OPEN_RECURRED,
   view: 'recurred',
-  id,
+  pdf,
 });
 export const checkConnection = () => ({
   type: CHECK_CONNECTION,
