@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { load } from '~/store/reducers/localActionCreator';
 import InvoiceEditContainer from '~/containers/InvoiceEditContainer';
 
-class EditInvoice extends React.Component {
+class DuplicateInvoice extends React.Component {
   componentDidMount() {
     console.log(this.props);
     const { id } = this.props.match.params;
@@ -20,11 +20,11 @@ class EditInvoice extends React.Component {
   }
 
   render() {
-    return <InvoiceEditContainer buttonValidation="Editer" />;
+    return <InvoiceEditContainer buttonValidation="Dupliquer" />;
   }
 }
 
-EditInvoice.propTypes = {
+DuplicateInvoice.propTypes = {
   match: PropTypes.object.isRequired,
   load: PropTypes.func.isRequired,
 };
@@ -36,4 +36,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps,
-)(EditInvoice);
+)(DuplicateInvoice);

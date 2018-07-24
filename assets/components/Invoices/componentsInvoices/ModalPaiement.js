@@ -121,7 +121,7 @@ class ModalPaiement extends React.Component {
           this.state.paid ? <div className="invoice-paid">Facture Payée</div> : <div className="invoice-unpaid">Reste à payer: {this.state.restToPay} €</div>
         }
         <div className="acompte">Acompte perçu: {this.state.downPayment} €</div>
-        <div className="acompte">Paiements perçu: {this.state.amountPaid} €</div>
+        <div className="acompte">Paiements perçus: {this.state.amountPaid} €</div>
         
         {
           this.state.payments.length !== 0

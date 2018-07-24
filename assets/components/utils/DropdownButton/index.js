@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencilAlt, faTrashAlt, faEllipsisV, faDownload, faHandHoldingUsd, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
@@ -122,11 +122,20 @@ class DropdownButton extends React.Component {
             </DropdownItem>
           }
           {
-            (invoiceType !== 'facture' && invoiceType !== 'facture récurrente') &&
+            (invoiceType !== 'facture' && invoiceType !== 'facture récurrente' && componentType !== 'payment') &&
             <DropdownItem className="dropdown-box">
               <Link to={`/${componentType}s/${id}/edit`} className="dropdown-link">
                 <FontAwesomeIcon className="dropdown-link-icon" icon={faPencilAlt} />
                 Editer
+              </Link>
+            </DropdownItem>
+          }
+          {
+            (invoiceType !== 'facture récurrente' ) &&
+            <DropdownItem className="dropdown-box">
+              <Link to={`/${componentType}s/${id}/copy`} className="dropdown-link">
+                <FontAwesomeIcon className="dropdown-link-icon" icon={faCopy} />
+                Duppliquer
               </Link>
             </DropdownItem>
           }
