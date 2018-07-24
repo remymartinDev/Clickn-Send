@@ -94,10 +94,21 @@ const mergeProps = ({ state }, { dispatch }) => ({
             company_name,
             country_code,
           } = response.data;
-          console.log(company_address);
+          const arrayAddress = company_address.split('\n');
+          const arrayZipCity = arrayAddress[1].split(' ');
+          let city = arrayZipCity.slice(1);
+          console.log(typeof city);
+          if (typeof city === 'array') {
+            city = city.join(' ');
+          }
+
+          console.log(arrayAddress);
           dispatch(change('client', 'customerCompany', company_name));
           dispatch(change('client', 'countryCode', country_code));
-          dispatch(change('client', 'companyAdress', company_address));
+          dispatch(change('client', 'companyAdress', arrayAddress[0]));
+          dispatch(change('client', 'zipCode', arrayZipCity[0]));
+          dispatch(change('client', 'city', city));
+          dispatch(change('client', 'pro', '1'));
         }
       });
   }

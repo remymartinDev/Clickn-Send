@@ -1,6 +1,7 @@
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { push } from 'connected-react-router';
 
 import Form from '~/components/Customers/ComponentsCustomers/Form';
 import { loadCustomers } from '~/store/reducers/dataActionCreator';
@@ -13,9 +14,9 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: (values) => {
     console.log('data', values);
     axios.post(`/api/customer/${values.id}/edit`, values)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         dispatch(loadCustomers());
+        dispatch(push('/customers'));
       });
   },
 });
