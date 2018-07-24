@@ -17,6 +17,8 @@ class ModalPaiement extends React.Component {
     paid: false,
     totalInvoice: null,
     restToPay: null,
+    downPayment: 0,
+    amountPaid: 0,
   }
 
   componentDidMount() {
@@ -37,13 +39,7 @@ class ModalPaiement extends React.Component {
       .then((response) => {
         if (response.data.succes) {
           this.restToPay();
-          axios.get(`/api/payments/${this.props.selectedInvoiceId}`)
-            .then((response) => {
-              this.setState({
-                payments: response.data,
-                paid: response.data.invoicePaid,
-              });
-            });
+          this.loadPayments();
         }
       });
   }
@@ -82,35 +78,27 @@ class ModalPaiement extends React.Component {
       .then((response) => {
         console.log(response);
         const totalInvoice = response.data.amountAllTaxes;
+        const { downPayment } = response.data;
         this.setState({
           totalInvoice,
+          downPayment,
         });
         this.restToPay();
       });
   }
 
   restToPay = () => {
-    console.log('total invoice to count', this.state.totalInvoice);
-    let restToPay = null;
-    if (this.state.payments.length !== 0) {
-      restToPay = this.state.payments.reduce((total, payment) => {
-       return total + payment.amount;
-      });
-    }
-    else {
-      restToPay = this.state.totalInvoice;
-
-    }
-    console.log('restToPay to return', this.state.restToPay);
+    const amountPaid = this.state.payments.reduce((total, payment) => {
+      return total + Number(payment.amount);
+    }, 0);
+    const restToPay = Number(this.state.totalInvoice) - amountPaid - Number(this.state.downPayment);
     this.setState({
       restToPay,
+      amountPaid,
     });
   }
 
   render() {
-    console.log('total invoice', this.state.totalInvoice);
-    console.log('payments', this.state.payments);
-    console.log('restToPay', this.state.restToPay);
 
     return (
 
@@ -132,6 +120,8 @@ class ModalPaiement extends React.Component {
         {
           this.state.paid ? <div className="invoice-paid">Facture Payée</div> : <div className="invoice-unpaid">Reste à payer: {this.state.restToPay} €</div>
         }
+        <div className="acompte">Acompte perçu: {this.state.downPayment} €</div>
+        <div className="acompte">Paiements perçu: {this.state.amountPaid} €</div>
         
         {
           this.state.payments.length !== 0
