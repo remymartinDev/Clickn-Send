@@ -302,9 +302,9 @@ class InvoiceController extends Controller
     /**
     * @Route("/{id}/recurred", name="invoice_recurred", methods="GET|POST")
     */
-    public function recurred(Invoice $invoice, SerializerInterface $serializer)
+    public function recurred(Invoice $invoice, SerializerInterface $serializer, StatusRepository $statusRepository)
     {
-        $jsonResponse = $this->copy($invoice, $serializer);
+        $jsonResponse = $this->copy($invoice, $serializer, $statusRepository);
         $jsonContent = $jsonResponse->getContent();
         $response = json_decode($jsonContent, true);
 

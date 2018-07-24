@@ -22,28 +22,28 @@ let CreateCustomer = props => {
       </div>
       <label className="form-label" htmlFor="customerCompany">Nom de l'entreprise</label>
       <Field className="form-field" name="customerCompany" component="input" type="text" />
-      <label className="form-label" htmlFor="lastname">Nom</label>
-      <Field className="form-field" name="lastname" component="input" type="text" />
-      <label className="form-label" htmlFor="firstname">Prénom</label>
-      <Field className="form-field" name="firstname" component="input" type="text" />
-      <label className="form-label" htmlFor="companyAdress">Adresse</label>
-      <Field className="form-field" name="companyAdress" component="input" type="text" />
-      <label className="form-label" htmlFor="zipCode">Code postal</label>
-      <Field className="form-field" name="zipCode" component="input" type="text" />
-      <label className="form-label" htmlFor="city">Ville</label>
-      <Field className="form-field" name="city" component="input" type="text" />
-      <label className="form-label" htmlFor="countryCode">Pays</label>
-      <Field className="form-field" name="countryCode" component="input" type="text" />
+      <label className="form-label" htmlFor="lastname">Nom*</label>
+      <Field className="form-field" name="lastname" component="input" type="text" required/>
+      <label className="form-label" htmlFor="firstname">Prénom*</label>
+      <Field className="form-field" name="firstname" component="input" type="text" required />
+      <label className="form-label" htmlFor="companyAdress">Adresse*</label>
+      <Field className="form-field" name="companyAdress" component="input" type="text" required />
+      <label className="form-label" htmlFor="zipCode">Code postal*</label>
+      <Field className="form-field" name="zipCode" component="input" type="text" required />
+      <label className="form-label" htmlFor="city">Ville*</label>
+      <Field className="form-field" name="city" component="input" type="text" required />
+      <label className="form-label" htmlFor="countryCode">Pays*</label>
+      <Field className="form-field" name="countryCode" component="input" type="text" required />
       <label className="form-label" htmlFor="phone">Téléphone</label>
       <Field className="form-field" name="phone" component="input" type="text" />
       <label className="form-label" htmlFor="mobile">Portable</label>
       <Field className="form-field" name="mobile" component="input" type="text" />
       <label className="form-label" htmlFor="fax">Fax</label>
       <Field className="form-field" name="fax" component="input" type="text" />
-      <label className="form-label" htmlFor="email">E-mail</label>
-      <Field className="form-field" name="email" component="input" type="email" />
-      <label className="form-label" htmlFor="remise">Remise</label>
-      <Field className="form-field" name="remise" component="input" type="text" />
+      <label className="form-label" htmlFor="email">E-mail*</label>
+      <Field className="form-field" name="email" component="input" type="email" required />
+      <label className="form-label" htmlFor="remise">Remise (en %)</label>
+      <Field className="form-field" name="remise" component="input" type="number" />
       <label className="form-label" htmlFor="comment">Commentaire</label>
       <Field className="form-field" name="comment" component="textarea" />
       
