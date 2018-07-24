@@ -94,6 +94,7 @@ class InvoiceController extends Controller
 
         }
 
+
         $em->flush();
               
         $response = [
@@ -322,7 +323,7 @@ class InvoiceController extends Controller
         $dL3 = $invoice->getObjectDeadline3();
 
         $payment_term = 'P' . $company->getPaymentTerm() . 'D';
-        
+
         if ($dL2 === null) {
             /* $date = $dL1->format('Ymdh-is'); */
             $deadline = $dL1->add(new \DateInterval($payment_term));
@@ -332,9 +333,8 @@ class InvoiceController extends Controller
             $deadline = $dL2->add(new \DateInterval($payment_term));
             $invoice->setDeadline3($deadline);
             }
-
-    
             $em->flush();
+
             $response = [
                 'succes' => true,
                 'id' => $invoice->getId()
