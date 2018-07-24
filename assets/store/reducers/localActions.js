@@ -9,3 +9,4 @@ export const USER_CONNECTED = 'USER_CONNECTED';
 export const OPEN_PDF = 'OPEN_PDF';
 export const OPEN_PAIEMENT = 'OPEN_PAIEMENT';
 export const CHECK_CONNECTION = 'CHECK_CONNECTION';
+export const OPEN_RECURRED = 'OPEN_RECURRED';

@@ -9,6 +9,7 @@ import {
   USER_CONNECTED,
   OPEN_PDF,
   OPEN_PAIEMENT,
+  OPEN_RECURRED,
 } from './localActions';
 /**
  * État initial pour le state de l'application
@@ -99,6 +100,14 @@ const reducer = (currentState = initialState, action = {}) => {
       };
     }
     case OPEN_PAIEMENT: {
+      return {
+        ...currentState,
+        selectedInvoiceId: action.id,
+        view: action.view,
+        modal: true,
+      };
+    }
+    case OPEN_RECURRED: {
       return {
         ...currentState,
         selectedInvoiceId: action.id,

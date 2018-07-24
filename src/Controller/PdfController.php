@@ -129,7 +129,6 @@ class PdfController extends Controller
         array(
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="facture-' . $invoice->getReference() . '.pdf"'
-        )
-    );
+        ));
     }
 }

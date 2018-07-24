@@ -20,7 +20,7 @@ class CustomerController extends Controller
 {
     
      /**
-     * @Route("/{id}/delete", name="customer_delete", methods="GET")
+     * @Route("/{id}/delete", name="customer_delete", methods="DELETE")
      */
     public function delete(Request $request, Customer $customer, SerializerInterface $serializer): Response
     {

@@ -40,7 +40,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @Route("/edit", name="company_edit", methods="GET|POST")
+     * @Route("/edit", name="company_edit", methods="POST")
      */
     public function edit(Request $request, MemberRepository $memberRepository, SerializerInterface $serializer): Response
     {

@@ -28,14 +28,13 @@ use App\Repository\MemberRepository;
 class CompanyController extends Controller 
 {
     /**
-     * @Route("/new", name="company_new", methods="GET|POST")
+     * @Route("/new", name="company_new", methods="POST")
      */
     public function new(Request $request, RoleRepository $roleRepo, SerializerInterface $serializerinter): Response
     {
         $fileup = $request->files->all();
         $data_array = $request->request->all();
 
-        //$classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
         $normalizer = new ObjectNormalizer();
         $serializer = new Serializer(array($normalizer));
         
@@ -76,8 +75,12 @@ class CompanyController extends Controller
     private function checkAndSetLogo($logoIndex, $fileup, $company)
     {
         if (array_key_exists($logoIndex, $fileup)) {
-
             $file = $fileup[$logoIndex];
+
+            if ($company->getLogo() !== null && $file !== null && $file !== "") {
+                unlink('data/logo/' . $company->getLogo());
+            }
+
             $fileName = md5(uniqid()).'.'.$file->guessExtension();       
             $file->move(
                 $this->getParameter('logo_directory'),
