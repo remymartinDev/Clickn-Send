@@ -50,13 +50,17 @@ class AllInvoices extends React.Component {
   )
   orderByUser = () => (
     [...this.props.invoices].sort((a, b) => {
-      const filter = b.customer.lastname.localeCompare(a.customer.lastname);
+      const toFilterB = b.customer.pro ? b.customer.customerCompany : b.customer.lastname;
+      const toFilterA = a.customer.pro ? a.customer.customerCompany : a.customer.lastname;
+      const filter = toFilterB.localeCompare(toFilterA);
       return this.state.filter.asc ? filter : -filter;
     })
   )
   orderByStatut = () => (
     [...this.props.invoices].sort((a, b) => {
-      const filter = (b.status.id - a.status.id);
+      console.log(a);
+      
+      const filter = b.status.invoiceStatus.localeCompare(a.status.invoiceStatus);
       return this.state.filter.asc ? filter : -filter;
     })
   )
