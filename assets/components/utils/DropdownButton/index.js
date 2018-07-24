@@ -84,13 +84,27 @@ class DropdownButton extends React.Component {
         }
       });
   }
-  removeInvoice = () => {
-    const { id } = this.props;
-    axios.delete(`/api/invoice/${id}`)
-      .then((response) => {
-        console(response);
-        this.props.loadInvoices();
-      });
+  removeHandler = () => {
+    const { id, componentType } = this.props;
+    switch (componentType) {
+      case 'invoice': {
+        axios.delete(`/api/invoice/${id}`)
+          .then(() => {
+            this.props.loadInvoices();
+          });
+        break;
+      }
+      case 'customer': {
+        axios.delete(`/api/admin/customer/${id}/delete`)
+          .then(() => {
+            this.props.loadCustomers();
+          });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
 
   render() {
@@ -206,27 +220,28 @@ class DropdownButton extends React.Component {
             </DropdownItem>
           }
           {
+            (isAdmin && invoiceType !== 'facture' && invoiceType !== 'facture récurrente' && (componentType === 'invoice' || componentType === 'customer')) &&
+            <DropdownItem
+              onClick={this.removeHandler}
+              className="dropdown-link dropdown-box"
+            >
+              <FontAwesomeIcon
+                className="dropdown-link-icon"
+                icon={faEraser}
+              />
+                Supprimer
+            </DropdownItem>
+          }
+          {
             (isAdmin && componentType === 'invoice') &&
-            <React.Fragment>
-              <DropdownItem
-                onClick={this.removeInvoice}
-                className="dropdown-link dropdown-box"
-              >
-                <FontAwesomeIcon
-                  className="dropdown-link-icon"
-                  icon={faEraser}
-                />
-                  Supprimer
-              </DropdownItem>
-              <UncontrolledDropdown direction="right" className="subdropdown" style={{}}>
-                <DropdownToggle caret>
-                  Changer Status
-                </DropdownToggle>
-                <DropdownMenu>
-                  {this.getStatusJSX()}
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </React.Fragment>
+            <UncontrolledDropdown direction="right" className="subdropdown" style={{}}>
+              <DropdownToggle caret>
+                Changer Status
+              </DropdownToggle>
+              <DropdownMenu>
+                {this.getStatusJSX()}
+              </DropdownMenu>
+            </UncontrolledDropdown>
           }
         </DropdownMenu>
       </ButtonDropdown>
