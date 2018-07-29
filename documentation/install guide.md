@@ -259,7 +259,7 @@ RewriteRule ^(.*)$ index.php?params=$1 [L,QSA]
 - ensuite créer un virtual host, pour ce faire : 
     - ouvrir le fichier /etc/hosts
 ```
-sudo nano /etc/hosts.custom
+sudo nano /etc/hosts
 ```
 et ajoutez votre VH (ex : ***127.0.0.1 clicknsend.local***  ou ***192.168.xx.xx nomdemonsite.C0M*** )
 
@@ -287,7 +287,7 @@ et copiez ceci (en adaptant bien sûr les données a votre VH) :
 ```
 - ensuite dans la console tapez :
 ```PHP
-sudo a2ensite clicknsend.local //metter votre ServerName si ce n est pas clicknsend.local
+sudo a2ensite clicknsend.local //mettre votre ServerName si ce n est pas clicknsend.local
 ```
 - redemarrer apache : 
 ```
