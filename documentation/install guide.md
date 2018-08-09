@@ -107,6 +107,7 @@ Rendez-vous à l'URL ***localhost/phpmyadmin***, et entrez le username "***root*
 ---
 ## INSTALLATION DE NODE JS
 ```
+apt-get install gnupg
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 apt-get install -y nodejs
 ```
