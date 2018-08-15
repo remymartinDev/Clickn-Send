@@ -36,6 +36,9 @@ verifiez : ouvrez un navigateur, et entrez "localhost" dans l'URL, le navigateur
 apt-get install python-software-properties
 ```
 ```
+sudo apt-get install -y software-properties-common
+```
+```
 add-apt-repository ppa:ondrej/php
 ```
 ```
