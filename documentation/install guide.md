@@ -123,6 +123,10 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 ```
 apt-get update && apt-get install yarn
 ```
+```
+curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.7.0
+```
+pour que la version 1.7.0 soit prise en compte, il faut fermer le terminal puis le rouvrir
 
 ---
 ## INSTALLATION DE COMPOSER
