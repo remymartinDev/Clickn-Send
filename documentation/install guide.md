@@ -173,7 +173,7 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
 ```  
 - ***db_user***: nom d'utilisateur de votre base de données (par défaut "***root***", mais il est conseillé d'en créer un dans PhpMyAdmin) 
 - ***db_password***: mot de passe (par défaut, celui que vous avez défini en installant MySQL, mais il est conseillé d'en créer un nouveau en créant un nouvel utilisateur)  
-- ***127.0.0.1:3306***: adresse IP de votre serveur
+- ***127.0.0.1:3306***: ne pas le changer, c'est le chemin vers votre base de données
 - ***db_name***: ce sera le nom de votre base de données, vous êtes libre de choisir n'importe lequel, mais il est tout de même conseillé d'avoir un nom en rapport avec l'appli à laquelle il est associé  
 
 ![alt tag](images/envDatabase.png)
