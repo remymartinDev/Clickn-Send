@@ -36,9 +36,6 @@ verifiez : ouvrez un navigateur, et entrez "localhost" dans l'URL, le navigateur
 apt-get install python-software-properties
 ```
 ```
-sudo apt-get install -y software-properties-common
-```
-```
 add-apt-repository ppa:ondrej/php
 ```
 ```
@@ -110,7 +107,6 @@ Rendez-vous à l'URL ***localhost/phpmyadmin***, et entrez le username "***root*
 ---
 ## INSTALLATION DE NODE JS
 ```
-apt-get install gnupg
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 apt-get install -y nodejs
 ```
@@ -123,10 +119,6 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 ```
 apt-get update && apt-get install yarn
 ```
-```
-curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.7.0
-```
-pour que la version 1.7.0 soit prise en compte, il faut fermer le terminal puis le rouvrir
 
 ---
 ## INSTALLATION DE COMPOSER
@@ -181,7 +173,7 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
 ```  
 - ***db_user***: nom d'utilisateur de votre base de données (par défaut "***root***", mais il est conseillé d'en créer un dans PhpMyAdmin) 
 - ***db_password***: mot de passe (par défaut, celui que vous avez défini en installant MySQL, mais il est conseillé d'en créer un nouveau en créant un nouvel utilisateur)  
-- ***127.0.0.1:3306***: adresse IP de votre serveur
+- ***127.0.0.1:3306***: ne pas le changer, c'est le chemin vers votre base de données
 - ***db_name***: ce sera le nom de votre base de données, vous êtes libre de choisir n'importe lequel, mais il est tout de même conseillé d'avoir un nom en rapport avec l'appli à laquelle il est associé  
 
 ![alt tag](images/envDatabase.png)
@@ -194,7 +186,7 @@ pour sauvegarder les modifications, faites
 ---
 ### déploiement de la base de données
 
-(si vous n'avez pas créé une base avec PhpMyAdmin, tapez `php bin/console doctrine:database:create`, cela créera une table au nom que vous aurez choisi pour remplacer **db_name** dans le fichier .env)
+(si vous n'avez pas créé une base avec PhpMyAdmin, tapez `php bin/console doctrine:database:create`, cela créera une table au nom que vous aurez choisi pour remplacer **db_name** dans le fichier .env, mais nous vous rappellons encore une fois que d'un point de vue sécurité, il est préférable d'avoir un user et un password propre à votre database pour ne pas utiliser les informations de connection de relatives à l'utilisateur _root_)
 
 
 ```
@@ -205,7 +197,10 @@ php bin/console doctrine:migrations:migrate
 ```  
 - répondre YES
 
+
 ### Votre base de données est maintenant prête pour faire fonctionner l'appli
+
+(si vous souhaitez seulement tester l'appli et non l'utiliser dans un cadre professionnel, il est possible de générer des données factices à l'aide de fixtures avec la ligne `php bin/console doctrine:fixtures:load`. Il s'agit de données aléatoires, donc certaines sommes de factures pourront ne pas correspondre au total attendu)  
 
 ---
 ## le Mailer
@@ -267,7 +262,7 @@ RewriteRule ^(.*)$ index.php?params=$1 [L,QSA]
 - ensuite créer un virtual host, pour ce faire : 
     - ouvrir le fichier /etc/hosts
 ```
-sudo nano /etc/hosts
+sudo nano /etc/hosts.custom
 ```
 et ajoutez votre VH (ex : ***127.0.0.1 clicknsend.local***  ou ***192.168.xx.xx nomdemonsite.C0M*** )
 
@@ -295,7 +290,7 @@ et copiez ceci (en adaptant bien sûr les données a votre VH) :
 ```
 - ensuite dans la console tapez :
 ```PHP
-sudo a2ensite clicknsend.local //mettre votre ServerName si ce n est pas clicknsend.local
+sudo a2ensite clicknsend.local //metter votre ServerName si ce n est pas clicknsend.local
 ```
 - redemarrer apache : 
 ```
@@ -309,6 +304,8 @@ sudo a2enmod rewrite
 service apache2 restart
 ```
 ---
+## installation des bundles
+
 - installer _WkHtmlToPdf_   
 le paquet se télécharge ICI => https://wkhtmltopdf.org/downloads.html  
 #### ***ATTENTION*** il faut choisir la version compatible avec l'OS qui fait tourner votre serveur
@@ -324,8 +321,9 @@ composer require knplabs/knp-snappy-bundle
 ```
 composer require symfony/swiftmailer-bundle
 ```
+---
 
-## commandes utiles en cas de bug :
+# commandes utiles en cas de bug :
 
 
 - le .htaccess n'est pas interprété :  
@@ -415,3 +413,10 @@ It will show something like: /usr/share/phpmyadmin/libraries/sql.lib.php
     ```
     sudo service apache2 reload
     ```
+---
+# REST API
+
+Dans un soucis de faciliter la vie de l'utilisateur, Clickn'Send a été conçu pour fonctionner avec avec une API permettant de fournir les données d'une entreprise à partir de son numéro de TVA Intercommunautaire (VAT).
+L'équipe a choisi d'utiliser l'API VATLAYER (https://vatlayer.com/) car elle est facile d'accès et un compte gratuit vous permettra 100 requêtes par mois.
+
+Une fois votre compte enregistré, vous obtiendrez un code d'accès. Il suffit de l'éditer dans le champ "codeAPI" de votre company. 
