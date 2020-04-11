@@ -18,7 +18,18 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+    
+    public function findByCompany($company)
+    {
 
+        return $this->createQueryBuilder('p')
+        ->where('p.company = :company')
+        ->setParameter('company', $company)
+        ->orderBy('p.denomination', 'ASC')
+        ->getQuery()
+        ->getResult();
+
+    }
     
     public function findActivProducts($company)
     {
@@ -27,6 +38,7 @@ class ProductRepository extends ServiceEntityRepository
         ->where('p.company = :company')
         ->setParameter('company', $company)
         ->andWhere('p.active = true')
+        ->orderBy('p.denomination', 'ASC')
         ->getQuery()
         ->getResult();
 
@@ -39,6 +51,7 @@ class ProductRepository extends ServiceEntityRepository
         ->where('p.company = :company')
         ->setParameter('company', $company)
         ->andWhere('p.active = false')
+        ->orderBy('p.denomination', 'ASC')
         ->getQuery()
         ->getResult();
 
